@@ -7,7 +7,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-      <form id="loginForm" method="post" action="<%=request.getContextPath()%>/memberLoginAction.jsp">
+      <form id="loginForm" method="post" action="${pageContext.request.contextPath}/memberLogin">
          <fieldset>
             <legend>로그인</legend>
             <table border="1">
@@ -22,7 +22,6 @@
             </table>
             <hr>
             <button type="button" id="MemberBtn">고객 로그인</button>
-			 <a href="<%=request.getContextPath()%>/addMember.jsp"><button type="button">회원가입</button></a>
          </fieldset>
       </form>
 </body>
