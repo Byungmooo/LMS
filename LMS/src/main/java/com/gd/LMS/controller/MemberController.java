@@ -13,18 +13,18 @@ import com.gd.LMS.vo.Member;
 public class MemberController {
 	@Autowired MemberService memberService;
 	
-	@GetMapping("memberLogin")
-	public String memberLogin() {
+	@GetMapping("/index")
+	public String index() {
 		return "index";
 	}
 	
-	@PostMapping("memberLogin")
-	public String memberLogin(Member member, Model model) {
+	@PostMapping("/index")
+	public String index(Member member, Model model) {
 		
 		Member resultMember = memberService.getMember(member);
 		
 		model.addAttribute("member", resultMember);
 		
-		return "redirect:/result";
+		return "result";
 	}
 }

@@ -8,17 +8,15 @@
 </head>
 <body>
 	<h3>Login</h3>
-	<c:forEach var="m" items="${member}">
-		<table>
-			<tr>
-				<td>Name</td>
-				<td>${m.memberName}</td>
-			</tr>
-			<tr>
-				<td>Gender</td>
-				<td>${m.memberGender}</td>
-			</tr>
-		</table>
-	</c:forEach>
+	<table>
+		<tr>
+			<td>Name</td>
+			<td>${member.memberName}</td>
+		</tr>
+		<tr>
+			<td>Gender</td>
+			<td>${member.memberGender}</td>
+		</tr>
+	</table>
 </body>
 </html>
