@@ -6,5 +6,5 @@ public class TeamColor {
 	public final static String LCH = "\u001B[31m"; // 빨
 	public final static String KBW = "\u001B[32m"; // 초
 	public final static String BJH = "\u001B[33m"; // 노
-	public final static String KJS = "\u001B[35m"; // 보
+	public final static String KJS = "\u001B[35m"; // 보 
 }
