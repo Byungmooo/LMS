@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.mapper.lecNoticeMapper">
+
+
+	<!-- 학과공지사항 목록 리스트 -->
+	<select id="selectLecNoticeList" parameterType="java.util.Map" resultType="com.gd.LMS.vo.LectureNotice">
+		SELECT 
+			lec_notice_no lecNoticeNo,
+			opened_lec_no openedLecNo,
+			lms_notice_writer lmsNoticeWriter,
+			lms_notice_title lmsNoticeTitle,
+			lms_notice_createdate lmsNoticeCreatedate,
+			lms_notice_count lmsNoticeCount
+		FROM
+			lms_notice
+		ORDER BY
+			lms_notice_createdate DESC
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 공지사항 총 개수 -->
+	<select id="selectLecNoticeListCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			lms_notice
+	</select>
+	
+	<!-- 공지사항 조회수 증가 -->
+	<update id="updateLecNoticeOneCount" parameterType="com.gd.LMS.vo.LectureNotice">
+		UPDATE 
+			lms_notice
+		SET
+			lms_notice_count = #{lmsNoticeCount}+1
+		WHERE
+			lms_notice_no = #{lmsNoticeNo}
+	
+	</update>
+	
+	<!-- 공지사항 상세보기 -->
+	<select id="selectLecNoticeOne" parameterType="int" resultType="com.gd.LMS.vo.LectureNotice">
+		SELECT 
+			lms_notice_no lmsNoticeNo,
+			account_id accountId,
+			lms_notice_writer lmsNoticeWriter,
+			lms_notice_title lmsNoticeTitle,
+			lms_notice_content lmsNoticeContent,
+			lms_notice_createdate lmsNoticeCreatedate,
+			lms_notice_updatedate lmsNoticeUpdatedate,
+			lms_notice_count lmsNoticeCount
+		FROM
+			lms_notice
+		WHERE
+			lms_notice_no = #{lmsNoticeNo}
+	</select>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateLecNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
+		UPDATE 
+			lms_notice
+		SET
+			lms_notice_title = #{lmsNoticeTitle},
+			lms_notice_content = #{lmsNoticeContent},
+			lms_notice_updatedate = now()
+		WHERE
+			lms_notice_no = #{lmsNoticeNo}
+	</update>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteLecNoticeOne" parameterType="int">
+		DELETE FROM
+			lms_notice
+		WHERE
+			lms_notice_no = #{lmsNoticeNo}
+	</delete>
+	
+	<!-- 공지사항 추가 -->
+	<insert id="insertLecNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
+		INSERT INTO lms_notice(
+			account_id,
+			lms_notice_writer,
+			lms_notice_title,
+			lms_notice_content,
+			lms_notice_createdate,
+			lms_notice_updatedate
+		)VALUES(
+			#{accountId},
+			#{lmsNoticeWriter},
+			#{lmsNoticeTitle},
+			#{lmsNoticeContent},
+			now(),
+			now()
+		)
+	</insert>
+
+
+</mapper>
