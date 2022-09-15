@@ -5,12 +5,12 @@ import lombok.Data;
 @Data
 public class LectureTime {
 	
-	private int lecTimeNo;
-	private int openedLecNo;
-	private String lectureDay;
-	private String lectureClass;
-	private String createDate;
-	private String updateDate;
+	private int lecTimeNo;		//강의시간번호
+	private int openedLecNo;	//열린강의번호
+	private String lectureDay;	//강의날짜
+	private String lectureClass;//강의실
+	private String createDate;	//생성일
+	private String updateDate;	//수정일
 	
 
 }
