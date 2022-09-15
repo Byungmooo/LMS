@@ -3,7 +3,7 @@ package com.gd.LMS.vo;
 import lombok.Data;
 
 @Data
-public class OpenedLecture {
+public class OpenedLecture { 
 	private int openedLecNo;		//열린수강번호
 	private int professorCode;		//교수번호
 	private int lectureCode;		//강의코드

@@ -3,7 +3,7 @@ package com.gd.LMS.vo;
 import lombok.Data;
 
 @Data
-public class LectureQuestionImg { //강의질문이미지
+public class LectureQuestionImg { //강의질문이미지 
 
 	
 	private int lecQuestionNo;	//강의질문번호

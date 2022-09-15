@@ -10,3 +10,4 @@ public class AssignmentRegImg { //과제등록이미지
 	private String fileName;     //파일이름
 
 }
+ 

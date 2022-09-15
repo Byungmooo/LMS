@@ -1,4 +1,4 @@
-package com.gd.LMS.vo;
+ package com.gd.LMS.vo;
 
 import lombok.Data;
 

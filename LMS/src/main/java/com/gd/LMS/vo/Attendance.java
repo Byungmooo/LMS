@@ -13,3 +13,4 @@ public class Attendance { //출석
 	private String createDate;		//생성날짜
 	private String updateDate;		//수정날짜
 }
+ 

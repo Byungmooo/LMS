@@ -2,6 +2,7 @@ package com.gd.LMS.vo;
 
 import lombok.Data;
 
+
 @Data
 public class TotalNotice {
 	private int noticeNo;			//게시판번호

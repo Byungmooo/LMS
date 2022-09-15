@@ -12,5 +12,5 @@ public class LectureQuestion { //강의답변
 	private String answerY;			//답변여부
 	private String createDate;		//생성일
 	private String updateDate;		//수정일
-
+ 
 }

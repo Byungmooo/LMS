@@ -13,4 +13,4 @@ public class LectureTime { //강의시간
 	private String updateDate;	//수정일
 	
 
-}
+} 

@@ -14,3 +14,4 @@ public class DepartmentSchedule { //학부일정
 		
 
 }
+ 

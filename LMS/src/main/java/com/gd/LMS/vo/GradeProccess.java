@@ -13,3 +13,4 @@ public class GradeProccess { //성적처리
 	private String updateDate;		//수정일
 
 }
+ 

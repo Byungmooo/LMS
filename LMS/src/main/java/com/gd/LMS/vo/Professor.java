@@ -2,6 +2,7 @@ package com.gd.LMS.vo;
 
 import lombok.Data;
 
+
 @Data
 public class Professor {
 	private String memberId;		//회원아이디

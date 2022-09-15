@@ -3,7 +3,7 @@ package com.gd.LMS.vo;
 import lombok.Data;
 
 @Data
-public class AnswerSheet {
+public class AnswerSheet { 
 	private int answerNo;			//답안번호
 	private int studentLecNo;		//학생강의번호
 	private int examNo;				//문제번호

@@ -3,7 +3,7 @@ package com.gd.LMS.vo;
 import lombok.Data;
 
 @Data
-public class MultipleChoiceQuestion { 
+public class MultipleChoiceQuestion {  
 	
 	private int multipleNo; 		//객관식문제번호
 	private int openedLecNo;		//열린강의번호

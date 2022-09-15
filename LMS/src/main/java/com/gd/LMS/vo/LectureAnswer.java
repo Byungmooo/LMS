@@ -12,3 +12,4 @@ public class LectureAnswer { //강의질문
 	
 
 }
+ 

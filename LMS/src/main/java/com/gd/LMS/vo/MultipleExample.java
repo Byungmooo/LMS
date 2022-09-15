@@ -14,3 +14,4 @@ public class MultipleExample {
 	private String updateDate;		//수정일
 	
 }
+ 

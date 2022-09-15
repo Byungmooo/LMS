@@ -3,6 +3,7 @@ package com.gd.LMS.vo;
 
 import lombok.Data;
 
+
 @Data
 public class SubjectiveQuestion {
 	private int subjectiveNo;			//주관식번호

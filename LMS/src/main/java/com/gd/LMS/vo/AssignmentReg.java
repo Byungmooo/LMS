@@ -3,7 +3,7 @@ package com.gd.LMS.vo;
 import lombok.Data;
 
 @Data
-public class AssignmentReg { //과제등록
+public class AssignmentReg { //과제등록 
 	private int assignmentRegNo;		//과제제출번호
 	private int studentLecNo; 			//수강번호
 	private int assignmentNo;			//과제번호

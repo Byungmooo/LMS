@@ -3,7 +3,7 @@ package com.gd.LMS.vo;
 import lombok.Data;
 
 @Data
-public class Member { //회원
+public class Member { //회원  
 	
 	private String memberId;		//회원아이디
 	private String memberPw;		//회원비밀번호

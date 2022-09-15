@@ -3,6 +3,7 @@ package com.gd.LMS.vo;
 
 import lombok.Data;
 
+
 @Data
 public class TranDepartmentRec {
 	private int tranDepartmentNo;	//전과번호
