@@ -19,7 +19,7 @@ public class MemberService {
 	public Member getMember(Member member) {
 		Member resultMember = memberMapper.selectMember(member);
 		
-		log.debug(TeamColor.LCH + resultMember +TeamColor.RESET);
+		log.debug(TeamColor.LCH + resultMember);
 		
 		return resultMember;
 	}
