@@ -9,21 +9,26 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import com.gd.LMS.vo.LectureNotice;
+import com.gd.LMS.vo.TotalNotice;
+
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
+
 import com.gd.LMS.service.TotalNoticeService;
 
-
+@Slf4j
 @Controller
 public class TotalNoticeController {
-	@Autowired private TotalNoticeService lecNoticeService;
+	@Autowired private TotalNoticeService totalNoticeService;
 	
 	
 	
-	//private static final Logger log = LoggerFactory.getLogger(ManagerLmsNoticeController.class);
+	//private static final Log log = LoggerFactory.getLogger(ManagerLmsNoticeController.class);
 
 	
-	@GetMapping("/lectureNoticeList/{currentPage}")
+	@GetMapping("/TotalNoticeList/{currentPage}")
 	public String managerLmsNoticeList(Model model, HttpSession session,
 			@PathVariable(name="currentPage") int currentPage){
 	
@@ -33,9 +38,9 @@ public class TotalNoticeController {
 		// 시작 페이지 계산
 		int beginRow = (currentPage - 1) * rowPerPage;
 		
-		List<LectureNotice> lecNoticeList = lecNoticeService.getLecNoticeList(beginRow, rowPerPage);
+		List<TotalNotice> totalNoticeList = totalNoticeService.getTotalNoticeList(beginRow, rowPerPage);
 		
-		int totalCount = lecNoticeService.getLecNoticeListCount();
+		int totalCount = totalNoticeService.getTotalNoticeListCount();
 		// 페이징 코드
 		// 전체 데이터 수
 
@@ -80,7 +85,7 @@ public class TotalNoticeController {
 			nextPage = lastPage;
 		}
 		
-		model.addAttribute("memberNoticeList", lecNoticeList);
+		model.addAttribute("totalNoticeList", totalNoticeList);
 		
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
@@ -92,6 +97,44 @@ public class TotalNoticeController {
 		model.addAttribute("prePage", prePage);
 		model.addAttribute("nextPage", nextPage);
 		
-		return "lecNoticeList";
+		return "totalNoticeList";
 	}
+	
+	
+	
+	// 공지사항 상세보기
+	@GetMapping("/NoticeOne/{totalNoticeNo}")
+	
+	public String selectTotalNoticeOne(Model model, @PathVariable(name="totalNoticeNo") int totalNoticeNo) {
+		
+		totalNoticeService.updateTotalNoticeOneCount(totalNoticeNo);
+
+		TotalNotice totalNotice = totalNoticeService.getTotalNoitceOne(totalNoticeNo);
+		
+		log.debug(totalNotice.toString());
+		
+		model.addAttribute("totalNotice",totalNotice);
+		return "totalNoticeOne";
+	}
+	
+	
+	// 공지사항 업데이트
+	@GetMapping("/updateLmsNoticeOne/{lmsNoticeNo}")
+	public String updateTotalNoticeOne(Model model, @PathVariable(name="totalNoticeNo") int totalNoticeNo) {
+		
+		TotalNotice totalNotice = totalNoticeService.getTotalNoitceOne(totalNoticeNo);
+		
+		model.addAttribute("totalNotice", totalNotice);
+		return "updateTotalNoticeOne";
+	}
+	@PostMapping("/updateLmsNoticeOne")
+	public String updateTotalNoticeOne(TotalNotice totalNotice) {
+		
+		log.debug(totalNotice.toString());
+		totalNoticeService.updateTotalNoticeOne(totalNotice);
+		
+		return "redirect:/totalNoticeOne/"+totalNotice.getNoticeNo();
+	}
+
+	
 }

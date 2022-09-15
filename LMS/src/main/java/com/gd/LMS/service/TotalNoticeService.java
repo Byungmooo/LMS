@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.mapper.TotalNoticeMapper;
-import com.gd.LMS.vo.LectureNotice;
+import com.gd.LMS.vo.TotalNotice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,10 +21,10 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class TotalNoticeService {
 	
-	@Autowired private TotalNoticeMapper LecNoticeMapper;
+	@Autowired private TotalNoticeMapper TotalNoticeMapper;
 	
 		// 공지사항 목록 출력
-		public List<LectureNotice> getLecNoticeList(int beginRow, int rowPerPage){
+		public List<TotalNotice> getTotalNoticeList(int beginRow, int rowPerPage){
 		
 		Map<String,Object> map = new HashMap<String, Object>();
 		map.put("beginRow", beginRow);
@@ -32,51 +32,51 @@ public class TotalNoticeService {
 		
 		log.debug(TeamColor.KBW + beginRow );
 		
-		return LecNoticeMapper.selectLecNoticeList(map);
+		return TotalNoticeMapper.selectTotalNoticeList(map);
 		}
 		
 		// 공지사항 총 개수
-		public int getLecNoticeListCount() {
+		public int getTotalNoticeListCount() {
 			
-			return LecNoticeMapper.selectLecNoticeListCount();
+			return TotalNoticeMapper.selectTotalNoticeListCount();
 		}
 	
 		
 		// 공지사항 조회수 증가
-		public int updateLecNoticeOneCount(int lecNoticeNo) {
+		public int updateTotalNoticeOneCount(int totalNoticeNo) {
 			
-			LectureNotice lectureNotice = LecNoticeMapper.selectLecNoticeOne(lecNoticeNo);
+			TotalNotice totalNotice = TotalNoticeMapper.selectTotalNoticeOne(totalNoticeNo);
 			
-			log.debug(TeamColor.KBW + lectureNotice);
+			log.debug(TeamColor.KBW + totalNotice);
 			
-			return LecNoticeMapper.updateLecNoticeOneCount(lectureNotice);
+			return TotalNoticeMapper.updateTotalNoticeOneCount(totalNotice);
 		}
 		
 		// 공지사항 상세보기
-		public LectureNotice getLecNoitceOne(int lecNoticeNo) {
+		public TotalNotice getTotalNoitceOne(int totalNoticeNo) {
 			
-			return LecNoticeMapper.selectLecNoticeOne(lecNoticeNo);
+			return TotalNoticeMapper.selectTotalNoticeOne(totalNoticeNo);
 		}
 		
 		
 		// 공지사항 수정
-		public int updateLecNoticeOne(LectureNotice lecNotice) {
+		public int updateTotalNoticeOne(TotalNotice totalNotice) {
 			
-			return LecNoticeMapper.updateLecNoticeOne(lecNotice);
+			return TotalNoticeMapper.updateTotalNoticeOne(totalNotice);
 		}
 	
 		
 		// 공지사항 삭제
-		public int deleteLecNoticeOne(int lecNoticeNo) {
+		public int deleteTotalNoticeOne(int totalNoticeNo) {
 			
-			return LecNoticeMapper.deleteLecNoticeOne(lecNoticeNo);
+			return TotalNoticeMapper.deleteTotalNoticeOne(totalNoticeNo);
 		}
 		
 		
 		// 공지사항 추가
-		public int insertLecNoticeOne(LectureNotice lecNotice) {
+		public int insertTotalNoticeOne(TotalNotice totalNotice) {
 			
-			return LecNoticeMapper.insertLecNoticeOne(lecNotice);
+			return TotalNoticeMapper.insertTotalNoticeOne(totalNotice);
 		}
 	
 }

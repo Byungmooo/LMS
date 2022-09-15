@@ -5,27 +5,27 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gd.LMS.vo.LectureNotice;
+import com.gd.LMS.vo.TotalNotice;
 
 @Mapper
 public interface TotalNoticeMapper {
 	// 공지사항 목록
-	public List<LectureNotice> selectLecNoticeList(Map<String,Object> map);
-	public int selectLecNoticeListCount();
+	public List<TotalNotice> selectTotalNoticeList(Map<String,Object> map);
+	public int selectTotalNoticeListCount();
 	
 	// 공지사항 조회수 증가
-	public int updateLecNoticeOneCount(LectureNotice lecNotice);
+	public int updateTotalNoticeOneCount(TotalNotice totalNotice);
 	
 	// 공지사항 상세보기
-	public LectureNotice selectLecNoticeOne(int lecNoticeNo);
+	public TotalNotice selectTotalNoticeOne(int totalNoticeNo);
 	
 	// 공지사항 수정
-	public int updateLecNoticeOne(LectureNotice lecNotice);
+	public int updateTotalNoticeOne(TotalNotice totalNotice);
 	
 	// 공지사항 삭제
-	public int deleteLecNoticeOne(int lecNoticeNo);
+	public int deleteTotalNoticeOne(int totalNoticeNo);
 	
 	// 공지사항 추가
-	public int insertLecNoticeOne(LectureNotice lecNotice);
+	public int insertTotalNoticeOne(TotalNotice totalNotice);
 
 }
