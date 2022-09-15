@@ -23,4 +23,25 @@ public class MemberService {
 		
 		return resultMember;
 	}
+	
+	
+	public String getMemberIdCheck(String checkId) {
+		log.debug(TeamColor.LCH + checkId + " <-- check 할 ID");
+		
+		String result = null;		
+		result = memberMapper.selectMemberIdCheck(checkId);
+		
+		log.debug(result + " <-- checkId 결과 null일 경우 사용");
+		
+		return result;
+	};
+	
+	public int addMember(Member paramMember) {
+		log.debug(TeamColor.LCH + paramMember.toString() + " <-- 추가할 paramMember정보 (Service)");
+		
+		int result = memberMapper.insertMember(paramMember);
+		
+		return result;
+	}
+	
 }

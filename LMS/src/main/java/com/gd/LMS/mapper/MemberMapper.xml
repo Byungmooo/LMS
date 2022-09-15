@@ -11,4 +11,39 @@
 			AND
 			member_pw = #{memberPw}
 	</select>
+	
+	<select id="selectMemberIdCheck" resultType="string" parameterType="string">
+		SELECT
+			member_id memberId
+		FROM member
+		WHERE
+			member_id = #{memberId}
+	</select>
+	
+	<insert id="insertMember" parameterType="com.gd.LMS.vo.Member">
+		INSERT INTO member (
+			member_id,
+			member_pw,
+			member_name,
+			member_gender,
+			member_type,
+			member_birth,
+			member_email,
+			member_address,
+			member_contact,
+			create_date
+		) VALUES (
+			#{memberId},
+			#{memberPw},
+			#{memberName},
+			#{memberGender},
+			#{memberType},
+			#{memberBirth},
+			#{memberEmail},
+			#{memberAddress},
+			#{memberContact},
+			NOW()
+		)
+	</insert>
+	
 </mapper>
