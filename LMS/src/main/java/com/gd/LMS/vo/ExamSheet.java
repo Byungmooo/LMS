@@ -3,7 +3,7 @@ package com.gd.LMS.vo;
 import lombok.Data;
 
 @Data
-public class ExamSheet {
+public class ExamSheet { //시험지
 	
 	private int examNo;			//예제번호	
 	private int multipleNo;		//객관식번호

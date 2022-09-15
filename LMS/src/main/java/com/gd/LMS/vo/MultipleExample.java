@@ -3,7 +3,7 @@ package com.gd.LMS.vo;
 import lombok.Data;
 
 @Data
-public class MultipleExample {
+public class MultipleExample { 
 
 	
 	private int exampleNo;			//문제번호
