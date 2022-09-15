@@ -27,4 +27,18 @@ public class MemberController {
 		
 		return "result";
 	}
+	
+	@GetMapping("/memberRegister")
+	public String memberRegister() {
+		
+		return "memberRegister";
+	}
+	
+	@PostMapping("/memberRegister")
+	public String memberRegister(Member member) {
+		
+		
+		
+		return "redirect:/index";
+	}
 }
