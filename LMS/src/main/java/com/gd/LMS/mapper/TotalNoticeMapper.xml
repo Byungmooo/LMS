@@ -1,46 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.LMS.mapper.lecNoticeMapper">
-
-
-	<!-- 학과공지사항 목록 리스트 -->
-	<select id="selectLecNoticeList" parameterType="java.util.Map" resultType="com.gd.LMS.vo.LectureNotice">
+<mapper namespace="com.gd.LMS.mapper.TotalNoticeMapper">
+	<!-- 전체공지사항 목록 리스트 -->
+	<select id="selectTotalNoticeList" parameterType="java.util.Map" resultType="com.gd.LMS.vo.TotalNotice">
 		SELECT 
-			lec_notice_no lecNoticeNo,
-			opened_lec_no openedLecNo,
-			lect_notice_title lmsNoticeTitle,
+			notice_no noticeNo,
+			department_code departmentCode,
+			member_id memberId,
+			notice_title noticeTitle,
+			notice_content noticeContent,
+			view view,
 			create_date createDate,
-			update_date updateDate,
-			view View
+			update_date updateDate
 		FROM
-			lecture_notice
+			total_notice
 		ORDER BY
 			create_date DESC
 		LIMIT 
 			#{beginRow}, #{rowPerPage}
 	</select>
 	
-	<!-- 공지사항 총 개수 -->
-	<select id="selectLecNoticeListCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			lms_notice
-	</select>
+
 	
 	<!-- 공지사항 조회수 증가 -->
-	<update id="updateLecNoticeOneCount" parameterType="com.gd.LMS.vo.LectureNotice">
+	<update id="updateTotalNoticeOneCount" parameterType="com.gd.LMS.vo.TotalNotice">
 		UPDATE 
-			lms_notice
+			total_notice
 		SET
-			lms_notice_count = #{lmsNoticeCount}+1
+			view = #{view}+1
 		WHERE
-			lms_notice_no = #{lmsNoticeNo}
+			notice_no = #{noticeNo}
 	
 	</update>
 	
 	<!-- 공지사항 상세보기 -->
-	<select id="selectLecNoticeOne" parameterType="int" resultType="com.gd.LMS.vo.LectureNotice">
+	<select id="selectTotalNoticeOne" parameterType="int" resultType="com.gd.LMS.vo.TotalNotice">
 		SELECT 
 			lms_notice_no lmsNoticeNo,
 			account_id accountId,
@@ -57,7 +51,7 @@
 	</select>
 	
 	<!-- 공지사항 수정 -->
-	<update id="updateLecNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
+	<update id="updateTotalNoticeOne" parameterType="com.gd.LMS.vo.TotalNotice">
 		UPDATE 
 			lms_notice
 		SET
@@ -69,7 +63,7 @@
 	</update>
 	
 	<!-- 공지사항 삭제 -->
-	<delete id="deleteLecNoticeOne" parameterType="int">
+	<delete id="deleteTotalNoticeOne" parameterType="int">
 		DELETE FROM
 			lms_notice
 		WHERE
@@ -77,7 +71,7 @@
 	</delete>
 	
 	<!-- 공지사항 추가 -->
-	<insert id="insertLecNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
+	<insert id="insertTotalNoticeOne" parameterType="com.gd.LMS.vo.TotalNotice">
 		INSERT INTO lms_notice(
 			account_id,
 			lms_notice_writer,
@@ -94,6 +88,9 @@
 			now()
 		)
 	</insert>
+
+
+
 
 
 </mapper>
