@@ -11,19 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.gd.LMS.vo.LectureNotice;
-import com.gd.LMS.service.LecNoticeService;
+import com.gd.LMS.service.TotalNoticeService;
 
 
 @Controller
-public class LecNoticeController {
-	@Autowired private LecNoticeService lecNoticeService;
+public class TotalNoticeController {
+	@Autowired private TotalNoticeService lecNoticeService;
 	
 	
 	
 	//private static final Logger log = LoggerFactory.getLogger(ManagerLmsNoticeController.class);
 
 	
-	@GetMapping("/MemberNoticeList/{currentPage}")
+	@GetMapping("/lectureNoticeList/{currentPage}")
 	public String managerLmsNoticeList(Model model, HttpSession session,
 			@PathVariable(name="currentPage") int currentPage){
 	

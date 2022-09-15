@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.mapper.LecNoticeMapper;
+import com.gd.LMS.mapper.TotalNoticeMapper;
 import com.gd.LMS.vo.LectureNotice;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Transactional
 @Service
-public class LecNoticeService {
+public class TotalNoticeService {
 	
-	@Autowired private LecNoticeMapper LecNoticeMapper;
+	@Autowired private TotalNoticeMapper LecNoticeMapper;
 	
 		// 공지사항 목록 출력
 		public List<LectureNotice> getLecNoticeList(int beginRow, int rowPerPage){

@@ -8,14 +8,14 @@
 		SELECT 
 			lec_notice_no lecNoticeNo,
 			opened_lec_no openedLecNo,
-			lms_notice_writer lmsNoticeWriter,
-			lms_notice_title lmsNoticeTitle,
-			lms_notice_createdate lmsNoticeCreatedate,
-			lms_notice_count lmsNoticeCount
+			lect_notice_title lmsNoticeTitle,
+			create_date createDate,
+			update_date updateDate,
+			view View
 		FROM
-			lms_notice
+			lecture_notice
 		ORDER BY
-			lms_notice_createdate DESC
+			create_date DESC
 		LIMIT 
 			#{beginRow}, #{rowPerPage}
 	</select>

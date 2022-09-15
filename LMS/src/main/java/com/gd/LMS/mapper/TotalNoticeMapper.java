@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.gd.LMS.vo.LectureNotice;
 
 @Mapper
-public interface LecNoticeMapper {
+public interface TotalNoticeMapper {
 	// 공지사항 목록
 	public List<LectureNotice> selectLecNoticeList(Map<String,Object> map);
 	public int selectLecNoticeListCount();
