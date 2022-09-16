@@ -83,13 +83,13 @@ public class LecNoticeController {
 		
 		
 		model.addAttribute("lecNoticeList", lecNoticeList);
-		System.out.println(TeamColor.BJH + lecNoticeList + TeamColor.RESET);
+		System.out.println(TeamColor.BJH + lecNoticeList);
 		
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("lastPage", lastPage);
 
-		System.out.println(TeamColor.BJH + currentPage + TeamColor.RESET);
-		System.out.println(TeamColor.BJH + lastPage + TeamColor.RESET);
+		System.out.println(TeamColor.BJH + currentPage);
+		System.out.println(TeamColor.BJH + lastPage);
 		
 		
 		return "/lecNoticeList";
@@ -106,7 +106,7 @@ public class LecNoticeController {
 	 lecNoticeService.updateLecNoticeOneCount(lecNoticeNo); 
 	 LectureNotice lectureNotice = lecNoticeService.getLectureNoticeOne(lecNoticeNo);
 	 
-	 System.out.println(TeamColor.BJH + lectureNotice + TeamColor.RESET);
+	 System.out.println(TeamColor.BJH + lectureNotice);
 	
 		
 	 model.addAttribute("lectureNotice",lectureNotice); 
