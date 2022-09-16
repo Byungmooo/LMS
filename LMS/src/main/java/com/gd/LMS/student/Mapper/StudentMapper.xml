@@ -52,8 +52,8 @@
 			opened_lec_no = #{openedLecNo}
 	</select>
 	
-	<select id="selectAssignmentList" parameterType="int" resultType="map">
+	<!-- <select id="selectAssignmentList" parameterType="int" resultType="map">
 	
-	</select>
+	</select> -->
 	
 </mapper>
