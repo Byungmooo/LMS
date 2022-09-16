@@ -1,17 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>강의 공지 게시판</title>
-</head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<body>
+<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>	
 	<div class= "container">
 	<h1>강의 공지 게시판</h1>
 		<a href= "${pageContext.request.contextPath}/addLectureNoticeForm" class="btn btn-success">강의공지 쓰기</a>
@@ -31,7 +20,6 @@
 				<td>${l.lecNoticeNo}</td>
 				<td>${l.openedLecNo}</td>
 				<td>
-				${l.lecNoticeTitle}			
 					<a href="${pageContext.request.contextPath}/lecNoticeOne/${l.lecNoticeNo}">${l.lecNoticeTitle}</a>
 				</td>
 				<td>${l.lecNoticeContent}</td>
@@ -146,7 +134,4 @@
 								</table>
 							</nav>
 						</div>
-			
-	
-</body>
-</html>
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>    
