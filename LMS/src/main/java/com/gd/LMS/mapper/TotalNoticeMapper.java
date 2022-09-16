@@ -9,15 +9,21 @@ import com.gd.LMS.vo.TotalNotice;
 
 @Mapper
 public interface TotalNoticeMapper {
-	// 공지사항 목록
-	public List<TotalNotice> selectTotalNoticeList(Map<String,Object> map);
-	public int selectTotalNoticeListCount();
+
 	
 	// 공지사항 조회수 증가
 	public int updateTotalNoticeOneCount(TotalNotice totalNotice);
 	
+
+	// 전체공지사항 목록
+	List<Map<String, Object>> selectTotalNoticeList();
+	
 	// 공지사항 상세보기
-	public TotalNotice selectTotalNoticeOne(int totalNoticeNo);
+	public TotalNotice selectTotalNoticeOne();
+	
+
+	// 공지사항 추가
+	public int insertTotalNoticeOne();
 	
 	// 공지사항 수정
 	public int updateTotalNoticeOne(TotalNotice totalNotice);
@@ -25,7 +31,6 @@ public interface TotalNoticeMapper {
 	// 공지사항 삭제
 	public int deleteTotalNoticeOne(int totalNoticeNo);
 	
-	// 공지사항 추가
-	public int insertTotalNoticeOne(TotalNotice totalNotice);
+
 
 }

@@ -1,16 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시글 작성</title>
-
-
-</head>
-<body>
-
-<h2>게시글 작성</h2>
-<form name="form1" method="post" action="${path}/board/insert.do">
+<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>		
+		<!-- Main -->
+		<div class="container-xxl flex-grow-1 container-p-y">	  
+			<!-- Row1 구분 -->
+			<div class="row text-center">	    
+				<div class="card h-100">
+					<div class="card-header">
+						<div class="card-title mb-0">
+							<h5 class="m-0 me-2">게시글 작성</h5>
+							<small class="text-muted">작은글씨</small>
+						</div>
+					</div>
+					<div class="card-body">
+					<form name="form1" method="post" action="${path}/Toal">
     <div>
         제목
         <input name="title" id="title" size="80" placeholder="제목을 입력해주세요">
@@ -28,7 +30,13 @@
         <button type="reset">취소</button>
     </div>
 </form>
-<script>
+					</div>
+				</div>
+			</div>
+			<!-- /Row1 구분 -->
+		</div>
+		<!-- /Main -->	
+		<script>
     $(document).ready(function(){
         $("#btnSave").click(function(){
             //var title = document.form1.title.value; ==> name속성으로 처리할 경우
@@ -57,5 +65,8 @@
         });
     });
 </script>
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>    
+
+
 </body>
 </html>

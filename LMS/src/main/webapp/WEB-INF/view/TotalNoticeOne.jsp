@@ -1,38 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>게시글 작성</title>
-
-
-</head>
-<body>
-<h2>게시글 보기</h2>
-<form name="form1" method="post">
+<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>		
+		<!-- Main -->
+		<div class="container-xxl flex-grow-1 container-p-y">	  
+			<!-- Row1 구분 -->
+			<div class="row text-center">	    
+				<div class="card h-100">
+					<div class="card-header">
+						<div class="card-title mb-0">
+							<h5 class="m-0 me-2">게시글 보기</h5>
+							<small class="text-muted">게시글 보기</small>
+						</div>
+					</div>
+					<div class="card-body">
+						<form name="form1" method="post">
     <div>        <!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 -->
-        작성일자 : <fmt:formatDate value="${LMS.createDate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
+        작성일자 : <fmt:formatDate value="${createDate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
                 <!-- 날짜 형식 => yyyy 4자리연도, MM 월, dd 일, a 오전/오후, HH 24시간제, hh 12시간제, mm 분, ss 초 -->
     </div>
     <div>
-        조회수 : ${LMS.view}
+        조회수 : ${view}
     </div>
     <div>
         제목
-        <input name="title" id="title" size="80" value="${LMS.noticeTitle}" placeholder="제목을 입력해주세요">
+        <input name="title" id="title" size="80" value="${noticeTitle}" placeholder="제목을 입력해주세요">
     </div>
     <div>
         내용
-        <textarea name="content" id="content" rows="4" cols="80" placeholder="내용을 입력해주세요">${LMS.noticeContent}</textarea>
+        <textarea name="content" id="content" rows="4" cols="80" placeholder="내용을 입력해주세요">${noticeContent}</textarea>
     </div>
 
     <div style="width:650px; text-align: center;">
         <!-- 게시물번호를 hidden으로 처리 -->
-        <input type="hidden" name="bno" value="${LMS.noticeNo}">
+        <input type="hidden" name="bno" value="${noticeNo}">
         <button type="button" id="btnUpdete">수정</button>
         <button type="button" id="btnDelete">삭제</button>
     </div>
 </form>
+					</div>
+				</div>
+			</div>
+			<!-- /Row1 구분 -->
+		</div>
+		<!-- /Main -->	
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>    
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+
+
 </body>
 <script>
     $(document).ready(function(){
