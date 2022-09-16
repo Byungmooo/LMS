@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.student.Mapper.StudentMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -15,11 +16,27 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentService {
 	@Autowired StudentMapper studentMapper;
 	
-	public List<Map<String, Object>> getStudentLectureList(String studentCode) {
+	public List<Map<String, Object>> getStudentLectureList(int studentCode) {
 		
 		List<Map<String, Object>> studentLectureList = studentMapper.selectStudentLectureList(studentCode);
 		
 		return studentLectureList;
 	}
 
+	
+	public Map<String, Object> getStudentLectureOne(int openedLecNo) {
+		log.debug(TeamColor.LCH + openedLecNo + " <-- openedLecNo (Service)");
+		
+		Map<String, Object> studentLectureOne = studentMapper.selectStudentLectureOne(openedLecNo);
+		
+		return studentLectureOne;
+	}
+	
+	public List<Map<String, Object>> getAssignmentList(int openedLecNo) {
+		
+		List<Map<String, Object>> studentAssignmentList = studentMapper.selectAssignmentList(openedLecNo);
+		
+		return studentAssignmentList;
+	}
+	
 }

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -27,30 +26,32 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td><strong>강의이름</strong></td>
-							<td>교수이름</td>
-							<td><span class="badge bg-label-primary me-1">전공종류</span></td>
-							<td>Active</td>
-							<td>
-								<div class="dropdown">
-									<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-										data-bs-toggle="dropdown">
-										<i class="bx bx-dots-vertical-rounded"></i>
-									</button>
-									<div class="dropdown-menu">
-										<a class="dropdown-item" href="">
-										<i class="bx bx-book me-1"></i>
-											강의상세보기 <!-- 계획서 등의 내용 -->
-										</a>
-										<a class="dropdown-item" href="">
-										<i class="bx bx-book me-1"></i>
-											강의관리
-										</a>
+						<c:forEach var="s" items="${list}">
+							<tr>
+								<td><strong>${s.lectureName}</strong></td>
+								<td>${s.professorName}</td>
+								<td><span class="badge bg-label-primary me-1">${s.lectureType}</span></td>
+								<td><span class="badge bg-label-secondary me-1">${s.credit}</span></td>
+								<td>
+									<div class="dropdown">
+										<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+											data-bs-toggle="dropdown">
+											<i class="bx bx-dots-vertical-rounded"></i>
+										</button>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="${pageContext.request.contextPath}/student/studentLectureOne?openedLecNo=${s.openedLecNo}">
+											<i class="bx bx-book me-1"></i>
+												강의관리 <!-- 계획서 등의 내용 -->
+											</a>
+											<a class="dropdown-item" href="">
+											<i class="bx bx-book me-1"></i>
+												?????
+											</a>
+										</div>
 									</div>
-								</div>
-							</td>
-						</tr>
+								</td>
+							</tr>
+						</c:forEach>
 					</tbody>
 				</table>
 			</div>
