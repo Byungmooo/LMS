@@ -12,9 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.service.TotalNoticeService;
 import com.gd.LMS.vo.TotalNotice;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class TotalNoticeController {
 	@Autowired
@@ -27,7 +31,8 @@ public class TotalNoticeController {
 		List<Map<String, Object>> list = noticeService.getTotalNoticeList();
 		// model 데이터 세팅
 		model.addAttribute("list", list);
-
+		log.debug(TeamColor.KJS +" [김진수] 전체공지 리스트");
+		
 		return "TotalNoticeList"; 
 	}
 	

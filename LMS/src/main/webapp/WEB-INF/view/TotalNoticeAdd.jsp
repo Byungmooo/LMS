@@ -12,18 +12,18 @@
 						</div>
 					</div>
 					<div class="card-body">
-					<form name="form1" method="post" action="${path}/Toal">
+					<form name="form1" method="post" action="${path}/totalNoticeAdd" id="form1">
     <div>
         제목
-        <input name="title" id="title" size="80" placeholder="제목을 입력해주세요">
+        <input name="title" id="noticeTitle" size="80" placeholder="제목을 입력해주세요">
     </div>
     <div>
         내용
-        <textarea name="content" id="content" rows="4" cols="80" placeholder="내용을 입력해주세요"></textarea>
+        <textarea name="content" id="noticeContent" rows="4" cols="80" placeholder="내용을 입력해주세요"></textarea>
     </div>
     <div>
         작성자
-        <input name="writer" id="writer" placeholder="이름을 입력해주세요">
+        <input name="writer" id="memberId" placeholder="이름을 입력해주세요">
     </div>
     <div style="width:650px; text-align: center;">
         <button type="button" id="btnSave">확인</button>
@@ -66,4 +66,5 @@
     });
 </script>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>    
+
 

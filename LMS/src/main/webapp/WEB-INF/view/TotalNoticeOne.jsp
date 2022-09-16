@@ -17,8 +17,9 @@
         작성일자 : <fmt:formatDate value="${createDate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
                 <!-- 날짜 형식 => yyyy 4자리연도, MM 월, dd 일, a 오전/오후, HH 24시간제, hh 12시간제, mm 분, ss 초 -->
     </div>
+
     <div>
-        조회수 : ${view}
+        조회수 : ${totalNotice.view}
     </div>
     <div>
         제목
