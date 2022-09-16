@@ -9,11 +9,12 @@
 			lec_notice_title  	lecNoticeTitle,
 			lec_notice_content	lecNoticeContent,
 			create_date 		createDate,
+			update_date			updateDate,
 			view
 		FROM
 			lecture_notice 
 		ORDER BY
-			create_date DESC
+			create_date ASC
 		LIMIT 
 			#{beginRow}, #{rowPerPage}
 	</select>
@@ -45,14 +46,14 @@
 	<select id="selectLecNoticeOne" parameterType="int" resultType="com.gd.LMS.vo.LectureNotice">
 		SELECT 
 			lec_notice_no lecNoticeNo,
-			account_id openedLecNo,
-			lec_notice_title lmsNoticeTitle,
-			lec_notice_content lmsNoticeContent,
+			opened_lec_no openedLecNo,
+			lec_notice_title lecNoticeTitle,
+			lec_notice_content lecNoticeContent,
 			create_date createDate,
 			update_date updateDate,
 			view
 		FROM
-			lceture_notice
+			lecture_notice
 		WHERE
 			lec_notice_no = #{lecNoticeNo}
 	</select>
@@ -60,7 +61,7 @@
 	<!-- 공지사항 수정 -->
 	<update id="updateLecNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
 		UPDATE 
-			lceture_notice
+			lecture_notice
 		SET
 			lec_notice_title = #{lecNoticeTitle},
 			lec_notice_content = #{lecNoticeContent},
@@ -79,15 +80,15 @@
 	
 	<!-- 공지사항 추가 -->
 	<insert id="insertLecNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
-		INSERT INTO lceture_notice(
+		INSERT INTO lecture_notice(
+			opened_lec_no,
 			lec_notice_title,
 			lec_notice_content,
-			lec_notice_createdate,
-			lec_notice_updatedate
+			create_date
 		)VALUES(
+			#{openedLecNo},
 			#{lecNoticeTitle},
 			#{lecNoticeContent},
-			now(),
 			now()
 		)
 	</insert>

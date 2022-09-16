@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>	
 	<div class= "container">
 	<h1>강의 공지 게시판</h1>
-		<a href= "${pageContext.request.contextPath}/addLectureNoticeForm" class="btn btn-success">강의공지 쓰기</a>
+		<a href= "${pageContext.request.contextPath}/addLecNoticeOne" class="btn btn-success">강의공지 쓰기</a>
 	</div>
 	<div class="container">
 	<table class="table table-hover">
@@ -12,7 +12,8 @@
 			<th>강의번호</th>
 			<th>강의공지제목</th>
 			<th>강의공지내용</th>			
-			<th>등록일</th>
+			<th>등록일</th>		
+			<th>수정일</th>
 			<th>조회수</th>
 		</tr>
 		<c:forEach var = "l"  items="${lecNoticeList}">
@@ -24,13 +25,14 @@
 				</td>
 				<td>${l.lecNoticeContent}</td>
 				<td>${l.createDate}</td>
+				<td>${l.updateDate}</td>
 				<td>${l.view}</td>
 				
 				<td>
-				<a href="${pageContext.request.contextPath}/modifyLectureNotice?lecNoticeNo=${l.lecNoticeNo}"
+				<a href="${pageContext.request.contextPath}/modifyLecNotice?lecNoticeNo=${l.lecNoticeNo}"
 						class="btn btn-warning">수정</a></td>
 				<td>
-				<a href="${pageContext.request.contextPath}/removeLectureNotice?lecNoticeNo=${l.lecNoticeNo}"
+				<a href="${pageContext.request.contextPath}/removeLecNotice?lecNoticeNo=${l.lecNoticeNo}"
 						class="btn btn-info">삭제</a></td>
 				
 			</tr>

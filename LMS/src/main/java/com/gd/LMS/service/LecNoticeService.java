@@ -1,6 +1,5 @@
 package com.gd.LMS.service;
 
-import java.awt.SystemColor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.mapper.LecNoticeMapper;
@@ -39,42 +39,54 @@ public class LecNoticeService {
 			int result= lecNoticeMapper.selectLecNoticeListCount();
 			
 			log.debug(TeamColor.BJH + result);
-			System.out.println(result+"<<<<<<Num Count");
+			
 			return result;
 		}
 		
 
 		// 공지사항 조회수 증가
-		public int updateLecNoticeOneCount(int lectNoticeNo) {
+		public int modifyLecNoticeOneCount(int lecNoticeNo) {
 			
-			LectureNotice lectureNotice = lecNoticeMapper.selectLecNoticeOne(lectNoticeNo);
+			LectureNotice lectureNotice = lecNoticeMapper.selectLecNoticeOne(lecNoticeNo);
+			
+			log.debug(TeamColor.BJH + lectureNotice);
 			
 			return lecNoticeMapper.updateLecNoticeOneCount(lectureNotice);
 		}
 		
 		// 공지사항 상세보기
-		public LectureNotice getLectureNoticeOne(int lectNoticeNo) {
+		public LectureNotice getLecNoticeOne(int lecNoticeNo) {
 			
-			return lecNoticeMapper.selectLecNoticeOne(lectNoticeNo);
+			return lecNoticeMapper.selectLecNoticeOne(lecNoticeNo);
 		}
+				
 		
 		// 공지사항 수정
-		public int updateLectureNoticeOne(LectureNotice lectureNotice) {
+		public int modifyLecNoticeOne(LectureNotice lectureNotice) {
 			
 			return lecNoticeMapper.updateLecNoticeOne(lectureNotice);
 		}
 		
 		// 공지사항 삭제
-		public int deleteLectureNoticeOne(int lectNoticeNo) {
+		public int removeLecNoticeOne(int lecNoticeNo) {
 			
-			return lecNoticeMapper.deleteLecNoticeOne(lectNoticeNo);
+			return lecNoticeMapper.deleteLecNoticeOne(lecNoticeNo);
 		}
 		
-		// 공지사항 추가
-		public int insertLectureNoticeOne(LectureNotice lectureNotice) {
+		// 공지사항 추가 폼
+		public int addLecNoticeOne(LectureNotice lectureNotice) {
 			
-			return lecNoticeMapper.insertLecNoticeOne(lectureNotice);
+			int row = lecNoticeMapper.insertLecNoticeOne(lectureNotice);
+			
+			return row;
 		}
-	
+		// 공지사항 추가 액션
+		public int addLecNoticeOneAction(LectureNotice lectureNotice) {
+		
+			log.debug(TeamColor.BJH + lectureNotice);
+			int row = lecNoticeMapper.insertLecNoticeOne(lectureNotice);
+			return row;
+		}
+		
 	
 }

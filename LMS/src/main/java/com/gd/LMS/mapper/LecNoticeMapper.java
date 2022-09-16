@@ -20,13 +20,13 @@ public interface LecNoticeMapper { //강의 공지게시판
 	public int updateLecNoticeOneCount(LectureNotice lectureNotice);
 	
 	// 공지사항 상세보기
-	public LectureNotice selectLecNoticeOne(int lectNoticeNo);
-	
+	public LectureNotice selectLecNoticeOne(int lecNoticeNo);
+
 	// 공지사항 수정
 	public int updateLecNoticeOne(LectureNotice lectureNotice);
 	
 	// 공지사항 삭제
-	public int deleteLecNoticeOne(int lectNoticeNo);
+	public int deleteLecNoticeOne(int lecNoticeNo);
 	
 	// 공지사항 추가
 	public int insertLecNoticeOne(LectureNotice lectureNotice);
