@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.mapper.LecNoticeMapper">
+<!-- 공지사항 목록 리스트 -->
+	<select id="selectLecNoticeList" parameterType="java.util.Map" resultType="com.gd.LMS.vo.LectureNotice">
+		SELECT 
+			lec_notice_no	 	lecNoticeNo,
+			opened_lec_no  		openedLecNo,
+			lec_notice_title  	lecNoticeTitle,
+			lec_notice_content	lecNoticeContent,
+			create_date 		createDate,
+			view
+		FROM
+			lecture_notice 
+		ORDER BY
+			create_date DESC
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
+	</select>
+	
+	
+	
+	   <!-- 공지사항 총 개수 -->
+   <select id="selectLecNoticeListCount" resultType="int">
+      SELECT
+         COUNT(*)
+      FROM
+         lecture_notice 
+   </select>
+   
+   
+	
+	<!-- 공지사항 조회수 증가 -->
+	<update id="updateLecNoticeOneCount" parameterType="com.gd.LMS.vo.LectureNotice">
+		UPDATE 
+			lecture_notice
+		SET
+			view = #{view}+1
+		WHERE
+			lec_notice_no = #{lecNoticeNo}
+	
+	</update>
+	
+	<!-- 공지사항 상세보기 -->
+	<select id="selectLecNoticeOne" parameterType="int" resultType="com.gd.LMS.vo.LectureNotice">
+		SELECT 
+			lec_notice_no lecNoticeNo,
+			account_id openedLecNo,
+			lec_notice_title lmsNoticeTitle,
+			lec_notice_content lmsNoticeContent,
+			create_date createDate,
+			update_date updateDate,
+			view
+		FROM
+			lceture_notice
+		WHERE
+			lec_notice_no = #{lecNoticeNo}
+	</select>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateLecNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
+		UPDATE 
+			lceture_notice
+		SET
+			lec_notice_title = #{lecNoticeTitle},
+			lec_notice_content = #{lecNoticeContent},
+			update_date = now()
+		WHERE
+			lec_notice_no = #{lecNoticeNo}
+	</update>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteLecNoticeOne" parameterType="int">
+		DELETE FROM
+			lecture_notice
+		WHERE
+			lec_notice_no = #{lecNoticeNo}
+	</delete>
+	
+	<!-- 공지사항 추가 -->
+	<insert id="insertLecNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
+		INSERT INTO lceture_notice(
+			lec_notice_title,
+			lec_notice_content,
+			lec_notice_createdate,
+			lec_notice_updatedate
+		)VALUES(
+			#{lecNoticeTitle},
+			#{lecNoticeContent},
+			now(),
+			now()
+		)
+	</insert>
+	
+</mapper>
