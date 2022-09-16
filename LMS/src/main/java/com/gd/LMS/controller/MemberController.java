@@ -35,8 +35,9 @@ public class MemberController {
 		
 		model.addAttribute("member", resultMember);
 		
-		return "result";
+		return "index";
 	}
+	
 	
 	// 회원가입
 	@GetMapping("/memberRegister")
