@@ -1,27 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-      <form method="post" action="${pageContext.request.contextPath}/index">
-         <fieldset>
-            <legend>로그인</legend>
-            <table border="1">
-               <tr>
-                  <td>ID</td>
-                  <td><input type="text" name="memberId"></td>
-               </tr>
-               <tr>
-                  <td>PW</td>
-                  <td><input type="password" name="memberPw"></td>
-               </tr>
-            </table>
-            <hr>
-            <button type="submit">LOGIN</button>
-         </fieldset>
-      </form>
-</body>
-</html>
+<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>		
+		<!-- Main -->
+		<div class="container-xxl flex-grow-1 container-p-y">	  
+			<!-- Row1 구분 -->
+			<div class="row text-center">	    
+				<div class="card h-100">
+					<div class="card-header">
+						<div class="card-title mb-0">
+							<h5 class="m-0 me-2">큰글씨</h5>
+							<small class="text-muted">작은글씨</small>
+						</div>
+					</div>
+					<div class="card-body">
+						내용
+					</div>
+				</div>
+			</div>
+			<!-- /Row1 구분 -->
+		</div>
+		<!-- /Main -->	
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>    

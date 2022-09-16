@@ -115,7 +115,7 @@
               <h4 class="mb-2">Welcome to AGV30! 👋</h4>
               <p class="mb-4">로그인 후 LMS를 이용해보세요!</p>
 
-              <form id="formAuthentication" class="mb-3" action="${pageContext.request.contextPath}/index" method="POST">
+              <form id="login" class="mb-3" action="${pageContext.request.contextPath}/index" method="POST">
                 <div class="mb-3">
                   <label for="email" class="form-label">User ID</label>
                   <input
@@ -134,9 +134,9 @@
                   <div class="input-group input-group-merge">
                     <input
                       type="password"
-                      id="password"
+                      id="memberPw"
                       class="form-control"
-                      name="password"
+                      name="memberPw"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
                     />
