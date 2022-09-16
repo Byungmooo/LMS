@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>		
+<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>	
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>		
 
 	<!-- Main -->
 		<div class="container">	 

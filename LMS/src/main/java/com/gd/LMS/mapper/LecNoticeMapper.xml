@@ -21,7 +21,7 @@
 	
 	
 	
-	   <!-- 공지사항 총 개수 -->
+   <!-- 공지사항 총 개수 -->
    <select id="selectLecNoticeListCount" resultType="int">
       SELECT
          COUNT(*)

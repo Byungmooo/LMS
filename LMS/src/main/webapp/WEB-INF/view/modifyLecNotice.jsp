@@ -1,14 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>	
+<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>		
+	
 	<div class= "container">
 		<h3>강의 공지 수정</h3>
 			<div class="col-sm-10">
-				<form action="${pageContext.request.contextPath}/modifyLecNotice?lecNoticeNo=${lectureNotice.lecNoticeNo}" 
+				<form action="${pageContext.request.contextPath}/modifyLecNoticeOne" 
 					  method="post" id="modifyForm">
 					<div class="form-group">		
 						<label for="lecNoticeNo">공지번호</label>
-						<input type="text" name="lecNoticeNo" value="${lectureNotice.lecNoticeNo}" hidden="hidden">
+						<input type="text" name="lecNoticeNo" value="${lectureNotice.lecNoticeNo}" readonly>
 					</div>
 					<div class="form-group">		
 						<label for="openedLecNo">강의번호</label>
@@ -24,10 +26,9 @@
 							name="lecNoticeContent" placeholder="내용을 입력하세요.">${lectureNotice.lecNoticeContent}</textarea>
 					</div>
 			
-					
 					<div style="margin-bottom: 20px; position: relative; left: 350px;">
-						<button type="submit" class="btn btn-info" id = "modifyBtn">수정</button>
-						<a href="${pageContext.request.contextPath}/lecNoticeOne?lecNoticeNo=${lectureNotice.lecNoticeNo}" class="btn btn-danger">취소</a>	
+						<button type="button" class="btn btn-primary" id = "modifyBtn">수정</button>
+						<a href="${pageContext.request.contextPath}/lecNoticeOne?lecNoticeNo=${lectureNotice.lecNoticeNo}" class="btn btn-dank">취소</a>	
 					</div>
 				</form>
 			</div>
@@ -43,7 +44,7 @@ $('#modifyBtn').click(function() {
 		alert('내용을 입력해주세요');
 		$("#lecNoticeContent").focus();
 	} else {
-		addLecNoticeForm.submit();
+		modifyForm.submit();
 	}
 });
   

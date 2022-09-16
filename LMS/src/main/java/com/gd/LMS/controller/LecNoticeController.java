@@ -10,23 +10,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.service.LecNoticeService;
 import com.gd.LMS.vo.LectureNotice;
 
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class LecNoticeController {
 
 	@Autowired LecNoticeService lecNoticeService;
 	
 	//공지리스트
-	@GetMapping("/lecNoticeList/{currentPage}")
+	@GetMapping("/lecNoticeList")
 	public String lecNoticeList(Model model, HttpSession session,
-			@PathVariable(name="currentPage") int currentPage){
+			@RequestParam(name="currentPage") int currentPage){
 	
 		// 한 페이지에 표시할 데이터 수
 		int rowPerPage = 10;
@@ -98,71 +100,79 @@ public class LecNoticeController {
 	
 	
 	 // 공지사항 상세보기
-	 @GetMapping("/lecNoticeOne/{lecNoticeNo}")
+	 @GetMapping("/lecNoticeOne")
 	 public String lecNoticeOne(Model model, 
-			 @PathVariable(name="lecNoticeNo") int lecNoticeNo) {
+			 @RequestParam(value="lecNoticeNo") int lecNoticeNo) {
+		 
+		 log.debug(TeamColor.BJH + lecNoticeNo + "lecNoticeNo 컨트롤러");
 		 
 		 lecNoticeService.modifyLecNoticeOneCount(lecNoticeNo); 
 		 LectureNotice lectureNotice = lecNoticeService.getLecNoticeOne(lecNoticeNo);
 		 			
 		 model.addAttribute("lectureNotice",lectureNotice); 
-		 System.out.println(TeamColor.BJH + lectureNotice);
+		 log.debug(TeamColor.BJH + lectureNotice + "상세보기 컨트롤러");
 		 
-	 return "/lecNoticeOne"; 
+		 return "/lecNoticeOne"; 
 	 
 	 }
+	 
+	
 	 
 	 
 	 // 공지사항 업데이트
-	 @GetMapping("/modifyLecNoticeOne/{lecNoticeNo}") 
-	 public String modifyLecNoticeOne(Model model, @PathVariable(name="lecNoticeNo") int lecNoticeNo) {
-	
+	 @GetMapping("/modifyLecNoticeOne") 
+	 public String modifyLecNoticeOne(Model model, @RequestParam(value="lecNoticeNo") int lecNoticeNo) {
+		 System.out.println(lecNoticeNo + " <-- 안떠?");
+		 
 		 LectureNotice lectureNotice = lecNoticeService.getLecNoticeOne(lecNoticeNo);
-		 System.out.println(TeamColor.BJH + lectureNotice+"<--lectureNotice");
+		 log.debug(TeamColor.BJH + lectureNotice+"<--lectureNotice");
 		 
 		 
 		 model.addAttribute("lectureNotice", lectureNotice); 
-		 System.out.println(TeamColor.BJH + lectureNotice);
+		 log.debug(TeamColor.BJH + lectureNotice);
 		 
 		
-		 return "/modifyLecNoticeOne";
+		 return "modifyLecNoticeOne";
 	 
 	 }
-	  
+	 
+	 
 	 @PostMapping("/modifyLecNoticeOne") 
 	 public String modifyLecNoticeOne(LectureNotice lectureNotice) {
 	
 		 lecNoticeService.modifyLecNoticeOne(lectureNotice);
 		 
-		 System.out.println(TeamColor.BJH + lectureNotice);
+		 log.debug(TeamColor.BJH + lectureNotice);
 		 
 	 
-	 return "redirect:/modifyLecNoticeOne+"+lectureNotice.getLecNoticeNo();
+	 return "redirect:/lecNoticeOne";
 	
 	 }
 	 
 	 
 	 
 	 // 공지사항 삭제
-	 @GetMapping("/removeLecNoticeOne/{lectureNotice}") 
-	 public String removeLecNoticeOne(@PathVariable(name="lecNoticeNo") int lecNoticeNo) {
+	 @GetMapping("/removeLecNoticeOne") 
+	 public String removeLecNoticeOne(@RequestParam(name="lecNoticeNo") int lecNoticeNo) {
 	
 		 lecNoticeService.removeLecNoticeOne(lecNoticeNo);
 		 
-		 System.out.println(TeamColor.BJH + lecNoticeNo);
+		 log.debug(TeamColor.BJH + lecNoticeNo);
 		 
 	 return "redirect:/lecNoticeList/1"; 
 	 
 	 }
+	 
+	 
 	 
 	 // 공지사항 추가
 	 
 	 @GetMapping("/addLecNoticeOne") 
 	 public String addLecNoticeOne(Model model, LectureNotice lectureNotice) {
 		
-		 model.addAttribute("l", lectureNotice); 
+		 model.addAttribute("lectureNotice", lectureNotice); 
 		 
-		 System.out.println(TeamColor.BJH + lectureNotice);	
+		 log.debug(TeamColor.BJH + lectureNotice + "add추가폼");	
 	 
 	 return "/addLecNoticeOne"; 
 	 
@@ -173,7 +183,7 @@ public class LecNoticeController {
 		 
 		 int result = lecNoticeService.addLecNoticeOneAction(lectureNotice);
 			
-		 System.out.println(TeamColor.BJH + result);	
+		 log.debug(TeamColor.BJH + result + "add추가액션");	
 		 
 	 return "redirect:/lecNoticeList/1";
 	 
