@@ -26,15 +26,7 @@
 				<td>${l.lecNoticeContent}</td>
 				<td>${l.createDate}</td>
 				<td>${l.updateDate}</td>
-				<td>${l.view}</td>
-				
-				<td>
-				<a href="${pageContext.request.contextPath}/modifyLecNotice?lecNoticeNo=${l.lecNoticeNo}"
-						class="btn btn-warning">수정</a></td>
-				<td>
-				<a href="${pageContext.request.contextPath}/removeLecNotice?lecNoticeNo=${l.lecNoticeNo}"
-						class="btn btn-info">삭제</a></td>
-				
+				<td>${l.view}</td>				
 			</tr>
 			
 		</c:forEach>	

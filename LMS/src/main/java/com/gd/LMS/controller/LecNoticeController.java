@@ -112,11 +112,9 @@ public class LecNoticeController {
 	 
 	 }
 	 
-	
-	 
 	 
 	 // 공지사항 업데이트
-	 @GetMapping("/modifyLecNoticeOne/{lectNoticeNo}") 
+	 @GetMapping("/modifyLecNoticeOne/{lecNoticeNo}") 
 	 public String modifyLecNoticeOne(Model model, @PathVariable(name="lecNoticeNo") int lecNoticeNo) {
 	
 		 LectureNotice lectureNotice = lecNoticeService.getLecNoticeOne(lecNoticeNo);
@@ -127,7 +125,7 @@ public class LecNoticeController {
 		 System.out.println(TeamColor.BJH + lectureNotice);
 		 
 		
-		 return "/modifyLecNoticeOne"+lectureNotice.getLecNoticeNo();
+		 return "/modifyLecNoticeOne";
 	 
 	 }
 	  

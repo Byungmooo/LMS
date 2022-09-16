@@ -36,7 +36,7 @@
 					
 				</table>
 				<div>				
-					<a href="${pageContext.request.contextPath}/modifyLecNotice?lecNoticeNo=${lectureNotice.lecNoticeNo}"
+					<a href="${pageContext.request.contextPath}/modifyLecNoticeOne?lecNoticeNo=${lectureNotice.lecNoticeNo}"
 							class="btn btn-warning">수정</a>
 					<a href="${pageContext.request.contextPath}/removeLecNotice?lecNoticeNo=${lectureNotice.lecNoticeNo}"
 							class="btn btn-info">삭제</a>
