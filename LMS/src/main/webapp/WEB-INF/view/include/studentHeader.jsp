@@ -130,7 +130,7 @@
 					</a>
 
 						<ul class="menu-sub">
-							<li class="menu-item"><a href=""
+							<li class="menu-item"><a href="${pageContext.request.contextPath}/TotalNoticeList"
 								class="menu-link">
 									전체공지사항
 							</a></li>
