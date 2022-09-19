@@ -12,4 +12,10 @@ public interface MemberMapper {
 	
 	//로그인에 사용하는 메소드
 	Member selectLogin(Member member);
+	
+	// 라스트로그인 업데이트
+	int updateMemberLastLogin(String memberId);
+	
+	// 90이상 접속하지 않을 시 휴면계정
+	int updateMemberActiveN();
 }

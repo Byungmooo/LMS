@@ -46,10 +46,20 @@ public class MemberService {
 	}
 	
 	public Member getLogin(Member member) {
-		Member result = memberMapper.selectLogin(member);
+		Member resultMember = memberMapper.selectLogin(member);
 		
-		log.debug(TeamColor.KBW + result + "<-- getLogin" );
+		log.debug(TeamColor.KBW + resultMember + "<-- getLogin" );
 		
-		return result;
+		// 현재 사용가능한 사용자이면 
+		if(resultMember.getActive().equals("Y")) {
+			memberMapper.updateMemberLastLogin(resultMember.getMemberId());
+		}
+		
+		return resultMember;
+	}
+	
+	public int modifyMemberActiveN() {
+		
+		return memberMapper.updateMemberActiveN();
 	}
 }

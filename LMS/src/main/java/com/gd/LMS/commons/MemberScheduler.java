@@ -17,7 +17,7 @@ public class MemberScheduler {
 	@Scheduled(cron = "0 0 0 * * *", zone="Asia/Seoul")
 	public void modifyEmployeeActiveN() {
 		log.debug(TeamColor.LCH + this.getClass() + "scheduler");
-		//int row = memberService.modifyEmployeeActiveN();
-		//log.debug(row+"개의 계정이 휴면처리되었습니다");
+		int row = memberService.modifyMemberActiveN();
+		log.debug(row+"개의 계정이 휴면처리되었습니다");
 	}
 }

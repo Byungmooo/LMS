@@ -12,7 +12,7 @@ import javax.servlet.http.HttpFilter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@WebFilter("/*")
+@WebFilter("/LMS/*")
 public class EncodingFilter extends HttpFilter implements Filter {
    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
       

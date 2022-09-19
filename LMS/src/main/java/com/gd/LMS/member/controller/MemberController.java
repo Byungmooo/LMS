@@ -39,7 +39,7 @@ public class MemberController {
 	public String login(HttpSession session) {
 		// 기존에 로그인되어 있는 상태(session값이 null이 아니면)에서 로그인 폼으로 들어왔을 경우, 인덱스 페이지로 이동
 		if (session.getAttribute("session") != null) {
-			return "redirect:/index";
+			return "index";
 		} else { // 로그인이 되어있지 않았을 경우
 			return "member/login";
 		}
@@ -62,6 +62,12 @@ public class MemberController {
 		if(resultMember == null) {
 			model.addAttribute("errMsg","ID와 PW를 확인해주세요!");
 			return "member/login";
+		} else {
+			if(resultMember.getActive().equals("N")) { // 휴먼계정관리 페이지로 이동
+				// activeYPage.jsp 아이디와 비밀번호를 입력하면 계정활성화 
+				// -> mapper.updateEmployeeActiveY()
+				return "member/activeYPage"; 
+			}
 		}
 		
 		// user 정보가 일치하고 계정 활성화(Y)인 계정에 세션부여
@@ -118,7 +124,7 @@ public class MemberController {
 			log.debug(TeamColor.LCH + " <-- addMember success (Controller)");
 		}
 		
-		return "redirect:/login";
+		return "redirect:/member/login";
 	}
 	
 	// id 중복체크

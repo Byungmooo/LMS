@@ -60,4 +60,22 @@
 			member_pw = #{memberPw}
 	</select>
 	
+	<update id="updateMemberLastLogin" parameterType="string">
+		UPDATE 
+			member
+		SET 
+			last_login = NOW()
+		WHERE 
+			member_id = #{memberId}
+	</update>
+	
+	<!-- 마지막 로그인이 90일 이후면 휴먼처리 쿼리 : 스피링 스퀘줄러 설정으로 호출-->
+	<update id="updateMemberActiveN">
+		UPDATE 
+			member
+		SET 
+			active = 'N'
+		WHERE 
+			DATEDIFF(NOW(), last_login) > 90 AND active = 'Y'
+	</update>
 </mapper>
