@@ -1,21 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="/WEB-INF/view/include/studentHeader.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 
-<!-- Main -->
-<div class="container-xxl flex-grow-1 container-p-y">
-    <!-- Row1 구분 -->
-    <div class="row text-center">
-        <div class="card h-100">
-            <div class="card-header">
-                <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">공지사항 작성</h5>
-<%--                    <small class="text-muted">게시글 보기</small>--%>
-                </div>
-            </div>
-            <div class="card-body">
-                <form name="form" action="${pageContext.request.contextPath}/addTotalNotice" method="post">
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+	
+		
+		
+		<hr class="my-5" />
+		
+		<!-- studentLectureOne -->
+		<div class="row text-center">
+			<div class="card">
+				<h5 class="card-header"><strong>공지사항 작성</strong></h5>
+				<hr class="my-0" />
+				
+				<div class="card-body">
+		                <form name="form" action="${pageContext.request.contextPath}/addTotalNotice" method="post">
                     <input type="hidden" name="writer" value="테스트">
 <%--                    <input type="hidden" name="memberId" value="${session.id}">--%>
                     <div>
@@ -27,28 +31,16 @@
                         <textarea name="noticeContent" id="content" rows="4" cols="80"
                                   placeholder="내용을 입력해주세요"></textarea>
                     </div>
-               
-
-                    <div style="width:650px; text-align: center;">
-                        <button class="btn btn-secondary" type="button" id="btnAdd">추가</button>
-                        <button class="btn btn-secondary" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
+                 <div style="width:650px; text-align: center;">
+                        <button class="btn btn-danger" type="button" id="btnAdd">추가</button>
+                        <button class="btn btn-info" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
                     </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- /Row1 구분 -->
-</div>
-<!-- /Main -->
-<%@ include file="/WEB-INF/view/include/footer.jsp" %>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-</head>
-<body>
 
-
-</body>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- / Main -->
 <script>
     $(document).ready(function () {
         $("#btnAdd").click(function () {
@@ -68,4 +60,4 @@
         });
     });
 </script>
-</html>
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>
