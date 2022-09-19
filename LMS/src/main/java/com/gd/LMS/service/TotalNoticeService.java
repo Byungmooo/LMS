@@ -15,19 +15,35 @@ import com.gd.LMS.vo.TotalNotice;
 import lombok.extern.slf4j.Slf4j;
 
 
-
 @Slf4j
 @Transactional
 @Service
 public class TotalNoticeService {
-	@Autowired private TotalNoticeMapper totalNoticeMapper;
-	
-	// 전체공지사항 목록 리스트
-	public List<Map<String, Object>> getTotalNoticeList(){
-		List<Map<String, Object>> noticeList = totalNoticeMapper.selectTotalNoticeList();
-		return noticeList;
-	}
-	
+    @Autowired
+    private TotalNoticeMapper totalNoticeMapper;
 
-	
+    // 전체공지사항 목록 리스트
+    public List<TotalNotice> getTotalNoticeList() {
+        return totalNoticeMapper.selectTotalNoticeList();
+    }
+
+    public TotalNotice getTotalNotice(int noticeNo) {
+        return totalNoticeMapper.selectTotalNoticeOne(noticeNo);
+    }
+
+    public int insertTotalNotice(TotalNotice totalNotice) {
+        return totalNoticeMapper.insertTotalNotice(totalNotice);
+    }
+
+    public void updateTotalNoticeCount(int noticeNo) {
+        totalNoticeMapper.updateTotalNoticeCount(noticeNo);
+    }
+
+    public int deleteTotalNotice(int noticeNo) {
+        return totalNoticeMapper.deleteTotalNotice(noticeNo);
+    }
+
+    public int updateTotalNotice(TotalNotice totalNotice) {
+        return totalNoticeMapper.updateTotalNotice(totalNotice);
+    }
 }

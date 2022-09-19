@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.LMS.vo.TotalNotice;
+import org.mybatis.spring.annotation.MapperScan;
 
 @Mapper
 public interface TotalNoticeMapper {
@@ -16,10 +17,10 @@ public interface TotalNoticeMapper {
 	
 
 	// 전체공지사항 목록
-	List<Map<String, Object>> selectTotalNoticeList();
+	List<TotalNotice> selectTotalNoticeList();
 	
 	// 공지사항 상세보기
-	public TotalNotice selectTotalNoticeOne();
+	public TotalNotice selectTotalNoticeOne(int noticeNo);
 	
 
 	// 공지사항 추가
@@ -30,7 +31,12 @@ public interface TotalNoticeMapper {
 	
 	// 공지사항 삭제
 	public int deleteTotalNoticeOne(int totalNoticeNo);
-	
 
+	public int insertTotalNotice(TotalNotice totalNotice);
 
+	public void updateTotalNoticeCount(int noticeNo);
+
+	public int deleteTotalNotice(int noticeNo);
+
+	public int updateTotalNotice(TotalNotice totalNotice);
 }

@@ -2,94 +2,82 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.mapper.TotalNoticeMapper">
 
-	<!-- 전체공지사항 목록 리스트 -->
-	<select id="selectTotalNoticeList" parameterType="com.gd.LMS.vo.TotalNotice" resultType="com.gd.LMS.vo.TotalNotice">
-		SELECT 
-			notice_no noticeNo,
-			department_code departmentCode,
-			member_id memberId,
-			notice_title noticeTitle,
-			notice_content noticeContent,
-			view view,
-			create_date createDate,
-			update_date updateDate
-		FROM
-			total_notice
-	
-	</select>
-	
-	
-	<!-- 전체공지사항 상세보기 -->
-	<select id="selectTotalNoticeOne" parameterType="com.gd.LMS.vo.TotalNotice" resultType="com.gd.LMS.vo.TotalNotice">
-		SELECT 
-			create_date createDate,
-			view view,
-			notice_title noticeTitle,
-			notice_content noticeContent
-			
-		FROM
-			total_notice
-		WHERE
-			notice_no = #{NoticeNo}
-	</select>
-	
-	
-		<!-- 전체공지사항 추가 -->
-	<insert id="insertTotalNoticeOne" parameterType="com.gd.LMS.vo.TotalNotice">
-		INSERT INTO total_notice(
-		
-			
-			notice_title,
-			notice_content,
-			member_id
+    <!-- 전체공지사항 목록 리스트 -->
+    <select id="selectTotalNoticeList" resultType="com.gd.LMS.vo.TotalNotice">
+        SELECT notice_no       noticeNo,
+               department_code departmentCode,
+               member_id       memberId,
+               notice_title    noticeTitle,
+               notice_content  noticeContent,
+            view view,
+            create_date createDate,
+            update_date updateDate
+        FROM
+            total_notice
 
-		)VALUES(
-			#{noticeTitle},
-			#{NoticeContent},
-			#{memberId}
-
-		)
-	</insert>
+    </select>
 
 
-	
-	<!-- 공지사항 조회수 증가 -->
-	<update id="updateTotalNoticeOneCount" parameterType="com.gd.LMS.vo.TotalNotice">
-		UPDATE 
-			total_notice
-		SET
-			view = #{view}+1
-		WHERE
-			notice_no = #{noticeNo}
-	
-	</update>
-	
-	
-	
-	<!-- 공지사항 수정 -->
-	<update id="updateTotalNoticeOne" parameterType="com.gd.LMS.vo.TotalNotice">
-		UPDATE 
-			lms_notice
-		SET
-			lms_notice_title = #{lmsNoticeTitle},
-			lms_notice_content = #{lmsNoticeContent},
-			lms_notice_updatedate = now()
-		WHERE
-			lms_notice_no = #{lmsNoticeNo}
-	</update>
-	
-	<!-- 공지사항 삭제 -->
-	<delete id="deleteTotalNoticeOne" parameterType="int">
-		DELETE FROM
-			lms_notice
-		WHERE
-			lms_notice_no = #{lmsNoticeNo}
-	</delete>
-	
+    <!-- 전체공지사항 상세보기 -->
+    <select id="selectTotalNoticeOne" parameterType="int" resultType="com.gd.LMS.vo.TotalNotice">
+        SELECT notice_no       noticeNo,
+               department_code departmentCode,
+               member_id       memberId,
+               notice_title    noticeTitle,
+               notice_content  noticeContent,
+            view view,
+            create_date createDate,
+            update_date updateDate
+        FROM
+            total_notice
+        WHERE
+            notice_no = #{noticeNo}
+    </select>
 
 
+    <!-- 전체공지사항 추가 -->
+    <insert id="insertTotalNotice" parameterType="com.gd.LMS.vo.TotalNotice">
+        INSERT INTO total_notice(
+                                 notice_title,
+                                 notice_content,
+                                 member_id,
+                                 create_date,
+                                 update_date
+                                 )
+        VALUES (
+                #{noticeTitle},
+                #{noticeContent},
+                #{memberId},
+                now(),
+                now()
+                )
+    </insert>
+
+    <!-- 공지사항 조회수 증가 -->
+    <update id="updateTotalNoticeCount" parameterType="com.gd.LMS.vo.TotalNotice">
+        UPDATE
+            total_notice
+        SET view = view + 1
+        WHERE notice_no = #{noticeNo}
+    </update>
 
 
+    <!-- 공지사항 수정 -->
+    <update id="updateTotalNotice" parameterType="com.gd.LMS.vo.TotalNotice">
+        UPDATE
+            total_notice
+        SET notice_title      = #{noticeTitle},
+            notice_content    = #{noticeContent},
+            update_date = now()
+        WHERE notice_no = #{noticeNo}
+    </update>
+
+    <!-- 공지사항 삭제 -->
+    <delete id="deleteTotalNotice" parameterType="int">
+        DELETE
+        FROM total_notice
+        WHERE notice_no = #{noticeNo}
+    </delete>
 
 
 </mapper>
