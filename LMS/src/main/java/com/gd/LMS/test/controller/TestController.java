@@ -18,12 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 public class TestController {
 	@Autowired TestService testService;
 	
-	@GetMapping("/testList")
+	@GetMapping("/test/testList")
 	public String testList(PagingVo vo, Model model
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "5") int rowPerPage
-			, @RequestParam(value="keyword") String keyword
-			, @RequestParam(value="searchType") String searchType) {
+			, @RequestParam(value="keyword", defaultValue = "") String keyword
+			, @RequestParam(value="searchType", defaultValue = "") String searchType) {
 		
 		
 		int totalCount = testService.countBoard(keyword, searchType);
@@ -39,30 +39,30 @@ public class TestController {
 		
 		System.out.println(testService.selectBoard(vo));
 		
-		return "testList";
+		return "test/testList";
 	}
 	
-	@GetMapping("/testNoticeOne")
+	@GetMapping("/test/testNoticeOne")
 	public String testNoticeOne(Model model, @RequestParam(value="lecNoticeNo") int lecNoticeNo) {
 		LectureNotice lectureNotice = testService.getNoticeOne(lecNoticeNo);
 		
 		model.addAttribute("one", lectureNotice);
 		
-		return "testNoticeOne";
+		return "test/testNoticeOne";
 	}
 	
-	@GetMapping("/addNotice")
+	@GetMapping("/test/addNotice")
 	public String addNotice() {
 		return "addNotice";
 	}
 	
-	@PostMapping("/addNotice")
+	@PostMapping("/test/addNotice")
 	public String addNotice(LectureNotice lectureNotice) {
 		
 		int row = testService.addNotice(lectureNotice);
 		
 		System.out.println(row);
 		
-		return "redirect:/testNoticeOne?" + row;
+		return "redirect:/test/testNoticeOne?" + row;
 	}
 }
