@@ -20,6 +20,18 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 	@Autowired LoginService loginService;
 	
+	
+	//로그아웃
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		//디버깅
+		log.debug(TeamColor.KBW+"로그아웃");
+		
+		//세션무효화
+		session.invalidate();
+		
+		return "redirect:/login";
+	}
 
 	
 	// 로그인
