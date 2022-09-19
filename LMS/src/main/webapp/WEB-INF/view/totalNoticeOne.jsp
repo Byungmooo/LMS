@@ -58,7 +58,7 @@
 					<table class="table table-bordered">
 					
 						<tr>
-							<th>글쓴이</th>
+							<th>작성자</th>
 							<td>${totalNotice.writer}</td>
 							<th>부서코드</th>
 							<td>${totalNotice.departmentCode}</td>

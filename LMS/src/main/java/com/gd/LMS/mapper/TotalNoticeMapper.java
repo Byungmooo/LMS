@@ -24,19 +24,21 @@ public interface TotalNoticeMapper {
 	
 
 	// 공지사항 추가
-	public int insertTotalNoticeOne();
+	public int insertTotalNotice(TotalNotice totalNotice);
 	
 	// 공지사항 수정
-	public int updateTotalNoticeOne(TotalNotice totalNotice);
+	public int updateTotalNotice(TotalNotice totalNotice);
 	
 	// 공지사항 삭제
 	public int deleteTotalNoticeOne(int totalNoticeNo);
 
-	public int insertTotalNotice(TotalNotice totalNotice);
-
+	
+	// 공지사항 조회수
 	public void updateTotalNoticeCount(int noticeNo);
-
+	
+	//공지사항 삭제
 	public int deleteTotalNotice(int noticeNo);
 
-	public int updateTotalNotice(TotalNotice totalNotice);
+
+
 }

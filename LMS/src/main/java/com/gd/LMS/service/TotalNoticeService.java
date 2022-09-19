@@ -26,7 +26,7 @@ public class TotalNoticeService {
     public List<TotalNotice> getTotalNoticeList() {
         return totalNoticeMapper.selectTotalNoticeList();
     }
-
+   
     public TotalNotice getTotalNotice(int noticeNo) {
         return totalNoticeMapper.selectTotalNoticeOne(noticeNo);
     }

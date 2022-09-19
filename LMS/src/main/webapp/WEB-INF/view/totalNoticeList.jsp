@@ -88,7 +88,7 @@
 				<div class="row">
 					<div class="col-sm-2 col-12 text-center"></div>
 					<div class="col-sm-7 col-12 text-center">
-						<form action="${pageContext.request.contextPath}/testList" method="get">
+						<form action="${pageContext.request.contextPath}/totalNotice" method="get">
 							<div class="row">
 								<div class="col-sm-3 col-12 text-center">
 									<select name="searchType" class="form-select">
