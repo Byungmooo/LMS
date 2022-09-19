@@ -1,11 +1,12 @@
-package com.gd.LMS.service;
+package com.gd.LMS.member.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.mapper.MemberMapper;
+import com.gd.LMS.member.mapper.MemberMapper;
+import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -44,4 +45,11 @@ public class MemberService {
 		return result;
 	}
 	
+	public Member getLogin(Member member) {
+		Member result = memberMapper.selectLogin(member);
+		
+		log.debug(TeamColor.KBW + result + "<-- getLogin" );
+		
+		return result;
+	}
 }

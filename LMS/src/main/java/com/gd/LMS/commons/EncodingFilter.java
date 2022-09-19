@@ -1,4 +1,4 @@
-package com.gd.LMS.filter;
+package com.gd.LMS.commons;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -8,8 +8,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
-
-import com.gd.LMS.commons.TeamColor;
 
 import lombok.extern.slf4j.Slf4j;
 
