@@ -68,7 +68,7 @@ public class MemberController {
 			log.debug(TeamColor.LCH + " <-- addMember success (Controller)");
 		}
 		
-		return "redirect:/index";
+		return "redirect:/login";
 	}
 	
 	// id 중복체크

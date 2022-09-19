@@ -25,10 +25,6 @@
 	<!-- Overlay -->
 	<div class="layout-overlay layout-menu-toggle"></div>
 	</div>
-	<!-- / Layout wrapper -->
-	<div class="buy-now">
-		<a href="" target="_blank" class="btn btn-danger btn-buy-now">FBI Warnning</a>
-	</div>
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->

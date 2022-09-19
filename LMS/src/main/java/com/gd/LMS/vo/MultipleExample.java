@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class MultipleExample { 
 
-	
 	private int exampleNo;			//문제번호
 	private int multipleNo;			//객관식번호
 	private int example;			//문제
