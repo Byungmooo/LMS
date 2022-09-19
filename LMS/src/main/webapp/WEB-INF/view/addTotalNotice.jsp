@@ -12,7 +12,7 @@
 		
 		<hr class="my-5" />
 		
-		<!-- studentLectureOne -->
+		<!-- addTotalNotice -->
 		<div class="row text-center">
 			<div class="card">
 				<h5 class="card-header"><strong>공지사항 작성</strong></h5>

@@ -11,8 +11,24 @@
 		<span class="text-muted fw-light">"이름"님 /</span>전체게시판
 	</h4>
 	<hr class="my-5" />
+			<!-- RowPerPage Option -->
+			<div class="row">
+				<div class="col-sm-9 col-12 text-center"></div>
+				<div class="col-sm-3 col-12 text-center">
+					<select  class="form-select" name="sel" id="#">
+						<option value="5"
+							<c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기</option>
+						<option value="10"
+							<c:if test="${paging.rowPerPage == 10}">selected</c:if>>10줄 보기</option>
+						<option value="15"
+							<c:if test="${paging.rowPerPage == 15}">selected</c:if>>15줄 보기</option>
+						<option value="20"
+							<c:if test="${paging.rowPerPage == 20}">selected</c:if>>20줄 보기</option>
+					</select>
+				</div>
+			</div>
 
-	<!-- studentLectureList -->
+	<!-- TotalNoticeList -->
 	<div class="card">
 		<h5 class="card-header">전체게시판</h5>
 		<div class="table-responsive text-nowrap">
@@ -67,10 +83,36 @@
 			</table>
 		</div>
 	</div>
+	<!--  search bar -->
+				<hr class="my-3" />
+				<div class="row">
+					<div class="col-sm-2 col-12 text-center"></div>
+					<div class="col-sm-7 col-12 text-center">
+						<form action="${pageContext.request.contextPath}/testList" method="get">
+							<div class="row">
+								<div class="col-sm-3 col-12 text-center">
+									<select name="searchType" class="form-select">
+										<option value="" selected="selected">전체</option>
+										<option value="writer">작성자</option>
+										<option value="title">제목</option>
+										<option value="content">내용</option>
+									</select>
+								</div>
+								<div class="col-sm-7 col-12 text-center">
+									<input name="keyword" class="form-control">
+								</div>
+								<div class="col-sm-2 col-12 text-center">
+									<button type="submit" class="btn btn-dark">검색</button>
+								</div>
+							</div>
+						</form>
+					</div>
+		<!--  search bar end -->
+
+</div>
 	<button class="btn btn-danger" type="button" id="btnWrite"
 		style="float: right"
 		onclick="location.href='${pageContext.request.contextPath}/addTotalNotice'">글쓰기</button>
-</div>
 <!-- / Main -->
 
 

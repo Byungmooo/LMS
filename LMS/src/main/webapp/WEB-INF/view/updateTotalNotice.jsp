@@ -43,9 +43,9 @@
                     <div style="width:650px; text-align: center;">
                         <!-- 게시물번호를 hidden으로 처리 -->
                         <input type="hidden" name="noticeNo" value="${totalNotice.noticeNo}">
-                        <button type="button" id="btnUpdate">수정</button>
-                        <button type="button" id="btnDelete">삭제</button>
-                        <button type="button" id="btnCancel" onclick="window.history.back()">취소</button>
+ 						<button class="btn btn-primary" type="button" id="btnUpdate">수정</button>
+                        <button class="btn btn-danger" type="button" id="btnDelete">삭제</button>
+                        <button class="btn btn-warning" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
                     </div>
                 </form>
             </div>
