@@ -123,7 +123,7 @@
 
               <form id="login" class="mb-3" action="${pageContext.request.contextPath}/login" method="POST">
                 <div class="mb-3">
-                  <label for="email" class="form-label">User ID</label>
+                  <label for="email" class="form-label" >User ID</label>
                   <input
                     type="text"
                     class="form-control"
@@ -131,6 +131,7 @@
                     name="memberId"
                     placeholder="Enter your UserID"
                     autofocus
+                    value="admin"
                   />
                 </div>
                 <div class="mb-3 form-password-toggle">
@@ -145,6 +146,7 @@
                       name="memberPw"
                       placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                       aria-describedby="password"
+                      value="1234"
                     />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
