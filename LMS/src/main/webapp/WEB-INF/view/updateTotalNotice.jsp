@@ -23,7 +23,7 @@
                     </div>
 
                     <div>
-                        조회수 : ${totalNotice.view}
+                        조회수 : ${totalNotice.views}
                     </div>
                     <div>
                         제목

@@ -6,10 +6,10 @@
     <select id="selectTotalNoticeList" resultType="com.gd.LMS.vo.TotalNotice">
         SELECT notice_no       noticeNo,
                department_code departmentCode,
-               member_id       memberId,
+               writer       writer,
                notice_title    noticeTitle,
                notice_content  noticeContent,
-            view view,
+            views views,
             create_date createDate,
             update_date updateDate
         FROM
@@ -22,10 +22,10 @@
     <select id="selectTotalNoticeOne" parameterType="int" resultType="com.gd.LMS.vo.TotalNotice">
         SELECT notice_no       noticeNo,
                department_code departmentCode,
-               member_id       memberId,
+              writer       writer,
                notice_title    noticeTitle,
                notice_content  noticeContent,
-            view view,
+            views views,
             create_date createDate,
             update_date updateDate
         FROM
@@ -40,14 +40,14 @@
         INSERT INTO total_notice(
                                  notice_title,
                                  notice_content,
-                                 member_id,
+                                 writer,
                                  create_date,
                                  update_date
                                  )
         VALUES (
                 #{noticeTitle},
                 #{noticeContent},
-                #{memberId},
+                #{writer},
                 now(),
                 now()
                 )
@@ -57,7 +57,7 @@
     <update id="updateTotalNoticeCount" parameterType="com.gd.LMS.vo.TotalNotice">
         UPDATE
             total_notice
-        SET view = view + 1
+        SET views = views + 1
         WHERE notice_no = #{noticeNo}
     </update>
 

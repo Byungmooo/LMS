@@ -16,7 +16,7 @@
             </div>
             <div class="card-body">
                 <form name="form" action="${pageContext.request.contextPath}/addTotalNotice" method="post">
-                    <input type="hidden" name="memberId" value="테스트">
+                    <input type="hidden" name="writer" value="테스트">
 <%--                    <input type="hidden" name="memberId" value="${session.id}">--%>
                     <div>
                         제목
@@ -27,6 +27,7 @@
                         <textarea name="noticeContent" id="content" rows="4" cols="80"
                                   placeholder="내용을 입력해주세요"></textarea>
                     </div>
+               
 
                     <div style="width:650px; text-align: center;">
                         <button class="btn btn-secondary" type="button" id="btnAdd">추가</button>
