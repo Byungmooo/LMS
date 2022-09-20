@@ -16,6 +16,17 @@ import lombok.extern.slf4j.Slf4j;
 public class StudentService {
 	@Autowired StudentMapper studentMapper;
 	
+	// 학생코드
+	public int getStudentCode(String memberId) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
+		
+		// 매퍼메서드 호출 후 리턴값 디버깅
+		int memberCode = studentMapper.selectStudentCode(memberId);
+		
+		return memberCode;
+	}
+	
 	// 학생이 수강중인 강의리스트
 	public List<Map<String, Object>> getStudentLectureList(int studentCode) {
 		// 파라미터 디버깅

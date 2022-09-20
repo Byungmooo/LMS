@@ -79,7 +79,7 @@
 						<div class="mb-3">
 							<label for="email" class="form-label">Member ID</label> <input
 								type="text" class="form-control" id="memberId" name="memberId"
-								placeholder="Enter your UserID" autofocus value="admin" />
+								placeholder="Enter your UserID" autofocus value="student" />
 						</div>
 						<div class="mb-3 form-password-toggle">
 							<div class="d-flex justify-content-between">
@@ -109,7 +109,7 @@
 
 					<p class="text-center">
 						<span>New on our LMS?</span> <a
-							href="${pageContext.request.contextPath}/member/memberRegister"><span>회원가입</span>
+							href="${pageContext.request.contextPath}/memberRegister"><span>회원가입</span>
 						</a>
 					</p>
 				</div>

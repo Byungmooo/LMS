@@ -21,4 +21,7 @@ public interface MemberMapper {
 	
 	// 회원상태 비활성화
 	int updateMemberActiveN();
+	
+	// 회원상태 활성화
+	int updateMemberActiveY(Member paramMember);
 }

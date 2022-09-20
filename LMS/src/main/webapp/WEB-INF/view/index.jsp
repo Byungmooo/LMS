@@ -21,12 +21,12 @@
 				<div class="card h-100">
 					<div class="card-header">
 						<div class="card-title mb-0">
-							<h5 class="m-0 me-2">큰글씨</h5>
-							<small class="text-muted">작은글씨</small>
+							<h5 class="m-0 me-2">${memberId}</h5>
+							<small class="text-muted">${memberType}</small>
 						</div>
 					</div>
 					<div class="card-body">
-						내용
+						${memberCode}
 					</div>
 				</div>
 			</div>

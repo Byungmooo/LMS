@@ -29,7 +29,7 @@ public class MemberController {
 		// 멤버 세션 초기화
 		session.invalidate();
 		
-		return "redirect:/login";
+		return "redirect:/memberLogin";
 	}
 
 	
@@ -78,6 +78,9 @@ public class MemberController {
 			}
 		}
 		
+		// 교수, 직원, 학생 분류해 멤버코드 가져오기
+		// int memberCode = memberService.getMemberCode(resultMember.getMemberId());
+		
 		// 로그인에 성공하고 활성화 여부가 'Y'인 계정정보 세션에 저장
 		session.setAttribute("memberId", resultMember.getMemberId());
 		session.setAttribute("memberType", resultMember.getMemberType());
@@ -98,7 +101,7 @@ public class MemberController {
 	public String memberRegister() {
 		log.debug(TeamColor.LCH + "--- memberRegister Controller GetMapping ---");
 		
-		return "memberRegister";
+		return "member/memberRegister";
 	}
 	
 	// 회원가입 액션
@@ -121,7 +124,7 @@ public class MemberController {
 		int result = memberService.addMemberRegister(paramMember);
 		
 		// 리턴값 디버깅 실패 시 에러메세지 
-		if(result != 0) {
+		if(result == 0) {
 			log.debug(TeamColor.LCH + "result (controller) > " + paramMember);
 			// rtts.addFlashAttribute("result", "fail");
 			
@@ -129,7 +132,7 @@ public class MemberController {
 		}
 		log.debug(TeamColor.LCH + "result (controller) > " + paramMember);
 		
-		return "redirect:/login";
+		return "redirect:/memberLogin";
 	}
 	
 	// 회원가입 Id 중복체크
@@ -158,12 +161,34 @@ public class MemberController {
 		
 		return returnJson;
 	}
-	
-	// 휴면계정처리 폼
+
+	// 회원상태 활성화 폼
 	@GetMapping("/memberActive")
 	public String memberActice() {
 		log.debug(TeamColor.LCH + "--- memberActive Controller GetMapping ---");
 		
-		return "memberActive";
+		return "member/memberActive";
 	}
+	
+	// 회원상태 활성화 액션 (휴면계정 잠금 해제)
+	@PostMapping("/memberActive")
+	public String memberActive(RedirectAttributes rtts, Member paramMember) {
+		log.debug(TeamColor.LCH + "--- memberActive Controller PostMapping ---");
+		
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "member (controller) > " + paramMember);
+		
+		// 메서드 호출 후 리턴값 디버깅
+		int result = memberService.modifyMemberActiveY(paramMember);
+		log.debug(TeamColor.LCH + "result (controller) > " + result);
+		
+		if(result == 0) {
+			rtts.addFlashAttribute("result", "fail");
+			
+			return "redirect:/memberActive?";
+		}
+		
+		return "redirect:/memberLogin";
+	}
+	
 }

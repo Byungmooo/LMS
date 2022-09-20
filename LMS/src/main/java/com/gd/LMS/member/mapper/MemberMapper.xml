@@ -72,4 +72,21 @@
 		WHERE 
 			DATEDIFF(NOW(), last_login) > 90 AND active = 'Y'
 	</update>
+	
+	<!-- 휴면계정 잠금 해제 -->
+	<update id="updateMemberActiveY" parameterType="com.gd.LMS.vo.Member">
+		UPDATE 
+			member
+		SET 
+			active = 'Y'
+		WHERE 
+			member_id = #{memberId} AND
+			member_pw = #{memberPw} AND
+			member_name = #{memberName} AND
+			member_birth = #{memberBirth} AND
+			member_gender = #{memberGender} AND
+			member_email = #{memberEmail} AND 
+			active = 'N'
+			<!-- active = 'W' 도 같은 메서드? -->
+	</update>
 </mapper>

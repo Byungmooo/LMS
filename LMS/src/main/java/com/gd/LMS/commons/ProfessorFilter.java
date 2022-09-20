@@ -25,7 +25,7 @@ public class ProfessorFilter implements Filter {
 		HttpSession session = null;
 		if(request instanceof HttpServletRequest) {
 			session = ((HttpServletRequest) request).getSession();
-			if (session.getAttribute("memberId") == null || session.getAttribute("memberType") != "교수") {
+			if (session.getAttribute("memberId") == null || !session.getAttribute("memberType").equals("교수")) {
 				((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/login");
 				return;
 			} 

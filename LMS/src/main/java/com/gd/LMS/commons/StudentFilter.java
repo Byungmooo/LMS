@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.gd.LMS.student.service.StudentService;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -25,8 +29,10 @@ public class StudentFilter implements Filter {
 		HttpSession session = null;
 		if(request instanceof HttpServletRequest) {
 			session = ((HttpServletRequest) request).getSession();
-			if (session.getAttribute("memberId") == null || session.getAttribute("memberType") != "학생") {
-				((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/login");
+			log.debug(TeamColor.LCH + "memberId > " + session.getAttribute("memberId"));
+			log.debug(TeamColor.LCH + "memberType > " + session.getAttribute("memberType"));
+			if (session.getAttribute("memberId") == null || !session.getAttribute("memberType").equals("학생")) {
+				((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/memberLogin");
 				return;
 			}
 		} else {

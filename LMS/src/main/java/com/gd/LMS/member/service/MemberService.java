@@ -68,8 +68,20 @@ public class MemberService {
 	public int modifyMemberActiveN() {
 		// 매퍼쿼리 실행 후 리턴값 확인
 		int row = memberMapper.updateMemberActiveN();
-		log.debug(TeamColor.LCH + "row (mapper) > " + row);
+		log.debug(TeamColor.LCH + "row (service) > " + row);
 				
 		return row;
+	}
+	
+	// 회원상태 활성화 (휴면계정 잠금 해제)
+	public int modifyMemberActiveY(Member paramMember) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "member (service) > " + paramMember);
+		
+		// 메서드 호출 후 리턴값 디버깅
+		int result = memberMapper.updateMemberActiveY(paramMember);
+		log.debug(TeamColor.LCH + "result (service) > " + result);
+		
+		return result;
 	}
 }

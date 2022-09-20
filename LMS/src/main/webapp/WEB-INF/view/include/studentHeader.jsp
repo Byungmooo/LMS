@@ -49,6 +49,7 @@
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 <script src="${pageContext.request.contextPath}/assets/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 </head>
 <body>
 	<!-- Layout wrapper -->
@@ -190,7 +191,7 @@
 								</a>
 							</li>
 							<li class="menu-item">
-								<a href="" class="menu-link">
+								<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" class="menu-link">
 									수강중인 강의
 								</a>
 							</li>
@@ -288,7 +289,7 @@
 										<div class="dropdown-divider"></div>
 									</li>
 									<li>
-										<a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
+										<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberLogout">
 										<i class="bx bx-power-off me-2"></i> 
 											<span class="align-middle">
 												Log Out

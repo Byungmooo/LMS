@@ -21,14 +21,14 @@ public class StudentController {
 	
 	// 학생이 수강중인 강의리스트
 	@GetMapping("/student/studentLectureList")
-	public String studentLectureList(Model model) {
+	public String studentLectureList(Model model, @RequestParam (value = "memberCode") int memberCode) {
 		log.debug(TeamColor.LCH + "--- studentLectureList Controller GetMapping ---");
 		
 		// 학생코드 추후 수정예정
-		int studentCode = 10;
+		// int studentCode = 10;
 		
 		// 학생수강리스트 메서드 호출 후 리턴값 디버깅
-		List<Map<String, Object>> studentLectureList = studentService.getStudentLectureList(studentCode);
+		List<Map<String, Object>> studentLectureList = studentService.getStudentLectureList(memberCode);
 		log.debug(TeamColor.LCH + "studentLectureList (controller) > " + studentLectureList);
 		
 		model.addAttribute("list", studentLectureList);

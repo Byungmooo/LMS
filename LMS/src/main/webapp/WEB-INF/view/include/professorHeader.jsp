@@ -49,6 +49,7 @@
 <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
 <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 <script src="${pageContext.request.contextPath}/assets/js/config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 </head>
 <body>
 	<!-- Layout wrapper -->
@@ -309,7 +310,7 @@
 										<div class="dropdown-divider"></div>
 									</li>
 									<li>
-										<a class="dropdown-item" href="${pageContext.request.contextPath}/logout">
+										<a class="dropdown-item" href="${pageContext.request.contextPath}/member/memberLogout">
 										<i class="bx bx-power-off me-2"></i> 
 											<span class="align-middle">
 												Log Out
