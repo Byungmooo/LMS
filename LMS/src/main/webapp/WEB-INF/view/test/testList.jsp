@@ -12,7 +12,7 @@
 		
 		<!-- LectureNoticeList -->
 		<div class="card text-center">
-			<h5 class="card-header">강의공지</h5>
+			<h5 class="card-header">강의공지잉</h5>
 			<!-- RowPerPage Option -->
 			<div class="row">
 				<div class="col-sm-9 col-12 text-center"></div>
