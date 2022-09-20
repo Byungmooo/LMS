@@ -30,58 +30,58 @@
 
 	<!-- 총 게시글 갯수 출력 -->
 	<select id="countBoard" parameterType="com.gd.LMS.utils.PagingVo" resultType="int">
-		SELECT COUNT(*) FROM lecture_notice WHERE 1=1 <include refid="search"/>
+		SELECT COUNT(*) FROM total_notice WHERE 1=1 <include refid="search"/>
 	</select>
 	
 	<!-- 페이징 처리 후 게시글 조회 -->
-	<select id="selectBoard" parameterType="com.gd.LMS.utils.PagingVo" resultType="com.gd.LMS.vo.LectureNotice">
+	<select id="selectBoard" parameterType="com.gd.LMS.utils.PagingVo" resultType="com.gd.LMS.vo.TotalNotice">
 		SELECT
-			lec_notice_no lecNoticeNo,
-			opened_lec_no openedLecNo,
-			notice_title lecNoticeTitle,
-			notice_content lecNoticeContent,
-			views views,
-			create_date createDate,
-			update_date updateDate,
-			@SEQ := @SEQ+1 AS SEQ
-		FROM 
-			lecture_notice,(SELECT @SEQ := 0) A
-		WHERE
-			1=1 <include refid="search"/>
-		ORDER BY 
-			lec_notice_no
-		LIMIT 
-			#{beginPage}, #{rowPerPage}
-	</select>
-	
-	<!-- 상세보기 -->
-	<select id="selectNoticeOne"  parameterType="int" resultType="com.gd.LMS.vo.LectureNotice">
-		SELECT
-			lec_notice_no lecNoticeNo,
-			opened_lec_no openedLecNo,
-			notice_title lecNoticeTitle,
-			notice_content lecNoticeContent,
-			views views,
+			notice_no noticeNo,
+			notice_title noticeTitle,
+			notice_content noticeContent,
+			writer,
+			views,
 			create_date createDate,
 			update_date updateDate
 		FROM 
-			lecture_notice
+			total_notice
 		WHERE
-			lec_notice_no = #{lecNoticeNo}
+			1=1 <include refid="search"/>
+		ORDER BY 
+			notice_no
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 상세보기 -->
+	<select id="selectNoticeOne"  parameterType="int" resultType="com.gd.LMS.vo.TotalNotice">
+		SELECT
+			notice_no noticeNo,
+			department_code departmentCode,
+			notice_title noticeTitle,
+			notice_content noticeContent,
+			writer,
+			views,
+			create_date createDate,
+			update_date updateDate
+		FROM 
+			total_notice
+		WHERE
+			notice_no = #{noticeNo}
 	</select>
 	
 	<!-- 추가 -->
-	<insert id="insertNotice" parameterType="com.gd.LMS.vo.LectureNotice">
+	<insert id="insertNotice" parameterType="com.gd.LMS.vo.TotalNotice">
 		INSERT INTO lecture_notice (
-			opened_lec_no,
+			department_code,
 			notice_title,
 			notice_content,
 			writer,
 			create_date	
 		) VALUES (
-			#{openedLecNo},
-			#{lecNoticeTitle},
-			#{lecNoticeContent},
+			#{departmentCode},
+			#{noticeTitle},
+			#{noticeContent},
 			#{writer},
 			NOW()
 		)

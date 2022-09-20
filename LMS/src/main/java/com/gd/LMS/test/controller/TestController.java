@@ -1,5 +1,7 @@
 package com.gd.LMS.test.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.test.service.TestService;
 import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.LectureNotice;
+import com.gd.LMS.vo.TotalNotice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class TestController {
 	@Autowired TestService testService;
 	
-	@GetMapping("/test/testList")
+	@GetMapping("/testList")
 	public String testList(PagingVo vo, Model model
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
@@ -27,39 +31,38 @@ public class TestController {
 		
 		
 		int totalCount = testService.countBoard(keyword, searchType);
-		
-		System.out.println(currentPage + " / " + rowPerPage + " / " + totalCount);
+		log.debug(TeamColor.LCH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 		
 		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+		log.debug(TeamColor.LCH + "PaginVo : " + vo);
 		
-		System.out.println(vo.toString());
+		List<TotalNotice> list = testService.selectBoard(vo);
+		log.debug(TeamColor.LCH + "noticeList : " + list);
 		
 		model.addAttribute("paging", vo);
-		model.addAttribute("viewAll", testService.selectBoard(vo));
-		
-		System.out.println(testService.selectBoard(vo));
-		
+		model.addAttribute("list", list);
+
 		return "test/testList";
 	}
 	
-	@GetMapping("/test/testNoticeOne")
-	public String testNoticeOne(Model model, @RequestParam(value="lecNoticeNo") int lecNoticeNo) {
-		LectureNotice lectureNotice = testService.getNoticeOne(lecNoticeNo);
+	@GetMapping("/testNoticeOne")
+	public String testNoticeOne(Model model, @RequestParam(value="noticeNo") int noticeNo) {
+		LectureNotice noticeOne = testService.getNoticeOne(noticeNo);
 		
-		model.addAttribute("one", lectureNotice);
+		model.addAttribute("one", noticeOne);
 		
 		return "test/testNoticeOne";
 	}
 	
-	@GetMapping("/test/addNotice")
+	@GetMapping("/addNotice")
 	public String addNotice() {
 		return "addNotice";
 	}
 	
-	@PostMapping("/test/addNotice")
-	public String addNotice(LectureNotice lectureNotice) {
+	@PostMapping("/addNotice")
+	public String addNotice(LectureNotice noticeNo) {
 		
-		int row = testService.addNotice(lectureNotice);
+		int row = testService.addNotice(noticeNo);
 		
 		System.out.println(row);
 		

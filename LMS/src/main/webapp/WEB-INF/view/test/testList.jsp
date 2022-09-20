@@ -41,12 +41,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="list" items="${viewAll}">
+						<c:forEach var="t" items="${list}">
 							<tr>
-								<td><strong>${list.SEQ}</strong></td>
-								<td><a href="${pageContext.request.contextPath}/testNoticeOne?lecNoticeNo=${list.lecNoticeNo}">${list.lecNoticeTitle}</a></td>
-								<td>${list.views}</td>
-								<td>${list.createDate}</td>
+								<td><strong>${t.noticeNo}</strong></td>
+								<td><a href="${pageContext.request.contextPath}/testNoticeOne?noticeNo=${t.noticeNo}">${t.noticeTitle}</a></td>
+								<td>${t.views}</td>
+								<td>${t.createDate}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
@@ -80,11 +80,11 @@
 					</div>
 				</div>
 				<div style="display: block; text-align: center;">		
-					<c:if test="${prePage}">
-						<a href="${pageContext.request.contextPath}/testList?currentPage=${paging.currentPage-1}
-							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">&lt;</a>
+					<c:if test="${paging.prePage}">
+						<a href="${pageContext.request.contextPath}/testList?currentPage=${paging.currentPage-10}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">이전</a>
 					</c:if>
-					<c:forEach begin="${paging.beginPage+1}" end="${paging.endPage}" var="p">
+					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
 						<c:choose>
 							<c:when test="${p == paging.currentPage }">
 								<b>${p}</b>
@@ -95,9 +95,10 @@
 							</c:when>
 						</c:choose>
 					</c:forEach>
-					<c:if test="${nextPage}">
-						<a href="${pageContext.request.contextPath}/testList?currentPage=${paging.currentPage+1}
-							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">&gt;</a>
+					
+					<c:if test="${paging.nextPage}">
+						<a href="${pageContext.request.contextPath}/testList?currentPage=${paging.currentPage+10}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">다음</a>
 					</c:if>
 				</div>
 			</div>

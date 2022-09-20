@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.gd.LMS.test.mapper.TestMapper;
 import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.LectureNotice;
+import com.gd.LMS.vo.TotalNotice;
 
 @Service
 public class TestService {
@@ -18,7 +19,7 @@ public class TestService {
 		return testMapper.countBoard(keyword, searchType);
 	}
 
-	public List<LectureNotice> selectBoard(PagingVo vo) {
+	public List<TotalNotice> selectBoard(PagingVo vo) {
 		return testMapper.selectBoard(vo);
 	}
 	
