@@ -32,8 +32,8 @@ public class TotalNoticeService {
         return totalNoticeMapper.selectTotalNoticeOne(noticeNo);
     }
 
-    public int insertTotalNotice(TotalNotice totalNotice) {
-        return totalNoticeMapper.insertTotalNotice(totalNotice);
+    public int addTotalNotice(TotalNotice totalNotice) {
+        return totalNoticeMapper.addTotalNotice(totalNotice);
     }
 
     public void updateTotalNoticeCount(int noticeNo) {

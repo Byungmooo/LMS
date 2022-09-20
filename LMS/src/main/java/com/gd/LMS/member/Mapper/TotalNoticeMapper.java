@@ -26,7 +26,7 @@ public interface TotalNoticeMapper {
 	
 
 	// 공지사항 추가
-	public int insertTotalNotice(TotalNotice totalNotice);
+	public int addTotalNotice(TotalNotice totalNotice);
 	
 	// 공지사항 수정
 	public int updateTotalNotice(TotalNotice totalNotice);
@@ -52,5 +52,8 @@ public interface TotalNoticeMapper {
 	
 	// 추가
 	public int insertNotice(TotalNotice totalNotice);
+
+
+
 
 }

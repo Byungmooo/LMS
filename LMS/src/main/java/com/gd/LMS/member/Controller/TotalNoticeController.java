@@ -69,7 +69,7 @@ public class TotalNoticeController {
     // 전체공지사항 추가
     @PostMapping("/addTotalNotice")
     public String addTotalNotice(TotalNotice totalNotice) {
-        int count = noticeService.insertTotalNotice(totalNotice);
+        int count = noticeService.addTotalNotice(totalNotice);
         if (count >= 1) {
         	log.debug(TeamColor.KJS + " [김진수] 전체공지 추가");
             return "redirect:totalNotice";

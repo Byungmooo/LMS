@@ -36,7 +36,7 @@
 
 
     <!-- 전체공지사항 추가 -->
-    <insert id="insertTotalNotice" parameterType="com.gd.LMS.vo.TotalNotice">
+    <insert id="addTotalNotice" parameterType="com.gd.LMS.vo.TotalNotice">
         INSERT INTO total_notice(
                                  notice_title,
                                  notice_content,
