@@ -147,7 +147,7 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-dock-top"></i>
-							내정보
+							직원정보 조회
 						</a>
 					</li>
 					<li class="menu-item">
