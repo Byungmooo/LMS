@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.LMS.utils.PagingVo;
+import com.gd.LMS.vo.LectureNotice;
 import com.gd.LMS.vo.TotalNotice;
 import org.mybatis.spring.annotation.MapperScan;
 
@@ -39,6 +41,16 @@ public interface TotalNoticeMapper {
 	//공지사항 삭제
 	public int deleteTotalNotice(int noticeNo);
 
+	// 게시물 총 갯수
+	public int countBoard(String keyword, String searchType);
 
+	// 페이징 처리 게시글 조회
+	public List<TotalNotice> selectBoard(PagingVo vo);
+	
+	// 상세보기
+	public TotalNotice selectNoticeOne(int noticeNo);
+	
+	// 추가
+	public int insertNotice(TotalNotice totalNotice);
 
 }

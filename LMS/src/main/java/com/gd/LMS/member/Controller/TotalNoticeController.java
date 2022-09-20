@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.Service.TotalNoticeService;
+import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.TotalNotice;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,9 +24,27 @@ public class TotalNoticeController {
 
     // 전체공지 목록 리스트
     @GetMapping(value = {"/totalNotice"})
-    public String TotalnNoticeList(Model model) {
+    public String TotalnNoticeList(PagingVo vo,Model model
+    		, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+			, @RequestParam(value="keyword", defaultValue = "") String keyword
+			, @RequestParam(value="searchType", defaultValue = "") String searchType){
         List<TotalNotice> list = noticeService.getTotalNoticeList();
         model.addAttribute("list", list);
+    	
+        int totalCount = noticeService.countBoard(keyword, searchType);
+		log.debug(TeamColor.LCH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
+		
+		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+		log.debug(TeamColor.LCH + "PaginVo : " + vo);
+		
+		List<TotalNotice> list1 = noticeService.selectBoard(vo);
+		log.debug(TeamColor.LCH + "noticeList : " + list1);
+		
+		model.addAttribute("paging", vo);
+		model.addAttribute("list", list1);
+        
+        
         log.debug(TeamColor.KJS + " [김진수] 전체공지 리스트");
         return "totalNoticeList";
     }

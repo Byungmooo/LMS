@@ -108,6 +108,29 @@
 						</form>
 					</div>
 		<!--  search bar end -->
+		
+				<div style="display: block; text-align: center;">		
+					<c:if test="${paging.prePage}">
+						<a href="${pageContext.request.contextPath}/totalNotice?currentPage=${paging.currentPage-10}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">이전</a>
+					</c:if>
+					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+						<c:choose>
+							<c:when test="${p == paging.currentPage }">
+								<b>${p}</b>
+							</c:when>
+							<c:when test="${p != paging.currentPage }">
+								<a href="${pageContext.request.contextPath}/totalNotice?currentPage=${p}
+									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">${p}</a>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					
+					<c:if test="${paging.nextPage}">
+						<a href="${pageContext.request.contextPath}/totalNotice?currentPage=${paging.currentPage+10}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">다음</a>
+					</c:if>
+				</div>
 
 </div>
 	<button class="btn btn-danger" type="button" id="btnWrite"
