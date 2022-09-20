@@ -146,20 +146,7 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-dock-top"></i>
-							학사정보
-						</a>
-						<!-- 메뉴 추가란 -->
-						<!-- <ul class="menu-sub">
-							<li class="menu-item"><a
-								href="" class="menu-link">
-									Account
-							</a></li>
-						</ul> -->
-					</li>
-					<li class="menu-item">
-						<a href="" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-							학적변동
+							내 정보
 						</a>
 					</li>
 					<li class="menu-item">
@@ -175,35 +162,34 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-collection"></i>
-							과제관리
-						</a>
-						<ul class="menu-sub">
-							<li class="menu-item">
-								<a href="" class="menu-link">
-									과제등록
-								</a>
-							</li>
-							<li class="menu-item">
-								<a href="" class="menu-link">
-									진행중인 과제
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li class="menu-item">
-						<a href="" class="menu-link menu-toggle"> 
-						<i class="menu-icon tf-icons bx bx-box"></i>
 							강의관리
 						</a>
 						<ul class="menu-sub">
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									강의시간표
+									진행중인 강의
 								</a>
 							</li>
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									진행중인 강의
+									수업일정
+								</a>
+							</li>
+						</ul>
+					</li>
+					
+					<!-- assignment -->
+					<li class="menu-header small text-uppercase"><span
+						class="menu-header-text">assignment</span></li>
+					<li class="menu-item">
+						<a href="" class="menu-link menu-toggle"> 
+						<i class="menu-icon tf-icons bx bx-box"></i>
+							과제관리
+						</a>
+						<ul class="menu-sub">
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									진행중인 과제
 								</a>
 							</li>
 						</ul>
@@ -213,6 +199,29 @@
 						<i class="menu-icon tf-icons bx bx-crown"></i>
 							출석관리
 						</a>
+					</li>
+					
+					
+					<!-- multiple_example -->
+					<li class="menu-header small text-uppercase"><span
+						class="menu-header-text">multiple_example</span></li>
+					<li class="menu-item">
+						<a href="" class="menu-link menu-toggle"> 
+						<i class="menu-icon tf-icons bx bx-box"></i>
+							시험관리
+						</a>
+						<ul class="menu-sub">
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									시험문제 등록(주)
+								</a>
+							</li>
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									시험문제 등록(객)
+								</a>
+							</li>
+						</ul>
 					</li>
 
 					<!-- 그 외 -->

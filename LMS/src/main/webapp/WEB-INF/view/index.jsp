@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>		
+<%@ include file="/WEB-INF/view/include/professorHeader.jsp"%>		
 		<!-- Main -->
 		<div class="container-xxl flex-grow-1 container-p-y">	  
 			<!-- Row1 구분 -->
