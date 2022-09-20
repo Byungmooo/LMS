@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/include/loginHeader.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<!-- Header -->
+<c:import url="/WEB-INF/view/include/loginHeader.jsp"></c:import>
 <!-- Main -->
 <div class="container-xxl">
 	<div class="authentication-wrapper authentication-basic container-p-y">
@@ -129,4 +128,5 @@
 		alert('관리자의 승인이 필요한 회원입니다.');
 	}
 </script>
-<%@ include file="/WEB-INF/view/include/loginFooter.jsp"%>
+<!-- Footer -->
+<c:import url="/WEB-INF/view/include/loginFooter.jsp"></c:import> 

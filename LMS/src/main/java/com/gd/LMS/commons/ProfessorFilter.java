@@ -9,6 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +23,10 @@ public class ProfessorFilter implements Filter {
 		HttpSession session = null;
 		if(request instanceof HttpServletRequest) {
 			session = ((HttpServletRequest) request).getSession();
-			/*	
-			if ((session.getAttribute("인증속성").getLevel == null) { // 인정범위에 따라 level<3 ... 
-					return
-			}
-			*/
+			if (session.getAttribute("memberId") == null || session.getAttribute("memberType") != "교수") {
+				((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/login");
+				return;
+			} 
 		} else {
 			log.debug("웹 요청이 아닙니다.");
 			// redirect... 404 Page??

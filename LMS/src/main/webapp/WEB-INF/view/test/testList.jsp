@@ -81,7 +81,7 @@
 				</div>
 				<div style="display: block; text-align: center;">		
 					<c:if test="${paging.prePage}">
-						<a href="${pageContext.request.contextPath}/testList?currentPage=${paging.currentPage-10}
+						<a href="${pageContext.request.contextPath}/testList?currentPage=${paging.currentPage-1}
 							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">이전</a>
 					</c:if>
 					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
@@ -97,7 +97,7 @@
 					</c:forEach>
 					
 					<c:if test="${paging.nextPage}">
-						<a href="${pageContext.request.contextPath}/testList?currentPage=${paging.currentPage+10}
+						<a href="${pageContext.request.contextPath}/testList?currentPage=${paging.currentPage+1}
 							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">다음</a>
 					</c:if>
 				</div>

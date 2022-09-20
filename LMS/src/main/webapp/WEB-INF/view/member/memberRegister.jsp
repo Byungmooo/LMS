@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="/WEB-INF/view/include/loginHeader.jsp"%>
+<!-- Header -->
+<c:import url="/WEB-INF/view/include/loginHeader.jsp"></c:import>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>		
 		
 		<!-- Main -->
@@ -317,4 +318,5 @@
 		alert('회원가입에 실패했습니다.');
 	}
 </script>
-<%@ include file="/WEB-INF/view/include/loginFooter.jsp"%>
+<!-- Footer -->
+<c:import url="/WEB-INF/view/include/loginFooter.jsp"></c:import>
