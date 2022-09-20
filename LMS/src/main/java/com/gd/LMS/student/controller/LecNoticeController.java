@@ -1,4 +1,4 @@
-package com.gd.LMS.student.Controller;
+package com.gd.LMS.student.controller;
 
 
 
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.student.Service.LecNoticeService;
+import com.gd.LMS.student.service.LecNoticeService;
 import com.gd.LMS.vo.LectureNotice;
 
 import lombok.extern.slf4j.Slf4j;

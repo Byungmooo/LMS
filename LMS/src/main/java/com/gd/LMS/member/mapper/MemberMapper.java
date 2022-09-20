@@ -1,4 +1,4 @@
-package com.gd.LMS.member.Mapper;
+package com.gd.LMS.member.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

@@ -1,4 +1,4 @@
-package com.gd.LMS.student.Controller;
+package com.gd.LMS.student.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.student.Service.StudentService;
+import com.gd.LMS.student.service.StudentService;
 
 import lombok.extern.slf4j.Slf4j;
 

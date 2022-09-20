@@ -1,4 +1,4 @@
-package com.gd.LMS.student.Service;
+package com.gd.LMS.student.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.student.Mapper.LecNoticeMapper;
+import com.gd.LMS.student.mapper.LecNoticeMapper;
 import com.gd.LMS.vo.LectureNotice;
 
 import lombok.extern.slf4j.Slf4j;

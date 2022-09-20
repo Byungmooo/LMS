@@ -1,4 +1,4 @@
-package com.gd.LMS.student.Mapper;
+package com.gd.LMS.student.mapper;
 
 import java.util.List;
 import java.util.Map;

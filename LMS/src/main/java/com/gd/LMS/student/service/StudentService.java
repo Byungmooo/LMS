@@ -1,4 +1,4 @@
-package com.gd.LMS.student.Service;
+package com.gd.LMS.student.service;
 
 import java.util.List;
 import java.util.Map;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.student.Mapper.StudentMapper;
+import com.gd.LMS.student.mapper.StudentMapper;
 
 import lombok.extern.slf4j.Slf4j;
 

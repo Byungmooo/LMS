@@ -20,6 +20,8 @@ public class EmployeeFilter implements Filter {
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+		log.debug(TeamColor.LCH + "--- EmployeeFilter ---");
+		
 		HttpSession session = null;
 		if(request instanceof HttpServletRequest) {
 			session = ((HttpServletRequest) request).getSession();
