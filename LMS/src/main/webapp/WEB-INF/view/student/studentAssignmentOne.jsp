@@ -43,7 +43,8 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/studentAssignmentList?openedLecNo=${map.openedLecNo}&studentCode=${memberCode}">
+				<a class="nav-link" href="${pageContext.request.contextPath}/">
+				<!-- student/studentAssignmentList?openedLecNo=${map.openedLecNo}&studentCode=${memberCode} -->
 				<i class="bx bx-link-alt me-1"></i> 
 					과제게시판
 				</a>
@@ -63,44 +64,62 @@
 		</ul>
 		<hr class="my-5" />
 		
-		<!-- studentLectureOne -->
+		<!-- studentAssignmentOne -->
 		<div class="row text-center">
 			<div class="card">
-				<h5 class="card-header"><strong>${map.lectureName}</strong></h5>
+				<h5 class="card-header"><strong>${map.assignmentTitle}</strong></h5>
 				<hr class="my-0" />
 				
 				<div class="card-body">
 					<table class="table table-bordered">
 						<tr>
-							<th>담당교수</th>
-							<td>${map.professorName}</td>
-							<th>교과구분</th>
-							<td>${map.lectureType}</td>
-							<th>이수학점</th>
-							<td>${map.credit}</td>
+							<th>제출기한</th>
+							<td>${map.endDate}</td>
+							<th>강의이름</th>
+							<td>${map.lectureName}</td>
 						</tr>
 						<tr>
-							<th>개설학부</th>
-							<td>${map.departmentName}</td>
-							<th>개설년도</th>
-							<td>${map.lectureYear}</td>
-							<th>개설학기</th>
-							<td>${map.lectureSemester}</td>
+							<th>과제내용</th>
+							<td colspan="3">
+								<textarea class="form-control" rows="20px" readonly="readonly" style="background-color:#fff;">${map.assignmentContent}
+								</textarea>
+							</td>
+						</tr>					
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr class="my-5" />
+		<!-- 학생과제등록란 -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+	<h4 class="fw-bold py-3 mb-4">
+		<span class="text-muted fw-light">"이름"님 /</span>
+	</h4>
+	<div class="row text-center">
+			<div class="card">
+				<h5 class="card-header"><strong>과제이름</strong></h5>
+				<hr class="my-0" />
+				
+				<div class="card-body">
+					<table class="table table-bordered">
+						<tr>
+							<th>학생이름</th>
+							<td>ㅎ ㅅ ㅇ ㄹ</td>
+							<th>강의이름</th>
+							<td>ㄱ ㅇ ㅇ ㄹ</td>
 						</tr>
 						<tr>
-							<th>강의장소</th>
-							<td>${map.lecClassroom}</td>
-							<th>강의정원</th>
-							<td>${map.studentNum}</td>
-							<th>신청인원</th>
-							<td>????</td>							
+							<td colspan="4">
+								<textarea class="form-control" rows="20px" readonly="readonly" style="background-color:#fff;">
+									ㄱ ㅈ ㄴ ㅇ
+								</textarea>
+							</td>
 						</tr>
 						<tr>
-							<th>강의계획서</th>
-							<td colspan="5"><textarea class="form-control" rows="20px" readonly="readonly" style="background-color:#fff;">${map.syllabus}</textarea></td>
+							<td colspan="4">파일등록</td>
 						</tr>
 					</table>
-
 				</div>
 			</div>
 		</div>

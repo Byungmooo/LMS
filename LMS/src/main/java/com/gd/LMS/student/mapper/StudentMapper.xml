@@ -65,8 +65,41 @@
 	</select>
 	
 	<!-- 학생과제리스트 -->
-	<select id="selectStudentAssignmentList" parameterType="int" resultType="map">
+	<select id="selectStudentAssignmentList" parameterType="map" resultType="map">
 		SELECT
+			a.assignment_no assignmentNo,
+			a.opened_lec_no openedLecNo,
+			a.assignment_title assignmentTitle,
+			a.assignment_content assignmentContent,
+			'N' AS assignmentDid,
+			'평가전' as assignmentScore,
+			a.create_date createDate
+		FROM 
+			assignment a,
+			student_lecture l,
+			student s
+		WHERE
+			a.opened_lec_no = l.opened_lec_no AND
+			l.student_code = s.student_code AND 
+			l.opened_lec_no = #{openedLecNo} AND 
+			s.student_code = #{studentCode}
 	</select>
 	
+	<!-- 학생과제상세보기 -->
+	<select id="selectStudentAssignmentOne" parameterType="int" resultType="map">
+		SELECT
+			a.opened_lec_no openedLecNo,
+			t.lecture_name lectureName,
+			a.assignment_title assignmentTitle,
+			a.assignment_content assignmentContent,
+			a.end_date endDate
+		FROM 
+			assignment a,
+			opened_lecture o,
+			total_lecture t
+		WHERE
+			a.opened_lec_no = o.opened_lec_no AND
+			o.lecture_code = t.lecture_code AND 
+			a.assignment_no = #{assignmentNo}
+	</select>
 </mapper>

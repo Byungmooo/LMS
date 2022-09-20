@@ -42,7 +42,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active" href="${pageContext.request.contextPath}/student/studentAssignmentList?openedLecNo=${map.openedLecNo}">
+				<a class="nav-link active" href="${pageContext.request.contextPath}/student/studentAssignmentList?openedLecNo=${map.openedLecNo}&studentCode=${memberCode}">
 				<i class="bx bx-link-alt me-1"></i> 
 					과제게시판
 				</a>
@@ -62,8 +62,7 @@
 		</ul>
 		<hr class="my-5" />
 		
-		<!-- studentLectureOne -->
-		<!-- studentLectureList -->
+		<!-- studentAssignmentList -->
 		<div class="card text-center">
 			<h5 class="card-header">과제게시판</h5>
 			<div class="table-responsive text-nowrap">
@@ -79,20 +78,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td width="10%"><strong>123</strong></td>
-							<td width="50%">김첨지</td>
-							<td width="10%"><span class="badge bg-label-secondary me-1">N</span></td>
-							<td width="10%"><span class="badge bg-label-secondary me-1">N</span></td>
-							<td width="20%">2150-10-32</td>
-						</tr>
 						<c:forEach var="s" items="${list}">
 							<tr>
-								<td><strong>123</strong></td>
-								<td>김첨지</td>
-								<td><span class="badge bg-label-primary me-1">N</span></td>
-								<td><span class="badge bg-label-secondary me-1">N</span></td>
-								<td>2150-10-32</td>
+								<td><strong>${s.assignmentNo}</strong></td>
+								<td><a href="${pageContext.request.contextPath}/student/studentAssignmentOne?assignmentNo=${s.assignmentNo}">${s.assignmentTitle}</a></td>
+								<td><span class="badge bg-label-primary me-1">${s.assignmentDid}</span></td>
+								<td><span class="badge bg-label-secondary me-1">${s.assignmentScore}</span></td>
+								<td>${s.createDate}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

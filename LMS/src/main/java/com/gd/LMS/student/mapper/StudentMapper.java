@@ -18,6 +18,7 @@ public interface StudentMapper {
 	Map<String, Object> selectStudentLectureOne(int openedLecNo);
 	
 	// 학생이 수강중인 한 강의 과제리스트
-	List<Map<String, Object>> selectStudentAssignmentList(int openedLecNo);
+	List<Map<String, Object>> selectStudentAssignmentList(Map<String, Object> paramMap);
 	
+	Map<String, Object> selectStudentAssignmentOne(int assignmentNo);
 }
