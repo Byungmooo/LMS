@@ -1,4 +1,4 @@
-package com.gd.LMS.controller;
+package com.gd.LMS.member.controller;
 
 
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.service.TotalNoticeService;
+import com.gd.LMS.member.service.TotalNoticeService;
 import com.gd.LMS.vo.TotalNotice;
 
 import lombok.extern.slf4j.Slf4j;

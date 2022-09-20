@@ -1,4 +1,4 @@
-package com.gd.LMS.mapper;
+package com.gd.LMS.member.mapper;
 
 import java.util.List;
 import java.util.Map;
