@@ -146,26 +146,19 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-dock-top"></i>
-							학사정보
+							내정보
 						</a>
-						<!-- 메뉴 추가란 -->
-						<!-- <ul class="menu-sub">
-							<li class="menu-item"><a
-								href="" class="menu-link">
-									Account
-							</a></li>
-						</ul> -->
 					</li>
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-							학적변동
+							학생정보 조회
 						</a>
 					</li>
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-cube-alt"></i>
-							일정표
+							교수정보 조회
 						</a>
 					</li>
 					
@@ -175,7 +168,7 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-collection"></i>
-							수강신청
+							강의관리
 						</a>
 					</li>
 					<li class="menu-item">
@@ -186,12 +179,12 @@
 						<ul class="menu-sub">
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									시간표
+									진행중인 강의
 								</a>
 							</li>
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									수강중인 강의
+									종료된 강의
 								</a>
 							</li>
 						</ul>
@@ -199,7 +192,7 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-crown"></i>
-							성적조회
+							성적관리
 						</a>
 					</li>
 

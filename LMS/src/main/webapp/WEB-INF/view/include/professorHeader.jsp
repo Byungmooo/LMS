@@ -175,23 +175,35 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-collection"></i>
-							수강신청
-						</a>
-					</li>
-					<li class="menu-item">
-						<a href="" class="menu-link menu-toggle"> 
-						<i class="menu-icon tf-icons bx bx-box"></i>
-							강의
+							과제관리
 						</a>
 						<ul class="menu-sub">
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									시간표
+									과제등록
 								</a>
 							</li>
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									수강중인 강의
+									진행중인 과제
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="menu-item">
+						<a href="" class="menu-link menu-toggle"> 
+						<i class="menu-icon tf-icons bx bx-box"></i>
+							강의관리
+						</a>
+						<ul class="menu-sub">
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									강의시간표
+								</a>
+							</li>
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									진행중인 강의
 								</a>
 							</li>
 						</ul>
@@ -199,7 +211,7 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-crown"></i>
-							성적조회
+							출석관리
 						</a>
 					</li>
 
@@ -260,8 +272,8 @@
 									<li>
 										<div class="dropdown-item">
 											<div class="flex-grow-1">
-												<span class="fw-semibold d-block">학생이름</span> <small
-													class="text-muted">student</small>
+												<span class="fw-semibold d-block">교수이름</span> <small
+													class="text-muted">professor</small>
 											</div>
 										</div>
 									</li>
@@ -303,4 +315,4 @@
 				</nav>
 				<!-- / Navbar -->
 			<!-- Content wrapper -->
-			<div class="content-wrapper">
+			<div class="content-wrapper">			
