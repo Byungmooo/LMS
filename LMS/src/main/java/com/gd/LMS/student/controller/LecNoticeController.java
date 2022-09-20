@@ -4,18 +4,20 @@ package com.gd.LMS.student.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.student.service.LecNoticeService;
+import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.LectureNotice;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,106 +27,95 @@ public class LecNoticeController {
 
 	@Autowired LecNoticeService lecNoticeService;
 	
-	//공지리스트
-	@GetMapping("/lecNoticeList")
-	 public String lecNoticeList(Model model, 
-			 @RequestParam(value="lecNoticeNo") int lecNoticeNo) {
+	   // 전체공지 목록 리스트
+    @GetMapping(value = {"/lecNotice"})
+    public String TotalnNoticeList(PagingVo vo,Model model
+    		, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+			, @RequestParam(value="keyword", defaultValue = "") String keyword
+			, @RequestParam(value="searchType", defaultValue = "") String searchType){
+        List<LectureNotice> list = lecNoticeService.getLecNoticeList();
+        model.addAttribute("list", list);
+    	
+        int totalCount = lecNoticeService.countBoard(keyword, searchType);
+		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 		
-	return "lecNoticeList";
+		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+		log.debug(TeamColor.KJS + "PaginVo : " + vo);
 		
-	}
-	
-	
-	
-	 // 공지사항 상세보기
-	 @GetMapping("/lecNoticeOne")
-	 public String lecNoticeOne(Model model, 
-			 @RequestParam(value="lecNoticeNo") int lecNoticeNo) {
-		 
-		 log.debug(TeamColor.BJH + lecNoticeNo + "lecNoticeNo 컨트롤러");
-		 
-		 lecNoticeService.modifyLecNoticeOneCount(lecNoticeNo); 
-		 LectureNotice lectureNotice = lecNoticeService.getLecNoticeOne(lecNoticeNo);
-		 			
-		 model.addAttribute("lectureNotice",lectureNotice); 
-		 log.debug(TeamColor.BJH + lectureNotice + "상세보기 컨트롤러");
-		 
-		 return "/lecNoticeOne"; 
-	 
-	 }
-	 
-	
-	 
-	 
-	 // 공지사항 업데이트
-	 @GetMapping("/modifyLecNoticeOne") 
-	 public String modifyLecNoticeOne(Model model, @RequestParam(value="lecNoticeNo") int lecNoticeNo) {
-		 System.out.println(lecNoticeNo + " <-- 안떠?");
-		 
-		 LectureNotice lectureNotice = lecNoticeService.getLecNoticeOne(lecNoticeNo);
-		 log.debug(TeamColor.BJH + lectureNotice+"<--lectureNotice");
-		 
-		 
-		 model.addAttribute("lectureNotice", lectureNotice); 
-		 log.debug(TeamColor.BJH + lectureNotice);
-		 
+		List<LectureNotice> list1 = lecNoticeService.selectBoard(vo);
+		log.debug(TeamColor.KJS + "noticeList : " + list1);
 		
-		 return "modifyLecNoticeOne";
-	 
-	 }
-	 
-	 
-	 @PostMapping("/modifyLecNoticeOne") 
-	 public String modifyLecNoticeOne(LectureNotice lectureNotice) {
+		model.addAttribute("paging", vo);
+		model.addAttribute("list", list1);
+        
+        
+        log.debug(TeamColor.KJS + " [김진수] 전체공지 리스트");
+        return "lecNoticeList";
+    }
 	
-		 lecNoticeService.modifyLecNoticeOne(lectureNotice);
-		 
-		 log.debug(TeamColor.BJH + lectureNotice);
-		 
-	 
-	 return "redirect:/lecNoticeOne";
+    // 학부공지사항 상세보기
+    @GetMapping(value = "/lecNotice/{lecNoticeNo}")
+    public String TotalNoticeOne(Model model, @PathVariable(value = "lecNoticeNo") int lecNoticeNo) {
+        LectureNotice lecNotice = lecNoticeService.getLecNoticeList(lecNoticeNo);
+        lecNoticeService.updateLecNoticeCount(lecNoticeNo);
+        model.addAttribute("LectureNotice", lecNotice);
+        log.debug(TeamColor.KJS + " [김진수] 전체공지 상세보기");
+        return "lecNoticeOne";
+    }
 	
-	 }
-	 
-	 
-	 
-	 // 공지사항 삭제
-	 @GetMapping("/removeLecNoticeOne") 
-	 public String removeLecNoticeOne(@RequestParam(name="lecNoticeNo") int lecNoticeNo) {
+
+    // 전체공지사항 추가 페이지 이동
+    @GetMapping("/addLecNotice")
+    public String addLecNotice() {
+    	log.debug(TeamColor.KJS + " [김진수] 전체공지 추가 페이지 이동");
+        return "addLecNotice";
+    }
 	
-		 lecNoticeService.removeLecNoticeOne(lecNoticeNo);
-		 
-		 log.debug(TeamColor.BJH + lecNoticeNo);
-		 
-	 return "redirect:/lecNoticeList/1"; 
+
+    // 전체공지사항 추가
+    @PostMapping("/addLecNotice")
+    public String addLecNotice(LectureNotice lectureNotice) {
+    	int num = 1;
+    	lectureNotice.setOpenedLecNo(num);
+        int count = lecNoticeService.addLecNotice(lectureNotice);
+        if (count >= 1) {
+        	log.debug(TeamColor.KJS + " [김진수] 전체공지 추가");
+            return "redirect:lecNotice";
+        }
+        return "addLecNotice";
+    }
+        
+        
+        // 학부공지사항 수정 페이지 이동
+        @GetMapping("/updateLecNotice/{lecNoticeNo}")
+        public String updateLecNotice(Model model, @PathVariable(value = "lecNoticeNo") int lecNoticeNo) {
+        	LectureNotice lecNotice = lecNoticeService.getLecNoticeList(lecNoticeNo);
+            model.addAttribute("LectureNotice", lecNotice);
+            log.debug(TeamColor.KJS + " [김진수] 전체공지 수정 페이지 이동");
+            return "updateLecNotice";
+        }
+
+        // 전체공지사항 수정
+        @PostMapping("/updateLecNotice")
+        public String updateLecNotice(LectureNotice lectureNotice) {
+            int count = lecNoticeService.updateLecNotice(lectureNotice);
+            if (count >= 1) {
+            	log.debug(TeamColor.KJS + " [김진수] 전체공지 수정");
+                return "redirect:totalNotice/"+lectureNotice.getLecNoticeNo();
+            }
+            return "redirect:updateTotalNotice/"+lectureNotice.getLecNoticeNo();
+        }
+        // 전체공지사항 삭제
+        @GetMapping(value = "/removelecNotice")
+        public String LecNoticeOne(@RequestParam(value = "lecNoticeNo") int lecNoticeNo) {
+            int count = lecNoticeService.deleteLecNotice(lecNoticeNo);
+            if (count >= 1) {
+            	log.debug(TeamColor.KJS + " [김진수] 전체공지 삭제");
+                return "redirect:lecNotice";
+            }
+            return "redirect:lecNotice/" + lecNoticeNo;
+        }
+
+    }
 	 
-	 }
-	 
-	 
-	 
-	 // 공지사항 추가
-	 
-	 @GetMapping("/addLecNoticeOne") 
-	 public String addLecNoticeOne(Model model, LectureNotice lectureNotice) {
-		
-		 model.addAttribute("lectureNotice", lectureNotice); 
-		 
-		 log.debug(TeamColor.BJH + lectureNotice + "add추가폼");	
-	 
-	 return "/addLecNoticeOne"; 
-	 
-	 }
-		 
-	 @PostMapping("/addLecNoticeOne")
-	 public String addLecNoticeOne(LectureNotice lectureNotice) {
-		 
-		 int result = lecNoticeService.addLecNoticeOneAction(lectureNotice);
-			
-		 log.debug(TeamColor.BJH + result + "add추가액션");	
-		 
-	 return "redirect:/lecNoticeList/1";
-	 
-	 }
-	
-	 
-}
