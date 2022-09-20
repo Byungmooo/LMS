@@ -14,29 +14,25 @@ import javax.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@WebFilter("/LMS/*")
-public class AuthFilter implements Filter {
+@WebFilter("/professor/*")
+public class ProfessorFilter implements Filter {
 	
 	@Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-			throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpSession session = null;
 		if(request instanceof HttpServletRequest) {
-		session = ((HttpServletRequest) request).getSession();
+			session = ((HttpServletRequest) request).getSession();
 			/*	
 			if ((session.getAttribute("인증속성").getLevel == null) { // 인정범위에 따라 level<3 ... 
 					return
-			}else {
-				log.debug("웹 요청이 아닙니다.");
-				// redirect...
-				return;
 			}
 			*/
+		} else {
+			log.debug("웹 요청이 아닙니다.");
+			// redirect... 404 Page??
 		}
 		
 		chain.doFilter(request, response);
 		
 	}
-	
-	
 }

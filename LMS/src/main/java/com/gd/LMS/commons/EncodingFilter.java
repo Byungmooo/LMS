@@ -12,13 +12,14 @@ import javax.servlet.http.HttpFilter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@WebFilter("/LMS/*")
+@WebFilter("/*")
 public class EncodingFilter extends HttpFilter implements Filter {
    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
       
       request.setCharacterEncoding("utf-8");
       // 디버깅
-      log.debug(TeamColor.LCH + "---EncodingFilter utf-8---");
+      // 너무 연속적으로 많이 나오는데 ;;;
+      // log.debug(TeamColor.LCH + "---EncodingFilter utf-8---");
       
       chain.doFilter(request, response);
    }

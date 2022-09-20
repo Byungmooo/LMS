@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.member.mapper.MemberMapper">
-	<select id="selectMember" parameterType="com.gd.LMS.vo.Member" resultType="com.gd.LMS.vo.Member">
+
+	<!-- 로그인 -->
+	<select id="selectMemberLogin" parameterType="com.gd.LMS.vo.Member"
+		resultType="com.gd.LMS.vo.Member">
 		SELECT
-			member_name memberName,
-			member_gender memberGender
+			member_id memberId,
+			member_pw memberPw,
+			member_type memberType,
+			active
 		FROM member
-		WHERE
-			member_id = #{memberId}
-			AND
+		WHERE 
+			member_id = #{memberId} 
+		AND 
 			member_pw = #{memberPw}
 	</select>
 	
-	<select id="selectMemberIdCheck" resultType="string" parameterType="string">
-		SELECT
-			member_id memberId
-		FROM member
-		WHERE
-			member_id = #{memberId}
-	</select>
-	
-	<insert id="insertMember" parameterType="com.gd.LMS.vo.Member">
+	<!-- 회원가입 -->
+	<insert id="insertMemberRegister" parameterType="com.gd.LMS.vo.Member">
 		INSERT INTO member (
 			member_id,
 			member_pw,
@@ -46,20 +44,16 @@
 		)
 	</insert>
 	
-	<select id="selectLogin" parameterType="com.gd.LMS.vo.Member"
-		resultType="com.gd.LMS.vo.Member">
+	<!-- 회원가입 중복체크 -->
+	<select id="selectMemberIdCheck" resultType="string" parameterType="string">
 		SELECT
-			member_id memberId,
-			member_pw memberPw,
-			member_type memberType,
-			active
+			member_id memberId
 		FROM member
-		WHERE 
-			member_id = #{memberId} 
-		AND 
-			member_pw = #{memberPw}
+		WHERE
+			member_id = #{memberId}
 	</select>
 	
+	<!-- 최근접속 갱신 -->
 	<update id="updateMemberLastLogin" parameterType="string">
 		UPDATE 
 			member
@@ -69,7 +63,7 @@
 			member_id = #{memberId}
 	</update>
 	
-	<!-- 마지막 로그인이 90일 이후면 휴먼처리 쿼리 : 스피링 스퀘줄러 설정으로 호출-->
+	<!-- 최근 접속일이 90일 이후면 휴면계정처리  스피링 스케쥴러 설정으로 호출-->
 	<update id="updateMemberActiveN">
 		UPDATE 
 			member

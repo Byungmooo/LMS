@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.student.Mapper.StudentMapper">
-		
+	
+	<!-- 학생수강리스트 -->
 	<select id="selectStudentLectureList" parameterType="int" resultType="map">
 		SELECT
 			o.opened_lec_no openedLecNo,
@@ -23,6 +24,7 @@
 			student_code = #{studentCode}		
 	</select>
 	
+	<!-- 학생수강상세보기 -->
 	<select id="selectStudentLectureOne" parameterType="int" resultType="map">
 		SELECT
 			m.member_name professorName,
@@ -52,6 +54,7 @@
 			opened_lec_no = #{openedLecNo}
 	</select>
 	
+	<!-- 학생과제리스트 -->
 	<!-- <select id="selectAssignmentList" parameterType="int" resultType="map">
 	
 	</select> -->

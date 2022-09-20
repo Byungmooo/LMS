@@ -17,49 +17,59 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberService {
 	@Autowired MemberMapper memberMapper;
 	
-	public Member getMember(Member member) {
-		Member resultMember = memberMapper.selectMember(member);
+	// 회원로그인
+	public Member getMemberLogin(Member paramMember) {	
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "paramMember (service) > " + paramMember);
 		
-		log.debug(TeamColor.LCH + resultMember);
+		// 매퍼메서드 호출 후 리턴값 디버깅
+		Member resultMember = memberMapper.selectMemberLogin(paramMember);
+		log.debug(TeamColor.LCH + "resultMember (service) > " + resultMember);
 		
-		return resultMember;
-	}
-	
-	
-	public String getMemberIdCheck(String checkId) {
-		log.debug(TeamColor.LCH + checkId + " <-- check 할 ID");
-		
-		String result = null;		
-		result = memberMapper.selectMemberIdCheck(checkId);
-		
-		log.debug(result + " <-- checkId 결과 null일 경우 사용");
-		
-		return result;
-	};
-	
-	public int addMember(Member paramMember) {
-		log.debug(TeamColor.LCH + paramMember.toString() + " <-- 추가할 paramMember정보 (Service)");
-		
-		int result = memberMapper.insertMember(paramMember);
-		
-		return result;
-	}
-	
-	public Member getLogin(Member member) {
-		Member resultMember = memberMapper.selectLogin(member);
-		
-		log.debug(TeamColor.KBW + resultMember + "<-- getLogin" );
-		
-		// 현재 사용가능한 사용자이면 
-		if(resultMember.getActive().equals("Y")) {
-			memberMapper.updateMemberLastLogin(resultMember.getMemberId());
+		// 활성화가 Y인 회원 최근 접속일 갱신
+		if(resultMember != null) {
+			if(resultMember.getActive().equals("Y")) {
+				memberMapper.updateMemberLastLogin(resultMember.getMemberId());
+			}
 		}
 		
 		return resultMember;
 	}
 	
-	public int modifyMemberActiveN() {
+	
+	// 회원가입
+	public int addMemberRegister(Member paramMember) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "paramMember (service) > " + paramMember);
 		
-		return memberMapper.updateMemberActiveN();
+		// 매퍼메서드 호출 후 리턴값 디버깅
+		int result = memberMapper.insertMemberRegister(paramMember);
+		log.debug(TeamColor.LCH + "result (service) > " + result);
+		
+		return result;
+	}
+	
+	// 회원가입 Id중복체크
+	public String getMemberIdCheck(String checkId) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "checkId (service) > " + checkId);
+		
+		// 결과값 String에 담아 리턴 null일 경우 사용 가능
+		String result = null;		
+		result = memberMapper.selectMemberIdCheck(checkId);
+		
+		// 리턴값 디버깅
+		log.debug(TeamColor.LCH + "result (service) > " + result);
+		
+		return result;
+	};
+	
+	// 회원상태 비활성화 (장기미접속)
+	public int modifyMemberActiveN() {
+		// 매퍼쿼리 실행 후 리턴값 확인
+		int row = memberMapper.updateMemberActiveN();
+		log.debug(TeamColor.LCH + "row (mapper) > " + row);
+				
+		return row;
 	}
 }

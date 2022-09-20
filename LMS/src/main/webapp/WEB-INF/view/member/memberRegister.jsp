@@ -311,4 +311,10 @@
 		}
 	});
 </script>
+<script>
+	var result = '${result}';
+	if(result === 'fail'){
+		alert('회원가입에 실패했습니다.');
+	}
+</script>
 <%@ include file="/WEB-INF/view/include/loginFooter.jsp"%>

@@ -76,10 +76,9 @@
 						</c:if>
 					</div>
 
-					<form id="login" class="mb-3"
-						action="${pageContext.request.contextPath}/member/login" method="POST">
+					<form id="login" class="mb-3" action="${pageContext.request.contextPath}/memberLogin" method="POST">
 						<div class="mb-3">
-							<label for="email" class="form-label">User ID</label> <input
+							<label for="email" class="form-label">Member ID</label> <input
 								type="text" class="form-control" id="memberId" name="memberId"
 								placeholder="Enter your UserID" autofocus value="admin" />
 						</div>
@@ -110,8 +109,8 @@
 					</form>
 
 					<p class="text-center">
-						<span>New on our platform?</span> <a
-							href="${pageContext.request.contextPath}/member/memberRegister"> <span>회원가입</span>
+						<span>New on our LMS?</span> <a
+							href="${pageContext.request.contextPath}/member/memberRegister"><span>회원가입</span>
 						</a>
 					</p>
 				</div>
@@ -120,6 +119,14 @@
 		</div>
 	</div>
 </div>
-
 <!-- / Main -->
+
+<script>
+	var result = '${result}';
+	if(result === 'fail'){
+		alert('ID와 PW를 확인해주세요!');
+	} else if(result === 'activeW') {
+		alert('관리자의 승인이 필요한 회원입니다.');
+	}
+</script>
 <%@ include file="/WEB-INF/view/include/loginFooter.jsp"%>
