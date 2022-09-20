@@ -1,12 +1,12 @@
-package com.gd.LMS.member.service;
+package com.gd.LMS.member.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.member.mapper.MemberMapper;
-import com.gd.LMS.member.service.MemberService;
+import com.gd.LMS.member.Mapper.MemberMapper;
+import com.gd.LMS.member.Service.MemberService;
 import com.gd.LMS.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;

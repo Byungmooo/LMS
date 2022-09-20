@@ -1,4 +1,4 @@
-package com.gd.LMS.member.controller;
+package com.gd.LMS.member.Controller;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.member.service.MemberService;
+import com.gd.LMS.member.Service.MemberService;
 import com.gd.LMS.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;

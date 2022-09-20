@@ -1,4 +1,4 @@
-package com.gd.LMS.member.service;
+package com.gd.LMS.member.Service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.member.mapper.TotalNoticeMapper;
+import com.gd.LMS.member.Mapper.TotalNoticeMapper;
 import com.gd.LMS.vo.TotalNotice;
 
 import lombok.extern.slf4j.Slf4j;
