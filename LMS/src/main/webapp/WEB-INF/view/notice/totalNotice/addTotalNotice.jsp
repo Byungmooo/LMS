@@ -1,9 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<c:choose>
+	<c:when test="${memberType eq '학생'}">
+		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>	
+	</c:when>
+	<c:when test="${memberType eq '교수'}">
+		<c:import url="/WEB-INF/view/include/professorHeader.jsp"></c:import>	
+	</c:when>
+	<c:when test="${memberType eq '직원'}">
+		<c:import url="/WEB-INF/view/include/employeeHeader.jsp"></c:import>	
+	</c:when>
+	<c:otherwise>	
+	</c:otherwise>
+</c:choose>
 
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
