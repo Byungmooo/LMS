@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.employee.Service.EmployeeService;
-import com.gd.LMS.student.service.StudentService;
+import com.gd.LMS.member.service.EmployeeService;
+import com.gd.LMS.member.service.StudentService;
 import com.gd.LMS.vo.Employee;
 import com.gd.LMS.vo.Student;
 
@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class EmployeeController {
 	@Autowired EmployeeService employeeService;
+	@Autowired StudentService studentService;
 	
 	/////////////////////////////// 직원 리스트 + 상세보기
     // 전체직원 리스트
@@ -64,10 +65,10 @@ public class EmployeeController {
  		
  		log.debug(TeamColor.BJH + " studentList 담겼음");
  		
- 		List<Map<String, Object>> list = studentService.getStudentList();
+ 	//	List<Map<String, Object>> list = studentService.getStudentList();
  		log.debug(TeamColor.BJH + " getStudentList 담겼음");
  		
- 		model.addAttribute("list", list);
+ 	//	model.addAttribute("list", list);
  		log.debug(TeamColor.BJH + " model list 모델에 담김");
  		
  		return "studentList";
@@ -85,10 +86,10 @@ public class EmployeeController {
  		// 파라미터 디버깅
  		log.debug(TeamColor.BJH + "[지혜]  studentCode controller" + studentCode);
  		
- 		Map<String, Object> StudentOne= studentService.getStudentOne(studentCode);
- 		log.debug(TeamColor.BJH + "[지혜]  StudentOne controller" + StudentOne);
+ 	//	Map<String, Object> StudentOne= studentService.getStudentOne(studentCode);
+ 	//	log.debug(TeamColor.BJH + "[지혜]  StudentOne controller" + StudentOne);
  		
- 		model.addAttribute("s", StudentOne);
+ 	//	model.addAttribute("s", StudentOne);
  		
  		log.debug(TeamColor.BJH + " [지혜] 직원 상세보기");
  		return "studentOne";
