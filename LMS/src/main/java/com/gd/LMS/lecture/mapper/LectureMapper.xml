@@ -26,7 +26,7 @@
 	</select>
 	
 	<!-- 학생수강상세보기 -->
-	<select id="selectStudentLectureOne" parameterType="int" resultType="map">
+	<select id="selectOpenedLectureOne" parameterType="int" resultType="map">
 		SELECT
 			m.member_name professorName,
 			t.lecture_type lectureType,
@@ -54,4 +54,31 @@
 			p.member_id = m.member_id AND
 			opened_lec_no = #{openedLecNo}
 	</select>
+	
+	<select id="selectLectureQuestionList" parameterType="int" resultType="com.gd.LMS.vo.LectureQuestion">
+		SELECT
+			lec_question_no lecQuestionNo,
+			opened_lec_no openedLecNo,
+			question_title questionTitle,
+			answer_y answerY,
+			create_date createDate
+		FROM
+			lecture_question
+		WHERE
+			opened_lec_no = #{openedLecNo}
+	</select>
+	
+	<select id="selectLectureQuestionOne" parameterType="int" resultType="com.gd.LMS.vo.LectureQuestion">
+		SELECT
+			lec_question_no lecQuestionNo,
+			opened_lec_no openedLecNo,
+			question_title questionTitle,
+			answer_y answerY,
+			create_date createDate
+		FROM
+			lecture_question
+		WHERE
+			lec_question_no = #{lecQuestionNo}
+	</select>
+	
 </mapper>

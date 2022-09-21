@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Header -->
 <c:choose>
@@ -25,13 +24,13 @@
 		<!-- studentLectureMenu -->
 		<ul class="nav nav-pills flex-column flex-md-row mb-3">
 			<li class="nav-item">
-				<a class="nav-link active" href="">
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/studentLectureOne?openedLecNo=${map.openedLecNo}">
 				<i class="bx bx-user me-1"></i>
 					강의홈
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">
+				<a class="nav-link" href="${pageContext.request.contextPath}/member/studentLectureOne?openedLecNo=${map.openedLecNo}">
 				<i class="bx bx-bell me-1"></i> 
 					강의공지사항
 				</a>
@@ -43,7 +42,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/openedAssignmentList?openedLecNo=${map.openedLecNo}&studentCode=${memberCode}">
+				<a class="nav-link active" href="${pageContext.request.contextPath}/student/studentAssignmentList?openedLecNo=${map.openedLecNo}&studentCode=${memberCode}">
 				<i class="bx bx-link-alt me-1"></i> 
 					과제게시판
 				</a>
@@ -63,45 +62,33 @@
 		</ul>
 		<hr class="my-5" />
 		
-		<!-- studentLectureOne -->
-		<div class="row text-center">
-			<div class="card">
-				<h5 class="card-header"><strong>${map.lectureName}</strong></h5>
-				<hr class="my-0" />
-				
-				<div class="card-body">
-					<table class="table table-bordered">
+		<!-- studentAssignmentList -->
+		<div class="card text-center">
+			<h5 class="card-header">과제게시판</h5>
+			<div class="table-responsive text-nowrap">
+				<table class="table">
+					<caption class="ms-4">List of Assignment</caption>
+					<thead>
 						<tr>
-							<th>담당교수</th>
-							<td>${map.professorName}</td>
-							<th>교과구분</th>
-							<td>${map.lectureType}</td>
-							<th>이수학점</th>
-							<td>${map.credit}</td>
+							<th width="10%">번호</th>
+							<th width="50%">과제명</th>
+							<th width="10%">등록</th>
+							<th width="10%">평가</th>
+							<th width="20%">날짜</th>
 						</tr>
-						<tr>
-							<th>개설학부</th>
-							<td>${map.departmentName}</td>
-							<th>개설년도</th>
-							<td>${map.lectureYear}</td>
-							<th>개설학기</th>
-							<td>${map.lectureSemester}</td>
-						</tr>
-						<tr>
-							<th>강의장소</th>
-							<td>${map.lecClassroom}</td>
-							<th>강의정원</th>
-							<td>${map.studentNum}</td>
-							<th>신청인원</th>
-							<td>????</td>							
-						</tr>
-						<tr>
-							<th>강의계획서</th>
-							<td colspan="5"><textarea class="form-control" rows="20px" readonly="readonly" style="background-color:#fff;">${map.syllabus}</textarea></td>
-						</tr>
-					</table>
-
-				</div>
+					</thead>
+					<tbody>
+						<c:forEach var="s" items="${list}">
+							<tr>
+								<td><strong>${s.assignmentNo}</strong></td>
+								<td><a href="${pageContext.request.contextPath}/student/openedAssignmentOne?assignmentNo=${s.assignmentNo}">${s.assignmentTitle}</a></td>
+								<td><span class="badge bg-label-primary me-1">${s.assignmentDid}</span></td>
+								<td><span class="badge bg-label-secondary me-1">${s.assignmentScore}</span></td>
+								<td>${s.createDate}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>

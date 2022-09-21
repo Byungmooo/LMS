@@ -64,27 +64,29 @@
 		
 		<!-- studentAssignmentList -->
 		<div class="card text-center">
-			<h5 class="card-header">과제게시판</h5>
+			<h5 class="card-header">강의질문</h5>
 			<div class="table-responsive text-nowrap">
 				<table class="table">
 					<caption class="ms-4">List of Assignment</caption>
 					<thead>
 						<tr>
 							<th width="10%">번호</th>
-							<th width="50%">과제명</th>
-							<th width="10%">등록</th>
-							<th width="10%">평가</th>
+							<th width="50%">제목</th>
+							<th width="10%">답변여부</th>
 							<th width="20%">날짜</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="s" items="${list}">
+						<c:forEach var="q" items="${question}">
 							<tr>
-								<td><strong>${s.assignmentNo}</strong></td>
-								<td><a href="${pageContext.request.contextPath}/student/studentAssignmentOne?assignmentNo=${s.assignmentNo}">${s.assignmentTitle}</a></td>
-								<td><span class="badge bg-label-primary me-1">${s.assignmentDid}</span></td>
-								<td><span class="badge bg-label-secondary me-1">${s.assignmentScore}</span></td>
-								<td>${s.createDate}</td>
+								<td><strong>${q.lecQuestionNo}</strong></td>
+								<td>
+									<a href="${pageContext.request.contextPath}/student/openedAssignmentOne?assignmentNo=${s.assignmentNo}">
+										${q.questionTitle}
+									</a>
+								</td>
+								<td><span class="badge bg-label-primary me-1"></span>${q.answerY}</td>
+								<td><span class="badge bg-label-secondary me-1"></span>${q.createDate}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

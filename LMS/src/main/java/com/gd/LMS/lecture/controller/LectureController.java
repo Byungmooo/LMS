@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.lecture.service.LectureService;
+import com.gd.LMS.vo.LectureQuestion;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,5 +52,39 @@ public class LectureController {
 		model.addAttribute("map", openedLectureOne);
 		
 		return "lecture/openedLectureOne";
+	}
+	
+	// 강의 질문 리스트
+	@GetMapping("/student/lectureQuestionList")
+	public String lectureQuestionList(Model model,
+			@RequestParam (value = "openedLecNo") int openedLecNo) {
+		log.debug(TeamColor.LCH + "--- lectureQuestionList Controller GetMapping ---");
+		
+		log.debug(TeamColor.LCH + "openedLecNo > " + openedLecNo);
+		
+		List<LectureQuestion> lectureQuestion = lectureService.getLectureQuestionList(openedLecNo);
+		
+		log.debug(TeamColor.LCH + "lectureQuestion > " + lectureQuestion);
+		
+		model.addAttribute("question", lectureQuestion);
+		
+		return "lecture/lectureQuestionList";
+	}
+	
+	// 강의 질문 상세보기
+	@GetMapping("/student/lectureQuestionOne")
+	public String lectureQuestionOne(Model model,
+			@RequestParam (value = "lecQuestionNo") int lecQuestionNo) {
+		log.debug(TeamColor.LCH + "--- lectureQuestionOne Controller GetMapping ---");
+		
+		log.debug(TeamColor.LCH + "lecQuestionNo > " + lecQuestionNo);
+		
+		LectureQuestion lectureQuestion = lectureService.getLectureQuestionOne(lecQuestionNo);
+		
+		log.debug(TeamColor.LCH + "lectureQuestion > " + lectureQuestion);
+		
+		model.addAttribute("question", lectureQuestion);
+		
+		return "lecture/lectureQuestionOne";
 	}
 }

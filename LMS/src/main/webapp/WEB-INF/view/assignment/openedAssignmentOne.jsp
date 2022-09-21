@@ -91,39 +91,6 @@
 		</div>
 	</div>
 	<hr class="my-5" />
-		<!-- 학생과제등록란 -->
-	<div class="container-xxl flex-grow-1 container-p-y">
-	<h4 class="fw-bold py-3 mb-4">
-		<span class="text-muted fw-light">"이름"님 /</span>
-	</h4>
-	<div class="row text-center">
-			<div class="card">
-				<h5 class="card-header"><strong>과제이름</strong></h5>
-				<hr class="my-0" />
-				
-				<div class="card-body">
-					<table class="table table-bordered">
-						<tr>
-							<th>학생이름</th>
-							<td>ㅎ ㅅ ㅇ ㄹ</td>
-							<th>강의이름</th>
-							<td>ㄱ ㅇ ㅇ ㄹ</td>
-						</tr>
-						<tr>
-							<td colspan="4">
-								<textarea class="form-control" rows="20px" readonly="readonly" style="background-color:#fff;">
-									ㄱ ㅈ ㄴ ㅇ
-								</textarea>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="4">파일등록</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- / Main -->
 <!-- Footer -->
 <c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 

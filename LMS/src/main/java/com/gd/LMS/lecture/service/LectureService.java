@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.lecture.mapper.LectureMapper;
+import com.gd.LMS.vo.LectureQuestion;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +21,7 @@ public class LectureService {
 	
 	
 	
-	// 학생이 수강중인 강의리스트
+	// 진행강의리스트
 	public List<Map<String, Object>> getStudentLectureList(int studentCode) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.LCH + "studentCode (service) > " + studentCode);
@@ -32,7 +33,7 @@ public class LectureService {
 		return studentLectureList;
 	}
 
-	// 학생이 수강중인 강의 상세보기
+	// 강의 상세보기
 	public Map<String, Object> getOpenedLectureOne(int openedLecNo) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.LCH + "openedLecNo (service) > " + openedLecNo);
@@ -43,4 +44,24 @@ public class LectureService {
 		
 		return openedLectureOne;
 	}
+	
+	// 강의 질문리스트
+	public List<LectureQuestion> getLectureQuestionList(int openedLecNo) {
+		log.debug(TeamColor.LCH + openedLecNo + this.getClass());
+		
+		List<LectureQuestion> lectureQuestionOne = lectureMapper.selectLectureQuestionList(openedLecNo);
+		
+		log.debug(TeamColor.LCH + this.getClass() + lectureQuestionOne);
+		
+		return lectureQuestionOne;
+	}
+	
+	// 강의 질문 상세보기
+	public LectureQuestion getLectureQuestionOne(int lecQuestionNo) {
+		
+		LectureQuestion lectureQuestion = lectureMapper.selectLectureQuestionOne(lecQuestionNo);
+		
+		return lectureQuestion;
+	}
+	
 }

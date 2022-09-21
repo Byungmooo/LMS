@@ -51,7 +51,7 @@
 											<i class="bx bx-dots-vertical-rounded"></i>
 										</button>
 										<div class="dropdown-menu">
-											<a class="dropdown-item" href="${pageContext.request.contextPath}/student/studentLectureOne?openedLecNo=${s.openedLecNo}">
+											<a class="dropdown-item" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${s.openedLecNo}">
 											<i class="bx bx-book me-1"></i>
 												강의관리 <!-- 계획서 등의 내용 -->
 											</a>

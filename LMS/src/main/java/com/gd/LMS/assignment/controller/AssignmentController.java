@@ -20,11 +20,11 @@ public class AssignmentController {
 	@Autowired AssignmentService assignmentService;
 	
 	// 학생이 수강중인 한 강의 과제리스트
-	@GetMapping("/student/studentAssignmentList")
-	public String studentAssignmentList(Model model, Map<String, Object> paramMap, 
+	@GetMapping("/student/openedAssignmentList")
+	public String openedAssignmentList(Model model, Map<String, Object> paramMap, 
 			@RequestParam (value = "openedLecNo") int openedLecNo,
 			@RequestParam (value = "studentCode") int studentCode) {
-		log.debug(TeamColor.LCH + "--- studentAssignmentList Controller GetMapping ---");
+		log.debug(TeamColor.LCH + "--- openedAssignmentList Controller GetMapping ---");
 		
 		// 파라미터 디버깅openedLecNo
 		paramMap.put("openedLecNo", openedLecNo);
@@ -32,28 +32,29 @@ public class AssignmentController {
 		log.debug(TeamColor.LCH + "paramMap (controller) > " + paramMap);
 		
 		// 학생과제리스트 메서드 호출 후 리턴값 디버깅
-		List<Map<String, Object>> studentAssignmentList = assignmentService.getStudentAssignmentList(paramMap);
-		log.debug(TeamColor.LCH + "studentAssignmentList (controller) > " + studentAssignmentList);
+		List<Map<String, Object>> openedAssignmentList = assignmentService.getOpenedAssignmentList(paramMap);
+		log.debug(TeamColor.LCH + "studentAssignmentList (controller) > " + openedAssignmentList);
 		
-		model.addAttribute("list", studentAssignmentList);
+		model.addAttribute("list", openedAssignmentList);
 		
-		return "student/studentAssignmentList";
+		return "assignment/openedAssignmentList";
 	}
 	
 	// 학생이 수강중인 강의 과제 상세보기
-	@GetMapping("/student/studentAssignmentOne")
-	public String studentAssignmentOne(Model model, @RequestParam (value = "assignmentNo") int assignmentNo) {
-		log.debug(TeamColor.LCH + "--- studentAssignmentOne Controller GetMapping ---");
+	@GetMapping("/student/openedAssignmentOne")
+	public String openedAssignmentOne(Model model, @RequestParam (value = "assignmentNo") int assignmentNo) {
+		log.debug(TeamColor.LCH + "--- openedAssignmentOne Controller GetMapping ---");
 		
 		// 파라미터 디버깅openedLecNo
 		log.debug(TeamColor.LCH + "assignmentNo (controller) > " + assignmentNo);
 		
 		// 메서드 호출 후 리턴값 디버깅
-		Map<String, Object> studentAssignmentOne = assignmentService.getStudentAssignmentOne(assignmentNo);
-		log.debug(TeamColor.LCH + "studentAssignmentOne (controller) > " + studentAssignmentOne);
+		Map<String, Object> openedAssignmentOne = assignmentService.getOpenedAssignmentOne(assignmentNo);
+		log.debug(TeamColor.LCH + "studentAssignmentOne (controller) > " + openedAssignmentOne);
 		
-		model.addAttribute("map", studentAssignmentOne);
+		model.addAttribute("map", openedAssignmentOne);
 		
-		return "student/studentAssignmentOne";
+		return "assignment/openedAssignmentOne";
 	}
+	
 }
