@@ -117,7 +117,7 @@
 
 				<ul class="menu-inner py-1">
 					<!-- HOME -->
-					<li class="menu-item active"><a href=""
+					<li class="menu-item active"><a href="${pageContext.request.contextPath}/member/index"
 						class="menu-link"> <i
 							class="menu-icon tf-icons bx bx-home-circle"></i>
 							LMS Home
@@ -131,7 +131,7 @@
 					</a>
 
 						<ul class="menu-sub">
-							<li class="menu-item"><a href=""
+							<li class="menu-item"><a href="${pageContext.request.contextPath}/totalNotice"
 								class="menu-link">
 									전체공지사항
 							</a></li>
@@ -147,13 +147,13 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-dock-top"></i>
-							내 정보
+							내정보
 						</a>
 					</li>
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-cube-alt"></i>
-							일정표
+						<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+							캘린더일정
 						</a>
 					</li>
 					
@@ -163,63 +163,23 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-collection"></i>
-							강의관리
+							강의신청
 						</a>
-						<ul class="menu-sub">
-							<li class="menu-item">
-								<a href="" class="menu-link">
-									진행중인 강의
-								</a>
-							</li>
-							<li class="menu-item">
-								<a href="" class="menu-link">
-									수업일정
-								</a>
-							</li>
-						</ul>
 					</li>
-					
-					<!-- assignment -->
-					<li class="menu-header small text-uppercase"><span
-						class="menu-header-text">assignment</span></li>
 					<li class="menu-item">
 						<a href="" class="menu-link menu-toggle"> 
 						<i class="menu-icon tf-icons bx bx-box"></i>
-							과제관리
+							내강의
 						</a>
 						<ul class="menu-sub">
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									진행중인 과제
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li class="menu-item">
-						<a href="" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-crown"></i>
-							출석관리
-						</a>
-					</li>
-					
-					
-					<!-- multiple_example -->
-					<li class="menu-header small text-uppercase"><span
-						class="menu-header-text">multiple_example</span></li>
-					<li class="menu-item">
-						<a href="" class="menu-link menu-toggle"> 
-						<i class="menu-icon tf-icons bx bx-box"></i>
-							시험관리
-						</a>
-						<ul class="menu-sub">
-							<li class="menu-item">
-								<a href="" class="menu-link">
-									시험문제 등록(주)
+									시간표
 								</a>
 							</li>
 							<li class="menu-item">
-								<a href="" class="menu-link">
-									시험문제 등록(객)
+								<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" class="menu-link">
+									진행중인강의
 								</a>
 							</li>
 						</ul>
@@ -229,13 +189,36 @@
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">etc</span></li>
 					<li class="menu-item">
+						<a href="" class="menu-link menu-toggle"> 
+						<i class="menu-icon tf-icons bx bx-box"></i>
+							학부
+						</a>
+						<ul class="menu-sub">
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									학부정보
+								</a>
+							</li>
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									교수진
+								</a>
+							</li>
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									학생조회
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-detail"></i>
 							통계
 						</a>
 					</li>
 					<li class="menu-item">
-						<a href="" class="menu-link menu-toggle"> 
+						<a href ="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-detail"></i>
 							시스템 FAQ
 						</a>
@@ -282,8 +265,8 @@
 									<li>
 										<div class="dropdown-item">
 											<div class="flex-grow-1">
-												<span class="fw-semibold d-block">교수이름</span> <small
-													class="text-muted">professor</small>
+												<span class="fw-semibold d-block">학생이름</span> <small
+													class="text-muted">student</small>
 											</div>
 										</div>
 									</li>
@@ -325,4 +308,4 @@
 				</nav>
 				<!-- / Navbar -->
 			<!-- Content wrapper -->
-			<div class="content-wrapper">			
+			<div class="content-wrapper">

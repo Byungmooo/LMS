@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.lecture.mapper.LectureMapper">
+	<!-- 학생코드 -->
+	<select id="selectStudentCode" parameterType="String" resultType="int">
+		SELECT
+			student_code
+		FROM 
+			student
+		WHERE
+			member_id = #{memberId}
+	</select>
+	
+	<!-- 학생수강리스트 -->
+	<select id="selectStudentLectureList" parameterType="int" resultType="map">
+		SELECT
+			o.opened_lec_no openedLecNo,
+			t.lecture_name lectureName,
+			m.member_name professorName,
+			t.lecture_type lectureType,
+			t.credit
+		FROM
+			total_lecture t,
+			opened_lecture o,
+			student_lecture s,
+			professor p,
+			member m
+		WHERE
+			t.lecture_code = o.lecture_code AND
+			o.opened_lec_no = s.opened_lec_no AND
+			p.professor_code = o.professor_code AND
+			p.member_id = m.member_id AND
+			student_code = #{studentCode}		
+	</select>
+	
+	<!-- 학생수강상세보기 -->
+	<select id="selectStudentLectureOne" parameterType="int" resultType="map">
+		SELECT
+			m.member_name professorName,
+			t.lecture_type lectureType,
+			t.lecture_name lectureName,
+			t.credit,
+			d.department_name departmentName,
+			SUBSTRING(o.open_lecture_date,1,4) lectureYear,
+			(CASE WHEN CAST(SUBSTRING(open_lecture_date,6,2) AS unsigned)>=8 THEN 2
+					ELSE 1
+			END) AS lectureSemester,
+			o.lec_classroom lecClassroom,
+			o.student_num studentNum,
+			o.syllabus,
+			o.opened_lec_no openedLecNo
+		FROM
+			opened_lecture o,
+			total_lecture t,
+			department d,
+			professor p,
+			member m
+		WHERE
+			o.lecture_code = t.lecture_code AND
+			t.department_code = d.department_code AND
+			o.professor_code = p.professor_code AND
+			p.member_id = m.member_id AND
+			opened_lec_no = #{openedLecNo}
+	</select>
+</mapper>

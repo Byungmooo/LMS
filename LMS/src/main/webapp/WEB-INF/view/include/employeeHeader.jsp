@@ -117,7 +117,7 @@
 
 				<ul class="menu-inner py-1">
 					<!-- HOME -->
-					<li class="menu-item active"><a href=""
+					<li class="menu-item active"><a href="${pageContext.request.contextPath}/member/index"
 						class="menu-link"> <i
 							class="menu-icon tf-icons bx bx-home-circle"></i>
 							LMS Home
@@ -131,7 +131,7 @@
 					</a>
 
 						<ul class="menu-sub">
-							<li class="menu-item"><a href=""
+							<li class="menu-item"><a href="${pageContext.request.contextPath}/totalNotice"
 								class="menu-link">
 									전체공지사항
 							</a></li>
@@ -139,7 +139,8 @@
 								class="menu-link">
 									학부공지사항
 							</a></li>
-						</ul></li>
+						</ul>
+					</li>
 					
 					<!-- MYPAGE -->
 					<li class="menu-header small text-uppercase"><span
@@ -147,56 +148,82 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-dock-top"></i>
-							직원정보 조회
-						</a>
-					</li>
-					<li class="menu-item">
-						<a href="" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-							학생정보 조회
+							내정보
 						</a>
 					</li>
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-cube-alt"></i>
-							교수정보 조회
+							캘린더일정
 						</a>
 					</li>
 					
-					<!-- LECTURE -->
+					<!-- Member -->
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">LECTURE</span></li>
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-collection"></i>
-							강의관리
+							가입승인
 						</a>
 					</li>
 					<li class="menu-item">
 						<a href="" class="menu-link menu-toggle"> 
 						<i class="menu-icon tf-icons bx bx-box"></i>
-							강의
+							멤버조회 및 관리 (관리는 마스터만)
 						</a>
 						<ul class="menu-sub">
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									진행중인 강의
+									학생
 								</a>
 							</li>
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									종료된 강의
+									교수
+								</a>
+							</li>
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									직원
 								</a>
 							</li>
 						</ul>
 					</li>
+					
+					<!-- Lecture -->
+					<li class="menu-header small text-uppercase"><span
+						class="menu-header-text">lecture</span></li>
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-crown"></i>
-							성적관리
+						<i class="menu-icon tf-icons bx bx-dock-top"></i>
+							강의등록
 						</a>
 					</li>
-
+					<li class="menu-item">
+						<a href="" class="menu-link menu-toggle"> 
+						<i class="menu-icon tf-icons bx bx-box"></i>
+							전체강의
+						</a>
+						<ul class="menu-sub">
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									전체강의리스트
+								</a>
+							</li>
+							<li class="menu-item">
+								<a href="" class="menu-link">
+									진행중인강의
+								</a>
+							</li>
+							<li class="menu-item">
+								<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" class="menu-link">
+									종료된강의
+								</a>
+							</li>
+						</ul>
+					</li>
+					
 					<!-- 그 외 -->
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">etc</span></li>
@@ -207,7 +234,7 @@
 						</a>
 					</li>
 					<li class="menu-item">
-						<a href="" class="menu-link menu-toggle"> 
+						<a href ="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-detail"></i>
 							시스템 FAQ
 						</a>
