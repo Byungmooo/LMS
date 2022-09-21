@@ -46,7 +46,7 @@ public class TotalNoticeController {
         
         
         log.debug(TeamColor.KJS + " [김진수] 전체공지 리스트");
-        return "notice/totalNoticeList";
+        return "/notice/totalNotice/totalNoticeList";
     }
 
     // 전체공지사항 상세보기
@@ -56,14 +56,14 @@ public class TotalNoticeController {
         totalNoticeService.updateTotalNoticeCount(noticeNo);
         model.addAttribute("totalNotice", totalNotice);
         log.debug(TeamColor.KJS + " [김진수] 전체공지 상세보기");
-        return "notice/totalNoticeOne";
+        return "/notice/totalNotice/totalNoticeOne";
     }
 
     // 전체공지사항 추가 페이지 이동
     @GetMapping("/addTotalNotice")
     public String addTotalNotice() {
     	log.debug(TeamColor.KJS + " [김진수] 전체공지 추가 페이지 이동");
-        return "notice/addTotalNotice";
+        return "/notice/totalNotice/addTotalNotice";
     }
 
     // 전체공지사항 추가
@@ -74,7 +74,7 @@ public class TotalNoticeController {
         	log.debug(TeamColor.KJS + " [김진수] 전체공지 추가");
             return "redirect:totalNotice";
         }
-        return "notice/addTotalNotice";
+        return "/notice/totalNotice/addTotalNotice";
     }
 
     // 전체공지사항 수정 페이지 이동
@@ -83,7 +83,7 @@ public class TotalNoticeController {
         TotalNotice totalNotice = totalNoticeService.getTotalNotice(noticeNo);
         model.addAttribute("totalNotice", totalNotice);
         log.debug(TeamColor.KJS + " [김진수] 전체공지 수정 페이지 이동");
-        return "notice/updateTotalNotice";
+        return "/notice/totalNotice/updateTotalNotice";
     }
 
     // 전체공지사항 수정

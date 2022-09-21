@@ -145,6 +145,7 @@
 	<button class="btn btn-danger" type="button" id="btnWrite"
 		style="float: right"
 		onclick="location.href='${pageContext.request.contextPath}/addTotalNotice'">글쓰기</button>
+</div>
 <!-- / Main -->
 
 
