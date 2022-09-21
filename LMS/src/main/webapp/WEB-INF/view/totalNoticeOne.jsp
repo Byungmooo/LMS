@@ -20,7 +20,7 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">
+				<a class="nav-link" href="${pageContext.request.contextPath}/totalNoticeList">
 				<i class="bx bx-bell me-1"></i> 
 					전체게시판
 				</a>
