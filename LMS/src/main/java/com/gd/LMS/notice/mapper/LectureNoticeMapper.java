@@ -2,13 +2,18 @@ package com.gd.LMS.notice.mapper;
 
 import java.util.List;
 
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.LectureNotice;
 
+
+
+
 @Mapper
-public interface LectureNoticeMapper {
+public interface LectureNoticeMapper { //강의 공지게시판
+	
 	// 공지사항 목록
 	List<LectureNotice> selectLecNoticeList();
 	
@@ -21,12 +26,9 @@ public interface LectureNoticeMapper {
 	// 공지사항 추가
 	public int addLecNotice(LectureNotice lectureNotice);
 	
-	// 공지사항 조회수
+	// 공지사항 조회수 증가
 	public void updateLecNoticeCount(int lecNoticeNo);
 
-	// 공지사항 조회수 증가
-	public int updateLecNoticeOneCount(LectureNotice lectureNotice);
-	
 	
 	// 공지사항 삭제
 	public int deleteLecNoticeOne(int lectureNotice);
@@ -43,4 +45,6 @@ public interface LectureNoticeMapper {
 	
 	// 추가
 	public int insertNotice(LectureNotice lectureNotice);
+
+	
 }

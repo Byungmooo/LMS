@@ -50,12 +50,12 @@
 					<c:forEach var="row" items="${list}">
 						<tr>
 							<td>${row.lecNoticeNo}</td>
-							<td><span class="badge bg-label-primary me-1">${row.openedLecNo}</span></td>
-						<td>${row.lecNoticeTitle}</td>
+							<td>${row.openedLecNo}</td>
+						<td>${row.noticeTitle}</td>
 
 							<td><span class="badge bg-label-secondary me-1"> <a
 									href="${pageContext.request.contextPath}/lecNotice/${row.lecNoticeNo}">
-										${row.lecNoticeTitle} </a></span></td>
+										${row.noticeTitle} </a></span></td>
 										
 							<td>${row.writer}</td>
 							<td>${row.views}</td>
@@ -134,11 +134,12 @@
 							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">다음</a>
 					</c:if>
 				</div>
-
 </div>
 	<button class="btn btn-danger" type="button" id="btnWrite"
 		style="float: right"
 		onclick="location.href='${pageContext.request.contextPath}/addLecNotice'">글쓰기</button>
+</div>
+
 <!-- / Main -->
 
 

@@ -1,53 +1,93 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ include file="/WEB-INF/view/include/studentHeader.jsp"%>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>		
-	
-	<div class= "container">
-		<h3>강의 공지 수정</h3>
-			<div class="col-sm-10">
-				<form action="${pageContext.request.contextPath}/modifyLecNoticeOne" 
-					  method="post" id="modifyForm">
-					<div class="form-group">		
-						<label for="lecNoticeNo">공지번호</label>
-						<input type="text" name="lecNoticeNo" value="${lectureNotice.lecNoticeNo}" readonly>
-					</div>
-					<div class="form-group">		
-						<label for="openedLecNo">강의번호</label>
-						<input type="text" name="openedLecNo" value="${lectureNotice.openedLecNo}" readonly>
-					</div>
-					<div class="form-group">		
-						<label for="lecNoticeTitle">강의공지 제목</label>
-						<input type="text" name="lecNoticeTitle" value="${lectureNotice.lecNoticeTitle}" class="form-control">
-					</div>
-					<div class="form-group">		
-						<label for="lecNoticeContent">강의공지 내용</label>
-						<textarea id="lecNoticeContent" class="form-control autosize" style="min-height: 200px; resize: none;" cols="100px"
-							name="lecNoticeContent" placeholder="내용을 입력하세요.">${lectureNotice.lecNoticeContent}</textarea>
-					</div>
-			
-					<div style="margin-bottom: 20px; position: relative; left: 350px;">
-						<button type="button" class="btn btn-primary" id = "modifyBtn">수정</button>
-						<a href="${pageContext.request.contextPath}/lecNoticeOne?lecNoticeNo=${lectureNotice.lecNoticeNo}" class="btn btn-dank">취소</a>	
-					</div>
-				</form>
-			</div>
-		</div>
-		
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/view/include/studentHeader.jsp" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<!-- Main -->
+<div class="container-xxl flex-grow-1 container-p-y">
+    <!-- Row1 구분 -->
+    <div class="row text-center">
+        <div class="card h-100">
+            <div class="card-header">
+                <div class="card-title mb-0">
+                    <h5 class="m-0 me-2">게시글 보기</h5>
+                    <%--                    <small class="text-muted">게시글 보기</small>--%>
+                </div>
+            </div>
+            <div class="card-body">
+                <form name="form" action="${pageContext.request.contextPath}/updateLecNotice" method="post">
+                    <div>        <!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 -->
+                        <fmt:parseDate value="${LectureNotice.createDate}" pattern="yyyy-MM-dd HH:mm" var="lecDate"/>
+                        작성일자 : <fmt:formatDate value="${lecDate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
+                        <!-- 날짜 형식 => yyyy 4자리연도, MM 월, dd 일, a 오전/오후, HH 24시간제, hh 12시간제, mm 분, ss 초 -->
+                    </div>
+
+                    <div>
+                        조회수 : ${LectureNotice.views}
+                    </div>
+                    <div>
+                        제목
+                        <input name="noticeTitle" id="title" size="80" value="${LectureNotice.noticeTitle}"
+                               placeholder="제목을 입력해주세요">
+                    </div>
+                    <div>
+                        내용
+                        <textarea name="noticeContent" id="content" rows="4" cols="80"
+                                  placeholder="내용을 입력해주세요">${LectureNotice.noticeContent}</textarea>
+                    </div>
+
+                    <%--                    <div>--%>
+                    <%--                        비밀번호--%>
+                    <%--                        <input name="pw" id="pw" size="80" value="" placeholder="비밀번호 입력">--%>
+                    <%--                    </div>--%>
+                    <div style="width:650px; text-align: center;">
+                        <!-- 게시물번호를 hidden으로 처리 -->
+                        <input type="hidden" name="lecNoticeNo" value="${LectureNotice.lecNoticeNo}">
+ 						<button class="btn btn-primary" type="button" id="btnUpdate">수정</button>
+                        <button class="btn btn-danger" type="button" id="btnDelete">삭제</button>
+                        <button class="btn btn-warning" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Row1 구분 -->
+</div>
+<!-- /Main -->
+<%@ include file="/WEB-INF/view/include/footer.jsp" %>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body>
+
+
+</body>
 <script>
+    $(document).ready(function () {
+        $("#btnDelete").click(function () {
+            if (confirm("삭제하시겠습니까?")) {
+                document.form.action = "${pageContext.request.contextPath}/removeLecNotice";
+                document.form.method = "get";
+                document.form.submit();
+            }
+        });
 
-$('#modifyBtn').click(function() {
-	if($('#lecNoticeTitle').val() == '') {
-		alert('제목을 입력해주세요');
-		$("#lecNoticeTitle").focus();
-	} else if($('#lecNoticeContent').val() == '') {
-		alert('내용을 입력해주세요');
-		$("#lecNoticeContent").focus();
-	} else {
-		modifyForm.submit();
-	}
-});
-  
+        $("#btnUpdate").click(function () {
+            let title = $("#title").val();
+            let content = $("#content").val();
+            if (!title) {
+                alert("제목을 입력하세요");
+                document.form.title.focus();
+                return;
+            }
+            if (!content) {
+                alert("내용을 입력하세요");
+                document.form.content.focus();
+                return;
+            }
+            document.form.submit();
+        });
+    });
 </script>
-
-<%@ include file="/WEB-INF/view/include/footer.jsp"%>   
+</html>
