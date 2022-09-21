@@ -14,13 +14,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.gd.LMS.member.service.MemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @WebFilter("/member/*")
 public class MemberFilter implements Filter {
-	// @Autowired StudentService studentService;
+	@Autowired MemberService memberService;
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -37,13 +38,11 @@ public class MemberFilter implements Filter {
 				if (session.getAttribute("memberCode") == null) {
 					String memberId = (String)session.getAttribute("memberId"); 
 					String memberType = (String)session.getAttribute("memberType");
-					/*
 					if (memberType.equals("학생")) {
-						int memberCode = studentService.getStudentCode(memberId);
+						int memberCode = memberService.getStudentCode(memberId);
 						log.debug(TeamColor.LCH + "studentCode > " + memberCode);
 						session.setAttribute("memberCode", memberCode);
 					}
-					*/ 
 					/*
 					else if (memberType.equals("교수")) {
 						int memberCode = studentService.getStudentCode(memberId);

@@ -33,23 +33,23 @@ public class LectureController {
 		
 		model.addAttribute("list", studentLectureList);
 		
-		return "student/studentLectureList";
+		return "lecture/studentLectureList";
 	}
 	
-	// 학생이 수강중인 강의 상세보기
-	@GetMapping("/student/studentLectureOne")
-	public String studentLectureOne(Model model, @RequestParam (value = "openedLecNo") int openedLecNo) {
-		log.debug(TeamColor.LCH + "--- studentLectureOne Controller GetMapping ---");
+	// 강의 상세보기
+	@GetMapping("/student/openedLectureOne")
+	public String openedLectureOne(Model model, @RequestParam (value = "openedLecNo") int openedLecNo) {
+		log.debug(TeamColor.LCH + "--- openedLectureOne Controller GetMapping ---");
 		
 		// 파라미터 디버깅
 		log.debug(TeamColor.LCH + "openedLecNo (controller) > " + openedLecNo);
 		
 		// 학생수강리스트 메서드 호출 후 리턴값 디버깅
-		Map<String, Object> studentLectureOne = lectureService.getStudentLectureOne(openedLecNo);
-		log.debug(TeamColor.LCH + "studentLectureOne (controller) > " + studentLectureOne);
+		Map<String, Object> openedLectureOne = lectureService.getOpenedLectureOne(openedLecNo);
+		log.debug(TeamColor.LCH + "openedLectureOne (controller) > " + openedLectureOne);
 		
-		model.addAttribute("map", studentLectureOne);
+		model.addAttribute("map", openedLectureOne);
 		
-		return "student/studentLectureOne";
+		return "lecture/openedLectureOne";
 	}
 }

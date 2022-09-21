@@ -18,16 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LectureService {
 @Autowired LectureMapper lectureMapper;
 	
-	// 학생코드
-	public int getStudentCode(String memberId) {
-		// 파라미터 디버깅
-		log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
-		
-		// 매퍼메서드 호출 후 리턴값 디버깅
-		int memberCode = lectureMapper.selectStudentCode(memberId);
-		
-		return memberCode;
-	}
+	
 	
 	// 학생이 수강중인 강의리스트
 	public List<Map<String, Object>> getStudentLectureList(int studentCode) {
@@ -42,14 +33,14 @@ public class LectureService {
 	}
 
 	// 학생이 수강중인 강의 상세보기
-	public Map<String, Object> getStudentLectureOne(int openedLecNo) {
+	public Map<String, Object> getOpenedLectureOne(int openedLecNo) {
 		// 파라미터 디버깅
 		log.debug(TeamColor.LCH + "openedLecNo (service) > " + openedLecNo);
 		
 		// 매퍼메서드 호출 후 리턴값 디버깅
-		Map<String, Object> studentLectureOne = lectureMapper.selectStudentLectureOne(openedLecNo);
-		log.debug(TeamColor.LCH + "studentLectureOne (service) > " + studentLectureOne);
+		Map<String, Object> openedLectureOne = lectureMapper.selectOpenedLectureOne(openedLecNo);
+		log.debug(TeamColor.LCH + "studentLectureOne (service) > " + openedLectureOne);
 		
-		return studentLectureOne;
+		return openedLectureOne;
 	}
 }

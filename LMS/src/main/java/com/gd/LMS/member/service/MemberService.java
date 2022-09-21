@@ -84,4 +84,15 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	// 학생코드
+	public int getStudentCode(String memberId) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
+		
+		// 매퍼메서드 호출 후 리턴값 디버깅
+		int memberCode = memberMapper.selectStudentCode(memberId);
+		
+		return memberCode;
+	}
 }

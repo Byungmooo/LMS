@@ -89,4 +89,14 @@
 			active = 'N'
 			<!-- active = 'W' 도 같은 메서드? -->
 	</update>
+	
+	<!-- 학생코드 -->
+	<select id="selectStudentCode" parameterType="String" resultType="int">
+		SELECT
+			student_code
+		FROM 
+			student
+		WHERE
+			member_id = #{memberId}
+	</select>
 </mapper>

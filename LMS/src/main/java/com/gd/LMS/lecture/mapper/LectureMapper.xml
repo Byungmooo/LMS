@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.lecture.mapper.LectureMapper">
-	<!-- 학생코드 -->
-	<select id="selectStudentCode" parameterType="String" resultType="int">
-		SELECT
-			student_code
-		FROM 
-			student
-		WHERE
-			member_id = #{memberId}
-	</select>
+	
 	
 	<!-- 학생수강리스트 -->
 	<select id="selectStudentLectureList" parameterType="int" resultType="map">

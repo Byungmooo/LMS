@@ -24,4 +24,7 @@ public interface MemberMapper {
 	
 	// 회원상태 활성화
 	int updateMemberActiveY(Member paramMember);
+	
+	// 학생코드
+	int selectStudentCode(String memberId);
 }
