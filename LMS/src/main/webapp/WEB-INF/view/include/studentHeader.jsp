@@ -117,7 +117,7 @@
 
 				<ul class="menu-inner py-1">
 					<!-- HOME -->
-					<li class="menu-item active"><a href="${pageContext.request.contextPath}/member/index"
+					<li class="menu-item active"><a href=""
 						class="menu-link"> <i
 							class="menu-icon tf-icons bx bx-home-circle"></i>
 							LMS Home
@@ -160,13 +160,13 @@
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-							학사변동내역
+							학적변동
 						</a>
 					</li>
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-cube-alt"></i>
-							캘린더일정
+							일정표
 						</a>
 					</li>
 					
@@ -208,31 +208,13 @@
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">etc</span></li>
 					<li class="menu-item">
-						<a href="" class="menu-link menu-toggle"> 
-						<i class="menu-icon tf-icons bx bx-box"></i>
-							학부
-						</a>
-						<ul class="menu-sub">
-							<li class="menu-item">
-								<a href="" class="menu-link">
-									학부정보
-								</a>
-							</li>
-							<li class="menu-item">
-								<a href="" class="menu-link">
-									교수진
-								</a>
-							</li>
-						</ul>
-					</li>
-					<li class="menu-item">
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-detail"></i>
 							통계
 						</a>
 					</li>
 					<li class="menu-item">
-						<a href ="" class="menu-link"> 
+						<a href="" class="menu-link menu-toggle"> 
 						<i class="menu-icon tf-icons bx bx-detail"></i>
 							시스템 FAQ
 						</a>
