@@ -1,3 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.LMS.member.mapper.StudentMapper"></mapper>
+<mapper namespace="com.gd.LMS.member.mapper.StudentMapper">
+
+<!-- ＃＃＃＃＃＃＃＃ 학생 ＃＃＃＃＃＃＃ -->
+	<!-- 학생리스트 -->
+	<select id = "selectStudentList" resultType="map">
+	SELECT 
+		s.member_id memberId,
+		m.member_name memberName,
+		s.student_code studentCode,
+		d.department_code departmentCode,
+		s.student_year studentYear,
+		s.student_state studentState
+	FROM 
+		student s, 
+		member m,
+		department d		
+	Where 
+		s.member_id = m.member_id AND
+		s.department_code = d.department_code
+	ORDER BY 
+		student_code ASC
+	</select>
+	
+	<!-- 학생정보 상세보기 -->
+	<select id ="selectStudentOne" resultType="map" parameterType="int">
+	SELECT 
+		s.member_id memberId,
+		s.student_code studentCode,
+		d.department_code departmentCode,
+		s.student_year studentYear,
+		s.student_state studentState,
+		m.member_name memberName,
+		m.member_gender memberGender,
+		m.member_type memberType,
+		m.member_birth memberBirth,
+		m.member_email memberEmail,
+		m.member_address memberAddress,
+		m.member_contact memberContact,
+		m.active,
+		m.create_date createDate
+	FROM 
+		student s ,
+		member m ,
+		department d
+	Where 
+		s.member_id = m.member_id AND
+		d.department_code = s.department_code AND
+		s.student_code = #{studentCode}
+	</select>
+	
+	
+	
+	<!-- 수정 form -->
+	<select id="updateStudentOne" parameterType="int" resultType="map">
+		SELECT 
+		s.member_id memberId,
+		s.student_code studentCode,
+		d.department_code departmentCode,
+		s.student_year studentYear,
+		s.student_state studentState,
+		m.member_name memberName,
+		m.member_gender memberGender,
+		m.member_type memberType,
+		m.member_birth memberBirth,
+		m.member_email memberEmail,
+		m.member_address memberAddress,
+		m.member_contact memberContact,
+		m.active,
+		m.create_date createDate
+	FROM 
+		student s ,
+		member m ,
+		department d
+	Where 
+		s.member_id = m.member_id AND
+		d.department_code = s.department_code AND
+		s.student_code = #{studentCode}
+	</select>
+	
+	
+	<!-- 수정 action -->
+	<update id="updateStudent" parameterType="com.gd.LMS.vo.Student">
+		UPDATE 
+			student s ,
+			member m ,
+			department d
+		SET 
+			s.member_id = #{memberId},
+			s.student_code = #{studentCode},
+			d.department_code = #{departmentCode},
+			s.student_year = #{studentYear},
+			s.student_state = #{studentState},
+			m.member_name = #{memberName},
+			m.member_gender = #{memberGender},
+			m.member_type = #{memberType},
+			m.member_birth = #{memberBirth},
+			m.member_email = #{memberEmail},
+			m.member_address = #{memberAddress},
+			m.member_contact = #{memberContact},
+			m.active = #{active},
+			m.update_date = now()
+		WHERE 
+			s.student_code = #{studentCode}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteCountry" parameterType="int">
+		DELETE 
+		FROM student
+		WHERE student_code = #{studentCode}
+	</delete>
+	
+	
+	
+	
+ </mapper>
