@@ -1,6 +1,7 @@
 package com.gd.LMS.notice.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,44 +20,40 @@ public class TotalNoticeService {
 	@Autowired  TotalNoticeMapper noticeMapper;
 	
 	// 전체공지사항 목록 리스트
-    public List<TotalNotice> getTotalNoticeList() {
-        return noticeMapper.selectTotalNoticeList();
-    }
-   
-    public TotalNotice getTotalNotice(int noticeNo) {
+	public List<TotalNotice> selectBoard(Map<String, Object> map) {
+		return noticeMapper.selectBoard(map);
+	}
+	
+	// 리스트 총 개수
+	public int countBoard(Map<String, Object> map) {
+		return noticeMapper.countBoard(map);
+	}
+	
+	// 상세보기 or 조회수 증가
+	public TotalNotice getTotalNotice(int noticeNo) {
         return noticeMapper.selectTotalNoticeOne(noticeNo);
     }
-
+	public void updateTotalNoticeCount(int noticeNo) {
+    	noticeMapper.updateTotalNoticeCount(noticeNo);
+    }
+	
+    // 공지사항 입력
     public int addTotalNotice(TotalNotice totalNotice) {
         return noticeMapper.addTotalNotice(totalNotice);
     }
 
-    public void updateTotalNoticeCount(int noticeNo) {
-    	noticeMapper.updateTotalNoticeCount(noticeNo);
-    }
-
-    public int deleteTotalNotice(int noticeNo) {
-        return noticeMapper.deleteTotalNotice(noticeNo);
-    }
-
+    // 수정
     public int updateTotalNotice(TotalNotice totalNotice) {
         return noticeMapper.updateTotalNotice(totalNotice);
     }
     
-	//페이징 , 검색
-	public int countBoard(String keyword, String searchType) {
-		return noticeMapper.countBoard(keyword, searchType);
-	}
-
-	public List<TotalNotice> selectBoard(PagingVo vo) {
-		return noticeMapper.selectBoard(vo);
-	}
-	
-	public TotalNotice getNoticeOne(int noticeNo) {
-		return noticeMapper.selectNoticeOne(noticeNo);
-	}
-	
-	public int addNotice(TotalNotice totalNotice) {
-		return noticeMapper.insertNotice(totalNotice);
+    // 삭제
+    public int deleteTotalNotice(int noticeNo) {
+        return noticeMapper.deleteTotalNotice(noticeNo);
+    }
+    
+	// 부서공지사항 목록 리스트
+	public List<TotalNotice> selectBoard2(Map<String, Object> map) {
+		return noticeMapper.selectBoard2(map);
 	}
 }

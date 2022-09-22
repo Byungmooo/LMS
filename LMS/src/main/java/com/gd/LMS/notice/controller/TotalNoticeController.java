@@ -1,6 +1,9 @@
 package com.gd.LMS.notice.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,38 +27,98 @@ public class TotalNoticeController {
 	
 	// 전체공지 목록 리스트
     @GetMapping(value = {"/totalNotice"})
-    public String totalNoticeList(PagingVo vo,Model model
+    public String totalNoticeList(PagingVo vo,Model model, HttpSession session, Map<String, Object> map
     		, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
 			, @RequestParam(value="keyword", defaultValue = "") String keyword
 			, @RequestParam(value="searchType", defaultValue = "") String searchType){
-        List<TotalNotice> list = totalNoticeService.getTotalNoticeList();
-        model.addAttribute("list", list);
     	
-        int totalCount = totalNoticeService.countBoard(keyword, searchType);
-		log.debug(TeamColor.LCH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
+    	
+    	String memberDepartmentCode = (String)session.getAttribute("memberDepartmentCode");
+    	log.debug(TeamColor.LCH + "memberDepartmentCode > " + memberDepartmentCode);
+    	
+    	map.put("departmentCode", memberDepartmentCode);
+    	map.put("keyword", keyword);
+    	map.put("searchType", searchType);
+        
+    	log.debug(TeamColor.KJS + "map1 > " + map);
+    	
+    	int totalCount = totalNoticeService.countBoard(map);
+		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 		
 		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
-		log.debug(TeamColor.LCH + "PaginVo : " + vo);
+		log.debug(TeamColor.KJS + "PaginVo : " + vo);
 		
-		List<TotalNotice> list1 = totalNoticeService.selectBoard(vo);
-		log.debug(TeamColor.LCH + "noticeList : " + list1);
+		
+		map.put("beginRow", vo.getBeginRow());
+		map.put("rowPerPage", vo.getRowPerPage());
+		
+		log.debug(TeamColor.KJS + "map2 > " + map);
+		
+		List<TotalNotice> list = totalNoticeService.selectBoard(map);
+		log.debug(TeamColor.KJS + "noticeList : " + list);
 		
 		model.addAttribute("paging", vo);
-		model.addAttribute("list", list1);
+		model.addAttribute("list", list);
         
         
         log.debug(TeamColor.KJS + " [김진수] 전체공지 리스트");
+        return "/notice/totalNotice/totalNoticeList";
+    }
+    
+    // 부서공지 리스트
+    @GetMapping(value = {"/departmentNotice"})
+    public String departmentNoticeList(PagingVo vo,Model model, HttpSession session, Map<String, Object> map
+    		, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+			, @RequestParam(value="keyword", defaultValue = "") String keyword
+			, @RequestParam(value="searchType", defaultValue = "") String searchType){
+    	
+    	
+    	String memberDepartmentCode = (String)session.getAttribute("memberDepartmentCode");
+    	log.debug(TeamColor.LCH + "memberDepartmentCode > " + memberDepartmentCode);
+    	
+    	map.put("departmentCode", memberDepartmentCode);
+    	map.put("keyword", keyword);
+    	map.put("searchType", searchType);
+        
+    	log.debug(TeamColor.KJS + "map1 > " + map);
+    	
+    	int totalCount = totalNoticeService.countBoard(map);
+		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
+		
+		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+		log.debug(TeamColor.KJS + "PaginVo : " + vo);
+		
+		map.put("memberDcode", memberDepartmentCode);
+		map.put("beginRow", vo.getBeginRow());
+		map.put("rowPerPage", vo.getRowPerPage());
+		
+		log.debug(TeamColor.KJS + "map2 > " + map);
+		
+		List<TotalNotice> list = totalNoticeService.selectBoard2(map);
+		log.debug(TeamColor.KJS + "noticeList : " + list);
+		
+		model.addAttribute("paging", vo);
+		model.addAttribute("list", list);
+        
+        
+        log.debug(TeamColor.KJS + " [김진수] 부서공지 리스트");
         return "/notice/totalNotice/totalNoticeList";
     }
 
     // 전체공지사항 상세보기
     @GetMapping(value = "/totalNotice/{noticeNo}")
     public String totalNoticeOne(Model model, @PathVariable(value = "noticeNo") int noticeNo) {
-        TotalNotice totalNotice = totalNoticeService.getTotalNotice(noticeNo);
-        totalNoticeService.updateTotalNoticeCount(noticeNo);
-        model.addAttribute("totalNotice", totalNotice);
+        
+    	TotalNotice totalNotice = totalNoticeService.getTotalNotice(noticeNo);
+        
+    	totalNoticeService.updateTotalNoticeCount(noticeNo);
+        
+    	model.addAttribute("totalNotice", totalNotice);
+        
         log.debug(TeamColor.KJS + " [김진수] 전체공지 상세보기");
+        
         return "/notice/totalNotice/totalNoticeOne";
     }
 
