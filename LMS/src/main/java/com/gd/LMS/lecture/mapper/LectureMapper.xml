@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.lecture.mapper.LectureMapper">
-	
-	
 	<!-- 학생수강리스트 -->
 	<select id="selectStudentLectureList" parameterType="int" resultType="map">
 		SELECT
@@ -89,4 +87,70 @@
 			lec_question_no = #{lecQuestionNo}
 	</select>
 	
+	<!-- 학생수강신청 전체리스트 -->
+	<select id="selectTotalLectureList" parameterType="com.gd.LMS.utils.PagingVo" resultType="map">
+		SELECT 
+			o.opened_lec_no openedLecNo,
+			t.lecture_code lectureCode,
+			t.lecture_name lectureName,
+			m.member_name memberName,
+			t.credit credit
+		FROM 
+			total_lecture t,
+			opened_lecture o,
+			professor p,
+			member m
+		WHERE
+			t.lecture_code = o.lecture_code AND 
+			o.professor_code = p.professor_code AND 
+			p.member_id = m.member_id
+		ORDER BY 
+			t.lecture_code
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 학생수강신청 장바구니 -->
+	<select id="selectStudentLectureCartList" resultType="map">
+		SELECT
+			s.cart_no cartNo,
+			o.opened_lec_no openedLecNo,
+			t.lecture_code lectureCode,
+			t.lecture_name lectureName,
+			t.credit
+		FROM
+			total_lecture t,
+			opened_lecture o,
+			student_lecture_cart s
+		WHERE
+			t.lecture_code = o.lecture_code AND
+			o.opened_lec_no = s.opened_lec_no 
+			
+			<!-- AND s.student_code = 20122001 -->
+	</select>
+	
+	<select id="selectTotalLectureCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			total_lecture
+	</select>
+	
+	<!-- 학생수강담기 -->
+	<insert id="studentCartInsert" parameterType="map">
+		INSERT INTO student_lecture_cart (
+			student_code,
+			opened_lec_no,
+			create_date
+		) VALUES (
+			#{studentCode},
+			#{openedLecNo},
+			NOW()
+		)	
+	</insert>
+	
+	<delete id="studentCartDelete" parameterType="String">
+		DELETE FROM student_lecture_cart
+		WHERE cart_no = #{cartNo}
+	</delete>
 </mapper>

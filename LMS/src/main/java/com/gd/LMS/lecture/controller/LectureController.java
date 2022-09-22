@@ -1,5 +1,7 @@
 package com.gd.LMS.lecture.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -7,10 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.lecture.service.LectureService;
+import com.gd.LMS.utils.PagingVo;
+import com.gd.LMS.vo.LectureListVo;
 import com.gd.LMS.vo.LectureQuestion;
 
 import lombok.extern.slf4j.Slf4j;
@@ -86,5 +92,118 @@ public class LectureController {
 		model.addAttribute("question", lectureQuestionOne);
 		
 		return "lecture/lectureQuestionOne";
+	}
+	
+	// 학생 수강신청 화면
+	@GetMapping("/studentLectureReg")
+	public String studentLectureReg(PagingVo vo, Model model
+			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage) {
+		
+		int totalLectureCount = lectureService.getTotalLectureCount();
+		
+		vo = new PagingVo(currentPage, totalLectureCount, rowPerPage, null, null);
+		
+		List<Map<String, Object>> totalLectureList = lectureService.getTotalLectureList(vo);
+		
+		model.addAttribute("totalList", totalLectureList);
+		
+		List<Map<String, Object>> studentLectureCartList = lectureService.getStudentLectureCartList();
+		int size = 9 - studentLectureCartList.size();
+		
+		model.addAttribute("size", size);
+		model.addAttribute("cartList", studentLectureCartList);
+		
+		return "lecture/studentLectureReg";
+	}
+	
+	// 학생 수강신청 액션
+	@PostMapping("/studentLectureReg")
+	public String studentLectureReg(LectureListVo lectureList) {
+		log.debug(TeamColor.LCH + "lectureList > " + lectureList);
+		
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("studentCode", lectureList.getStudentCode2());
+		map.put("openedLecNo", lectureList.getOpenedLecNo2());
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		
+		lectureList.setList(list);
+		
+		log.debug(TeamColor.LCH + "list > " + list);
+		//lectureList.setList(null)
+		
+		
+		// log.debug(TeamColor.LCH + list);
+		
+		// log.debug(TeamColor.LCH + "씨발" + lectureList.getList().get(0));
+		
+		
+		return "redirect:/result";
+	}
+	
+	// 학생 장바구니 담기
+	@PostMapping("/cartAdd")
+	public @ResponseBody String cartAdd(Map<String, Object> map,
+			@RequestParam (value = "openedLecNo") String openedLecNo,
+			@RequestParam (value = "studentCode") String studentCode) {
+		log.debug(TeamColor.LCH + "--- cartAdd Controller PostMapping ---");
+		
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "openedLecNo (controller) > " + openedLecNo);
+		log.debug(TeamColor.LCH + "studentCode (controller) > " + studentCode);
+		
+		map.put("openedLecNo", openedLecNo);
+		map.put("studentCode", studentCode);
+		log.debug(TeamColor.LCH + "map (controller) > " + map);
+		
+		// 리턴값 디버깅
+		int result = lectureService.studentCartAdd(map);
+		log.debug(TeamColor.LCH + "result (controller) > " + result);
+		
+		// ajax Json에 보낼 메시지
+		String returnJson;
+		
+		// 리턴값이 null일 경우 사용가능한 아이디
+		if(result != 0) {
+			returnJson = "y";
+		} else {
+			returnJson = "n";
+		}
+		
+		return returnJson;
+	}
+	
+	// 학생 장바구니 빼기
+	@PostMapping("/cartRemove")
+	public @ResponseBody String cartRemove(@RequestParam (value = "cartNo") String cartNo) {
+		log.debug(TeamColor.LCH + "--- cartDelete Controller PostMapping ---");
+		
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "cartNo (controller) > " + cartNo);
+		
+		// 리턴값 디버깅
+		int result = lectureService.studentCartRemove(cartNo);
+		log.debug(TeamColor.LCH + "result (controller) > " + result);
+		
+		// ajax Json에 보낼 메시지
+		String returnJson;
+		
+		// 리턴값이 null일 경우 사용가능한 아이디
+		if(result != 0) {
+			returnJson = "y";
+		} else {
+			returnJson = "n";
+		}
+		
+		return returnJson;
+	}
+	
+	
+	// 지울거임
+	@GetMapping("/result")
+	public String resultPage() {
+		return "resultPage";
 	}
 }
