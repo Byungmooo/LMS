@@ -3,14 +3,15 @@ package com.gd.LMS.vo;
 import lombok.Data;
 
 @Data
-public class MultipleExample {  //객관식문제 보기
-	
-	private int examNo;				//시험지번호
-	private int multipleNo;			//객관식문제번호
-	private String example;			//보기1~4번(ENUM)
-	private String exampleContent;	//보기내용
+public class MultipleExample { 
+
+	private int examNo;				//시험지 번호
+	private String multipleNo;		//객관식 문제 번호 (1~5번)
+	private String example;			//한 문제에대한 보기(1~4번)
+	private String exampleContent;	//보기 1~4번 내용
 	private String createDate;		//생성일
 	private String updateDate;		//수정일
+	
 	
 }
  
