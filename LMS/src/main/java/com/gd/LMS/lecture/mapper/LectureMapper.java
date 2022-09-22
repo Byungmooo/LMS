@@ -21,6 +21,6 @@ public interface LectureMapper {
 	List<LectureQuestion> selectLectureQuestionList(int openedLecNo);
 	
 	// 강의 질문 상세보기
-	LectureQuestion selectLectureQuestionOne(int lecQuestionNo);
+	Map<String, Object> selectLectureQuestionOne(int lecQuestionNo);
 	
 }

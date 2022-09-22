@@ -1,3 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.LMS.schedule.mapper.ScheduleMapper"></mapper>
+<mapper namespace="com.gd.LMS.schedule.mapper.ScheduleMapper">
+
+	<select id="selectLectureSchedule" resultType="map">
+		SELECT
+			l.lec_time_no lecTimeNo,
+			l.opened_lec_no openedLecNo,
+			l.lecture_yoil lectureYoil,
+			l.lecture_start lectureStart,
+			l.lecture_end lectureEnd,
+			o.lec_classroom lecClassRoom,
+			s.student_code studentCode,
+			t.lecture_name lectureName,
+			l.color
+		FROM 
+			lecture_time l,
+			opened_lecture o,
+			student_lecture s,
+			total_lecture t
+		WHERE
+			l.opened_lec_no = o.opened_lec_no AND
+			o.opened_lec_no = s.opened_lec_no AND
+			t.lecture_code = o.opened_lec_no AND 
+			s.student_code = 20122001
+	</select>
+
+</mapper>

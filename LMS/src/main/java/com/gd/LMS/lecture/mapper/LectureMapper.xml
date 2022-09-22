@@ -59,7 +59,8 @@
 		SELECT
 			lec_question_no lecQuestionNo,
 			opened_lec_no openedLecNo,
-			question_title questionTitle,
+			notice_title noticeTitle,
+			writer,
 			answer_y answerY,
 			create_date createDate
 		FROM
@@ -68,16 +69,23 @@
 			opened_lec_no = #{openedLecNo}
 	</select>
 	
-	<select id="selectLectureQuestionOne" parameterType="int" resultType="com.gd.LMS.vo.LectureQuestion">
+	<select id="selectLectureQuestionOne" parameterType="int" resultType="map">
 		SELECT
-			lec_question_no lecQuestionNo,
-			opened_lec_no openedLecNo,
-			question_title questionTitle,
-			answer_y answerY,
-			create_date createDate
+			q.lec_question_no lecQuestionNo,
+			t.lecture_name lectureName,
+			o.opened_lec_no openedLecNo,
+			q.notice_title noticeTitle,
+			q.notice_content noticeContent,
+			q.writer,
+			q.answer_y answerY,
+			q.create_date createDate
 		FROM
-			lecture_question
+			lecture_question q,
+			opened_lecture o,
+			total_lecture t
 		WHERE
+			q.opened_lec_no = o.opened_lec_no AND
+			o.lecture_code = t.lecture_code AND
 			lec_question_no = #{lecQuestionNo}
 	</select>
 	

@@ -81,8 +81,8 @@
 							<tr>
 								<td><strong>${q.lecQuestionNo}</strong></td>
 								<td>
-									<a href="${pageContext.request.contextPath}/student/openedAssignmentOne?assignmentNo=${s.assignmentNo}">
-										${q.questionTitle}
+									<a href="${pageContext.request.contextPath}/student/lectureQuestionOne?lecQuestionNo=${q.lecQuestionNo}">
+										${q.noticeTitle}
 									</a>
 								</td>
 								<td><span class="badge bg-label-primary me-1"></span>${q.answerY}</td>

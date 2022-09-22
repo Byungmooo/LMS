@@ -57,9 +57,9 @@ public class LectureService {
 	}
 	
 	// 강의 질문 상세보기
-	public LectureQuestion getLectureQuestionOne(int lecQuestionNo) {
+	public Map<String, Object> getLectureQuestionOne(int lecQuestionNo) {
 		
-		LectureQuestion lectureQuestion = lectureMapper.selectLectureQuestionOne(lecQuestionNo);
+		Map<String, Object> lectureQuestion = lectureMapper.selectLectureQuestionOne(lecQuestionNo);
 		
 		return lectureQuestion;
 	}

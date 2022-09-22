@@ -62,11 +62,11 @@ public class LectureController {
 		
 		log.debug(TeamColor.LCH + "openedLecNo > " + openedLecNo);
 		
-		List<LectureQuestion> lectureQuestion = lectureService.getLectureQuestionList(openedLecNo);
+		List<LectureQuestion> lectureQuestionList = lectureService.getLectureQuestionList(openedLecNo);
 		
-		log.debug(TeamColor.LCH + "lectureQuestion > " + lectureQuestion);
+		log.debug(TeamColor.LCH + "lectureQuestionList > " + lectureQuestionList);
 		
-		model.addAttribute("question", lectureQuestion);
+		model.addAttribute("question", lectureQuestionList);
 		
 		return "lecture/lectureQuestionList";
 	}
@@ -79,11 +79,11 @@ public class LectureController {
 		
 		log.debug(TeamColor.LCH + "lecQuestionNo > " + lecQuestionNo);
 		
-		LectureQuestion lectureQuestion = lectureService.getLectureQuestionOne(lecQuestionNo);
+		Map<String, Object> lectureQuestionOne = lectureService.getLectureQuestionOne(lecQuestionNo);
 		
-		log.debug(TeamColor.LCH + "lectureQuestion > " + lectureQuestion);
+		log.debug(TeamColor.LCH + "lectureQuestionOne > " + lectureQuestionOne);
 		
-		model.addAttribute("question", lectureQuestion);
+		model.addAttribute("question", lectureQuestionOne);
 		
 		return "lecture/lectureQuestionOne";
 	}
