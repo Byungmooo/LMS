@@ -62,13 +62,13 @@
 		s.student_state studentState,
 		m.member_name memberName,
 		m.member_gender memberGender,
-		m.member_type memberType,
 		m.member_birth memberBirth,
 		m.member_email memberEmail,
 		m.member_address memberAddress,
 		m.member_contact memberContact,
 		m.active,
-		m.create_date createDate
+		m.create_date createDate,
+		m.update_date updateDate
 	FROM 
 		student s ,
 		member m ,
@@ -79,37 +79,57 @@
 		s.student_code = #{studentCode}
 	</select>
 	
-	
-	<!-- 수정 action -->
-	<update id="updateStudent" parameterType="com.gd.LMS.vo.Student">
+	<!-- 
+		수정 action
+	<update id="updateStudent" parameterType="map">
 		UPDATE 
-			student s ,
-			member m ,
-			department d
+			member m,
+			student s
 		SET 
-			s.member_id = #{memberId},
-			s.student_code = #{studentCode},
-			d.department_code = #{departmentCode},
+			s.student_year = #{student.studentYear},
+			s.student_state = #{student.studentState},
+			m.member_name = #{member.memberName},
+			m.member_gender= #{member.memberGender},
+			m.member_birth= #{member.memberBirth},
+			m.member_email = #{member.memberEmail},
+			m.member_address = #{member.memberAddress},
+			m.member_contact = #{member.memberContact},
+			m.update_date = now()
+		WHERE
+			s.member_id = m.member_id AND
+			s.student_code = #{student.studentCode}
+	</update> -->
+	
+	<update id="updateStudent" parameterType="map">
+		UPDATE 
+			member m,
+			student s
+		SET 
 			s.student_year = #{studentYear},
 			s.student_state = #{studentState},
 			m.member_name = #{memberName},
-			m.member_gender = #{memberGender},
-			m.member_type = #{memberType},
-			m.member_birth = #{memberBirth},
+			m.member_gender= #{memberGender},
+			m.member_birth= #{memberBirth},
 			m.member_email = #{memberEmail},
 			m.member_address = #{memberAddress},
 			m.member_contact = #{memberContact},
-			m.active = #{active},
 			m.update_date = now()
-		WHERE 
-			s.student_code = #{studentCode}
+		WHERE
+			s.member_id = m.member_id AND
+			s.student_code = #{student.studentCode}
 	</update>
 	
+	
+	
 	<!-- 삭제 -->
-	<delete id="deleteCountry" parameterType="int">
+	<delete id="deleteStudent" parameterType="int">
 		DELETE 
-		FROM student
-		WHERE student_code = #{studentCode}
+			student
+		FROM 
+			member m
+		WHERE 
+			s.member_id = m.member_id AND
+			s.student_code = #{studentCode}
 	</delete>
 	
 	
