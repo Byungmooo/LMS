@@ -97,8 +97,8 @@
                    	     <!-- 학번을 hidden으로 처리 -->
                    		<input type="hidden" name="studentCode" value="${s.studentCode}">
                    		<button class="btn btn-primary" type="button" id="btnUpdate" onclick="updateBtn()">수정</button>
-                        <button class="btn btn-danger" type="button" id="btnDelete" onclick="func()">삭제</button>
-                        <button class="btn btn-warning" type="button" id="btnCancel" onclick="window.history.back()">취소</button> 
+						<button class="btn btn-warning" type="button" onclick="window.history.back()">취소</button> 
+						
                    </div>
                 </form>
             </div>
@@ -108,19 +108,9 @@
 </div>
 <!-- /Main -->
 <%@ include file="/WEB-INF/view/include/footer.jsp" %>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-</head>
-<body>
-
-
-</body>
-
 <script> 
 function updateBtn(){
 	alert("수정하시겠습니까?");
     document.form.submit();
 }
-
 </script>

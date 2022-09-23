@@ -90,8 +90,10 @@
 			<div>				
 				<a href="${pageContext.request.contextPath}/member/student/modifyStudent?studentCode=${s.studentCode}"
 						class="btn btn-warning">수정</a>
-				<a href="${pageContext.request.contextPath}/member/student/removeStudent?studentCode=${s.studentCode}"
-						class="btn btn-info">삭제</a>
+				<form action="${pageContext.request.contextPath}/member/student/removeStudentMember" method="post">
+					<input type="hidden" name="memberId" value="${s.memberId}">
+					<button class="btn btn-danger" onclick="deleteBtn()">삭제</button>
+				</form>		
 				<a href="javascript:window.history.back()"
 						class="btn btn-primary">목록</a>
 			</div>
@@ -101,3 +103,11 @@
 	</div>
 </div>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
+
+
+<script> 
+function deleteBtn(){
+	alert("수정하시겠습니까?");
+    document.form.submit();
+}
+</script>

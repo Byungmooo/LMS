@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.department.mapper.DepartmentMapper;
@@ -15,7 +16,6 @@ import com.gd.LMS.vo.Member;
 import com.gd.LMS.vo.Student;
 
 import lombok.extern.slf4j.Slf4j;
-
 
 @Slf4j
 @Service
@@ -59,14 +59,14 @@ public class StudentService {
     // 학생정보 수정액션
     public int modifyStudent(Map<String, Object> map) {
     	
-    	log.debug(TeamColor.BJH + "map studentYear ==> " + map.get("studentYear"));
+    	//log.debug(TeamColor.BJH + "map studentYear ==> " + map.get("studentYear"));
     	int row = studentMapper.updateStudent(map);
     	log.debug(TeamColor.BJH + "수정액션(service) > " + map);
     
         return row;
     }
     
-    /*
+    
     //학생정보 > 학과 자동설정 폼
     
     public Map<String, Object> addStudentForm() {
@@ -77,18 +77,20 @@ public class StudentService {
 		
 		return resultMap;
     }
-    */
     
     
     
+   
     // 학생 삭제	
-    public int removeStudent(int studentCode) {
-
-    	log.debug(TeamColor.BJH + "modifyStudent(service) > " + studentCode);
-		
-        return studentMapper.deleteStudent(studentCode);
+    public String removeStudentMember(String memberId) {
+    	
+    	studentMapper.deleteStudentMember(memberId);
+        log.debug(TeamColor.BJH + "학생테이블(삭제) > " + memberId);
+    	
+        return memberId;
+        
     }
-	
-	
-	
+    
 }
+	
+	

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.LMS.vo.Member;
 import com.gd.LMS.vo.Student;
 
 @Mapper
@@ -30,10 +31,7 @@ public interface StudentMapper {
 	int updateStudent(Map<String, Object> map);
 	
 	
-	//학생정보 삭제
-	int deleteStudent(int studentCode);
-	
-	
-	
+	//학생정보(student) 삭제
+	int deleteStudentMember(String memberId);
 
 }

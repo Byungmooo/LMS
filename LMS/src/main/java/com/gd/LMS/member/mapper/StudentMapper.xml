@@ -124,17 +124,19 @@
 	
 	
 	
-	<!-- 삭제 -->
-	<delete id="deleteStudent" parameterType="int">
-		DELETE 
-			student
-		FROM 
-			member m
+	<!-- 학생삭제 -->
+	<delete id="deleteStudentMember" parameterType="String">
+			DELETE FROM
+			s  , m
+		USING  
+			student AS s
+		LEFT  JOIN
+			member AS m
+		ON 
+			s.member_id = m.member_id
 		WHERE 
-			s.member_id = m.member_id AND
-			s.student_code = #{studentCode}
+			s.member_id = #{memberId}
 	</delete>
-	
 	
 	
 	
