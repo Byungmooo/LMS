@@ -64,10 +64,18 @@ public class professortExService {
     	log.debug(TeamColor.KBW + "SubjectiveQuestion(service)"+examNo);
     	return professorExMapper.selectSubjectiveQ(examNo);
     }
-
+    
 	
 	//객관식 시험문제 추가
 
 	//주관식 시험문제 추가
-
+    
+    //시험지삭제
+    public void deleteExamSheet(int examNo) {
+    	professorExMapper.deleteMultupleExample(examNo);
+    	professorExMapper.deleteMultipleQ(examNo);
+    	professorExMapper.deleteSubjectiveQ(examNo);
+    	professorExMapper.deleteExamSheet(examNo);
+    }    
+    
 }
