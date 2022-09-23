@@ -33,5 +33,8 @@ public interface professorExMapper {
 	//시험문제수정
 	
 	//시험지삭제
-	
+	int deleteMultupleExample(int examNo); 	//객관식예제삭제
+	int deleteMultipleQ(int examNo);		//객관식문제삭제
+	int deleteSubjectiveQ(int examNo);		//주관식문제삭제
+	int deleteExamSheet(int examNo);		//시험지삭제
 }

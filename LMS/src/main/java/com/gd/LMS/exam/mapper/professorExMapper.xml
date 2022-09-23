@@ -52,8 +52,7 @@
 				GROUP BY B.multiple_no
 			)Z
 		WHERE A.multiple_no = Z.multiple_no	 AND A.exam_no = #{examNo}
-		
-		
+
 	</select>
 
 
@@ -91,9 +90,38 @@
 			subjective_question
 		WHERE 
 			exam_no = #{examNo} 
-	
 	</select>
 
+
+
+<!-- 시험지삭제.1 : 객관식 보기 삭제  -->
+	<delete id="deleteMultupleExample" parameterType="int" >
+		DELETE FROM 
+			multiple_example
+		WHERE
+			exam_no = ${examNo}
+	</delete>
+<!-- 시험지삭제.2 : 객관식 문제 삭제 -->
+	<delete id="deleteMultipleQ" parameterType="int" >
+		DELETE FROM 
+			multiple_choice_question
+		WHERE
+			exam_no = ${examNo}
+	</delete>
+<!-- 시험지삭제.3 : 주관식 문제 삭제 -->
+	<delete id="deleteSubjectiveQ" parameterType="int" >
+		DELETE FROM 
+			subjective_question
+		WHERE
+			exam_no = ${examNo}
+	</delete>
+<!-- 시험지삭제.4 : 시험지 삭제 -->
+	<delete id="deleteExamSheet" parameterType="int" >
+		DELETE FROM 
+			exam_sheet
+		WHERE
+			exam_no = ${examNo}
+	</delete>
 
 
 
