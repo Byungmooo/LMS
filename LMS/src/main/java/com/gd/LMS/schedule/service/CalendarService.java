@@ -49,12 +49,14 @@ public class CalendarService {
 		
 		// firstDay : 오늘 날짜를 먼저 구하여 날짜만 1일로 변경
 		Calendar firstDay = Calendar.getInstance(); // ex) 2022.04.19
+		log.debug(TeamColor.LCH + firstDay);
 		firstDay.set(Calendar.YEAR, year);
 		firstDay.set(Calendar.MONTH, month - 1); // 자바 달력 API는 1월을 0으로, 2월을 1로, ... 12월을 11로 설정되어있다.
 		firstDay.set(Calendar.DATE, 1); // ex) 2022.04.01
 		int dayOfWeek = firstDay.get(Calendar.DAY_OF_WEEK);
 		// dayOfWeek는 일 1, 월 2, ..., 토 7
 		// startBlank는 일 0, 월 1, ..., 토 6
+		log.debug(TeamColor.LCH + dayOfWeek);
 		
 		// 1) startBlank : 달력 시작 시 필요한 공백 개수 (td 공백 개수)
 		int startBlank = dayOfWeek - 1; // 일 0, 월 1, ..., 토 6 -> 1일의 요일을 이용하여 구한다
@@ -92,6 +94,12 @@ public class CalendarService {
 		returnMap.put("month", month);
 				
 		return returnMap;
+	}
+	
+	public List<Map<String, Object>> getDepartmentSchedule() {
+		List<Map<String, Object>> list = calendarMapper.selectDepartmentSchedule();
+		
+		return list;
 	}
 	
 

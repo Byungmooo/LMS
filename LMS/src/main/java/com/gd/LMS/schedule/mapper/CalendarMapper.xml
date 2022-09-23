@@ -2,17 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.schedule.mapper.CalendarMapper">
 		
-		<!-- 달력리스트 -->
-    <select id="selectCalendarDayListByMonth" resultType="com.gd.LMS.vo.DateData">
-    
-    	SELECT 
-				year,
-				month,
-				date,
-				value
+	<!-- 달력리스트 -->
+	<select id="selectCalendarDayListByMonth" resultType="com.gd.LMS.vo.DateData">
+		SELECT 
+			year,
+			month,
+			date,
+			value
 		FROM
 			date_data 
-	
-  </select>  
+	</select>  
+
+	<select id="selectDepartmentSchedule" resultType="map">
+		SELECT
+			YEAR(dep_schedule_date) scheduleYear,
+			MONTH(dep_schedule_date) scheduleMonth,
+			DAY(dep_schedule_date) scheduleDay,
+			dep_schedule_content depScheduleContent
+		FROM 
+			department_schedule
+		WHERE
+			department_code = 'HT104'
+	</select>
 
 </mapper>

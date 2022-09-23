@@ -40,7 +40,7 @@ th {
 			<tr>
 				<th>${a}교시</th>
 					<c:forEach begin="1" end="5" var="b">
-						<td style="background: ${list.get(b).color};">
+						<td>
 							<c:forEach items="${list}" var="s">
 								<c:if test="${b==s.lectureYoil && s.lectureStart<=a && a<=s.lectureEnd}">
 									${s.lectureName} 

@@ -14,6 +14,4 @@ public class OpenedLecture {
 	private String closeLectureDate; //종강일
 	private String createDate;		 //생성일
 	private String updateDate;		 //수정일
-		
-	
 }

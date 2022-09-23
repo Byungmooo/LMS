@@ -13,7 +13,8 @@ import com.gd.LMS.vo.CalendarDayList;
 public interface CalendarMapper {
 	//CalendarDayList 일정표리스트(달력)
 	List<CalendarDayList> selectCalendarDayListByMonth(int year, int month);
-
-
+	
+	// 학부일정
+	List<Map<String, Object>> selectDepartmentSchedule();
 	
 }
