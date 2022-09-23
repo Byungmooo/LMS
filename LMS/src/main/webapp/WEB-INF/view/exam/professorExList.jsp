@@ -15,9 +15,10 @@
 			<h5 class="card-header">시험지 목록</h5>
 			<div class="table-responsive text-nowrap">
 				<table class="table">
-					<caption class="ms-4">List of Lecture</caption>
+					<caption class="ms-4">Example ${memberType}.Ver/ 안녕하세요. ${memberName}님!</caption>
 					<thead>
 						<tr>
+							<td>강의번호</td>
 							<th>시험지번호</th>
 							<th>시험지이름</th>
 							<th>등록일</th>
@@ -58,9 +59,10 @@
 			</div>
 		</div>
 		<hr>
-				<button class="btn btn-danger" type="button" id="btnWrite"
-		style="float: right"
-		onclick="location.href='${pageContext.request.contextPath}/professor/professorAddExamSheet'">시험지 추가</button>
+				
+				
+				<a href="${pageContext.request.contextPath}/exam/professorAddExamSheet" style="float: right" class="btn btn-danger">시험지추가(교수)</a>
+				
 	</div>
 
 	<!-- / Main -->

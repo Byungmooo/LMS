@@ -181,6 +181,11 @@
 								<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" class="menu-link">
 									진행중인강의
 								</a>
+							<li class="menu-item">
+								<a href="${pageContext.request.contextPath}/exam/professorExList" class="menu-link">
+									시험목록(임시)
+								</a>
+							</li>
 							</li>
 						</ul>
 					</li>

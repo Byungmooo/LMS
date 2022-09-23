@@ -85,16 +85,17 @@ public class professorExController {
          return "/exam/professorExOne";
     }	
     
-    //시험지 추가
+    //시험지 추가 (
     @GetMapping("/exam/professorAddExamSheet")
     public String ExAdd() {
     	log.debug(TeamColor.KBW + "--- ExAdd(시험지추가) Controller Getmapping---");
     	return "/exam/professorAddExamSheet";
     }
-    
+
+
     
 	
-	//시험문제 추가
+	//시험지 추가 
 
 	
 	//시험문제 수정

@@ -28,4 +28,10 @@ public interface professorExMapper {
 	public List<SubjectiveQuestion> selectSubjectiveQ(int examNo);
 	
 	
+	//시험지추가하기
+	
+	//시험문제수정
+	
+	//시험지삭제
+	
 }

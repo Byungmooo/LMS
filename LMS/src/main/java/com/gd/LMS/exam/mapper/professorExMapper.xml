@@ -3,99 +3,98 @@
 <mapper namespace="com.gd.LMS.exam.mapper.professorExMapper">
 
 <!-- 시험지 리스트 -->
-<select id="selectExList" parameterType="int" resultType="com.gd.LMS.vo.ExamSheet">
-	SELECT
-		exam_no examNo,
-		exam_name examName,
-		create_date createDate,
-		update_date updateDate
-	FROM
-		exam_sheet
-</select>
+	<select id="selectExList" parameterType="int" resultType="com.gd.LMS.vo.ExamSheet">
+		SELECT
+			exam_no examNo,
+			exam_name examName,
+			create_date createDate,
+			update_date updateDate
+		FROM
+			exam_sheet
+	</select>
+
 
 
 <!-- 시험지 상세보기 -->
-<select id="selectExOne" parameterType="int" resultType="com.gd.LMS.vo.ExamSheet">
-	SELECT
-		exam_no examNo,
-		exam_name examName,
-		create_date createDate,
-		update_date updateDate
-	FROM
-		exam_sheet
-	WHERE
-		exam_no = #{examNo}
-</select>
+	<select id="selectExOne" parameterType="int" resultType="com.gd.LMS.vo.ExamSheet">
+		SELECT
+			exam_no examNo,
+			exam_name examName,
+			create_date createDate,
+			update_date updateDate
+		FROM
+			exam_sheet
+		WHERE
+			exam_no = #{examNo}
+	</select>
+
+
+
 <!-- 시험지상세 : 객관식문제 -->
-<select id="selectMultipleQ" parameterType="int" resultType="com.gd.LMS.vo.MultipleChoiceQuestion">
-		SELECT 
-		A.opened_lec_no openLecNo,
-		A.multiple_no multipleNo,
-		A.multiple_content multipleContent, 
-		A.multiple_answer multipleAnswer,
-		A.question_point questionPoint,
-		A.create_date createDate,
-		A.update_date updateDate,
-		Z.arrayUs 
-	FROM multiple_choice_question A
-		,(SELECT B.multiple_no, GROUP_CONCAT(B.arrayUs) AS arrayUs FROM(
-			SELECT example,multiple_no,GROUP_CONCAT(example_content) arrayUs FROM(
-				SELECT * FROM multiple_example ORDER BY multiple_no,example ASC
-				LIMIT 1000
-				)A
-				GROUP BY A.multiple_no,example
-			)B
-			GROUP BY B.multiple_no
-		)Z
-	WHERE A.multiple_no = Z.multiple_no	 AND A.exam_no = #{examNo}
-	
-	
-	
-		<!-- SELECT 
-		opened_lec_no openLecNo,
-		exam_no examNo,
-		multiple_no multipleNo,
-		multiple_content multipleContent,
-		multiple_answer multipleAnswer,
-		question_point questionPoint,
-		create_date createDate,
-		update_date updateDate
-	From 
-		multiple_choice_question
-	WHERE exam_no = #{examNo} -->
-</select>
+	<select id="selectMultipleQ" parameterType="int" resultType="com.gd.LMS.vo.MultipleChoiceQuestion">
+			SELECT 
+			A.opened_lec_no openLecNo,
+			A.multiple_no multipleNo,
+			A.multiple_content multipleContent, 
+			A.multiple_answer multipleAnswer,
+			A.question_point questionPoint,
+			A.create_date createDate,
+			A.update_date updateDate,
+			Z.arrayUs 
+		FROM multiple_choice_question A
+			,(SELECT B.multiple_no, GROUP_CONCAT(B.arrayUs) AS arrayUs FROM(
+				SELECT example,multiple_no,GROUP_CONCAT(example_content) arrayUs FROM(
+					SELECT * FROM multiple_example WHERE exam_no = #{examNo} ORDER BY multiple_no,example ASC
+					LIMIT 1000
+					)A
+					GROUP BY A.multiple_no,example
+				)B
+				GROUP BY B.multiple_no
+			)Z
+		WHERE A.multiple_no = Z.multiple_no	 AND A.exam_no = #{examNo}
+		
+		
+	</select>
+
+
+
 <!-- 시험지상세 : 객관식보기 -->
-<select id="selectMultipleExample" parameterType="int" resultType="com.gd.LMS.vo.MultipleExample">
-	SELECT 
-		exam_no examNo,
-		multiple_no multipleNo,
-		example,
-		example_content exampleContent,
-		create_date createDate,
-		update_date updateDate
-	From 
-		multiple_example
-	WHERE 
-		exam_no = #{examNo}
-	
-</select>
+	<select id="selectMultipleExample" parameterType="int" resultType="com.gd.LMS.vo.MultipleExample">
+		SELECT 
+			exam_no examNo,
+			multiple_no multipleNo,
+			example,
+			example_content exampleContent,
+			create_date createDate,
+			update_date updateDate
+		From 
+			multiple_example
+		WHERE 
+			exam_no = #{examNo}
+		
+	</select>
+		
+		
 		
 <!-- 시험지상세 : 주관식보기 -->
-<select id="selectSubjectiveQ" parameterType="int" resultType="com.gd.LMS.vo.SubjectiveQuestion">
-	SELECT 
-		opened_lec_no openedLecNo,
-		exam_no examNo,
-		subjective_no subjectiveNo,
-		subjective_content subjectiveContent,
-		subjective_answer subjectiveAnswer,
-		question_point questionPoint,
-		create_date createDate,
-		update_date updateDate
-	From 
-		subjective_question
-	WHERE 
-		exam_no = #{examNo} 
+	<select id="selectSubjectiveQ" parameterType="int" resultType="com.gd.LMS.vo.SubjectiveQuestion">
+		SELECT 
+			opened_lec_no openedLecNo,
+			exam_no examNo,
+			subjective_no subjectiveNo,
+			subjective_content subjectiveContent,
+			subjective_answer subjectiveAnswer,
+			question_point questionPoint,
+			create_date createDate,
+			update_date updateDate
+		From 
+			subjective_question
+		WHERE 
+			exam_no = #{examNo} 
+	
+	</select>
 
-</select>
+
+
 
 </mapper>
