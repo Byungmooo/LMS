@@ -110,6 +110,21 @@
 			#{beginRow}, #{rowPerPage}
 	</select>
 	
+	<insert id="insertStudentLecture" parameterType="java.util.List">
+		INSERT INTO student_lecture ( 
+			student_code, 
+			opened_lec_no, 
+			create_date 
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=","> 
+		( 
+			#{item.studentCode}, 
+			#{item.openedLecNo}, 
+			NOW() 
+		) 
+		</foreach>
+	</insert>
+	
 	<!-- 학생수강신청 장바구니 -->
 	<select id="selectStudentLectureCartList" resultType="map">
 		SELECT
@@ -152,5 +167,10 @@
 	<delete id="studentCartDelete" parameterType="String">
 		DELETE FROM student_lecture_cart
 		WHERE cart_no = #{cartNo}
+	</delete>
+	
+	<delete id="deleteStudentLectureCart" parameterType="String">
+		DELETE FROM student_lecture_cart
+		WHERE student_code = #{studenCode}
 	</delete>
 </mapper>

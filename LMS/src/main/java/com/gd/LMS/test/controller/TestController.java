@@ -1,6 +1,7 @@
 package com.gd.LMS.test.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.test.service.TestService;
@@ -67,5 +69,51 @@ public class TestController {
 		System.out.println(row);
 		
 		return "redirect:/test/testNoticeOne?" + row;
+	}
+	
+	@GetMapping("/testReg")
+	public String testReg() {
+		
+		return "test/testReg";
+	}
+	
+	@GetMapping("/testLink")
+	public String testLink() {
+		
+		return "test/testLink";
+	}
+	
+	@PostMapping("/testPost")
+	public @ResponseBody String testPost(
+			@RequestParam (value = "aNo") String aNo,
+			@RequestParam (value = "bNo") String bNo) {
+		log.debug(TeamColor.LCH + "--- testPost Controller PostMapping ---");
+		
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "aNo (controller) > " + aNo);
+		log.debug(TeamColor.LCH + "bNo (controller) > " + bNo);
+		
+		// ajax Json에 보낼 메시지
+		String returnJson = "y";
+
+		
+		return returnJson;
+	}
+	
+	@PostMapping("/linkPost")
+	public @ResponseBody String linkPost(
+			@RequestParam (value = "aNo") String aNo,
+			@RequestParam (value = "bNo") String bNo) {
+		log.debug(TeamColor.LCH + "--- testPost Controller PostMapping ---");
+		
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "aNo (controller) > " + aNo);
+		log.debug(TeamColor.LCH + "bNo (controller) > " + bNo);
+		
+		// ajax Json에 보낼 메시지
+		String returnJson = "y";
+
+		
+		return returnJson;
 	}
 }

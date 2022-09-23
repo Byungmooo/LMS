@@ -33,9 +33,8 @@
 									<td>${t.lectureName}</td>
 									<td><span class="badge bg-label-primary me-1"></span>${t.memberName}</td>
 									<td><span class="badge bg-label-secondary me-1"></span>${t.credit}</td>
-									<td><button type="button" id="cartAddBtn" class="btn btn-dark">add</button></td>
+									<td><button type="button" id="cartAddBtn" class="addBtn" value="${t.openedLecNo}">add</button></td>
 								</tr>
-								<input type="hidden" name="openedLecNo" id="openedLecNo" value="${t.openedLecNo}">
 								<input type="hidden" name="studentCode" id="studentCode" value="20122001"> <!-- ${memberCode}로 수정해야함 -->
 							</c:forEach>
 						</tbody>
@@ -64,16 +63,15 @@
 										<td><strong>${c.lectureCode}</strong></td>
 										<td>${c.lectureName}</td>
 										<td><span class="badge bg-label-primary me-1"></span>${c.credit}</td>
-										<td><button type="button" id="cartDeleteBtn" class="btn btn-dark">delete</button></td>
+										<td><button type="button" id="cartDeleteBtn" class="deleteBtn" value="${c.cartNo}">delete</button></td>
 									</tr>
 									<input type="hidden" name="openedLecNo2" value="${c.openedLecNo}">
+									<input type="hidden" name="cartNo" value="${c.cartNo}">
 									<input type="hidden" name="studentCode2" value="20122001"> <!-- ${memberCode}로 수정해야함 -->
-									<input type="hidden" name="cartNo" id="cartNo" value="${c.cartNo}">
 								</c:forEach>
 								<c:forEach begin="0" end="${size}" var="b">
 									<tr>
-										<td colspan="3">강의를 담아주세요</td>
-										<td><button class="btn btn-secondary">lecture</button></td>
+										<td colspan="4">강의를 담아주세요</td>
 									</tr>
 								</c:forEach>
 							</tbody>
@@ -90,11 +88,12 @@
 	<!-- / Main -->
 
 <script>
-	$('#cartAddBtn').click(function() {
+	$('.addBtn').click(function() {
+		var openedLecNoVal = $(this).val(); 
 		$.ajax({
 			url : 'cartAdd',
 			type : 'post',
-			data : {openedLecNo : $('#openedLecNo').val(), studentCode : $('#studentCode').val()},
+			data : {openedLecNo : openedLecNoVal, studentCode : $('#studentCode').val()},
 			success : function(json) {
 				if(json == 'y') {
 					alert('수강 장바구니에 담겼습니다.');
@@ -107,11 +106,12 @@
 		return false;
 	});
 	
-	$('#cartDeleteBtn').click(function() {
+	$('.deleteBtn').click(function() {
+		var cartNoVal = $(this).val(); 
 		$.ajax({
 			url : 'cartRemove',
 			type : 'post',
-			data : {cartNo : $('#cartNo').val()},
+			data : {cartNo : cartNoVal},
 			success : function(json) {
 				if(json == 'y') {
 					alert('수강 장바구니에서 삭제되었습니다.');

@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.lecture.service.LectureService;
+import com.gd.LMS.utils.LectureListVo;
 import com.gd.LMS.utils.PagingVo;
-import com.gd.LMS.vo.LectureListVo;
 import com.gd.LMS.vo.LectureQuestion;
 
 import lombok.extern.slf4j.Slf4j;
@@ -111,6 +111,8 @@ public class LectureController {
 		List<Map<String, Object>> studentLectureCartList = lectureService.getStudentLectureCartList();
 		int size = 9 - studentLectureCartList.size();
 		
+		if(size < 0 ) { size = 0;}
+		
 		model.addAttribute("size", size);
 		model.addAttribute("cartList", studentLectureCartList);
 		
@@ -122,25 +124,36 @@ public class LectureController {
 	public String studentLectureReg(LectureListVo lectureList) {
 		log.debug(TeamColor.LCH + "lectureList > " + lectureList);
 		
-		Map<String, Object> map = new HashMap<>();
-		
-		map.put("studentCode", lectureList.getStudentCode2());
-		map.put("openedLecNo", lectureList.getOpenedLecNo2());
-		
+		Map<String, Object> map = null;
 		List<Map<String, Object>> list = new ArrayList<>();
 		
-		lectureList.setList(list);
+		int length = lectureList.getOpenedLecNo2().length;
 		
-		log.debug(TeamColor.LCH + "list > " + list);
-		//lectureList.setList(null)
+		for(int i=0; i<length; i++) {
+			map = new HashMap<>();
+			map.put("studentCode", lectureList.getStudentCode2()[i]);
+			map.put("openedLecNo", lectureList.getOpenedLecNo2()[i]);
+			list.add(map);
+		}
 		
+		log.debug(TeamColor.LCH + "size > " + lectureList.getOpenedLecNo2().length);		
+		log.debug(TeamColor.LCH + "map > " + map);		
+		log.debug(TeamColor.LCH + "list > " + list);		
 		
-		// log.debug(TeamColor.LCH + list);
+		int result = lectureService.addStudentLeture(list);
 		
-		// log.debug(TeamColor.LCH + "씨발" + lectureList.getList().get(0));
+		if(result != 0) {
+			// 수강신청 성공 시 장바구니강의 삭제
+			String studentCode = (String) list.get(0).get("studentCode");
+			int row = lectureService.removeStudentLectureCart(studentCode);
+			if(row==0) {
+				log.debug(TeamColor.LCH + "실패 row > " + row);
+				return "redirect:/studentLectureReg";
+			}
+			log.debug(TeamColor.LCH + row + "개의 강의 삭제성공");
+		}
 		
-		
-		return "redirect:/result";
+		return "redirect:/studentLectureReg";
 	}
 	
 	// 학생 장바구니 담기

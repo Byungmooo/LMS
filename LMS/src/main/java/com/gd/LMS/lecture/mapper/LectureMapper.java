@@ -27,6 +27,9 @@ public interface LectureMapper {
 	// 학생 수강신청 (전체과목)
 	List<Map<String, Object>> selectTotalLectureList(PagingVo vo);
 	
+	// 학생 수강신청 (신청)
+	int insertStudentLecture(List<Map<String, Object>> list);
+	
 	// 학생 수강신청 (장바구니)
 	List<Map<String, Object>> selectStudentLectureCartList();
 	
@@ -38,5 +41,8 @@ public interface LectureMapper {
 	
 	// 학생 수강신청 (수강취소)
 	int studentCartDelete(String cartNo);
+	
+	// 학생 장바구니 삭제
+	int deleteStudentLectureCart(String studentCode);
 
 }

@@ -73,6 +73,12 @@ public class LectureService {
 		return totalLectureList;
 	}
 	
+	// 학생 수강신청 (신청하기)
+	public int addStudentLeture(List<Map<String, Object>> list) {
+		int row = lectureMapper.insertStudentLecture(list);
+		return row;
+	}
+	
 	// 학생 수강신청 (장바구니)
 	public List<Map<String, Object>> getStudentLectureCartList() {
 		
@@ -94,6 +100,11 @@ public class LectureService {
 	// 학생 수강신청 (수강취소)
 	public int studentCartRemove(String cartNo) {
 		return lectureMapper.studentCartDelete(cartNo);
+	}
+	
+	// 장바구니 강의 삭제
+	public int removeStudentLectureCart(String studentCode) {
+		return lectureMapper.deleteStudentLectureCart(studentCode);
 	}
 	
 }
