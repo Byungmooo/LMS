@@ -31,7 +31,7 @@ public interface StudentMapper {
 	int updateStudent(Map<String, Object> map);
 	
 	
-	//학생정보(student) 삭제
+	//학생정보(member, student) 삭제
 	int deleteStudentMember(String memberId);
 
 }

@@ -81,14 +81,20 @@
 						<th>계정생성일</th>
 						<td>${e.createDate}</td>						
 					</tr>
+					<tr>
+						<th>마지막 수정일</th>
+						<td>${e.updateDate}</td>						
+					</tr>
 				</thead>
 			</table>
 			<!-- 추가 삭제 목록 버튼 -->
 			<div>				
 				<a href="${pageContext.request.contextPath}/member/employee/modifyEmployee?employeeCode=${e.employeeCode}"
 						class="btn btn-warning">수정</a>
-				<a href="${pageContext.request.contextPath}/member/employee/removeEmployee?employeeCode=${e.employeeCode}"
-						class="btn btn-info">삭제</a>
+				<form action="${pageContext.request.contextPath}/member/employee/removeEmployeeMember" method="post">
+					<input type="hidden" name="memberId" value="${e.memberId}">
+					<button class="btn btn-danger" onclick="deleteBtn()">삭제</button>
+				</form>	
 				<a href="javascript:window.history.back()"
 						class="btn btn-primary">목록</a>
 			</div>
@@ -98,3 +104,11 @@
 	</div>
 </div>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
+
+
+<script> 
+function deleteBtn(){
+	alert("삭제하시겠습니까??");
+    document.form.submit();
+}
+</script>

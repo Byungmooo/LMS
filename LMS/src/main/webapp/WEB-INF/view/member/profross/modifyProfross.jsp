@@ -21,81 +21,81 @@
         <div class="card h-100">
             <div class="card-header">
                 <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">학생정보 수정</h5>
+                    <h5 class="m-0 me-2">교수정보 수정</h5>
                 </div>
               </div>
               <div class="card-body">
-                <form name="form" action="${pageContext.request.contextPath}/member/student/modifyStudentAction" method="post">
+                <form name="form" action="${pageContext.request.contextPath}/member/professor/modifyProfessorAction" method="post">
                    <div class="form-group">
 	                    <label for="memberId">아이디:</label>
 	                    <input type="text" name="memberId" class="form-control"
-					 		value="${s.memberId}" readonly>  
+					 		value="${p.memberId}" readonly>  
                    </div>
                    <div class="form-group">
-	                    <label for="studentCode">학번:</label>
-	                    <input type="text" name="studentCode" class="form-control"
-					 		value="${s.studentCode}" readonly>  
+	                    <label for="professorCode">교수코드:</label>
+	                    <input type="text" name="professorCode" class="form-control"
+					 		value="${p.professorCode}" readonly>  
                    </div>
                    <div class="form-group">
 	                    <label for="departmentCode">학부코드:</label>
 	                    <input type="text" name="departmentCode" class="form-control"
-					 		value="${s.departmentCode}" readonly>  
+					 		value="${p.departmentCode}" readonly>  
                    </div>
                    <div class="form-group">
-	                    <label for="studentYear">학년:</label>
-	                    <input type="text" name="studentYear" class="form-control"
-					 		value="${s.studentYear}" >  
+	                    <label for="departmentLeader">학과장여부</label>
+	                    <input type="text" name="departmentLeader" class="form-control"
+					 		value="${p.departmentLeader}" >  
                    </div>
                    <div class="form-group">
-	                    <label for="studentState">상태(재학,자퇴,졸업):</label>
-	                    <input type="text" name="studentState" class="form-control"
-					 		value="${s.studentState}" >  
+	                    <label for="professorState">재직상태:</label>
+	                    <input type="text" name="professorState" class="form-control"
+					 		value="${p.professorState}" >  
                    </div>
                    <div class="form-group">
 	                    <label for="memberName">이름:</label>
 	                    <input type="text" name="memberName" class="form-control"
-					 		value="${s.memberName}" >  
+					 		value="${p.memberName}" >  
                    </div>
                    <div class="form-group">
 	                    <label for="memberGender">성별:</label>
 	                    <input type="text" name="memberGender" class="form-control"
-					 		value="${s.memberGender}" >  
+					 		value="${p.memberGender}" >  
                    </div>
                    <div class="form-group">
 	                    <label for="memberType">구분:</label>
 	                    <input type="text" name="memberType" class="form-control"
-					 		value="${s.memberType}"  readonly>  
+					 		value="${p.memberType}"  readonly>  
                    </div>
                    <div class="form-group">
 	                    <label for="memberBirth">생일:</label>
 	                    <input type="text" name="memberBirth" class="form-control"
-					 		value="${s.memberBirth}" >  
+					 		value="${e.memberBirth}" >  
                    </div>
                    <div class="form-group">
 	                    <label for="memberEmail">이메일:</label>
 	                    <input type="text" name="memberEmail" class="form-control"
-					 		value="${s.memberEmail}" >  
+					 		value="${p.memberEmail}" >  
                    </div>
                    <div class="form-group">
 	                    <label for="memberAddress">주소:</label>
 	                    <input type="text" name="memberAddress" class="form-control"
-					 		value="${s.memberAddress}" >  
+					 		value="${p.memberAddress}" >  
                    </div>
                    <div class="form-group">
 	                    <label for="memberContact">연락처:</label>
 	                    <input type="text" name="memberContact" class="form-control"
-					 		value="${s.memberContact}" >  
+					 		value="${p.memberContact}" >  
                    </div>
                    <div class="form-group">
 	                    <label for="active">권한:</label>
 	                    <input type="text" name="active" class="form-control"
-					 		value="${s.active}" readonly >  
+					 		value="${p.active}" readonly >  
                    </div>
                     
 
                    <div style="text-align: center;">      
-                   	     <!-- 학번을 hidden으로 처리 -->
-                   		<input type="hidden" name="studentCode" value="${s.studentCode}">
+                   	     <!-- 코드를 hidden으로 처리 -->
+                   		<input type="hidden" name="professorCode" value="${p.professorCode}">
                    		<button class="btn btn-primary" type="button" id="btnUpdate" onclick="updateBtn()">수정</button>
 						<button class="btn btn-warning" type="button" onclick="window.history.back()">취소</button> 
 						

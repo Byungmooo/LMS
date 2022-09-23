@@ -39,7 +39,8 @@
 		m.member_address memberAddress,
 		m.member_contact memberContact,
 		m.active,
-		m.create_date createDate
+		m.create_date createDate,
+		m.update_date updateDate
 	FROM 
 		student s ,
 		member m ,
@@ -79,28 +80,6 @@
 		d.department_code = s.department_code AND
 		s.student_code = #{studentCode}
 	</select>
-	
-	<!-- 
-		수정 action
-	<update id="updateStudent" parameterType="map">
-		UPDATE 
-			member m,
-			student s
-		SET 
-			s.student_year = #{student.studentYear},
-			s.student_state = #{student.studentState},
-			m.member_name = #{member.memberName},
-			m.member_gender= #{member.memberGender},
-			m.member_birth= #{member.memberBirth},
-			m.member_email = #{member.memberEmail},
-			m.member_address = #{member.memberAddress},
-			m.member_contact = #{member.memberContact},
-			m.update_date = now()
-		WHERE
-			s.member_id = m.member_id AND
-			s.student_code = #{student.studentCode}
-	</update> -->
-	
 	
 	<!--  수정 액션 -->
 	<update id="updateStudent" parameterType="map">

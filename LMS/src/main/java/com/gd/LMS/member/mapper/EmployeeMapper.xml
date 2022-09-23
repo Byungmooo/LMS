@@ -32,7 +32,8 @@
 		m.member_address memberAddress,
 		m.member_contact memberContact,
 		m.active,
-		m.create_date createDate
+		m.create_date createDate,
+		m.update_date updateDate
 	FROM 
 		employee e inner join member m
 	on
@@ -41,6 +42,65 @@
 		e.employee_code = #{employeeCode}
 	</select>
 
+	<!-- 수정 form -->
+	<select id="updateEmployeeOne" parameterType="int" resultType="map">
+	SELECT 
+		e.member_id memberId,
+		e.employee_code employeeCode,
+		e.authority,
+		e.employee_state employeeState,
+		m.member_name memberName,
+		m.member_gender memberGender,
+		m.member_type memberType,
+		m.member_birth memberBirth,
+		m.member_email memberEmail,
+		m.member_address memberAddress,
+		m.member_contact memberContact,
+		m.active,
+		m.create_date createDate
+	FROM 
+		employee e inner join member m
+	on
+		e.member_id = m.member_id
+	Where 
+		e.employee_code = #{employeeCode}
+	</select>
+	
+	<!--  수정 액션 -->
+	<update id="updateEmployee" parameterType="map">
+		UPDATE 
+			member m,
+			employee e
+		SET 
+			e.employee_state = #{employeeState},
+			e.authority = #{authority},
+			m.member_name = #{memberName},
+			m.member_gender= #{memberGender},
+			m.member_birth= #{memberBirth},
+			m.member_email = #{memberEmail},
+			m.member_address = #{memberAddress},
+			m.member_contact = #{memberContact},
+			m.update_date = now()
+		WHERE
+			e.member_id = m.member_id AND
+			e.employee_code = #{employeeCode}
+	</update>
+	
+	
+	
+	<!-- 직원삭제 -->
+	<delete id="deleteEmployeeMember" parameterType="String">
+		DELETE FROM
+			e  , m
+		USING  
+			employee AS e
+		LEFT  JOIN
+			member AS m
+		ON 
+			e.member_id = m.member_id
+		WHERE 
+			e.member_id = #{memberId}
+	</delete>
 
 
 

@@ -31,7 +31,7 @@
 				        <form name="form" action="${pageContext.request.contextPath}/student/addStudent" method="post">
 							<div class="form-group">		
 								<label for="memberId">아이디?</label>
-								<input type="text" value="${memberId}" class="form-control">
+								<input type="text" value="${s.memberId}" class="form-control">
 							</div>
 		                    <div class="form-group">		
 								<label for="studentCode">학번</label>
@@ -61,6 +61,7 @@
 		</div>
 	</div>
 	<!-- / Main -->
+<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 <script>
     $(document).ready(function () {
         $("#btnAdd").click(function () {
@@ -80,4 +81,3 @@
         });
     });
 </script>
-<%@ include file="/WEB-INF/view/include/footer.jsp"%>

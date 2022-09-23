@@ -1,15 +1,12 @@
 package com.gd.LMS.member.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -82,8 +79,8 @@ public class StudentController {
 
     
   
- // 학생정보 수정 액션
-    @PostMapping("/member/student/modifyStudent2")
+    // 학생정보 수정 액션
+    @PostMapping("/member/student/modifyStudentAction")
     public String modifyStudentAction(Model model, Map<String, Object> map, 
     		Member member, Student student, @RequestParam(value = "studentCode") int studentCode) {
     	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
@@ -109,13 +106,14 @@ public class StudentController {
     	//log.debug(TeamColor.BJH +  studentService + "확인" );
     		if (count != 0) {
     			log.debug(TeamColor.BJH + " 학생정보 수정성공");
-    			return "redirect:/studentOne?studentCode="+studentCode;
+    			return "redirect:studentOne?studentCode="+studentCode;
     		}
     	
-    	return "redirect:modifyStudent?studentCode="+studentCode;
+    	return "redirect:/modifyStudent?studentCode="+studentCode;
     }
     
     
+    //학생 삭제
     @PostMapping("/member/student/removeStudentMember")
     public String removeStudentMember(@RequestParam (value= "memberId") String memberId) {
     	

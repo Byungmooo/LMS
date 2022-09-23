@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.member.mapper.ProfessorMapper">
+
+
+<!-- ＃＃＃＃＃＃＃＃ 교수 ＃＃＃＃＃＃＃ -->
+	<!-- 교수리스트 -->
+	<select id = "selectProfessorList" resultType="map">
+	SELECT 
+		p.member_id memberId,
+		m.member_name memberName,
+		p.professor_code professorCode,
+		d.department_code departmentCode,
+		p.department_leader departmentLeader,
+		p.professor_state professorState
+	FROM 
+		professor p, 
+		member m,
+		department d		
+	Where 
+		p.member_id = m.member_id AND
+		p.department_code = d.department_code
+	ORDER BY 
+		professor_code ASC
+	</select>
+	
+	<!-- 교수정보 상세보기 -->
+	<select id ="selectProfessorOne" resultType="map" parameterType="int">
+	SELECT 
+		p.member_id memberId,
+		p.professor_code professorCode,
+		d.department_code departmentCode,
+		p.department_leader departmentLeader,
+		p.professor_state professorState,
+		m.member_name memberName,
+		m.member_gender memberGender,
+		m.member_type memberType,
+		m.member_birth memberBirth,
+		m.member_email memberEmail,
+		m.member_address memberAddress,
+		m.member_contact memberContact,
+		m.active,
+		m.create_date createDate,
+		m.update_date updateDate
+	FROM 
+		professor p, 
+		member m,
+		department d	
+	Where 
+		p.member_id = m.member_id AND
+		d.department_code = p.department_code AND
+		p.professor_code = #{professorCode}
+	</select>
+	
+	
+	
+	<!-- 수정 form -->
+	<select id="updateProfessortOne" parameterType="int" resultType="map">
+		SELECT 
+		p.member_id memberId,
+		p.professor_code professorCode,
+		d.department_code departmentCode,
+		p.department_leader departmentLeader,
+		p.professor_state professorState,
+		m.member_name memberName,
+		m.member_gender memberGender,
+		m.member_type memberType,
+		m.member_birth memberBirth,
+		m.member_email memberEmail,
+		m.member_address memberAddress,
+		m.member_contact memberContact,
+		m.active,
+		m.create_date createDate
+	FROM 
+		professor p, 
+		member m,
+		department d	
+	Where 
+		p.member_id = m.member_id AND
+		d.department_code = p.department_code AND
+		p.professor_code = #{professorCode}
+	</select>
+	
+	<!--  수정 액션 -->
+	<update id="updateProfessor" parameterType="map">
+		UPDATE 
+			member m,
+			professor p
+		SET 
+			p.department_leader = #{departmentLeader}, 
+			p.professor_state = #{professorState},
+			m.member_name = #{memberName},
+			m.member_gender= #{memberGender},
+			m.member_birth= #{memberBirth},
+			m.member_email = #{memberEmail},
+			m.member_address = #{memberAddress},
+			m.member_contact = #{memberContact},
+			m.update_date = now()
+		WHERE
+			p.member_id = m.member_id AND
+			p.professor_code = #{professorCode}
+	</update>
+	
+	
+	
+	<!-- 학생삭제 -->
+	<delete id="deleteProfessorMember" parameterType="String">
+			DELETE FROM
+			p  , m
+		USING  
+			professor AS p
+		LEFT  JOIN
+			member AS m
+		ON 
+			p.member_id = m.member_id
+		WHERE 
+			p.member_id = #{memberId}
+	</delete>
+	
+
+
+</mapper>

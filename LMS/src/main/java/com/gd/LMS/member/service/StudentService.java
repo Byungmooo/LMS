@@ -85,7 +85,7 @@ public class StudentService {
     public String removeStudentMember(String memberId) {
     	
     	studentMapper.deleteStudentMember(memberId);
-        log.debug(TeamColor.BJH + "학생테이블(삭제) > " + memberId);
+        log.debug(TeamColor.BJH + "학생, 멤버테이블(삭제) > " + memberId);
     	
         return memberId;
         
