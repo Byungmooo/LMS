@@ -93,6 +93,7 @@ public class StudentController {
     	map.put("memberEmail", member.getMemberEmail());
     	map.put("memberAddress", member.getMemberAddress());
     	map.put("memberContact", member.getMemberContact());
+    	map.put("active", member.getActive());
     	
     	
     	log.debug(TeamColor.BJH + this.getClass() + map);
@@ -101,7 +102,7 @@ public class StudentController {
     	//log.debug(TeamColor.BJH +  studentService + "확인" );
     		if (count != 0) {
     			log.debug(TeamColor.BJH + " 학생정보 수정성공");
-    			return "redirect:/member/student/studeneOne?studentCode="+student.getStudentCode();
+    			return "member/student/studeneOne?studentCode="+student.getStudentCode();
       
     	
     		}
