@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gd.LMS.vo.Member;
 import com.gd.LMS.vo.Student;
 
 @Mapper

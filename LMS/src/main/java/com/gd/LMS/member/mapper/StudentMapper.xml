@@ -62,6 +62,7 @@
 		s.student_state studentState,
 		m.member_name memberName,
 		m.member_gender memberGender,
+		m.member_type memberType,
 		m.member_birth memberBirth,
 		m.member_email memberEmail,
 		m.member_address memberAddress,
@@ -100,6 +101,8 @@
 			s.student_code = #{student.studentCode}
 	</update> -->
 	
+	
+	<!--  수정 액션 -->
 	<update id="updateStudent" parameterType="map">
 		UPDATE 
 			member m,
@@ -116,7 +119,7 @@
 			m.update_date = now()
 		WHERE
 			s.member_id = m.member_id AND
-			s.student_code = #{student.studentCode}
+			s.student_code = #{studentCode}
 	</update>
 	
 	

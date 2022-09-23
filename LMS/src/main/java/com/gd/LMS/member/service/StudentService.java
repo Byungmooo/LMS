@@ -59,13 +59,27 @@ public class StudentService {
     // 학생정보 수정액션
     public int modifyStudent(Map<String, Object> map) {
     	
+    	log.debug(TeamColor.BJH + "map studentYear ==> " + map.get("studentYear"));
     	int row = studentMapper.updateStudent(map);
-    	//log.debug(TeamColor.BJH + "수정액션(service) > " + map);
+    	log.debug(TeamColor.BJH + "수정액션(service) > " + map);
     
         return row;
     }
     
-
+    /*
+    //학생정보 > 학과 자동설정 폼
+    
+    public Map<String, Object> addStudentForm() {
+		Map<String, Object> resultMap = new HashMap<>();
+    
+		List<Map<String, Object>> departmentList = departmentMapper.selectDepList();
+		resultMap.put("d", departmentList);
+		
+		return resultMap;
+    }
+    */
+    
+    
     
     // 학생 삭제	
     public int removeStudent(int studentCode) {

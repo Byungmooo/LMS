@@ -25,7 +25,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <form name="form" action="${pageContext.request.contextPath}/member/student/modifyStudent?studentCode=${s.studentCode}" method="post">
+                <form name="form" action="${pageContext.request.contextPath}/member/student/modifyStudent2" method="post">
                    <div class="form-group">
 	                    <label for="memberId">아이디:</label>
 	                    <input type="text" name="memberId" class="form-control"
@@ -62,6 +62,11 @@
 					 		value="${s.memberGender}" >  
                    </div>
                    <div class="form-group">
+	                    <label for="memberType">구분:</label>
+	                    <input type="text" name="memberType" class="form-control"
+					 		value="${s.memberType}"  readonly>  
+                   </div>
+                   <div class="form-group">
 	                    <label for="memberBirth">생일:</label>
 	                    <input type="text" name="memberBirth" class="form-control"
 					 		value="${s.memberBirth}" >  
@@ -84,15 +89,15 @@
                    <div class="form-group">
 	                    <label for="active">권한:</label>
 	                    <input type="text" name="active" class="form-control"
-					 		value="${s.active}" >  
+					 		value="${s.active}" readonly >  
                    </div>
                     
 
                    <div style="text-align: center;">      
-                   	     <!-- 아이디를 hidden으로 처리 -->
-                   		<input type="hidden" name="memberId" value="${s.memberId}">
-                   		<button type="submit" class="btn btn-primary" id="btnUpdate">수정</button>
-                        <button class="btn btn-danger" type="button" id="btnDelete">삭제</button>
+                   	     <!-- 학번을 hidden으로 처리 -->
+                   		<input type="hidden" name="studentCode" value="${s.studentCode}">
+                   		<button class="btn btn-primary" type="button" id="btnUpdate" onclick="updateBtn()">수정</button>
+                        <button class="btn btn-danger" type="button" id="btnDelete" onclick="func()">삭제</button>
                         <button class="btn btn-warning" type="button" id="btnCancel" onclick="window.history.back()">취소</button> 
                    </div>
                 </form>
@@ -112,13 +117,10 @@
 
 </body>
 
-<script>
-    $(document).ready(function () {
-        $("#btnDelete").click(function () {
-        	if($('#memberId').val() != '#memberId') {
-    			alert('정말 삭제하시겠습니까?');
-            }
-        });
-    
-    }); 
+<script> 
+function updateBtn(){
+	alert("수정하시겠습니까?");
+    document.form.submit();
+}
+
 </script>

@@ -3,7 +3,6 @@ package com.gd.LMS.member.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class StudentController {
 	@Autowired StudentService studentService;
+	@Autowired DepartmentService departmentService;
 
     ////////////////////////학생
     
@@ -52,15 +52,15 @@ public class StudentController {
 	//학생 상세보기
 	@GetMapping("/member/student/studentOne")
 	public String StudentOne(Model model, @RequestParam(value = "studentCode") int studentCode) {
-	log.debug(TeamColor.BJH + "welcome");
+		log.debug(TeamColor.BJH + "welcome");
+			
+		Map<String, Object> studentOne = studentService.getStudentOne(studentCode);
+		log.debug(TeamColor.BJH + "StudentOne controller" + studentCode);
 		
-	Map<String, Object> studentOne = studentService.getStudentOne(studentCode);
-	log.debug(TeamColor.BJH + "StudentOne controller" + studentCode);
-	
-	model.addAttribute("s", studentOne);
-	
-	log.debug(TeamColor.BJH + " 학생 상세보기");
-	return "member/student/studentOne";
+		model.addAttribute("s", studentOne);
+		
+		log.debug(TeamColor.BJH + " 학생 상세보기");
+		return "member/student/studentOne";
 	
 	}
 	
@@ -70,29 +70,34 @@ public class StudentController {
     	
     	log.debug(TeamColor.BJH + studentCode+"studentCode 보내기");
     	Map<String, Object> updateOne = studentService.getStudent(studentCode);
-    	
+    
 		model.addAttribute("s", updateOne);
     	log.debug(TeamColor.BJH + updateOne+"studentCode 담아서 보내기");
-        return "member/student/modifyStudent";
-    }
-    
-    
-    
- // 학생정보 수정 액션
-    @PostMapping("/member/student/modifyStudent")
-    public String modifyStudentAction(Model model, Map<String, Object> map, 
-    		Member member, Student student) {
-    	//log.debug(TeamColor.BJH + this.getClass());
     	
+    	return "/member/student/modifyStudent";
+    }
+
+    
+  
+ // 학생정보 수정 액션
+    @PostMapping("/member/student/modifyStudent2")
+    public String modifyStudentAction(Model model, Map<String, Object> map, 
+    		Member member, Student student, @RequestParam(value = "studentCode") int studentCode) {
+    	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
+    	
+    	map.put("studentCode", studentCode);
     	map.put("studentYear", student.getStudentYear());
+    	log.debug(TeamColor.BJH + student.getStudentYear());
+    	
+    	
     	map.put("studentState", student.getStudentState());
     	map.put("memberName", member.getMemberName());
     	map.put("memberGender", member.getMemberGender());
+    	map.put("memberType", member.getMemberType());
     	map.put("memberBirth", member.getMemberBirth());
     	map.put("memberEmail", member.getMemberEmail());
     	map.put("memberAddress", member.getMemberAddress());
     	map.put("memberContact", member.getMemberContact());
-    	map.put("active", member.getActive());
     	
     	
     	log.debug(TeamColor.BJH + this.getClass() + map);
@@ -101,17 +106,12 @@ public class StudentController {
     	//log.debug(TeamColor.BJH +  studentService + "확인" );
     		if (count != 0) {
     			log.debug(TeamColor.BJH + " 학생정보 수정성공");
-    			return "member/student/studeneOne?studentCode="+student.getStudentCode();
-      
-    	
+    			return "redirect:studentOne?studentCode="+studentCode;
     		}
     	
-    	return "member/student/modifyStudent";
-    	
-    	
+    	return "redirect:modifyStudent?studentCode="+studentCode;
     }
     
-    
-    
 }
+
 		
