@@ -41,7 +41,7 @@ public class TotalNoticeController {
     	map.put("keyword", keyword);
     	map.put("searchType", searchType);
         
-    	log.debug(TeamColor.KJS + "map1 > " + map);
+    	log.debug(TeamColor.LCH + "map1 > " + map);
     	
     	int totalCount = totalNoticeService.countBoard(map);
 		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
