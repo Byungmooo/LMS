@@ -27,7 +27,7 @@ public class LectureNoticeController {
 	@Autowired
 	LectureNoticeService lecNoticeService;
 
-	// 학부공지 목록 리스트
+	// 강의공지 목록 리스트
 	@GetMapping(value = { "/lecNotice" })
 	public String LecturenNoticeList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
@@ -64,7 +64,7 @@ public class LectureNoticeController {
 		return "/notice/lectureNotice/lecNoticeList";
 	}
 
-	// 학부공지사항 상세보기
+	// 강의공지 상세보기
 	@GetMapping(value = "/lecNotice/{lecNoticeNo}")
 	public String TotalNoticeOne(Model model, @PathVariable(value = "lecNoticeNo") int lecNoticeNo) {
 		log.debug(TeamColor.KJS);
@@ -75,14 +75,14 @@ public class LectureNoticeController {
 		return "/notice/lectureNotice/lecNoticeOne";
 	}
 
-	// 학부공지사항 추가 페이지 이동
+	// 강의공지 추가 페이지 이동
 	@GetMapping("/addLecNotice")
 	public String addLecNotice() {
 		log.debug(TeamColor.KJS + " [김진수] 학부공지 추가 페이지 이동");
 		return "/notice/lectureNotice/addLecNotice";
 	}
 
-	// 학부공지사항 추가
+	// 강의공지 추가
 	@PostMapping("/addLecNotice")
 	public String addLecNotice(LectureNotice lectureNotice) {
 		int num = 1;
@@ -95,7 +95,7 @@ public class LectureNoticeController {
 		return "/notice/lectureNotice/addLecNotice";
 	}
 
-	// 학부공지사항 수정 페이지 이동
+	// 강의공지 수정 페이지 이동
 	@GetMapping("/updateLecNotice/{lecNoticeNo}")
 	public String updateLecNotice(Model model, @PathVariable(value = "lecNoticeNo") int lecNoticeNo) {
 		log.debug(TeamColor.KJS + lecNoticeNo);
@@ -105,7 +105,7 @@ public class LectureNoticeController {
 		return "/notice/lectureNotice/updateLecNotice";
 	}
 
-	// 학부공지사항 수정
+	// 강의공지 수정
 	@PostMapping("/updateLecNotice")
 	public String updateLecNotice(LectureNotice lectureNotice) {
 		int num = 1;
@@ -119,7 +119,7 @@ public class LectureNoticeController {
 		return "redirect:/updateLecNotice/" + lectureNotice.getLecNoticeNo();
 	}
 
-	// 학부공지사항 삭제
+	// 강의공지 삭제
 	@GetMapping("/removeLecNotice")
 	public String LecNoticeOne(@RequestParam(value = "lecNoticeNo") int lecNoticeNo) {
 		int count = lecNoticeService.deleteLecNotice(lecNoticeNo);
