@@ -3,7 +3,9 @@ package com.gd.LMS.notice.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,32 +29,45 @@ public class LectureNoticeController {
 
 	@Autowired LectureNoticeService lecNoticeService;
 	
-	   // 전체공지 목록 리스트
-    @GetMapping("/lecNotice")
-    public String TotalnNoticeList(PagingVo vo,Model model
-    		, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+	   // 학부공지 목록 리스트
+ @GetMapping(value = {"/lecNotice"})
+ public String LecturenNoticeList(PagingVo vo,Model model, HttpSession session, Map<String, Object> map
+ 		, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
 			, @RequestParam(value="keyword", defaultValue = "") String keyword
 			, @RequestParam(value="searchType", defaultValue = "") String searchType){
-        List<LectureNotice> list = lecNoticeService.getLecNoticeList();
-        model.addAttribute("list", list);
-    	
-        int totalCount = lecNoticeService.countBoard(keyword, searchType);
+
+
+     map.put("keyword", keyword);
+     map.put("searchType", searchType);
+     
+     int totalCount = lecNoticeService.countBoard(map);
 		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 		
-		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
-		log.debug(TeamColor.KJS + "PaginVo : " + vo);
-		
-		List<LectureNotice> list1 = lecNoticeService.selectBoard(vo);
+
+	    vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+     // 이전 페이지 시작 글 번호와 현재 변경되는 페이지의 시작 글번호에 대한 일치 시키는거 많은 변경이 필요하므로 그냥 1로 처리함
+     if(vo.getBeginRow() >= totalCount){
+         vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
+     }
+     
+     log.debug(TeamColor.KJS + "PagingVo : " + vo);
+
+     map.put("beginRow", vo.getBeginRow());
+     map.put("rowPerPage", vo.getRowPerPage());
+     
+     log.debug(TeamColor.KJS + "map2 > " + map);
+     
+		List<LectureNotice> list1 = lecNoticeService.selectBoard(map);
 		log.debug(TeamColor.KJS + "noticeList : " + list1);
 		
 		model.addAttribute("paging", vo);
 		model.addAttribute("list", list1);
-        
-        
-        log.debug(TeamColor.KJS + " [김진수] 학부공지 리스트");
-        return "/notice/lectureNotice/lecNoticeList";
-    }
+     
+     
+     log.debug(TeamColor.KJS + " [김진수] 학부공지 리스트");
+     return "/notice/lectureNotice/lecNoticeList";
+ }
 	
     // 학부공지사항 상세보기
     @GetMapping(value = "/lecNotice/{lecNoticeNo}")
