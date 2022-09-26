@@ -28,38 +28,40 @@ public class TotalNoticeController {
 	// 전체공지 목록 리스트
     @GetMapping(value = {"/totalNotice"})
     public String totalNoticeList(PagingVo vo,Model model, HttpSession session, Map<String, Object> map
-    		, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
-			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
-			, @RequestParam(value="keyword", defaultValue = "") String keyword
-			, @RequestParam(value="searchType", defaultValue = "") String searchType){
-    	
-    	
-    	String memberDepartmentCode = (String)session.getAttribute("memberDepartmentCode");
-    	log.debug(TeamColor.LCH + "memberDepartmentCode > " + memberDepartmentCode);
-    	
-    	map.put("departmentCode", memberDepartmentCode);
-    	map.put("keyword", keyword);
-    	map.put("searchType", searchType);
+          , @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+         , @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+         , @RequestParam(value="keyword", defaultValue = "") String keyword
+         , @RequestParam(value="searchType", defaultValue = "") String searchType){
+
+       String memberDepartmentCode = (String)session.getAttribute("memberDepartmentCode");
+       log.debug(TeamColor.LCH + "memberDepartmentCode > " + memberDepartmentCode);
+       
+       map.put("departmentCode", memberDepartmentCode);
+       map.put("keyword", keyword);
+       map.put("searchType", searchType);
         
-    	log.debug(TeamColor.LCH + "map1 > " + map);
-    	
-    	int totalCount = totalNoticeService.countBoard(map);
-		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
-		
-		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
-		log.debug(TeamColor.KJS + "PaginVo : " + vo);
-		
-		
-		map.put("beginRow", vo.getBeginRow());
-		map.put("rowPerPage", vo.getRowPerPage());
-		
-		log.debug(TeamColor.KJS + "map2 > " + map);
-		
-		List<TotalNotice> list = totalNoticeService.selectBoard(map);
-		log.debug(TeamColor.KJS + "noticeList : " + list);
-		
-		model.addAttribute("paging", vo);
-		model.addAttribute("list", list);
+       log.debug(TeamColor.LCH + "map1 > " + map);
+       
+       int totalCount = totalNoticeService.countBoard(map);
+      log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
+
+        vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+        // 이전 페이지 시작 글 번호와 현재 변경되는 페이지의 시작 글번호에 대한 일치 시키는거 많은 변경이 필요하므로 그냥 1로 처리함
+        if(vo.getBeginRow() >= totalCount){
+            vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
+        }
+      log.debug(TeamColor.KJS + "PagingVo : " + vo);
+
+      map.put("beginRow", vo.getBeginRow());
+      map.put("rowPerPage", vo.getRowPerPage());
+      
+      log.debug(TeamColor.KJS + "map2 > " + map);
+      
+      List<TotalNotice> list = totalNoticeService.selectBoard(map);
+      log.debug(TeamColor.KJS + "noticeList : " + list);
+      
+      model.addAttribute("paging", vo);
+      model.addAttribute("list", list);
         
         
         log.debug(TeamColor.KJS + " [김진수] 전체공지 리스트");

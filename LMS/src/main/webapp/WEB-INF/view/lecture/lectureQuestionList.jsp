@@ -36,14 +36,14 @@
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">
+				<a class="nav-link active"  href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${sessionScope.openedLecNo}&studentCode=${sessionScope.memberCode}">
 				<i class="bx bx-link-alt me-1"></i> 
 					질문게시판
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active" href="${pageContext.request.contextPath}/student/studentAssignmentList?openedLecNo=${map.openedLecNo}&studentCode=${memberCode}">
-				<i class="bx bx-link-alt me-1"></i> 
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/openedAssignmentList?openedLecNo=${sessionScope.openedLecNo}&studentCode=${sessionScope.memberCode}">
+				<i class="bx bx-link-alt me-1"></i>
 					과제게시판
 				</a>
 			</li>
@@ -61,6 +61,26 @@
 			</li>
 		</ul>
 		<hr class="my-5" />
+		    <!-- RowPerPage Option -->
+    <div class="row">
+        <div class="col-sm-9 col-12 text-center"></div>
+        <div class="col-sm-3 col-12 text-center">
+            <select class="form-select" name="sel" id="rowPerPage">
+                <option value="5"
+                        <c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기
+                </option>
+                <option value="10"
+                        <c:if test="${paging.rowPerPage == 10}">selected</c:if>>10줄 보기
+                </option>
+                <option value="15"
+                        <c:if test="${paging.rowPerPage == 15}">selected</c:if>>15줄 보기
+                </option>
+                <option value="20"
+                        <c:if test="${paging.rowPerPage == 20}">selected</c:if>>20줄 보기
+                </option>
+            </select>
+        </div>
+    </div>
 		
 		<!-- studentAssignmentList -->
 		<div class="card text-center">
@@ -91,8 +111,111 @@
 						</c:forEach>
 					</tbody>
 				</table>
+
 			</div>
-		</div>
+			
+		</div>	
+			<!--  search bar -->
+				<hr class="my-3" />
+				<div class="row">
+					<div class="col-sm-2 col-12 text-center"></div>
+					<div class="col-sm-7 col-12 text-center">
+						<form action="${pageContext.request.contextPath}/student/lectureQuestionList" method="get">
+							<div class="row">
+								<div class="col-sm-3 col-12 text-center">
+									<select name="searchType" class="form-select">
+										<option value="" selected="selected">전체</option>
+										<option value="writer">작성자</option>
+										<option value="title">제목</option>
+										<option value="content">내용</option>
+									</select>
+								</div>
+								<div class="col-sm-7 col-12 text-center">
+									<input name="keyword" class="form-control">
+								</div>
+								<div class="col-sm-2 col-12 text-center">
+									<button type="submit" class="btn btn-dark">검색</button>
+								</div>
+							</div>
+						</form>
+					</div>
+		<!--  search bar end -->
+		
+		
+				
+        <div style="display: block; text-align: center;">
+            <c:if test="${paging.prePage}">
+                <c:choose>
+                    <c:when test="${(paging.currentPage-10) < 1}">
+                        <a href="javascript:goPage(1, '');">이전</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="javascript:goPage('${paging.currentPage-10}', '');">이전</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+            <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+                <c:choose>
+                    <c:when test="${p == paging.currentPage }">
+                        <b>${p}</b>
+                    </c:when>
+                    <c:when test="${p != paging.currentPage }">
+                        <a href="javascript:goPage('${p}', '');">${p}</a>
+                    </c:when>
+                </c:choose>
+            </c:forEach>
+            <c:if test="${paging.nextPage}">
+                <c:choose>
+                    <c:when test="${paging.currentPage+10 > paging.lastPage}">
+                        <a href="javascript:goPage('${paging.lastPage}', '');">다음</a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="javascript:goPage('${paging.currentPage+10}', '');" >다음</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:if>
+        </div>
+		<script>
+		    // rowPerPage 변경 이벤트
+		    $("#rowPerPage").on("change", (e) => {
+		        location.href = createUrl('', e.target.value);
+		    })
+		
+		    const goPage = (currentPage, rowPerPage) => {
+		        location.href = createUrl(currentPage, rowPerPage);
+		    };
+		
+		    const createUrl = (currentPage, rowPerPage) => {
+		        const path = "${pageContext.request.contextPath}";
+		        const param = {
+		            currentPage:"${paging.currentPage}",
+		            rowPerPage:"${paging.rowPerPage}",
+		            searchType:"${paging.searchType}",
+		            keyword:"${paging.keyword}",
+		        }
+		
+		        if(currentPage != '') param.currentPage = currentPage;
+		        if(rowPerPage != '') param.rowPerPage = rowPerPage;
+				//
+		        var url = path +'/student/lectureQuestionList';
+		        url += '?currentPage=' + param.currentPage;
+		        url += '&rowPerPage='+ param.rowPerPage;
+		        url += '&searchType='+ param.searchType ;
+		        url += '&keyword='+ param.keyword ;
+		
+		        return url;
+		    }
+		</script>
+		
+
+									
+	
+				</div>
+<button class="btn btn-danger" type="button" id="btnWrite"
+		style="float: right"
+		onclick="location.href='${pageContext.request.contextPath}/student/addLectureQuestion'">질문하기</button>
+<%--		onclick="location.href='${pageContext.request.contextPath}/student/addLectureQuestion?openedLecNo=${openedLecNo}'">질문</button>--%>
+
 	</div>
 	<!-- / Main -->
 <!-- Footer -->

@@ -10,7 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.lecture.mapper.LectureMapper;
 import com.gd.LMS.utils.PagingVo;
+import com.gd.LMS.vo.LectureAnswer;
+import com.gd.LMS.vo.LectureNotice;
 import com.gd.LMS.vo.LectureQuestion;
+import com.gd.LMS.vo.TotalNotice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,7 +64,8 @@ public class LectureService {
 	public Map<String, Object> getLectureQuestionOne(int lecQuestionNo) {
 		
 		Map<String, Object> lectureQuestion = lectureMapper.selectLectureQuestionOne(lecQuestionNo);
-		
+
+
 		return lectureQuestion;
 	}
 	
@@ -87,6 +91,28 @@ public class LectureService {
 		return studentLectureCartList;
 	}
 	
+	// 답변 추가,답변여부 변경
+	   public int getAddAnswer(LectureAnswer lectureAnswer) {
+		      lectureMapper.addAnswer(lectureAnswer);
+		      
+		
+			return lectureMapper.answerStatus(lectureAnswer.getLecQuestionNo());
+		   }
+	 //학생 질문 추가
+	   public int getAddQuestion(LectureQuestion lectureQuestion) {
+		   return lectureMapper.addQuestion(lectureQuestion);
+	   }
+	   
+	    // 학생 질문 수정
+	    public int updateQuestion(LectureQuestion lectureQuestion) {
+	        return lectureMapper.updateLecQuestion(lectureQuestion);
+	    }
+	    
+	    // 학생 질문삭제
+	    public int deleteQuestion(int lecQuestionNo) {
+	        return lectureMapper.deleteLecQuestion(lecQuestionNo);
+	    }
+	
 	// 학생 수강신청 (전체과목개수)
 	public int getTotalLectureCount() {
 		return lectureMapper.selectTotalLectureCount();
@@ -106,5 +132,23 @@ public class LectureService {
 	public int removeStudentLectureCart(String studentCode) {
 		return lectureMapper.deleteStudentLectureCart(studentCode);
 	}
+
+	
+	//
+	public Map<String, Object> getLectureAnswerOne(int lecQuestionNo) {
+		Map<String, Object> lectureAnswer = lectureMapper.selectLectureAnswerOne(lecQuestionNo);
+		return lectureAnswer;
+	}
+	
+	
+	//페이징 , 검색
+	public int countBoard(String keyword, String searchType) {
+		return lectureMapper.countBoard(keyword, searchType);
+	}
+
+	public List<LectureQuestion> selectBoard(PagingVo vo) {
+		return lectureMapper.selectBoard(vo);
+	}
+	
 	
 }
