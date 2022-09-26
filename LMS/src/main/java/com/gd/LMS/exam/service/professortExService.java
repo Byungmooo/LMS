@@ -27,7 +27,7 @@ public class professortExService {
    public List<Map<String, Object>> getExList(int professorCode) {
       // 파라미터 디버깅
       log.debug(TeamColor.KBW + "professorCode (service) > " + professorCode);
-      
+
       // 매퍼메서드 호출 후 리턴값 디버깅
       List<Map<String, Object>> professorExList = professorExMapper.selectExList(professorCode);
       log.debug(TeamColor.KBW + "professorExList (service) > " + professorExList);
@@ -66,10 +66,27 @@ public class professortExService {
        return professorExMapper.selectSubjectiveQ(examNo);
     }
     
-   
-   //객관식 시험문제 추가
+    
+    
+    
+    //시험지 수정 폼
+    public Map<String, Object> getUpdateExamSheet(int examNo){
+    	log.debug(TeamColor.KBW + "UpdateExamSheet(service)" + examNo);
+    	Map<String, Object> updateExamSheet = professorExMapper.updateExamSheet(examNo);
+    	professorExMapper.updateExamSheet(examNo);
 
-   //주관식 시험문제 추가
+		return updateExamSheet;	
+    }
+    
+    //시험지이름 수정
+    public String updateExamSheetName(String examNo,String examName) {
+    	professorExMapper.updateExamSheetName(examNo,examName);
+    	log.debug(TeamColor.KBW + "updateExamSheetName(service)" + examNo +examName);
+		return examNo;
+    }
+   // public Map<String, Object> getUpdateExamSheetName (int examNo)
+   
+
     
     //시험지삭제
     public int deleteExamSheet(int examNo) {
@@ -83,6 +100,9 @@ public class professortExService {
       return examNo;
        
        
-    }    
+    }
+
+
+
     
 }

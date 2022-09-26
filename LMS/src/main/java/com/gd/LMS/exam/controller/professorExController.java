@@ -29,10 +29,10 @@ public class professorExController {
    public String ExList(Model model) {
       log.debug(TeamColor.KBW + "--- ExList Controller GetMapping ---");
       
-      // 학생코드 추후 수정예정
+      // 교수코드 추후 수정예정
       int professorCode = 10;
       
-      // 학생수강리스트 메서드 호출 후 리턴값 디버깅
+      // 교수강의리스트 메서드 호출 후 리턴값 디버깅
       List<Map<String, Object>> professorExList = professorExService.getExList(professorCode);
       log.debug(TeamColor.KBW + "professorExList (controller) > " + professorExList);
       
@@ -74,28 +74,50 @@ public class professorExController {
         //주관식문제
         model.addAttribute("subjectiveQ",subjectiveQ);
         log.debug(TeamColor.KBW + "subjectiveQ (controller) > "+ subjectiveQ);
-        
-        
-        
+
         log.debug(TeamColor.KBW + "arrayUsCHECK!!>>" + multipleQ);
          return "/exam/professorExOne";
     }   
     
     //시험지 추가 (
-    @GetMapping("/exam/professorAddExamSheet")
+    @GetMapping("/exam/AddExamSheet")
     public String ExAdd() {
        log.debug(TeamColor.KBW + "--- ExAdd(시험지추가) Controller Getmapping---");
        return "/exam/professorAddExamSheet";
     }
-
-
-    
    
-   //시험지 추가 
+   //시험문제 수정폼
+   @GetMapping("/exam/updateExamSheet/{examNo}")
+   public String ExUpdate(Model model,@PathVariable(value = "examNo") int examNo) {
+	   log.debug(TeamColor.KBW+"---ExUpdate Controller Getmapping");	
+	   ExamSheet examSheet = professorExService.getExamSheet(examNo);
+	   List<MultipleChoiceQuestion> multipleQ = professorExService.getMultipleChoiceQuestion(examNo);
+	   List<MultipleExample> multipleEx = professorExService.getMultipleExample(examNo);
+	   List<SubjectiveQuestion> subjectiveQ =  professorExService.getSubjectiveQuestion(examNo);
+	   model.addAttribute("examSheet", examSheet);
+	   model.addAttribute("multipleQ", multipleQ); 
+	   model.addAttribute("multipleEx", multipleEx);
+	   model.addAttribute("subjectiveQ",subjectiveQ);
+	   return "/exam/professorUpdateExamSheet";
+   }
 
    
-   //시험문제 수정
    
+   //시험이름 수정액션
+   @GetMapping("/exam/updateExamSheetName/{examNo}")
+//   public String updateExamSheet() {
+//	   System.out.println("AAAAAAA");
+//	   return "/exam/professorUpdateExamSheet";
+//   }
+   public String updateExamSheetName(@RequestParam(value = "examNo") String examNo,
+		   							@RequestParam(value = "examName") String examName) {
+	 	professorExService.updateExamSheetName(examNo,examName);
+	   	System.out.println(examNo + ", " +examName);
+	   	log.debug(TeamColor.KBW+ "---updateExamSheet(시험지이름수정 Controller PostMapping )---" +examNo+ "" + examName);
+	   return "/exam/professorUpdateExamSheet/{examNo}";
+   }
+   
+
    
    //시험지삭제
     @PostMapping("/exam/deleteExamSheet")

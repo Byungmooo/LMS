@@ -74,13 +74,15 @@
          </div>   
                      <a href=""
                      class="btn btn-danger">${examSheet.examName} 제출하기</a>
-                     <a href=""
+                     <a href="${pageContext.request.contextPath}/exam/updateExamSheet/${e.examNo}"
                      class="btn btn-danger">시험지수정(교수)</a>
                      
                      <form action="${pageContext.request.contextPath}/exam/deleteExamSheet" method="post" class="card-body">
                         <input type="hidden" name="examNo" value="${examSheet.examNo }">
                         <button class="btn btn-danger" onclick="deleteBtn()">시험지삭제(교수)</button>
                      </form>
+                   		<a href="javascript:history.back()"
+						class="btn btn-danger">뒤로가기</a>	
                      <hr>
                      
       </div>

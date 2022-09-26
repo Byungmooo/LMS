@@ -13,9 +13,10 @@ import com.gd.LMS.vo.SubjectiveQuestion;
 @Mapper
 public interface professorExMapper {
 	
-	//시험문제 리스트
+	//시험지 리스트
 	public List<Map<String, Object>> selectExList(int professorCode);
 	public int selectExListCount();
+	
 	
 	//시험지 상세보기
 	public ExamSheet selectExOne(int examNo);
@@ -30,7 +31,14 @@ public interface professorExMapper {
 	
 	//시험지추가하기
 	
-	//시험문제수정
+	//시험지수정
+	public Map<String, Object> updateExamSheet(int examNo);
+	int updateExamSheetName(String examNo,String examName);
+	int updateMultipleContent(int examNo);
+	int updateExampleContent(int examNo);
+	int updateMultipleAnswer(int examNo);
+	int updateSubjectiveContent(int examNo);
+	int updateSubjectiveAnswer(int examNo);
 	
 	//시험지삭제
 	int deleteMultupleExample(int examNo); 	//객관식예제삭제

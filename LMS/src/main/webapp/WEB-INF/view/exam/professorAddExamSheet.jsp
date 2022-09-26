@@ -26,6 +26,15 @@
 		
 		<div class="col-xl-6">
 			<div class="card mb-4">
+			<h3 class="card-header">시험지이름</h3>
+			<input class="form-control" type="text" style="width:200px" placeholder="시험지이름">
+			<button>시험지 이름 등록</button>
+			</div>
+		
+		
+		
+		
+			<div class="card mb-4">
 				<h3 class="card-header">객관식 문제 1번</h3>
 					<div class="mt-2 mb-3">
 						<label >※문제내용</label>

@@ -41,14 +41,23 @@
 											<i class="bx bx-dots-vertical-rounded"></i>
 										</button>
 										<div class="dropdown-menu">
-											<a class="dropdown-item" href="">
+										
+											<form>
+											
+											<a class="dropdown-item" href="${pageContext.request.contextPath}/exam/updateExamSheet/${e.examNo}">
 											<i class="bx bx-book me-1"></i>
 												수정 <!-- 시험지수정 -->
 											</a>
-											<a class="dropdown-item" href="">
-											<i class="bx bx-book me-1"></i>
-												삭제 <!-- 시험지삭제 -->
-											</a>
+											</form>
+											
+											<form action="${pageContext.request.contextPath}/exam/deleteExamSheet" method="post" >
+											<input type="hidden" name="examNo" value="${examSheet.examNo }">
+												<a class="dropdown-item" >
+													<i class="bx bx-book me-1" ></i>
+														삭제 <!-- 시험지삭제 -->
+												</a>
+											
+											</form>
 										</div>
 									</div>
 								</td>
@@ -61,7 +70,7 @@
 		<hr>
 				
 				
-				<a href="${pageContext.request.contextPath}/exam/professorAddExamSheet" style="float: right" class="btn btn-danger">시험지추가(교수)</a>
+				<a href="${pageContext.request.contextPath}/exam/AddExamSheet" style="float: right" class="btn btn-danger">시험지추가(교수)</a>
 				
 	</div>
 

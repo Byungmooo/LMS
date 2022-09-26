@@ -12,6 +12,7 @@
 		FROM
 			exam_sheet
 	</select>
+	
 
 
 
@@ -94,6 +95,73 @@
 
 
 
+
+
+
+<!-- 시험지이름 수정 -->
+	<update id="updateExamSheetName" parameterType="int">
+	UPDATE 
+		exam_sheet 
+	SET
+		exam_name = #{examName}
+	WHERE 
+		exam_no = #{examNo}
+	</update>
+	
+<!-- 객관식 문제 수정 -->
+	<update id="updateMultipleContent" parameterType="int">
+	UPDATE 
+		multiple_choice_question
+	SET
+		multiple_content = #{multipleContent}
+	WHERE 
+		exam_no = #{examNo} AND multiple_no = #{multipleNo}
+	</update>
+	
+<!-- 객관식 문제보기내용 수정 -->
+	<update id="updateExampleContent" parameterType="int">
+	UPDATE 
+		multiple_example
+	SET
+		example_content = #{exampleContent}
+	WHERE 
+		exam_no = #{examNo} AND multiple_no = #{multipleNo} AND example = #{example}
+	</update>
+	
+<!-- 객관식 정답 수정 -->
+	<update id="updateMultipleAnswer" parameterType="int">
+	UPDATE 
+		multiple_choice_question
+	SET
+		example_answer = #{exampleAnswer}
+	WHERE 
+		exam_no = #{examNo} AND multiple_no = #{multipleNo}
+	</update>	
+	
+<!-- 주관식 문제 수정 -->
+	<update id="updateSubjectiveContent" parameterType="int">
+	UPDATE 
+		subjective_question
+	SET
+		subjective_content = #{subjectiveContent}
+	WHERE 
+		exam_no = #{examNo} AND subjective_no = #{subjectiveNo}
+	</update>	
+<!-- 주관식 정답 수정 -->
+	<update id="updateSubjectiveAnswer" parameterType="int">
+	UPDATE 
+		subjective_question
+	SET
+		subjective_answer = #{subjectiveAnswer}
+	WHERE 
+		exam_no = #{examNo} AND subjective_no = #{subjectiveNo}
+	</update>	
+	
+	
+	
+	
+
+
 <!-- 시험지삭제.1 : 객관식 보기 삭제  -->
 	<delete id="deleteMultupleExample" parameterType="int" >
 		DELETE FROM 
@@ -122,6 +190,12 @@
 		WHERE
 			exam_no = ${examNo}
 	</delete>
+
+
+
+
+
+
 
 
 
