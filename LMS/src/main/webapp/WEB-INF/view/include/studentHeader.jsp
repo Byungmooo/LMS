@@ -191,7 +191,7 @@
 								</a>
 							</li>
 							<li class="menu-item">
-								<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" class="menu-link">
+								<a href="${pageContext.request.contextPath}/assignment/studentLectureList?memberCode=${memberCode}" class="menu-link">
 									수강중인 강의
 								</a>
 							</li>

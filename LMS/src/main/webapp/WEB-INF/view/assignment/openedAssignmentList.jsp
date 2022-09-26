@@ -66,6 +66,9 @@
 		<div class="card text-center">
 			<h5 class="card-header">과제게시판</h5>
 			<div class="table-responsive text-nowrap">
+			<button class="btn btn-danger" type="button" style="float: right"
+					onclick="location.href='${pageContext.request.contextPath}/assinment/AddAssignmentReg">글쓰기</button>
+			
 				<table class="table">
 					<caption class="ms-4">List of Assignment</caption>
 					<thead>
