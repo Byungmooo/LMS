@@ -20,9 +20,25 @@ public class MultipleChoiceQuestion {
 	private String updateDate;				//수정일
 	private String arrayUs="";
 	
-	private List<String> exampleList;
+	private List<String> exampleList = new ArrayList<String>();
 	
-
+	public List<String> getExampleList(){
+		exampleList = new ArrayList<String>();
+		String[] examList = arrayUs.split(",");
+		
+		for(int i=0; i<examList.length;i++) {
+			exampleList.add(examList[i]);
+		}
+		
+		
+		return exampleList;
+	}
+	
+	public void setExampleList(List<String> exampleList) {
+		
+		
+		this.exampleList = exampleList;
+	}
 
 
 
