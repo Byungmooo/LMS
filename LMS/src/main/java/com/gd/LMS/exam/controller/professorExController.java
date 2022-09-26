@@ -38,7 +38,7 @@ public class professorExController {
       
       model.addAttribute("Exlist", professorExList);
       
-      return "exam/professorExList";
+      return "exam/professorExList"; 
    }
    
    

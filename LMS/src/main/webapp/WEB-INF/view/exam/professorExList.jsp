@@ -18,15 +18,15 @@
 					<caption class="ms-4">Example ${memberType}.Ver/ 안녕하세요. ${memberName}님!</caption>
 					<thead>
 						<tr>
-							<td>강의번호</td>
+							<td>강의번호</td> 
 							<th>시험지번호</th>
-							<th>시험지이름</th>
+							<th>시험지이름</th> 
 							<th>등록일</th>
 							<th>수정일</th>
-						</tr>
+						</tr> 
 					</thead>
 					<tbody>
-						<c:forEach var="e" items="${Exlist}">
+						<c:forEach var="e" items="${Exlist}" >
 							<tr>
 								<td>${e.examNo}</td>
 								<td><a href="${pageContext.request.contextPath}/exam/professorExList/${e.examNo}">

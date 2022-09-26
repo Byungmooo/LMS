@@ -21,7 +21,7 @@
          <span >"이름"님 /</span>시험명 : ${examSheet.examName} / ${examSheet.examNo }${map.lectureName}
       </h4>
    <body>
-      <div class="container-xxl flex-grow-1 container-p-y">
+      <div class="container-xxl flex-grow-1 container-p-y"> 
       <hr>
       
       <div class="col-xl-6">

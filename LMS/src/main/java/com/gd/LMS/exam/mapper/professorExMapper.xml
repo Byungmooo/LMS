@@ -19,7 +19,7 @@
 <!-- 시험지 상세보기 -->
 	<select id="selectExOne" parameterType="int" resultType="com.gd.LMS.vo.ExamSheet">
 		SELECT
-			exam_no examNo,
+			exam_no examNo, 
 			exam_name examName,
 			create_date createDate,
 			update_date updateDate

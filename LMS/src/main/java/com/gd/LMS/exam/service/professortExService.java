@@ -39,7 +39,7 @@ public class professortExService {
    // 시험지 개수
    public int getExListCount() {
       int result= professorExMapper.selectExListCount();
-      log.debug(TeamColor.KBW + result+"시험지Count");
+      log.debug(TeamColor.KBW + result+"시험지Count"); 
       return result;
    }
    
