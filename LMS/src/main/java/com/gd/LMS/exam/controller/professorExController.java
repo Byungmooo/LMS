@@ -22,33 +22,32 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class professorExController {
-	@Autowired professortExService professorExService;
-	
-	// 시험지 리스트
-	@GetMapping(value={"/exam/professorExList"})
-	public String ExList(Model model) {
-		log.debug(TeamColor.KBW + "--- ExList Controller GetMapping ---");
-		
-		// 학생코드 추후 수정예정
-		int professorCode = 10;
-		
-		// 학생수강리스트 메서드 호출 후 리턴값 디버깅
-		List<Map<String, Object>> professorExList = professorExService.getExList(professorCode);
-		log.debug(TeamColor.KBW + "professorExList (controller) > " + professorExList);
-		
-		model.addAttribute("Exlist", professorExList);
-		
-		return "exam/professorExList";
-	}
-	
-	
-	
-	// 시험지 상세보기
-
+   @Autowired professortExService professorExService;
+   
+   // 시험지 리스트
+   @GetMapping(value={"/exam/professorExList"})
+   public String ExList(Model model) {
+      log.debug(TeamColor.KBW + "--- ExList Controller GetMapping ---");
+      
+      // 학생코드 추후 수정예정
+      int professorCode = 10;
+      
+      // 학생수강리스트 메서드 호출 후 리턴값 디버깅
+      List<Map<String, Object>> professorExList = professorExService.getExList(professorCode);
+      log.debug(TeamColor.KBW + "professorExList (controller) > " + professorExList);
+      
+      model.addAttribute("Exlist", professorExList);
+      
+      return "exam/professorExList";
+   }
+   
+   
+   
+   // 시험지 상세보기
     @GetMapping(value = "/exam/professorExList/{examNo}")
     public String ExOne(Model model, @PathVariable(value = "examNo") int examNo) {
-    	log.debug(TeamColor.KBW + "--- ExOne(시험지상세보기) Controller GetMapping ---");
-    	//시험지
+       log.debug(TeamColor.KBW + "--- ExOne(시험지상세보기) Controller GetMapping ---");
+       //시험지
         ExamSheet examSheet = professorExService.getExamSheet(examNo);
         log.debug(TeamColor.KBW + "examSheet (controller) > " + examNo);
         //객관식문제
@@ -58,12 +57,9 @@ public class professorExController {
         List<MultipleExample> multipleEx = professorExService.getMultipleExample(examNo);
         log.debug(TeamColor.KBW + "MultipleExample (controller) > " + examNo);
         
-        
-        
         //주관식문제
         List<SubjectiveQuestion> subjectiveQ =  professorExService.getSubjectiveQuestion(examNo);
         log.debug(TeamColor.KBW + "SubjectiveQuestion (controller) > " + examNo);
-        
         
         
         //시험지
@@ -83,23 +79,32 @@ public class professorExController {
         
         log.debug(TeamColor.KBW + "arrayUsCHECK!!>>" + multipleQ);
          return "/exam/professorExOne";
-    }	
+    }   
     
     //시험지 추가 (
     @GetMapping("/exam/professorAddExamSheet")
     public String ExAdd() {
-    	log.debug(TeamColor.KBW + "--- ExAdd(시험지추가) Controller Getmapping---");
-    	return "/exam/professorAddExamSheet";
+       log.debug(TeamColor.KBW + "--- ExAdd(시험지추가) Controller Getmapping---");
+       return "/exam/professorAddExamSheet";
     }
 
 
     
-	
-	//시험지 추가 
+   
+   //시험지 추가 
 
-	
-	//시험문제 수정
-	
-	
-	//시험문제 삭제
+   
+   //시험문제 수정
+   
+   
+   //시험지삭제
+    @PostMapping("/exam/deleteExamSheet")
+    public String deleteExamSheet(@RequestParam(value = "examNo") int examNo) {
+       
+       professorExService.deleteExamSheet(examNo);
+       
+       log.debug(TeamColor.KBW + "--- deleteExamSheet(시험지삭제 Controller Postmapping ---");
+       return "redirect:/exam/professorExList";
+    }
+    
 }
