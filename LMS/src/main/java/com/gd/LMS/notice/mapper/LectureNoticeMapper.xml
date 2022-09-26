@@ -38,26 +38,27 @@
 		<include refid="search" />
 	</select>
 
-	<!-- 페이징 처리 후 게시글 조회 -->
-	<select id="selectBoard" parameterType="map" resultType="com.gd.LMS.vo.LectureNotice">
-		SELECT
-			lec_notice_no	 	lecNoticeNo,
-			opened_lec_no  		openedLecNo,
-			notice_title  	noticeTitle,
-			notice_content	noticeContent,
-			views	views,
-			writer	 writer,
-			create_date 		createDate,
-			update_date			updateDate
-		FROM 
-			lecture_notice  <include refid="search"/>
-		WHERE
-			opened_lec_no = #{openedLecNo}
-		ORDER BY 
-			lec_notice_no
-		LIMIT 
-			#{beginRow}, #{rowPerPage}
-	</select>
+   <!-- 페이징 처리 후 게시글 조회 -->
+   <select id="selectBoard" parameterType="map" resultType="com.gd.LMS.vo.LectureNotice">
+      SELECT
+         lec_notice_no       lecNoticeNo,
+         opened_lec_no        openedLecNo,
+         notice_title     noticeTitle,
+         notice_content   noticeContent,
+         views   views,
+         writer    writer,
+         create_date       createDate,
+         update_date         updateDate
+      FROM 
+         lecture_notice  
+      WHERE 1 = 1
+         <include refid="search"/>
+         AND opened_lec_no = #{openedLecNo}
+      ORDER BY 
+         lec_notice_no
+      LIMIT 
+         #{beginRow}, #{rowPerPage}
+   </select>
 
 
 
