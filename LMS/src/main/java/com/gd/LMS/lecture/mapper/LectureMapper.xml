@@ -53,6 +53,7 @@
 			opened_lec_no = #{openedLecNo}
 	</select>
 	
+	<!-- 학생 질문문 리스트 -->
 	<select id="selectLectureQuestionList" parameterType="int" resultType="com.gd.LMS.vo.LectureQuestion">
 		SELECT
 			lec_question_no lecQuestionNo,
@@ -67,6 +68,7 @@
 			opened_lec_no = #{openedLecNo}
 	</select>
 	
+	<!-- 질문 상세보기 -->
 	<select id="selectLectureQuestionOne" parameterType="int" resultType="map">
 		SELECT
 			q.lec_question_no lecQuestionNo,
@@ -87,6 +89,7 @@
 			lec_question_no = #{lecQuestionNo}
 	</select>
 
+	<!-- 답변 보기 -->
 	<select id="selectLectureAnswerOne" parameterType="int" resultType="map">
 		SELECT
 			a.lec_question_no lecQuestionNo,

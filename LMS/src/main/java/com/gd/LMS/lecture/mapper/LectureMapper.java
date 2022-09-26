@@ -62,7 +62,7 @@ public interface LectureMapper {
 	// 학생 장바구니 삭제
 	int deleteStudentLectureCart(String studentCode);
 
-	//
+	// 질문 답변
     Map<String, Object> selectLectureAnswerOne(int lecQuestionNo);
     
     
