@@ -68,42 +68,45 @@ public class LectureController {
     }
 
     // 강의 질문 리스트
-    @GetMapping("/student/lectureQuestionList")
-    public String lectureQuestionList(PagingVo vo, Model model, HttpSession session
+    @GetMapping(value = {"/student/lectureQuestionList"})
+    public String lectureQuestionList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map
     		, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
 			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
 			, @RequestParam(value="keyword", defaultValue = "") String keyword
 			, @RequestParam(value="searchType", defaultValue = "") String searchType
 //			,@RequestParam (value = "openedLecNo", required = false) int openedLecNo
     ) {
+        map.put("keyword", keyword);
+        map.put("searchType", searchType);
+        map.put("openedLecNo", session.getAttribute("openedLecNo"));
+      
     	
-    	
-        int totalCount = lectureService.countBoard(keyword, searchType);
+        int totalCount = lectureService.countBoard(map);
 		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 		
-        vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
-        // 이전 페이지 시작 글 번호와 현재 변경되는 페이지의 시작 글번호에 대한 일치 시키는거 많은 변경이 필요하므로 그냥 1로 처리함
-        if(vo.getBeginRow() >= totalCount){
-            vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
-        }
-		
-		List<LectureQuestion> list1 = lectureService.selectBoard(vo);
-		log.debug(TeamColor.KJS + "noticeList : " + list1);
-		
-		model.addAttribute("paging", vo);
+		   vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+	        // 이전 페이지 시작 글 번호와 현재 변경되는 페이지의 시작 글번호에 대한 일치 시키는거 많은 변경이 필요하므로 그냥 1로 처리함
+	        if(vo.getBeginRow() >= totalCount){
+	            vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
+	        }
+
+	
+	
 		// model.addAttribute("list", list1);
-		
+        map.put("beginRow", vo.getBeginRow());
+        map.put("rowPerPage", vo.getRowPerPage());
 		
 		//--------
-        log.debug(TeamColor.LCH + "--- lectureQuestionList Controller GetMapping ---");
+        log.debug(TeamColor.KJS + "--- lectureQuestionList Controller GetMapping ---");
 
         int openedLecNo = (int) session.getAttribute("openedLecNo");
-        log.debug(TeamColor.LCH + "openedLecNo > " + openedLecNo);
+        log.debug(TeamColor.KJS + "openedLecNo > " + openedLecNo);
 
         // List<LectureQuestion> lectureQuestionList = lectureService.getLectureQuestionList(openedLecNo);
-
+		List<LectureQuestion> list1 = lectureService.selectBoard(map);
+		log.debug(TeamColor.KJS + "noticeList : " + list1);
         // log.debug(TeamColor.LCH + "lectureQuestionList > " + lectureQuestionList);
-
+    	model.addAttribute("paging", vo);
         model.addAttribute("question", list1);
         return "lecture/lectureQuestionList";
     }
@@ -113,12 +116,12 @@ public class LectureController {
     public String lectureQuestionOne(Model model,
                                      HttpSession session,
                                      @RequestParam(value = "lecQuestionNo") int lecQuestionNo) {
-        log.debug(TeamColor.LCH + "--- lectureQuestionOne Controller GetMapping ---");
+        log.debug(TeamColor.KJS + "--- lectureQuestionOne Controller GetMapping ---");
 
-        log.debug(TeamColor.LCH + "lecQuestionNo > " + lecQuestionNo);
+        log.debug(TeamColor.KJS + "lecQuestionNo > " + lecQuestionNo);
 
         Map<String, Object> lectureQuestionOne = lectureService.getLectureQuestionOne(lecQuestionNo);
-        log.debug(TeamColor.LCH + "lectureQuestionOne > " + lectureQuestionOne);
+        log.debug(TeamColor.KJS + "lectureQuestionOne > " + lectureQuestionOne);
 
         model.addAttribute("question", lectureQuestionOne);
 
@@ -172,7 +175,7 @@ public class LectureController {
     }
     
     
-    // 학부공지사항 수정 페이지 이동
+    // 질문게시판 수정 페이지 이동
     @GetMapping("/student/updateLectureQuestion")
     public String updateLectureQuestion(Model model, HttpSession session) {
     	Map<String, Object> lectureQuestionOne = lectureService.getLectureQuestionOne((int) session.getAttribute("lecQuestionNo"));
@@ -181,9 +184,9 @@ public class LectureController {
         return "/lecture/updateLectureQuestion";
     }
 
-    // 학부공지사항 수정
+    // 질문게시판 수정
     @PostMapping("/student/updateLectureQuestion")
-    public String updateLecNotice(LectureQuestion lectureQuestion ,HttpSession session) {
+    public String updateLectureQuestion(LectureQuestion lectureQuestion ,HttpSession session) {
         int count = lectureService.updateQuestion(lectureQuestion);
         if (count >= 1) {
         	log.debug(TeamColor.KJS + " [김진수] 학부공지 수정");
@@ -191,9 +194,9 @@ public class LectureController {
         }
         return "redirect:/student/updateLectureQuestion";
     }
-    // 학부공지사항 삭제
+    // 질문 삭제
     @GetMapping("/student/removeLectrueQuestion")
-    public String LecNoticeOne(HttpSession session) {
+    public String removeLecture(LectureQuestion lecQuestionNo,HttpSession session) {
         int count = lectureService.deleteQuestion((int) session.getAttribute("lecQuestionNo"));
         if (count >= 1) {
         	log.debug(TeamColor.KJS + " [김진수] 학부공지 삭제");
