@@ -21,45 +21,6 @@
 			<span class="text-muted fw-light">"이름"님 /</span>${map.lectureName}
 		</h4>
 		
-		<!-- studentLectureMenu -->
-		<ul class="nav nav-pills flex-column flex-md-row mb-3">
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/studentLectureOne?openedLecNo=${map.openedLecNo}">
-				<i class="bx bx-user me-1"></i>
-					강의홈
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/member/studentLectureOne?openedLecNo=${map.openedLecNo}">
-				<i class="bx bx-bell me-1"></i> 
-					강의공지사항
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link"  href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${sessionScope.openedLecNo}&studentCode=${sessionScope.memberCode}">
-				<i class="bx bx-link-alt me-1"></i> 
-					질문게시판
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" href="${pageContext.request.contextPath}/student/studentAssignmentList?openedLecNo=${map.openedLecNo}&studentCode=${memberCode}">
-				<i class="bx bx-link-alt me-1"></i> 
-					과제게시판
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="">
-				<i class="bx bx-link-alt me-1"></i> 
-					강의출석
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="">
-				<i class="bx bx-link-alt me-1"></i> 
-					강의시험
-				</a>
-			</li>
-		</ul>
 		<hr class="my-5" />
 		
 		<!-- studentAssignmentList -->
@@ -67,7 +28,7 @@
 			<h5 class="card-header">과제게시판</h5>
 			<div class="table-responsive text-nowrap">
 			<button class="btn btn-danger" type="button" style="float: right"
-					onclick="location.href='${pageContext.request.contextPath}/assinment/AddAssignmentReg">글쓰기</button>
+					onclick="location.href='${pageContext.request.contextPath}/assignment/AddAssignment'">글쓰기</button>
 			
 				<table class="table">
 					<caption class="ms-4">List of Assignment</caption>
@@ -81,13 +42,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="s" items="${list}">
+						<c:forEach var="s" items="${assignmentList}">
 							<tr>
 								<td><strong>${s.assignmentNo}</strong></td>
-								<td><a href="${pageContext.request.contextPath}/student/openedAssignmentOne?assignmentNo=${s.assignmentNo}">${s.assignmentTitle}</a></td>
+								<td><a href="${pageContext.request.contextPath}/assignment/openedAssignmentOne?assignmentNo=${s.assignmentNo}">${s.assignmentTitle}</a></td>
 								<td><span class="badge bg-label-primary me-1">${s.assignmentDid}</span></td>
 								<td><span class="badge bg-label-secondary me-1">${s.assignmentScore}</span></td>
 								<td>${s.createDate}</td>
+								<td>${s.endDate}</td>
 							</tr>
 						</c:forEach>
 					</tbody>

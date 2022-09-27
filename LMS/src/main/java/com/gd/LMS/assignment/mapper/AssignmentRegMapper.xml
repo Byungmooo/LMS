@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.assignment.mapper.AssignmentRegMapper">
+
+<!--전체 제출한 과제 리스트 조회 메소드 -->
+	<select id="selectAssignmentList" resultType="List">
+		SELECT
+			a.opened_lec_no	openedLecNo,
+			ar.assignment_reg_no assignmentRegNo,
+			ar.assignment_no assignmentNo,
+			ar.assignment_reg_title assignmentRegTitle,
+			ar.assignment_reg_content assignmentRegContent,
+			ar.assignment_score	assignmentScore,
+			ar.create_date createDate
+		FROM 
+			assignment_reg ar INNER JOIN assignment a
+		USING
+			(assignment_no)
+		ORDER BY 
+			ar.create_date DESC
+	</select>
+
+	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
+	<select id="selectAssignmentListById" parameterType="Map" resultType="com.gd.LMS.vo.AssignmentReg">
+		SELECT
+			a.opened_lec_no openedLecNo,
+			ar.assignment_reg_no assignmentRegNo,
+			ar.student_lec_no studentLecNo,
+			ar.assignment_no assignmentNo,
+			ar.assignment_reg_title assignmentRegTitle,
+			ar.assignment_reg_content assignmentRegContent,
+			ar.assignment_score	assignmentScore,
+			ar.create_date createDate
+		FROM 
+			assignment_reg ar INNER	JOIN assignment a
+		USING
+			(assignment_no)
+		WHERE 
+			account_id = #{accountId}
+		ORDER BY
+			ar.create_date DESC
+	</select>
+	<!-- 학생별 제출한 과제 리스트 조회 메소드 -->
+
+	<!-- 제출한 과제 리스트 조회 메소드 -->
+	<select id="selectAssignmentListBySubject" parameterType="Map" resultType="com.gd.LMS.vo.AssignmentRegForm">
+		SELECT DISTINCT
+			assignment_reg_no assignmentRegNo,
+			student_lec_no studentLecNo,
+			assignment_no assignmentNo,
+			assignment_reg_title assignmentRegTitle,
+			assignment_reg_content assignmentRegContent,
+			assignment_score assignmentScore,
+			create_date	createDate
+		FROM 
+			report_submit INNER JOIN opened_lecture
+		WHERE
+			opened_lec_no = #{openedLecNo}
+	</select>
+	<!-- 강좌별 제출한 과제 리스트 조회 메소드 -->
+
+	<!-- 과제 제출하기 메소드 -->
+	<insert id="insertAssignmentReg" parameterType="com.gd.LMS.vo.AssignmentReg">
+		INSERT INTO
+			assginment_reg_no (
+			assignment_no,
+			student_lec_no,
+			assginment_reg_title,
+			assginment_reg_content,
+			report_submit_score,
+			update_date, 
+			create_date
+			
+			)
+			VALUES (
+			#{assginmentRegNo}
+			,#{assignmentNo}
+			,#{studentLecNo}
+			,#{assginmentRegTitle}
+			,#{assginmenRegContent}
+			,
+			NOW(),
+			NOW())
+	</insert>
+	<!-- 과제 제출하기 메소드 -->
+
+	<!-- 과제 첨부파일 제출하기 메소드 -->
+	<insert id="insertAssignmentRegImg" parameterType="com.gd.LMS.vo.AssignmentReg">
+		INSERT INTO 
+		assignment_reg_img (
+		assignment_reg_no,
+		content_type,
+		origin_name,
+		file_name,
+		file_size
+		)
+		VALUES(
+		#{assignmentRegImg},
+		#{assignmentRegNo},
+		#{contentType},
+		#{originName},
+		#{file_name}, 
+		#{file_size}
+		)
+	</insert>
+	<!-- 과제 첨부파일 제출하기 메소드 -->
+
+	<!-- 제출한 과제 상세보기 -->
+	<select id="AssignmentRegOne" parameterType="Map" resultType="com.gd.LMS.vo.AssignmentReg">
+		SELECT
+			ar.assignment_reg_no assignmentRegNo,
+			ar.student_lec_no studentLecNo,
+			ar.assignment_no assignmentNo,
+			ar.assignment_reg_title assignmentRegTitle,
+			ar.assignment_reg_content assignmentRegContent,
+			ar.assignment_score assignmentScore,
+			ar.create_date createDate,
+			ari.file_name fileName,
+			ari.content_type contentType
+		FROM 
+			assignment_reg ar
+		INNER JOIN 
+			assignment_reg_img ari
+		USING
+			(assignment_reg_no)
+		WHERE 
+			assignment_reg_no = #{assignmentRegNo}
+	</select>
+	<!-- 제출한 과제 상세보기 -->
+
+	<!-- 제출한 과제 수정하기 Action -->
+	<update id="updateAssignmentReg" parameterType="com.gd.LMS.vo.AssignmentReg">
+		UPDATE 
+			assignment_reg
+		SET 
+			assignment_reg_title = #{assignmentRegTitle},
+			assignment_reg_content = #{assignmentRegContent},
+			update_date= now()
+		WHERE
+			assignment_reg_no = #{assignmentRegNo}
+	</update>
+	<!-- 제출한 과제 수정하기 Action -->
+
+	<!-- 제출한 과제 점수 수정하기 -->
+	<update id="updateAssignmentScore" parameterType="int">
+		UPDATE
+			assignment_reg
+		SET 
+			assignment_score = #{assignmentScore},
+			update_date = now()
+		WHERE
+			assignment_reg_no = #{assignmentRegNo}
+	</update>
+	<!-- 제출한 과제 점수 수정하기 -->
+
+	<!-- 제출한 과제 삭제하기 -->
+	<delete id="deleteAssignmentReg" parameterType="int">
+		DELETE FROM
+			assignment_reg
+		WHERE 
+			assignment_reg_no = #{assignmentRegNo}
+	</delete>
+	<!-- 제출한 과제 삭제하기 -->
+
+
+</mapper>

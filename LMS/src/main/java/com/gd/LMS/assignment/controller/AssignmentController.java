@@ -3,27 +3,21 @@ package com.gd.LMS.assignment.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.eclipse.sisu.Parameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.LMS.assignment.service.AssignmentService;
 import com.gd.LMS.commons.TeamColor;
+import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.vo.Assignment;
-import com.gd.LMS.vo.AssignmentReg;
-import com.gd.LMS.vo.Employee;
-import com.gd.LMS.vo.LectureNotice;
-import com.gd.LMS.vo.Member;
+import com.gd.LMS.vo.AssignmentRegForm;
 import com.gd.LMS.vo.OpenedLecture;
-import com.gd.LMS.vo.TotalNotice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,118 +25,173 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class AssignmentController {
 	@Autowired AssignmentService assignmentService;
+	@Autowired MemberService memberService;
 	
-	// 학생이 수강중인 한 강의 과제리스트
-	@GetMapping("/student/openedAssignmentList")
-	public String openedAssignmentList(Model model, Map<String, Object> paramMap, 
-			@RequestParam (value = "openedLecNo") int openedLecNo,
-			@RequestParam (value = "studentCode") int studentCode) {
-		log.debug(TeamColor.LCH + "--- openedAssignmentList Controller GetMapping ---");
+
+	// 과제 리스트 조회
+	
+	@GetMapping("/assignmentList")
+	public String assignmentList(Model model, HttpSession session) {
+		int openedLecNo = 41;
 		
-		// 파라미터 디버깅openedLecNo
-		paramMap.put("openedLecNo", openedLecNo);
-		paramMap.put("studentCode", studentCode);
-		log.debug(TeamColor.LCH + "paramMap (controller) > " + paramMap);
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "assignmentList Controller");
 		
-		// 학생과제리스트 메서드 호출 후 리턴값 디버깅
-		List<Map<String, Object>> openedAssignmentList = assignmentService.getStudentAssignmentList(paramMap);
-		log.debug(TeamColor.LCH + "studentAssignmentList (controller) > " + openedAssignmentList);
+		//서비스 불러오기
+		List<Assignment>  assignmentList = assignmentService.getAssignmentList(openedLecNo);
+		log.debug(TeamColor.BJH + assignmentList + "<--assignmentList");
+
+		// 뷰에서 끄내쓸 리스트 보내기
+		model.addAttribute("assignmentList", assignmentList);
 		
-		model.addAttribute("list", openedAssignmentList);
-		
-		return "assignment/openedAssignmentList";
+		if (assignmentList != null) {
+			// 성공
+			log.debug(TeamColor.BJH + " 과제 리스트 조회 성공");
+			// 이동
+			return "assignment/assignmentList";
+		} else {
+			// 실패
+			log.debug(TeamColor.BJH + " 과제 리스트 조회실패");
+			// index로 리다이렉트
+			return "redirect:/assignment/openedLecList";
+		}
 	}
+
 	
-	// 학생이 수강중인 강의 과제 상세보기
-	@GetMapping("/student/openedAssignmentOne")
-	public String openedAssignmentOne(Model model, @RequestParam (value = "assignmentNo") int assignmentNo) {
-		log.debug(TeamColor.LCH + "--- openedAssignmentOne Controller GetMapping ---");
-		
-		// 파라미터 디버깅openedLecNo
-		log.debug(TeamColor.LCH + "assignmentNo (controller) > " + assignmentNo);
-		
-		// 메서드 호출 후 리턴값 디버깅
-		Map<String, Object> openedAssignmentOne = assignmentService.getStudentAssignmentOne(assignmentNo);
-		log.debug(TeamColor.LCH + "studentAssignmentOne (controller) > " + openedAssignmentOne);
-		
-		model.addAttribute("map", openedAssignmentOne);
-		
-		return "assignment/openedAssignmentOne";
-	}
 	
-	//과제 추가폼
-	@GetMapping("/student/addAssignment")
-	public String addAssignment(Model model, @RequestParam (value = "studentCode") int studentCode) {
-		Map<String, Object> map = assignmentService.addAssignmentForm(studentCode);
-		model.addAttribute("list", map.get("list"));
+	
+
+	// 과제 출제하는 메소드
+	@GetMapping("/addAssignment")
+	public String addAssignment(Model model, HttpSession session) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "addAssignment Controller 실행");
 		
+		int openedLecNo = 41;
+		
+		// 세션 받아오기
+		String memberId = (String) session.getAttribute("memberId");
+		model.addAttribute("openedLecNo",openedLecNo);
+		// 로그인한 강사의 멤버아이디
+		log.debug(TeamColor.BJH + memberId + "<-- memberId");
+		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
+
 		return "assignment/addAssignment";
-	}
-	//과제 추가 액션
+	} 
+
+	// 과제 출제하는 메소드
+	// 리턴값 : openedAssignmentList.jsp로 이동
 	@PostMapping("/addAssignment")
 	public String addAssignment(Assignment assignment) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "addAssignment Controller");
 		
-		log.debug(TeamColor.BJH + assignment +"<-----assignment");
-		assignmentService.addAssignmentAction(assignment);
+		// 수정필요
+		int openedLecNo = 41;
+		assignment.setOpenedLecNo(openedLecNo);
 		
-		return "redirect:/openedAssignmentList";
+		//과제 내는 서비스
+		int row = assignmentService.addAssignment(assignment);
+
+		if (row != 0) {
+			// 성공
+			log.debug(TeamColor.BJH + " 과제 내기 성공");
+		} else {
+			// 실패
+			log.debug(TeamColor.BJH + " 과제 내기 실패");
+		}
+		// assgnmentList로 리다이렉트
+		return "redirect:/assignmentList";
+	} 
+	
+	
+	
+	
+	
+
+	// 출제한 과제 수정하는 메소드
+	@GetMapping("/modifyAssignment")
+	public String modifyAssignment(Model model, @RequestParam("assignmentNo") int assignmentNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "modifyAssignment Controller");
+		// 파라미터 디버깅
+		log.debug(TeamColor.BJH + assignmentNo + "<-- reportNo");
+
+		Assignment assignmentOne = assignmentService.getAssignmentOne(assignmentNo);
+		// 디버깅
+		log.debug(TeamColor.BJH + assignmentOne + "<-- assignmentOne");
+
+		// 상세보기 내용 담아서 보내기
+		model.addAttribute("assignment", assignmentOne);
+
+		return "assignment/modifyAssignment";
+	} 
+	
+	// 출제한 과제 수정하는 메소드
+	@PostMapping("/modifyAssignment")
+	public String modifyAssignment(@RequestParam("assignmentNo") int assignmentNo,
+			@RequestParam("openedLecNo") int openedLecNo,
+			@RequestParam("assignmentTitle") String assignmentTitle, 
+			@RequestParam("assignmentContent") String assignmentContent,
+			@RequestParam("endDate") String endDate) {
+		
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "modifyAssignment Controller");
+
+		// 받아온 값 param에 셋팅
+		Assignment param = new Assignment();
+		param.setOpenedLecNo(openedLecNo);
+		param.setAssignmentNo(assignmentNo);
+		param.setAssignmentTitle(assignmentTitle);
+		param.setAssignmentContent(assignmentContent);
+		param.setEndDate(endDate);
+		// 셋팅값 디버깅
+		log.debug(TeamColor.BJH + param + "<-- param");
+		
+		
+		int modifyAssignment = assignmentService.modifyAssignment(param);
+		// 디버깅
+		System.out.println("modifyAssignment");
+		if (modifyAssignment != 0) {
+			// 성공
+			log.debug(TeamColor.BJH + " 제출한 과제 수정 성공");
+		} else {
+			// 실패
+			log.debug(TeamColor.BJH + " 제출한 과제 수정 실패");
+		}
+		// 수정에 성공했으면 낸 과제 리스트로 보내기
+		return "redirect:/assignmentList";
 	}
-			
+	
+	
+	
+	
+	//과제 삭제
+	@GetMapping("/removeAssignment")
+	public String removeAssignment(@RequestParam("assignmentNo") int assignmentNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "removeAssignment Controller");
+		// 파라미터 디버깅
+		log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentNo");
 		
-	
-	 //직원정보 수정 폼
-    @GetMapping("/assignment/modifyAssignment")
-    public String modifyAssignment(Model model, @RequestParam(value = "assignmentNo") int assignmentNo) {
-    	
-    	log.debug(TeamColor.BJH + assignmentNo+"assignmentNo 보내기");
-    	Map<String, Object> updateOne = assignmentService.getAssignmentReg(assignmentNo);
-    
-		model.addAttribute("a", updateOne);
-    	log.debug(TeamColor.BJH + updateOne+"assignmentNo 담아서 보내기");
-    	
-    	return "assignment/modifyAssignment";
-    }
+		// 과제 삭제 service call
+		int removeAssignment = assignmentService.removeAssignment(assignmentNo);
+		// 파라미터
+		log.debug(TeamColor.BJH + removeAssignment + "<-- removeAssignment");
 
-    
-  
-    // 직원정보 수정 액션
-    @PostMapping("/modifyAssignmentAction")
-    public String modifyAssignmentAction(Model model, Map<String, Object> map, 
-    		AssignmentReg assignmentReg,Assignment assignment, OpenedLecture openedLecture ,
-    		@RequestParam(value = "assignmentNo") int assignmentNo) {
-    	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
-    	
-    	map.put("assignmentTitle", assignment.getAssignmentTitle());
-    	map.put("assignmentContent" ,assignment.getAssignmentContent());
-    	map.put("endDate", assignment.getEndDate());
-    	map.put("assignmentScore", assignmentReg.getAssignmentScore());
-    	log.debug(TeamColor.BJH + this.getClass() + map);
-    	
-    	int count = assignmentService.modifyStudentAssignment(map);
-    		if (count != 0) {
-    			log.debug(TeamColor.BJH + " 과제 수정성공");
-    			return "redirect:studentAssignmentOne?assignmentNo="+assignmentNo;
-    		}
-    	
-    	return "redirect:modifyAssignment?assignmentNo="+assignmentNo;
-    }
-    
+		if (removeAssignment != 0) {
+			// 성공
+			log.debug(TeamColor.BJH + " 과제 삭제 성공");
+		} else {
+			// 실패
+			log.debug(TeamColor.BJH + " 과제 삭제 실패");
+					// reportList로 리다이렉트
+		return "redirect:/assignmentList";
 	
 	
-    //과제 삭제
-    @PostMapping("/removeAssignmentReg")
-    public String removeAssignmentReg(@RequestParam (value= "assignmentNo") int assignmentNo) {
-    	
-    	assignmentService.removeAssignmentReg(assignmentNo);
-    
-    	log.debug(TeamColor.BJH + assignmentNo+"<====  과제삭제성공");
-    	return "redirect:/studentAssignmentList";
-    					
-    }
+		}
+		return "redirect:/assignmentList";
+	}
 	
-	
-	
-	
-	
-
 }
+	

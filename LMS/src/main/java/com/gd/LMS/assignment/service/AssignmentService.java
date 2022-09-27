@@ -16,10 +16,12 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.gd.LMS.assignment.mapper.AssignmentMapper;
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.lecture.mapper.LectureMapper;
 import com.gd.LMS.vo.Assignment;
 import com.gd.LMS.vo.AssignmentReg;
+import com.gd.LMS.vo.AssignmentRegForm;
 import com.gd.LMS.vo.AssignmentRegImg;
+import com.gd.LMS.vo.OpenedLecture;
+import com.gd.LMS.vo.TotalLecture;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,8 +29,110 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class AssignmentService {
-	@Autowired AssignmentMapper assignmentMapper;
-	@Autowired LectureMapper lectureMapper;
+	@Autowired AssignmentMapper assignmentMapper; //과제
+	
+	
+
+	//전체과제리스트 조회
+   public List<Assignment> getAssignmentList(int openedLecNo) {
+      // 디버깅 영역구분
+      log.debug(TeamColor.BJH + "@getAssignmentList Service");
+
+      // ReportMapper 실행
+      List<Assignment> assignmentList = assignmentMapper.selectAssignmentList(openedLecNo);
+      // 디버깅
+      log.debug(TeamColor.BJH + assignmentList + "<-- assignmentList");
+      
+      return assignmentList;
+   } 
+   
+	
+	// 과제 제출(추가)
+	public int addAssignment(Assignment assignment) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "assignment Service");
+		// 파라미터 디버깅
+		log.debug(TeamColor.BJH + assignment + "<-- assignment");
+
+		// Mapper call
+		int addssignment = assignmentMapper.insertAssignment(assignment);
+		// Mapper에서 받아온 assignment  디버깅
+		log.debug(TeamColor.BJH + addssignment + "<-- addssignment");
+
+		return addssignment;
+	} 
+
+	
+	//제출한 과제 수정 폼
+	public Assignment getAssignmentOne(int assignmentNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH+ "getAssignmentOne Service");
+		// 파라미터 디버깅
+		log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentNo");
+
+		// Mapper call
+		Assignment getAssignmentOne = assignmentMapper.selectAssignmentOne(assignmentNo);
+		// Mapper에서 받아온 assignmentNo 값 디버깅
+		log.debug(TeamColor.BJH + getAssignmentOne + "<-- getAssignmentOne");
+
+		return getAssignmentOne;
+	} 
+
+	
+	
+	//제출한 과제 수정 액션
+	public int modifyAssignment(Assignment assignment) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "modifyAssignment Service");
+		// 파라미터 디버깅
+		log.debug(TeamColor.BJH + assignment + "<-- assignment");
+		// Mapper call
+		int modifyAssignment = assignmentMapper.updateAssignment(assignment);
+		// Mapper에서 받아온 assignmentNo 값 디버깅
+		log.debug(TeamColor.BJH + modifyAssignment + "<-- modifyAssignment");
+
+		return modifyAssignment;
+	} 
+	
+	
+	
+	//과제 삭제
+	public int removeAssignment(int assignmentNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "removeAssignment Service");
+		// 파라미터 디버깅
+		log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentNo");
+
+		// Mapper call
+		int removeAssignment = assignmentMapper.deleteAssignment(assignmentNo);
+		// Mapper에서 받아온 assignmentNo 값 디버깅
+		log.debug(TeamColor.BJH + removeAssignment + "<-- deleteAssignment");
+
+		return removeAssignment;
+	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	
 	
 	// 학생이 수강중인 한 강의 과제리스트
 	public List<Map<String, Object>> getStudentAssignmentList(Map<String, Object> paramMap) {
@@ -107,5 +211,6 @@ public class AssignmentService {
         return assignmentMapper.deleteStudentAssignmentReg(assignmentRegNo);
     }
 	
+    */
 	
 }
