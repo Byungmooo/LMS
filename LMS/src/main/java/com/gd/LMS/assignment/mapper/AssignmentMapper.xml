@@ -39,4 +39,94 @@
 			o.lecture_code = t.lecture_code AND 
 			a.assignment_no = #{assignmentNo}
 	</select>
+	
+	<!-- 학생 과제 추가 -->
+	<insert id="insertStudentAssignmentReg" parameterType="com.gd.LMS.vo.AssignmentReg">
+	
+		INSERT INTO 
+				assignment_reg(
+							assignment_reg_no,
+							student_lec_no,
+							assignment_no,
+							assignment_content,
+							assignment_reg_did,
+							create_date
+							)
+				VALUES(
+					#{assignmentRegNo}
+					#{studentLecNo}
+					#{assignmentNo}
+					#{assignmentContent}
+					#{assignmentRegDid}
+					now()
+					)	
+	</insert>
+	
+	<!--  학생과제 수정 -->
+	<update id ="updateStudentAssignmentReg" parameterType="com.gd.LMS.vo.AssignmentReg" >
+		UPDATE
+			assignment_reg 
+		SET 
+			assignment_reg_no = #{assignmentRegNo},
+			assignment_reg_content = #{assignmentContent},
+			assignment_reg_did = #{assignmentRegDid},
+			create_date = now()
+		WHERE 
+			assignment_reg_no = #{assignmentRegNo}
+	
+	</update>
+	
+	<!--  학생과제 삭제 -->
+	<delete id ="deleteStudentAssignmentReg" parameterType="com.gd.LMS.vo.AssignmentReg">
+		
+	DELETE FROM
+		assignment_reg
+	WHERE 
+		assignment_reg_no = #{assignmentRegNo}
+	
+	</delete>
+	
+	<!--################################# 학생 과제 이미지 -->
+	
+	<!-- 학생 과제 이미지 추가 -->
+	<insert id = "insertAssignmentImg" parameterType="com.gd.LMS.vo.AssignmentRegImg">
+	
+	INSERT INTO 
+		assignment_reg_img (
+				assignment_reg_no, 
+				file_name, 
+				origin_name, 
+				content_type)
+		 VALUES (
+		 		#{assignmentRegNo},
+		 		#{fileName}, 
+		 		#{originName}, 
+				#{contentType}
+				)
+	</insert>
+	
+	<!-- 학생 과제 이미지 수정 -->
+	<update id="updateAssignmentRegImg" parameterType="map">
+	 UPDATE
+	 	 assignment_reg_img
+	 SET 
+	 	file_name = #{fileName}, 
+	 	origin_filename = 	#{originFilename}, 
+	 	content_type = #{contentType}
+	 WHERE 
+	 	assignment_reg_no = #{assignmentRegNo}
+	
+	</update>
+	
+	<!-- 학생 과제 이미지 삭제 -->
+	<delete id="deleteAssignmentImg" parameterType="int">
+	
+	
+	DELETE FROM 
+		assignment_reg_img 
+	WHERE 
+		assignment_reg_no = #{assignmentRegNo}
+	</delete>
+	
 </mapper>
+	
