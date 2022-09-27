@@ -1,5 +1,6 @@
 package com.gd.LMS.exam.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.exam.service.professortExService;
@@ -86,6 +89,8 @@ public class professorExController {
        return "/exam/professorAddExamSheet";
     }
    
+    
+    
    //시험문제 수정폼
    @GetMapping("/exam/updateExamSheet/{examNo}")
    public String ExUpdate(Model model,@PathVariable(value = "examNo") int examNo) {
@@ -103,21 +108,124 @@ public class professorExController {
 
    
    
+   
+   
    //시험이름 수정액션
-   @GetMapping("/exam/updateExamSheetName/{examNo}")
-//   public String updateExamSheet() {
-//	   System.out.println("AAAAAAA");
-//	   return "/exam/professorUpdateExamSheet";
-//   }
-   public String updateExamSheetName(@RequestParam(value = "examNo") String examNo,
+   @PostMapping("/exam/updateExamSheetName/update")
+   public @ResponseBody String updateExamSheetName(@RequestParam(value = "examNo") String examNo,
 		   							@RequestParam(value = "examName") String examName) {
-	 	professorExService.updateExamSheetName(examNo,examName);
 	   	System.out.println(examNo + ", " +examName);
+	   	int result = professorExService.updateExamSheetName(examNo,examName);
 	   	log.debug(TeamColor.KBW+ "---updateExamSheet(시험지이름수정 Controller PostMapping )---" +examNo+ "" + examName);
-	   return "/exam/professorUpdateExamSheet/{examNo}";
+	   	
+	   	if(result > 0) {
+	   		return "SUCCESS";
+	   	}else {
+	   		return "FAIL";
+	   	}
    }
    
-
+   //객관식문제 수정액션
+   @PostMapping("/exam/multipleContent/update")
+   public @ResponseBody HashMap<String, Object> updateExampleQ(@RequestBody Map<String,String> params) {
+	   HashMap<String, Object> mapData = new HashMap<>();
+	   String examNo = params.get("examNo");
+	   String multipleNo = params.get("multipleNo");
+	   String multipleContent = params.get("multipleContent");
+	   
+	   int result = professorExService.updateQuestion(examNo,multipleContent,multipleNo);
+	   
+	   if(result > 0) {
+		   mapData.put("result", "SUCCESS");
+	   		return mapData;
+	   	}else {
+	   		mapData.put("result", "FAIL");
+	   		return mapData;
+	   	}
+   }
+   
+   //객관식 보기 수정액션
+   @PostMapping("/exam/exampleContent/update")
+   public @ResponseBody HashMap<String, Object> updateExample(@RequestBody Map<String,String> params) {
+	   HashMap<String, Object> mapData = new HashMap<>();
+	   String examNo = params.get("examNo");
+	   String multipleNo = params.get("multipleNo");
+	   String example	=	params.get("exampleNo");
+	   String exampleContent = params.get("exampleContent");
+	   
+	   int result = professorExService.updateExample(examNo,multipleNo,example, exampleContent);
+	   
+	   if(result > 0) {
+		   mapData.put("result", "SUCCESS");
+	   		return mapData;
+	   	}else {
+	   		mapData.put("result", "FAIL");
+	   		return mapData;
+	   	}
+   }
+   
+   //객관식 정답 수정 액션
+   @PostMapping("/exam/multipleAnswer/update")
+   public @ResponseBody HashMap<String, Object> updateExampleA(@RequestBody Map<String,String> params) {
+	   HashMap<String, Object> mapData = new HashMap<>();
+		log.debug(TeamColor.KBW+ "---updateMultipleAnswer(객관식답안수정 Controller PostMapping )---");
+	   String examNo = params.get("examNo");
+	   String multipleNo = params.get("multipleNo");
+	   String multipleAnswer = params.get("multipleAnswer");
+	   log.debug("examNo : "+examNo);
+	   log.debug("multipleNo : "+multipleNo);
+	   log.debug("multipleAnswer : "+multipleAnswer);
+	   
+	   
+	   int result = professorExService.updateMultipleAnswer(examNo,multipleNo,multipleAnswer);
+	   
+	   if(result > 0) {
+		   mapData.put("result", "SUCCESS");
+	   		return mapData;
+	   	}else {
+	   		mapData.put("result", "FAIL");
+	   		return mapData;
+	   	}
+   }  
+   
+   //주관식 문제 수정 액션
+   @PostMapping("/exam/subjectiveContent/update")
+   public @ResponseBody HashMap<String, Object> updateSubjectiveQ(@RequestBody Map<String,String> params) {
+	   HashMap<String, Object> mapData = new HashMap<>();
+	   String examNo = params.get("examNo");
+	   String subjectiveNo = params.get("subjectiveNo");
+	   String subjectiveContent = params.get("subjectiveContent");
+	   
+	   int result = professorExService.updateSubContent(examNo,subjectiveContent, subjectiveNo);
+	   
+	   if(result > 0) {
+		   mapData.put("result", "SUCCESS");
+	   		return mapData;
+	   	}else {
+	   		mapData.put("result", "FAIL");
+	   		return mapData;
+	   	}
+   }
+   
+   //주관식 문제 답안 수정 액션
+   @PostMapping("/exam/subjectiveAnswer/update")
+   public @ResponseBody HashMap<String, Object> updateSubjectiveA(@RequestBody Map<String,String> params) {
+	   HashMap<String, Object> mapData = new HashMap<>();
+	   String examNo = params.get("examNo");
+	   String subjectiveNo = params.get("subjectiveNo");
+	   String subjectiveAnswer = params.get("subjectiveAnswer");
+	   
+	   int result = professorExService.updateSubAnswer(examNo,subjectiveAnswer, subjectiveNo);
+	   
+	   if(result > 0) {
+		   mapData.put("result", "SUCCESS");
+	   		return mapData;
+	   	}else {
+	   		mapData.put("result", "FAIL");
+	   		return mapData;
+	   	}
+   }
+   
    
    //시험지삭제
     @PostMapping("/exam/deleteExamSheet")
@@ -129,4 +237,4 @@ public class professorExController {
        return "redirect:/exam/professorExList";
     }
     
-}
+} 

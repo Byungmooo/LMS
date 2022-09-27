@@ -79,14 +79,85 @@ public class professortExService {
     }
     
     //시험지이름 수정
-    public String updateExamSheetName(String examNo,String examName) {
-    	professorExMapper.updateExamSheetName(examNo,examName);
+    public int updateExamSheetName(String examNo,String examName) {
+    	Map<String,Object> list = new HashMap<>();
+    	list.put("examNo", examNo);
+    	list.put("examName", examName);
+    	int result = professorExMapper.updateExamSheetName(list);
     	log.debug(TeamColor.KBW + "updateExamSheetName(service)" + examNo +examName);
-		return examNo;
+		return result;
     }
-   // public Map<String, Object> getUpdateExamSheetName (int examNo)
-   
 
+
+    //객관식문제 수정
+    public int updateQuestion(String exampleNo, String exampleContent, String multipleNo) {
+    	Map<String,Object> list = new HashMap<>();
+    	list.put("examNo", exampleNo);
+    	list.put("exampleContent", exampleContent);
+    	list.put("multipleNo", multipleNo);
+    	int result = professorExMapper.updateQuestion(list);
+    	log.debug(TeamColor.KBW + "updateQuestion(service)" + exampleNo +exampleContent);
+		return result;
+    }
+    
+    //객관식 보기 수정
+    public int updateExample(String examNo, String multipleNo,String exampleNo, String exampleContent) {
+    	Map<String, Object> list = new HashMap<>();
+    	list.put("examNo",  examNo);
+    	list.put("multipleNo",  multipleNo);
+    	list.put("exampleNo",  exampleNo);
+    	list.put("exampleContent",  exampleContent);
+    	int result = professorExMapper.updateExampleContent(list);
+    	log.debug(TeamColor.KBW + "updateExample(service)"+exampleContent+ examNo + multipleNo + exampleNo);
+
+    	return result;
+    }
+    
+    //객관식 정답 수정
+    public int updateMultipleAnswer(String exampleNo, String multipleNo, String multipleAnswer) {
+    	Map<String,Object> list = new HashMap<>();
+    	list.put("examNo", exampleNo);
+    	list.put("multipleNo", multipleNo);
+    	list.put("multipleAnswer", multipleAnswer);
+    	int result = professorExMapper.updateMultipleAnswer(list);
+    	log.debug(TeamColor.KBW + "updateMultipleAnswer(service)" );
+    	log.debug(TeamColor.KBW + "list(service)" + list );
+    	log.debug(TeamColor.KBW + "result(service)" + result );
+		return result;
+    }    
+    //주관식 문제 수정
+    public int updateSubContent(String examNo,String subjectiveContent,String subjectiveNo) {
+    	Map<String,Object> list = new HashMap<>();
+    	list.put("examNo", examNo);
+    	list.put("subjectiveContent", subjectiveContent);
+    	list.put("subjectiveNo",subjectiveNo);
+    	
+    	int result = professorExMapper.updateSubContent(list);
+    	log.debug(TeamColor.KBW + "updateSubjectiveContent(service)" + examNo + subjectiveNo +subjectiveContent);
+    	log.debug(TeamColor.KBW + "list(service)" + list);
+    	log.debug(TeamColor.KBW + "result(service)" + result);
+    	
+    	return result;
+    }
+    
+    //주관식 정답 수정
+    public int updateSubAnswer(String examNo, String subjectiveAnswer,String subjectiveNo) {
+    	Map<String, Object> list = new HashMap<>();
+    	list.put("examNo", examNo);
+    	list.put("subjectiveAnswer", subjectiveAnswer);
+    	list.put("subjectiveNo", subjectiveNo);
+    	
+    	int result = professorExMapper.updateSubAnswer(list);
+    	log.debug(TeamColor.KBW + "updateSubAnswer(service)" + examNo + subjectiveAnswer + subjectiveNo);
+    	log.debug(TeamColor.KBW +"list(service)"  + list);
+    	log.debug(TeamColor.KBW +"result" + result);
+    	
+    	
+    	return result;
+    	
+    }
+    
+    
     
     //시험지삭제
     public int deleteExamSheet(int examNo) {
@@ -98,11 +169,8 @@ public class professortExService {
        log.debug(TeamColor.KBW +"deleteExamSheet(service)"+ examNo);
        
       return examNo;
-       
-       
     }
-
-
+       
 
     
 }

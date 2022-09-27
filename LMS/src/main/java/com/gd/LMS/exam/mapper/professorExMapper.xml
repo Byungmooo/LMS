@@ -99,7 +99,7 @@
 
 
 <!-- 시험지이름 수정 -->
-	<update id="updateExamSheetName" parameterType="int">
+	<update id="updateExamSheetName" parameterType="java.util.HashMap">
 	UPDATE 
 		exam_sheet 
 	SET
@@ -109,37 +109,39 @@
 	</update>
 	
 <!-- 객관식 문제 수정 -->
-	<update id="updateMultipleContent" parameterType="int">
+	<update id="updateQuestion" parameterType="java.util.HashMap">
 	UPDATE 
 		multiple_choice_question
 	SET
-		multiple_content = #{multipleContent}
+		multiple_content = #{exampleContent}
 	WHERE 
 		exam_no = #{examNo} AND multiple_no = #{multipleNo}
 	</update>
 	
 <!-- 객관식 문제보기내용 수정 -->
-	<update id="updateExampleContent" parameterType="int">
+	<update id="updateExampleContent" parameterType="java.util.HashMap">
 	UPDATE 
 		multiple_example
 	SET
-		example_content = #{exampleContent}
+		example_content = #{exampleContent},
+		update_date = NOW()
 	WHERE 
-		exam_no = #{examNo} AND multiple_no = #{multipleNo} AND example = #{example}
+		exam_no = #{examNo} AND multiple_no = #{multipleNo} AND example = #{exampleNo}
 	</update>
 	
 <!-- 객관식 정답 수정 -->
-	<update id="updateMultipleAnswer" parameterType="int">
+	<update id="updateMultipleAnswer" parameterType="java.util.HashMap">
 	UPDATE 
 		multiple_choice_question
 	SET
-		example_answer = #{exampleAnswer}
+		multiple_answer = #{multipleAnswer},
+		update_date = NOW()
 	WHERE 
 		exam_no = #{examNo} AND multiple_no = #{multipleNo}
 	</update>	
 	
 <!-- 주관식 문제 수정 -->
-	<update id="updateSubjectiveContent" parameterType="int">
+	<update id="updateSubContent" parameterType="map">
 	UPDATE 
 		subjective_question
 	SET
@@ -147,8 +149,10 @@
 	WHERE 
 		exam_no = #{examNo} AND subjective_no = #{subjectiveNo}
 	</update>	
+	
+	
 <!-- 주관식 정답 수정 -->
-	<update id="updateSubjectiveAnswer" parameterType="int">
+	<update id="updateSubAnswer" parameterType="java.util.HashMap">
 	UPDATE 
 		subjective_question
 	SET

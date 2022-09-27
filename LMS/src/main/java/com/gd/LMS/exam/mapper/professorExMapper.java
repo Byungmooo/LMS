@@ -33,16 +33,28 @@ public interface professorExMapper {
 	
 	//시험지수정
 	public Map<String, Object> updateExamSheet(int examNo);
-	int updateExamSheetName(String examNo,String examName);
-	int updateMultipleContent(int examNo);
-	int updateExampleContent(int examNo);
-	int updateMultipleAnswer(int examNo);
-	int updateSubjectiveContent(int examNo);
-	int updateSubjectiveAnswer(int examNo);
+	//시험지이름 수정
+	int updateExamSheetName(Map<String,Object> list);
+	//객관식문제 수정
+	int updateQuestion(Map<String,Object> params);
+	//객관식문제 보기수정
+	int updateExampleContent(Map<String,Object> params);
+	
+	//객관식문제 답안수정
+	int updateMultipleAnswer(Map<String,Object> params);
+	
+	//주관식문제 보기수정
+	int updateSubContent(Map<String,Object> params);
+	//주관식 답안수정
+	int updateSubAnswer(Map<String,Object> params);
+	//
+
+	
 	
 	//시험지삭제
 	int deleteMultupleExample(int examNo); 	//객관식예제삭제
 	int deleteMultipleQ(int examNo);		//객관식문제삭제
 	int deleteSubjectiveQ(int examNo);		//주관식문제삭제 
 	int deleteExamSheet(int examNo);		//시험지삭제
+
 }
