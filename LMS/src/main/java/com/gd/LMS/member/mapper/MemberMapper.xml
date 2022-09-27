@@ -3,17 +3,18 @@
 <mapper namespace="com.gd.LMS.member.mapper.MemberMapper">
 
 	<!-- 로그인 -->
-	<select id="selectMemberLogin" parameterType="com.gd.LMS.vo.Member"
-		resultType="com.gd.LMS.vo.Member">
-		SELECT
-			member_id memberId,
+	<select id="selectMemberLogin" parameterType="com.gd.LMS.vo.Member" resultType="com.gd.LMS.vo.Member">
+	
+		SELECT 
+			member_id memberId, 
 			member_pw memberPw,
-			member_type memberType,
-			active
-		FROM member
+			member_name memberName, 
+			member_type memberType, 
+			active 
+		FROM 
+			member 
 		WHERE 
-			member_id = #{memberId} 
-		AND 
+			member_id = #{memberId} AND 
 			member_pw = #{memberPw}
 	</select>
 	

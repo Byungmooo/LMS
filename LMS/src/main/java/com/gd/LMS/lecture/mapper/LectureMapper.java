@@ -6,8 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.gd.LMS.utils.PagingVo;
+import com.gd.LMS.vo.Attendance;
 import com.gd.LMS.vo.LectureAnswer;
-import com.gd.LMS.vo.LectureNotice;
 import com.gd.LMS.vo.LectureQuestion;
 
 @Mapper
@@ -19,46 +19,17 @@ public interface LectureMapper {
 	// 강의 상세보기
 	Map<String, Object> selectOpenedLectureOne(int openedLecNo);
 
-	// 게시물 총 갯수
-	int countBoard(Map<String, Object> map);
-
-	// 강의 질문리스트 페이징 처리 게시글 조회
-	List<LectureQuestion> selectBoard(Map<String, Object> map);
-
-	List<LectureQuestion> selectLectureQuestionList(int openedLecNo);
-
-	// 강의 질문 상세보기
-	Map<String, Object> selectLectureQuestionOne(int lecQuestionNo);
-
 	// 학생 수강신청 (전체과목)
-	List<Map<String, Object>> selectTotalLectureList(PagingVo vo);
+	List<Map<String, Object>> selectOpenedLectureList(PagingVo vo);
 
 	// 학생 수강신청 (신청)
 	int insertStudentLecture(List<Map<String, Object>> list);
 
 	// 학생 수강신청 (장바구니)
-	List<Map<String, Object>> selectStudentLectureCartList();
-
-	// 강의 질문 답변여부
-	int answerStatus(int lecQuestionNo);
-
-	// 학생 질문 답변 추가 -교수-
-	int addAnswer(LectureAnswer lectureAnswer);
-
-	// 학생 질문 추가 -학생-
-	int addQuestion(LectureQuestion lectureQuestion);
-
-	// 공지사항 수정
-	public int updateLecQuestion(LectureQuestion lectureQuestion);
-
-	// 질문 삭제
-	public int deleteLecQuestion(int lecQuestionNo);
-
-	// 답변 삭제
-	public int deleteLecAnswer(int lecQuestionNo);
+	List<Map<String, Object>> selectStudentLectureCartList(int memberCode);
 
 	// 학생 수강신청 (전체과목수)
-	int selectTotalLectureCount();
+	int selectOpenedLectureCount(String keyword);
 
 	// 학생 수강신청 (수강담기)
 	int studentCartInsert(Map<String, Object> map);
@@ -69,7 +40,30 @@ public interface LectureMapper {
 	// 학생 장바구니 삭제
 	int deleteStudentLectureCart(String studentCode);
 
-	// 답변 상세보기 
-	Map<String, Object> selectLectureAnswerOne(int lecQuestionNo);
+	// 강의 출석 리스트
+	Map<String, Object> selectLectureAttendanceList(int openedLecNo);
+
+	// 학생이 보는 출석부
+	List<Map<String, Object>> selectStudentAttendanceList(Map<String, Object> map);
+
+	// 강의 출석부
+	List<Map<String, Object>> selectLectureStudentList(Map<String, Object> map);
+
+	// 출석부 존재 확인
+	List<String> selectAttendanceCheck(String attendanceDate);
+
+	// 강의 학생확인
+	List<String> selectOpenLectureStudentList(int openedLecNo);
+
+	// 출석부 생성
+	int insertAttendanceByDate(List<Map<String, Object>> list);
+
+	// 출석상태확인
+	String selectAttendanceState(Attendance attendance);
+
+	// 출석 상태 변경
+	int updateAttendanceState(Attendance attendance);
+
+	
 
 }

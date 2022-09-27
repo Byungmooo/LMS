@@ -83,6 +83,7 @@ public class MemberController {
 		
 		// 로그인에 성공하고 활성화 여부가 'Y'인 계정정보 세션에 저장
 		session.setAttribute("memberId", resultMember.getMemberId());
+		session.setAttribute("memberName", resultMember.getMemberName());
 		session.setAttribute("memberType", resultMember.getMemberType());
 
 		return "redirect:/member/index";	

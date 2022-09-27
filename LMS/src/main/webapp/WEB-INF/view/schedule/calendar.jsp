@@ -48,18 +48,6 @@
 											<p>●학부일정</p>
 											<div style="flex-grow: 1; width1: 50%;">
 												<c:forEach items="${scheduleList}" var="s">
-													<%-- <c:if test="${s.scheduleYear==year}">
-														- 1
-														<br>
-													</c:if>
-													<c:if test="${s.scheduleMonth==month}">
-														- 2
-														<br>
-													</c:if>
-													<c:if test="${s.scheduleDay==(i-startBlank)}">
-														- 3
-														<br>
-													</c:if> --%>
 													<c:if test="${s.scheduleYear==year&&s.scheduleMonth==month&&s.scheduleDay==(i-startBlank)}">
 														- ${s.depScheduleContent}
 														<br>
@@ -100,4 +88,4 @@
 
 		</div>
 	</div>
-<c:import url="/WEB-INF/view/include/loginFooter.jsp"></c:import>
+<c:import url="/WEB-INF/view/include/footer.jsp"></c:import>

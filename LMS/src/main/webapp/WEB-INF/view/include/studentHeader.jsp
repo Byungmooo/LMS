@@ -135,7 +135,7 @@
 								class="menu-link">
 									전체공지사항
 							</a></li>
-							<li class="menu-item"><a href="${pageContext.request.contextPath}/lecNotice"
+							<li class="menu-item"><a href=""
 								class="menu-link">
 									학부공지사항
 							</a></li>
@@ -174,7 +174,7 @@
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">LECTURE</span></li>
 					<li class="menu-item">
-						<a href="" class="menu-link"> 
+						<a href="${pageContext.request.contextPath}/student/studentLectureReg?memberCode=${memberCode}" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-collection"></i>
 							수강신청
 						</a>
@@ -191,7 +191,7 @@
 								</a>
 							</li>
 							<li class="menu-item">
-								<a href="${pageContext.request.contextPath}/assignment/studentLectureList?memberCode=${memberCode}" class="menu-link">
+								<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" class="menu-link">
 									수강중인 강의
 								</a>
 							</li>

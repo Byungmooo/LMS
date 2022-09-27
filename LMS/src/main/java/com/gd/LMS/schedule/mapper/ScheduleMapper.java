@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface ScheduleMapper {
 	List<Map<String, Object>> selectLectureSchedule();
+	
+	List<Map<String, Object>> selectLectureTime(int openedLecNo);
 }

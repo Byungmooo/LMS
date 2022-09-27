@@ -26,6 +26,8 @@
 						</div>
 					</div>
 					<div class="card-body">
+						${memberName}
+						<br>
 						${memberCode}
 					</div>
 				</div>

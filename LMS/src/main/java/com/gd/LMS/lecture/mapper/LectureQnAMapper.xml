@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.lecture.mapper.LectureQnAMapper">
+	<select id="selectLectureQuestionList" parameterType="int" resultType="com.gd.LMS.vo.LectureQuestion"> 
+		SELECT 
+			lec_question_no lecQuestionNo, 
+			opened_lec_no openedLecNo, 
+			notice_title noticeTitle, 
+			writer, 
+			answer_y answerY,
+			create_date createDate 
+		FROM 
+			lecture_question 
+		WHERE 
+			opened_lec_no = #{openedLecNo} 
+	</select>
+	
+	<select id="selectLectureQuestionOne" parameterType="int" resultType="map"> 
+		SELECT 
+			q.lec_question_no lecQuestionNo, 
+			t.lecture_name lectureName, 
+			o.opened_lec_no openedLecNo, 
+			q.notice_title noticeTitle,
+			q.notice_content noticeContent, 
+			q.writer, 
+			q.answer_y answerY,
+			q.create_date createDate 
+		FROM 
+			lecture_question q, 
+			opened_lecture o,
+			total_lecture t 
+		WHERE 
+			q.opened_lec_no = o.opened_lec_no AND
+			o.lecture_code = t.lecture_code AND 
+			lec_question_no = #{lecQuestionNo}
+	</select>
+	
+	<!-- 질문게시판 답변여부 변경 -->
+    <update id="answerStatus" parameterType="int">
+        UPDATE
+            lecture_question
+        SET 
+        	answer_y	  = 'y'
+        WHERE lec_question_no  = #{lecQuestionNo}
+    </update>    
+    
+    <!-- 학생 질문 답변 추가 -->
+    <insert id="addAnswer" parameterType="com.gd.LMS.vo.LectureAnswer">
+	    INSERT INTO lecture_answer( 
+  			lec_question_no,
+  			answer_content, 
+  			create_date,
+  			update_date 
+	    ) VALUES ( 
+			#{lecQuestionNo},
+ 			#{answerContent},
+  			now(),
+  			now() 
+	    ) 
+     </insert>
+       
+       <!-- 학생 질문 추가 -->
+	<insert id="addQuestion" parameterType="com.gd.LMS.vo.LectureQuestion">
+	    INSERT INTO lecture_question( 
+ 			opened_lec_no,
+ 			notice_title, 
+ 			notice_content,
+ 			writer, 
+ 			create_date
+	    ) VALUES ( 
+ 			#{openedLecNo},
+			#{noticeTitle},
+ 			#{noticeContent},
+ 			#{writer},
+  			now()    		
+	     ) 
+     </insert>
+     	    <!-- 질문 수정 -->
+    <update id="updateLecQuestion" parameterType="com.gd.LMS.vo.LectureQuestion">
+		UPDATE
+		    lecture_question
+		SET 
+			notice_title      = #{noticeTitle},
+		    notice_content    = #{noticeContent},
+		    update_date = now()
+		WHERE 
+			lec_question_no  = #{lecQuestionNo}
+    </update>
+
+    <!-- 질문 삭제 -->
+    <delete id="deleteLecQuestion" parameterType="int">
+        DELETE
+        FROM lecture_question
+        WHERE lec_question_no  = #{lecQuestionNo}
+    </delete>
+    
+        <!-- 답변 삭제 -->
+    <delete id="deleteLecAnswer" parameterType="int">
+        DELETE
+        FROM lecture_answer
+        WHERE lec_question_no  = #{lecQuestionNo}
+    </delete>
+</mapper>

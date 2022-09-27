@@ -24,5 +24,16 @@
 			t.lecture_code = o.opened_lec_no AND 
 			s.student_code = 20122001
 	</select>
-
+	
+	<select id="selectLectureTime" parameterType="int" resultType="map"> 
+		SELECT 
+			opened_lec_no openedLecNo, 
+			lecture_yoil lectureYoil, 
+			lecture_start lectureStart, 
+			lecture_end lectureEnd 
+		FROM 
+			lecture_time 
+		WHERE 
+			opened_lec_no = #{openedLecNo} 
+	</select>
 </mapper>

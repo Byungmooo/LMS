@@ -1,110 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.lecture.mapper.LectureMapper">
+	<sql id="search">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="keyword != null and keyword != ''"> AND lecture_name LIKE CONCAT('%', #{keyword},'%') </if>
+	</sql>
+	
 	<!-- 학생수강리스트 -->
-	<select id="selectStudentLectureList" parameterType="int" resultType="map">
-		SELECT
-			o.opened_lec_no openedLecNo,
-			t.lecture_name lectureName,
-			m.member_name professorName,
-			t.lecture_type lectureType,
-			t.credit
-		FROM
-			total_lecture t,
-			opened_lecture o,
+	<select id="selectStudentLectureList" parameterType="int" resultType="map"> 
+		SELECT 
+			o.opened_lec_no openedLecNo, 
+			t.lecture_name lectureName, 
+			m.member_name professorName, 
+			t.lecture_type lectureType, 
+			t.credit 
+		FROM 
+			total_lecture t, 
+			opened_lecture o, 
 			student_lecture s,
-			professor p,
-			member m
-		WHERE
+			professor p, 
+			member m 
+		WHERE 
 			t.lecture_code = o.lecture_code AND
-			o.opened_lec_no = s.opened_lec_no AND
-			p.professor_code = o.professor_code AND
-			p.member_id = m.member_id AND
-			student_code = #{studentCode}		
+			o.opened_lec_no = s.opened_lec_no AND 
+			p.professor_code = o.professor_code AND 
+			p.member_id = m.member_id AND 
+			student_code = #{studentCode} 
 	</select>
 	
 	<!-- 학생수강상세보기 -->
-	<select id="selectOpenedLectureOne" parameterType="int" resultType="map">
-		SELECT
-			m.member_name professorName,
-			t.lecture_type lectureType,
-			t.lecture_name lectureName,
-			t.credit,
-			d.department_name departmentName,
-			SUBSTRING(o.open_lecture_date,1,4) lectureYear,
-			(CASE WHEN CAST(SUBSTRING(open_lecture_date,6,2) AS unsigned)>=8 THEN 2
-					ELSE 1
-			END) AS lectureSemester,
-			o.lec_classroom lecClassroom,
-			o.student_num studentNum,
-			o.syllabus,
-			o.opened_lec_no openedLecNo
+	<select id="selectOpenedLectureOne" parameterType="int" resultType="map"> 
+		SELECT 
+			m.member_name professorName, 
+			t.lecture_type lectureType, 
+			t.lecture_name lectureName, 
+			t.credit, 
+			d.department_name departmentName, 
+			SUBSTRING(o.open_lecture_date,1,4) lectureYear, 
+			(CASE
+				WHEN CAST(SUBSTRING(open_lecture_date,6,2) AS unsigned)>=8 
+				THEN 2 ELSE 1 
+			END) AS lectureSemester, 
+			o.lec_classroom lecClassroom, 
+			o.student_num studentNum, 
+			o.syllabus, 
+			o.opened_lec_no openedLecNo 
 		FROM
-			opened_lecture o,
-			total_lecture t,
-			department d,
-			professor p,
+			opened_lecture o, 
+			total_lecture t, 
+			department d, 
+			professor p, 
 			member m
-		WHERE
-			o.lecture_code = t.lecture_code AND
-			t.department_code = d.department_code AND
+		WHERE 
+			o.lecture_code = t.lecture_code AND 
+			t.department_code = d.department_code AND 
 			o.professor_code = p.professor_code AND
-			p.member_id = m.member_id AND
-			opened_lec_no = #{openedLecNo}
-	</select>
-	
-	
-	<select id="selectLectureQuestionOne" parameterType="int" resultType="map">
-		SELECT
-			q.lec_question_no lecQuestionNo,
-			t.lecture_name lectureName,
-			o.opened_lec_no openedLecNo,
-			q.notice_title noticeTitle,
-			q.notice_content noticeContent,
-			q.writer,
-			q.answer_y answerY,
-			q.create_date createDate
-		FROM
-			lecture_question q,
-			opened_lecture o,
-			total_lecture t
-		WHERE
-			q.opened_lec_no = o.opened_lec_no AND
-			o.lecture_code = t.lecture_code AND
-			lec_question_no = #{lecQuestionNo}
-	</select>
-
-	<select id="selectLectureAnswerOne" parameterType="int" resultType="map">
-		SELECT
-			a.lec_question_no lecQuestionNo,
-			a.answer_content answerContent,
-			a.create_date createDate,
-			a.update_date updateDate
-		FROM
-			lecture_answer a
-		WHERE
-			lec_question_no = #{lecQuestionNo}
+			p.member_id = m.member_id AND 
+			opened_lec_no = #{openedLecNo} 
 	</select>
 	
 	<!-- 학생수강신청 전체리스트 -->
-	<select id="selectTotalLectureList" parameterType="com.gd.LMS.utils.PagingVo" resultType="map">
+	<select id="selectOpenedLectureList" parameterType="com.gd.LMS.utils.PagingVo" resultType="map">
 		SELECT 
+			t.lecture_code lectureCode, 
 			o.opened_lec_no openedLecNo,
-			t.lecture_code lectureCode,
-			t.lecture_name lectureName,
-			m.member_name memberName,
+			t.lecture_name lectureName, 
+			m.member_name memberName, 
 			t.credit credit
 		FROM 
-			total_lecture t,
-			opened_lecture o,
-			professor p,
-			member m
+			total_lecture t, 
+			opened_lecture o, 
+			professor p, 
+			member m 
 		WHERE
 			t.lecture_code = o.lecture_code AND 
 			o.professor_code = p.professor_code AND 
 			p.member_id = m.member_id
+			<include refid="search" />
 		ORDER BY 
-			t.lecture_code
+			t.lecture_code 
 		LIMIT 
 			#{beginRow}, #{rowPerPage}
 	</select>
@@ -113,192 +87,184 @@
 		INSERT INTO student_lecture ( 
 			student_code, 
 			opened_lec_no, 
-			create_date 
+			create_date
 		) VALUES
 		<foreach collection="list" item="item" index="index" separator=","> 
 		( 
 			#{item.studentCode}, 
 			#{item.openedLecNo}, 
 			NOW() 
-		) 
+		)
 		</foreach>
 	</insert>
 	
 	<!-- 학생수강신청 장바구니 -->
-	<select id="selectStudentLectureCartList" resultType="map">
-		SELECT
-			s.cart_no cartNo,
+	<select id="selectStudentLectureCartList" parameterType="int" resultType="map"> 
+		SELECT 
+			s.cart_no cartNo, 
 			o.opened_lec_no openedLecNo,
-			t.lecture_code lectureCode,
-			t.lecture_name lectureName,
-			t.credit
+			t.lecture_code lectureCode, 
+			t.lecture_name lectureName, 
+			t.credit 
 		FROM
-			total_lecture t,
-			opened_lecture o,
-			student_lecture_cart s
+			total_lecture t, 
+			opened_lecture o, 
+			student_lecture_cart s 
 		WHERE
-			t.lecture_code = o.lecture_code AND
-			o.opened_lec_no = s.opened_lec_no 
-			
-			<!-- AND s.student_code = 20122001 -->
+			t.lecture_code = o.lecture_code AND 
+			o.opened_lec_no = s.opened_lec_no AND 
+			s.student_code = #{memberCode} 
 	</select>
 	
-	<select id="selectTotalLectureCount" resultType="int">
-		SELECT
-			COUNT(*)
-		FROM
-			total_lecture
+	<select id="selectOpenedLectureCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) 
+		FROM opened_lecture 
+		WHERE 1=1
+		<include refid="search" />
 	</select>
 	
 	<!-- 학생수강담기 -->
-	<insert id="studentCartInsert" parameterType="map">
-		INSERT INTO student_lecture_cart (
-			student_code,
-			opened_lec_no,
-			create_date
-		) VALUES (
-			#{studentCode},
-			#{openedLecNo},
-			NOW()
-		)	
+	<insert id="studentCartInsert" parameterType="map"> 
+		INSERT INTO student_lecture_cart ( 
+			student_code, 
+			opened_lec_no, 
+			create_date 
+		) VALUES ( 
+			#{studentCode}, 
+			#{openedLecNo}, 
+			NOW() 
+		) 	
 	</insert>
 	
-	<delete id="studentCartDelete" parameterType="String">
-		DELETE FROM student_lecture_cart
-		WHERE cart_no = #{cartNo}
+	<delete id="studentCartDelete" parameterType="String"> 
+		DELETE FROM student_lecture_cart 
+		WHERE cart_no = #{cartNo} 
 	</delete>
 	
-	<delete id="deleteStudentLectureCart" parameterType="String">
-		DELETE FROM student_lecture_cart
-		WHERE student_code = #{studenCode}
+	<delete id="deleteStudentLectureCart" parameterType="String"> 
+		DELETE FROM student_lecture_cart 
+		WHERE student_code = #{studenCode} 
 	</delete>
 	
-
-	<!-- 질문게시판 답변여부 변경 -->
-
-    <update id="answerStatus" parameterType="int">
-        UPDATE
-            lecture_question
-        SET 
-        	answer_y	  = 'y'
-        WHERE lec_question_no  = #{lecQuestionNo}
-    </update>
-    
-    
-    <!-- 학생 질문 답변 추가 -->
-    <insert id="addAnswer" parameterType="com.gd.LMS.vo.LectureAnswer">
-      INSERT INTO lecture_answer( 
-      			 lec_question_no,
-      			 answer_content, 
-      			 create_date,
-      			 update_date 
-      ) VALUES ( 
-     			 #{lecQuestionNo},
-      			 #{answerContent},
-       			 now(),
-       			 now() 
-       ) 
-     </insert>
-       
-       <!-- 학생 질문 추가 -->
-	<insert id="addQuestion" parameterType="com.gd.LMS.vo.LectureQuestion">
-      INSERT INTO lecture_question( 
-      			 opened_lec_no,
-      			 notice_title, 
-      			 notice_content,
-      			 writer, 
-      			 create_date
-      ) VALUES ( 
-      			 #{openedLecNo},
-     			 #{noticeTitle},
-      			 #{noticeContent},
-      			 #{writer},
-       			 now()    		
-       ) 
-     </insert>
-     	    <!-- 질문 수정 -->
-    <update id="updateLecQuestion" parameterType="com.gd.LMS.vo.LectureQuestion">
-        UPDATE
-            lecture_question
-        SET 
-        	notice_title      = #{noticeTitle},
-            notice_content    = #{noticeContent},
-            update_date = now()
-        WHERE lec_question_no  = #{lecQuestionNo}
-    </update>
-
-    <!-- 질문 삭제 -->
-    <delete id="deleteLecQuestion" parameterType="int">
-        DELETE
-        FROM lecture_question
-        WHERE lec_question_no  = #{lecQuestionNo}
-    </delete>
-    
-        <!-- 답변 삭제 -->
-    <delete id="deleteLecAnswer" parameterType="int">
-        DELETE
-        FROM lecture_answer
-        WHERE lec_question_no  = #{lecQuestionNo}
-    </delete>
-     
-     	
-		<!--  게시글 검색  -->
-	<sql id="search">
-		<!--  검색 키워드가 있을 때  -->
-		<if test="keyword != null and keyword != ''">
-			<choose>
-			<!--  검색 유형이 있을 때  -->
-				<when test="searchType != null and searchType != ''">
-					<choose>
-						<when test="'title'.equals(searchType)"> 
-							AND notice_title LIKE CONCAT('%', #{keyword}, '%') 
-						</when>
-						<when test="'content'.equals(searchType)"> 
-							AND notice_content LIKE CONCAT('%', #{keyword}, '%') 
-						</when>
-						<when test="'writer'.equals(searchType)"> 
-							AND writer LIKE CONCAT('%', #{keyword}, '%') 
-						</when>
-					</choose>
-				</when>
-				<!--  전체 검색일 때 때  -->
-				<otherwise> 
-					AND ( notice_title LIKE CONCAT('%', #{keyword}, '%') OR notice_content LIKE CONCAT('%', #{keyword}, '%') OR writer LIKE CONCAT('%', #{keyword}, '%') ) 
-				</otherwise>
-			</choose>
-		</if>
-	</sql>
-     
-     
-     	<!-- 총 게시글 갯수 출력 -->
-	<select id="countBoard" parameterType="map" resultType="int">
-		SELECT COUNT(*) FROM lecture_question WHERE 1=1 
-		<include refid="search"/>
-		AND opened_lec_no = #{openedLecNo}
-	</select>
-	
-	<!-- 강의 질문리스트 페이징 처리 후 게시글 조회 -->
-	<select id="selectBoard" parameterType="map" resultType="com.gd.LMS.vo.LectureQuestion">
-		SELECT
-			lec_question_no 	lecQuestionNo,
-			opened_lec_no  		openedLecNo,
-			notice_title  	noticeTitle,
-			notice_content	noticeContent,
-			writer	 writer,
-			answer_y		answerY,
-			create_date 		createDate,
-			update_date			updateDate
-			
+	<!-- 강의 출석 리스트 -->
+	<select id="selectLectureAttendanceList" parameterType="int" resultType="map"> 
+		SELECT 
+			opened_lec_no openedLecNo, 
+			open_lecture_date openLectureDate, 
+			close_lecture_date closeLectureDate,
+			YEAR(open_lecture_date) openYear, 
+			MONTH(open_lecture_date) openMonth,
+			DAY(open_lecture_date) openDay, 
+			YEAR(close_lecture_date) closeYear,
+			MONTH(close_lecture_date) closeMonth, 
+			DAY(close_lecture_date) closeDay
 		FROM 
-			lecture_question
-		WHERE
-			1=1 <include refid="search"/>
-		 AND opened_lec_no = #{openedLecNo}
-		ORDER BY 
-			lec_question_no
-		LIMIT 
-			#{beginRow}, #{rowPerPage}
+			opened_lecture 
+		WHERE 
+			opened_lec_no = #{openedLecNo} 
+		</select>
+	
+	<!-- 학생의 날짜별 출석 -->
+	<select id="selectStudentAttendanceList" parameterType="map" resultType="map"> 
+		SELECT 
+			attendance_state attendanceState, 
+			attendance_date attendanceDate, 
+			YEAR(attendance_date) attendanceYear,
+			MONTH(attendance_date) attendanceMonth, 
+			DAY(attendance_date) attendanceDay 
+		FROM 
+			attendance a, 
+			student_lecture l, 
+			opened_lecture o,
+			student s 
+		WHERE 
+			a.student_lec_no = l.student_lec_no AND
+			l.opened_lec_no = o.opened_lec_no AND 
+			s.student_code = l.student_code AND 
+			o.opened_lec_no = #{openedLecNo} AND 
+			s.student_code = #{studentCode} 
 	</select>
-    
-
+	
+	<!-- 강의 출석부 -->
+	<select id="selectLectureStudentList" parameterType="map" resultType="map"> 
+		SELECT 
+			@SEQ := @SEQ+1 listNo, 
+			m.member_name memberName,
+			s.student_code studentCode, 
+			t.lecture_name lectureName,
+			l.student_lec_no studentLecNo, 
+			o.opened_lec_no openedLecNo,
+			IFNULL(a.attendance_state, '대기중') attendanceState 
+		FROM 
+			student s 
+		INNER JOIN member m ON s.member_id = m.member_id 
+		INNER JOIN student_lecture l ON l.student_code = s.student_code 
+		INNER JOIN opened_lecture o ON l.opened_lec_no = o.opened_lec_no 
+		INNER JOIN total_lecture t ON t.lecture_code = o.lecture_code 
+		LEFT OUTER JOIN attendance a ON a.student_lec_no = l.student_lec_no
+		, (SELECT @SEQ := 0) A 
+		WHERE
+			o.opened_lec_no = #{openedLecNo} AND 
+			a.attendance_date = #{attendanceDate} 
+	</select>
+	
+	<!-- 출석부 존재 확인 -->
+	<select id="selectAttendanceCheck" parameterType="String" resultType="String"> 
+		SELECT 
+			attendance_state 
+		FROM 
+			attendance 
+		WHERE
+			attendance_date = #{attendanceDate} 
+	</select>
+	
+	<!-- 강의 학생 확인 -->
+	<select id="selectOpenLectureStudentList" parameterType="int" resultType="String"> 
+		SELECT 
+			l.student_lec_no studentLecNo 
+		FROM 
+			student_lecture l, 
+			opened_lecture o 
+		WHERE 
+			l.opened_lec_no = o.opened_lec_no AND
+			o.opened_lec_no = #{openedLecNo} 
+	</select>
+	
+	<!-- 출석부 생성 -->
+	<insert id="insertAttendanceByDate" parameterType="java.util.List">
+		INSERT INTO attendance ( 
+			student_lec_no, 
+			attendance_date, 
+			create_date
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=","> 
+		( 
+			#{item.studentLecNo}, 
+			#{item.attendanceDate}, 
+			NOW() 
+		)
+		</foreach>
+	
+	</insert>
+	<!-- 출석상태확인 -->
+	<select id="selectAttendanceState" parameterType="com.gd.LMS.vo.Attendance" resultType="String"> 
+		SELECT
+			attendance_state attendanceState 
+		FROM 
+			attendance 
+		WHERE 
+			attendance_date = #{attendanceDate} AND 
+			student_lec_no = #{studentLecNo} 
+	</select>
+	
+	<!-- 출석 상태 변경 -->
+	<insert id="updateAttendanceState" parameterType="com.gd.LMS.vo.Attendance"> 
+		UPDATE 
+			attendance 
+		SET 
+			attendance_state = #{attendanceState} 
+		WHERE 
+			attendance_date = #{attendanceDate} AND
+			student_lec_no = #{studentLecNo} 
+	</insert>
 </mapper>

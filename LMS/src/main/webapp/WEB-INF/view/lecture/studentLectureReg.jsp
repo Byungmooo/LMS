@@ -5,18 +5,17 @@
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
 		<h4 class="fw-bold py-3 mb-4">
-			<span class="text-muted fw-light">"이름"님 /</span>
+			<span class="text-muted fw-light">${memberName}님 / <strong>수강신청</strong></span>
 		</h4>
 		<hr class="my-5" />
 		
 		<!-- 수강신청 폼 -->
-		
 		<div style="float: left; width: 55%;">
 			<div class="card text-center">
 				<h5 class="card-header">전체강의</h5>
+				<!-- 전체강의 리스트 -->
 				<div class="table-responsive text-nowrap">
 					<table class="table">
-						<caption class="ms-4">Total Lecture</caption>
 						<thead>
 							<tr>
 								<th width="10%">강의코드</th>
@@ -27,7 +26,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="t" items="${totalList}">
+							<c:forEach var="t" items="${openedList}">
 								<tr>
 									<td><strong>${t.lectureCode}</strong></td>
 									<td>${t.lectureName}</td>
@@ -35,14 +34,51 @@
 									<td><span class="badge bg-label-secondary me-1"></span>${t.credit}</td>
 									<td><button type="button" id="cartAddBtn" class="addBtn" value="${t.openedLecNo}">add</button></td>
 								</tr>
-								<input type="hidden" name="studentCode" id="studentCode" value="20122001"> <!-- ${memberCode}로 수정해야함 -->
+								<input type="hidden" name="studentCode" id="studentCode" value="${memberCode}">
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
+				<hr class="my-3" />
+				<!-- 검색 -->
+				<form action="${pageContext.request.contextPath}/student/studentLectureReg" method="get">
+					<div class="row">
+						<div class="col-sm-2 col-12 text-center">
+						</div>
+						<div class="col-sm-7 col-12 text-center">
+							<input type="hidden" name="memberCode" value="${memberCode}">
+							<input type="text" name="keyword" class="form-control" placeholder="과목이름을 입력하세요">
+						</div>
+						<div class="col-sm-2 col-12 text-center">
+							<button type="submit" class="btn btn-dark">검색</button>
+						</div>
+					</div>
+				</form>
+				<!-- 페이징 -->
+				<div style="display: block; text-align: center;">		
+					<c:if test="${paging.prePage}">
+						<a href="${pageContext.request.contextPath}/student/studentLectureReg?currentPage=${paging.currentPage-1}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&memberCode=${memberCode}">이전</a>
+					</c:if>
+					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+						<c:choose>
+							<c:when test="${p == paging.currentPage }">
+								<b>${p}</b>
+							</c:when>
+							<c:when test="${p != paging.currentPage }">
+								<a href="${pageContext.request.contextPath}/student/studentLectureReg?currentPage=${p}
+									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&memberCode=${memberCode}">${p}</a>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${paging.nextPage}">
+						<a href="${pageContext.request.contextPath}/student/studentLectureReg?currentPage=${paging.currentPage+1}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&memberCode=${memberCode}">다음</a>
+					</c:if>
+				</div>
 			</div>
 		</div>
-		<form action="${pageContext.request.contextPath}/studentLectureReg" method="post" id="lectureAddForm">
+		<form action="${pageContext.request.contextPath}/student/studentLectureReg" method="post" id="lectureAddForm">
 			<div style="float: right; width: 40%;">
 				<div class="card text-center">
 					<h5 class="card-header">내 강의</h5>
@@ -67,7 +103,7 @@
 									</tr>
 									<input type="hidden" name="openedLecNo2" value="${c.openedLecNo}">
 									<input type="hidden" name="cartNo" value="${c.cartNo}">
-									<input type="hidden" name="studentCode2" value="20122001"> <!-- ${memberCode}로 수정해야함 -->
+									<input type="hidden" name="studentCode2" value="${memberCode}">
 								</c:forEach>
 								<c:forEach begin="0" end="${size}" var="b">
 									<tr>

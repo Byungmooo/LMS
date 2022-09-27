@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.lecture.mapper.TotalLectureMapper">
+	
+	<sql id="search">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="keyword != null and keyword != ''"> AND lecture_name LIKE CONCAT('%', #{keyword},'%') </if>
+	</sql>
+	
+	<!-- 전체과목수 -->
+	<select id="selectTotalLectureCount" parameterType="int"> 
+		SELECT COUNT(*) FROM total_lecture 
+	</select>
+	
+	<!-- 전체과목리스트 -->
+	<select id="selectTotalLectureList" parameterType="com.gd.LMS.utils.PagingVo" resultType="map">
+		SELECT 
+			lecture_code lectureCode, 
+			lecture_name lectureName, 
+			create_date createDate 
+		FROM 
+			total_lecture 
+		WHERE 1=1
+			<include refid="search" />
+		ORDER BY 
+			lecture_code 
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectTotalLectureOne" resultType="map">
+		SELECT
+			t.lecture_code lectureCode,
+			t.lecture_name lectureName,
+			m.member_id memberId,
+			t.lecture_type lectureType,
+			t.grade_type gradeType,
+			t.credit,
+			d.department_name departmentName,
+			t.practice_y practiceY,
+			t.create_date createDate
+		FROM
+			total_lecture t,
+			department d,
+			employee e,
+			member m
+		WHERE
+			t.department_code = d.department_code AND
+			e.employee_code = t.employee_code AND
+			e.member_id = m.member_id AND 
+			lecture_code = #{lectureCode};
+	</select>
+	
+	<select id="selectTotalDepartmentName" resultType="map">
+		SELECT
+			department_code departmentCode,
+			department_name departmentName
+		FROM
+			department
+	</select>
+	
+	<insert id="insertTotalLectureOne" parameterType="com.gd.LMS.vo.TotalLecture">
+		<selectKey resultType="int" keyProperty="lectureCode" 	order="BEFORE">
+			select MAX(lecture_code) + 1 from total_lecture
+		</selectKey>
+		INSERT INTO total_lecture (
+			department_code,
+			employee_code,
+			lecture_name,
+			lecture_type,
+			grade_type,
+			practice_y,
+			credit,
+			create_date
+		) VALUES (
+			#{departmentCode},
+			#{employeeCode},
+			#{lectureName},
+			#{lectureType},
+			#{gradeType},
+			#{practiceY},
+			#{credit},
+			NOW()
+		)
+	</insert>
+	
+	<delete id="deleteTotalLectureOne" parameterType="int">
+		DELETE FROM total_lecture
+		WHERE lecture_code = #{lectureCode}
+	</delete>
+</mapper>

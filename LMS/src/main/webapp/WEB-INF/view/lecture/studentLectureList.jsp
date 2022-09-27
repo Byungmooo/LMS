@@ -18,7 +18,7 @@
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
 		<h4 class="fw-bold py-3 mb-4">
-			<span class="text-muted fw-light">"이름"님 /</span>강의
+			<span class="text-muted fw-light">${memberName}님 /</span>강의
 		</h4>
 		<hr class="my-5" />
 		
@@ -40,7 +40,13 @@
 					<tbody>
 						<c:forEach var="s" items="${list}">
 							<tr>
-								<td><strong>${s.lectureName}</strong></td>
+								<td>
+									<a href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${s.openedLecNo}">
+										<strong>
+											${s.lectureName}
+										</strong>
+									</a>		
+								</td>
 								<td>${s.professorName}</td>
 								<td><span class="badge bg-label-primary me-1">${s.lectureType}</span></td>
 								<td><span class="badge bg-label-secondary me-1">${s.credit}</span></td>
@@ -51,13 +57,13 @@
 											<i class="bx bx-dots-vertical-rounded"></i>
 										</button>
 										<div class="dropdown-menu">
-											<a class="dropdown-item" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${s.openedLecNo}">
+											<a class="dropdown-item" href="">
 											<i class="bx bx-book me-1"></i>
-												강의관리 <!-- 계획서 등의 내용 -->
+												x
 											</a>
 											<a class="dropdown-item" href="">
 											<i class="bx bx-book me-1"></i>
-												?????
+												x
 											</a>
 										</div>
 									</div>
