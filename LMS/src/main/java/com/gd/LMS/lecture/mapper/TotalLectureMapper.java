@@ -23,6 +23,8 @@ public interface TotalLectureMapper {
 	// 전체 학부 리스트
 	List<Map<String, Object>> selectTotalDepartmentName();
 	
+	int updateTotalLectureOne(TotalLecture totalLecture);
+	
 	// 강의 추가
 	int insertTotalLectureOne(TotalLecture totalLecture);
 	

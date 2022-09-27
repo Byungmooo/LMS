@@ -22,8 +22,6 @@ import com.gd.LMS.schedule.service.ScheduleService;
 import com.gd.LMS.utils.LectureListVo;
 import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.Attendance;
-import com.gd.LMS.vo.LectureAnswer;
-import com.gd.LMS.vo.LectureQuestion;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -192,7 +190,7 @@ public class LectureController {
 	}
 	
 	// 강의 출석 리스트
-	@GetMapping("/student/lectureAttendanceList")
+	@GetMapping("/lectureAttendanceList")
 	public String lectureAttendanceList(Model model, Map<String, Object> map
 			, @RequestParam (value = "openedLecNo") int openedLecNo
 			, @RequestParam (value = "memberCode") int memberCode) {

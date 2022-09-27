@@ -25,7 +25,7 @@ public class TotalLectureController {
 	@Autowired TotalLectureService totalLectureService;
 	
 	// 직원 전체과목 보기
-	@GetMapping("/employee/totalLectureList")
+	@GetMapping("/totalLectureList")
 	public String totalLectureList(PagingVo vo, Model model,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
@@ -41,7 +41,7 @@ public class TotalLectureController {
 		model.addAttribute("paging", vo);
 		model.addAttribute("totalList", totalLectureList);
 
-		return "lecture/totalLectureList";
+		return "lecture/totalLecture/totalLectureList";
 	}
 	
 	@GetMapping("/totalLectureOne")
@@ -53,7 +53,7 @@ public class TotalLectureController {
 		
 		model.addAttribute("map", map);
 		
-		return "lecture/totalLectureOne";
+		return "lecture/totalLecture/totalLectureOne";
 	}
 	
 	@GetMapping("/addTotalLecture")
@@ -65,7 +65,7 @@ public class TotalLectureController {
 		
 		model.addAttribute("department", list);
 		
-		return "lecture/addTotalLectureOne";
+		return "lecture/totalLecture/addTotalLectureOne";
 	}
 	
 	@PostMapping("/addTotalLecture")
@@ -94,7 +94,7 @@ public class TotalLectureController {
 		model.addAttribute("department", list);
 		model.addAttribute("map", map);
 
-		return "lecture/modifyTotalLecture";
+		return "lecture/totalLecture/modifyTotalLecture";
 	}
 	
 	@PostMapping("/modifyTotalLecture")
@@ -103,8 +103,8 @@ public class TotalLectureController {
 		
 		log.debug(TeamColor.LCH + "totalLecture > " + totalLecture);
 		
-		// 귀찮다 만들다 맘
-		//int result = totalLectureService.modifyTotalLectureOne(totalLecture);
+		int result = totalLectureService.modifyTotalLectureOne(totalLecture);
+		log.debug(TeamColor.LCH + "result > " + result);
 		
 		redirectAttributes.addAttribute("lectureCode", totalLecture.getLectureCode());
 		return "redirect:/totalLectureOne";

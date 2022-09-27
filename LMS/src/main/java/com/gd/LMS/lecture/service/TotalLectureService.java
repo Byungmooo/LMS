@@ -41,6 +41,10 @@ public class TotalLectureService {
 		return map;
 	}
 	
+	public int modifyTotalLectureOne(TotalLecture totalLecture) {
+		return totalLectureMapper.updateTotalLectureOne(totalLecture);
+	}
+	
 	public int addTotalLectureOne(TotalLecture totalLecture) {
 		totalLectureMapper.insertTotalLectureOne(totalLecture);
 		

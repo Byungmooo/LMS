@@ -17,20 +17,18 @@
 					<thead>
 						<tr>
 							<th width="10%">번호</th>
-							<th width="40%">강의이름</th>
-							<th width="20%">담당교수</th>
-							<th width="10%">등록일</th>
-							<th width="10">ETC</th>
+							<th width="50%">강의이름</th>
+							<th width="20%">작성자</th>
+							<th width="20%">등록일</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="t" items="${totalList}">
 							<tr>
 								<td><strong>${t.lectureCode}</strong></td>
-								<td>${t.lectureName}</td>
-								<td><span class="badge bg-label-primary me-1"></span>${t.memberName}</td>
-								<td><span class="badge bg-label-secondary me-1"></span>${t.credit}</td>
-								<td><button type="button" id="cartAddBtn" class="addBtn" value="${t.openedLecNo}">add</button></td>
+								<td><a href="${pageContext.request.contextPath}/totalLectureOne?lectureCode=${t.lectureCode}">${t.lectureName}</a></td>
+								<td><span class="badge bg-label-secondary me-1"></span>${t.writer}</td>
+								<td>${t.createDate}</td>
 							</tr>
 							<input type="hidden" name="studentCode" id="studentCode" value="${memberCode}">
 						</c:forEach>
@@ -39,12 +37,11 @@
 			</div>
 			<hr class="my-3" />
 			<!-- 검색 -->
-			<form action="${pageContext.request.contextPath}/student/studentLectureReg" method="get">
+			<form action="${pageContext.request.contextPath}/totalLectureList" method="get">
 				<div class="row">
 					<div class="col-sm-2 col-12 text-center">
 					</div>
 					<div class="col-sm-7 col-12 text-center">
-						<input type="hidden" name="memberCode" value="${memberCode}">
 						<input type="text" name="keyword" class="form-control" placeholder="과목이름을 입력하세요">
 					</div>
 					<div class="col-sm-2 col-12 text-center">
@@ -55,7 +52,7 @@
 			<!-- 페이징 -->
 			<div style="display: block; text-align: center;">		
 				<c:if test="${paging.prePage}">
-					<a href="${pageContext.request.contextPath}/employee/totalLectureList?currentPage=${paging.currentPage-1}
+					<a href="${pageContext.request.contextPath}/totalLectureList?currentPage=${paging.currentPage-1}
 						&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&memberCode=${memberCode}">이전</a>
 				</c:if>
 				<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
@@ -64,13 +61,13 @@
 							<b>${p}</b>
 						</c:when>
 						<c:when test="${p != paging.currentPage }">
-							<a href="${pageContext.request.contextPath}/employee/totalLectureList?currentPage=${p}
+							<a href="${pageContext.request.contextPath}/totalLectureList?currentPage=${p}
 								&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&memberCode=${memberCode}">${p}</a>
 						</c:when>
 					</c:choose>
 				</c:forEach>
 				<c:if test="${paging.nextPage}">
-					<a href="${pageContext.request.contextPath}/employee/totalLectureList?currentPage=${paging.currentPage+1}
+					<a href="${pageContext.request.contextPath}/totalLectureList?currentPage=${paging.currentPage+1}
 						&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&memberCode=${memberCode}">다음</a>
 				</c:if>
 			</div>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.lecture.mapper.LectureMapper">
+	
+	<!-- 검색 키워드가 있을 때 -->
 	<sql id="search">
-		<!-- 검색 키워드가 있을 때 -->
 		<if test="keyword != null and keyword != ''"> AND lecture_name LIKE CONCAT('%', #{keyword},'%') </if>
 	</sql>
 	
@@ -117,10 +118,14 @@
 	</select>
 	
 	<select id="selectOpenedLectureCount" parameterType="String" resultType="int">
-		SELECT COUNT(*) 
-		FROM opened_lecture 
-		WHERE 1=1
-		<include refid="search" />
+		SELECT 
+			COUNT(*) 
+		FROM 
+			opened_lecture o,
+			total_lecture t
+		WHERE
+			o.lecture_code = t.lecture_code
+			<include refid="search" />
 	</select>
 	
 	<!-- 학생수강담기 -->
