@@ -18,7 +18,6 @@ import com.gd.LMS.assignment.mapper.AssignmentMapper;
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.vo.Assignment;
 import com.gd.LMS.vo.AssignmentReg;
-import com.gd.LMS.vo.AssignmentRegForm;
 import com.gd.LMS.vo.AssignmentRegImg;
 import com.gd.LMS.vo.OpenedLecture;
 import com.gd.LMS.vo.TotalLecture;

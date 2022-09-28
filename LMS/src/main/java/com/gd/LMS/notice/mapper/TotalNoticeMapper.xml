@@ -111,7 +111,7 @@
 	</delete>
 
 	<!-- 총 게시글 갯수 출력 -->
-<select id="countBoard"
+	<select id="countBoard"
 		parameterType="map" resultType="int">
 		SELECT COUNT(*) FROM total_notice 
 			WHERE 1=1 

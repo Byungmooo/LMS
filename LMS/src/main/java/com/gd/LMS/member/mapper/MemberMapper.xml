@@ -100,4 +100,24 @@
 		WHERE
 			member_id = #{memberId}
 	</select>
+	
+	<!-- 교수코드 -->
+	<select id="selectProfessorCode" parameterType="String" resultType="int">
+		SELECT
+			professor_code
+		FROM 
+			professor
+		WHERE
+			member_id = #{memberId}
+	</select>
+	
+	<!-- 직원코드 -->
+	<select id="selectEmployeeCode" parameterType="String" resultType="int">
+		SELECT
+			employee_code
+		FROM 
+			employee
+		WHERE
+			member_id = #{memberId}
+	</select>
 </mapper>

@@ -26,7 +26,7 @@ public class EmployeeController {
 	
 	/////////////////////////////// 직원 리스트 + 상세보기
     // 전체직원 리스트
-    @GetMapping(value = "/member/employee/employeeList")
+    @GetMapping("/employee/employeeList")
     public String EmployeeList(Model model){
     	
     	log.debug(TeamColor.BJH + " EmployeeList 담겼음");
@@ -42,8 +42,8 @@ public class EmployeeController {
     }
     
     
-    @GetMapping("/member/employee/employeeOne")
-    public String EmployeeOne(Model model, @RequestParam(value = "employeeCode") int employeeCode) {
+    @GetMapping("/employee/employeeOne")
+    public String EmployeeOne(Model model, @RequestParam(value = "memberCode") int employeeCode) {
        
     	log.debug(TeamColor.BJH + "[지혜]  employeeCode controller" + employeeCode);
     			

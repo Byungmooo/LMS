@@ -26,18 +26,18 @@ public class LectureQnAController {
 	@Autowired LectureQnAService lectureQnAService;
 	
 	// 강의 질문 리스트
-	@GetMapping(value = { "/student/lectureQuestionList" })
+	@GetMapping({"/professor/lectureQuestionList", "/student/lectureQuestionList"})
 	public String lectureQuestionList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
-			@RequestParam(value = "searchType", defaultValue = "") String searchType
-//				,@RequestParam (value = "openedLecNo", required = false) int openedLecNo
-	) {
+			@RequestParam(value = "searchType", defaultValue = "") String searchType,
+			@RequestParam (value = "openedLecNo") int openedLecNo) {
 		map.put("keyword", keyword);
 		map.put("searchType", searchType);
-		map.put("openedLecNo", session.getAttribute("openedLecNo"));
-
+		map.put("openedLecNo", openedLecNo);
+		
+		log.debug(TeamColor.KJS + "openedLecNo > " + openedLecNo);
 		int totalCount = lectureQnAService.countBoard(map);
 		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
@@ -54,9 +54,6 @@ public class LectureQnAController {
 		// --------
 		log.debug(TeamColor.KJS + "--- lectureQuestionList Controller GetMapping ---");
 
-		int openedLecNo = (int) session.getAttribute("openedLecNo");
-		log.debug(TeamColor.KJS + "openedLecNo > " + openedLecNo);
-
 		// List<LectureQuestion> lectureQuestionList =
 		// lectureService.getLectureQuestionList(openedLecNo);
 		List<LectureQuestion> list1 = lectureQnAService.selectBoard(map);
@@ -64,7 +61,7 @@ public class LectureQnAController {
 		// log.debug(TeamColor.LCH + "lectureQuestionList > " + lectureQuestionList);
 		model.addAttribute("paging", vo);
 		model.addAttribute("question", list1);
-		return "lecture/lectureQuestionList";
+		return "lecture/lectureQnA/lectureQuestionList";
 	}
 
 	// 강의 질문 상세보기

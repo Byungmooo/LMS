@@ -1,6 +1,5 @@
 package com.gd.LMS.schedule.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,10 +22,13 @@ public class CalendarController {
 	@Autowired ScheduleService scheduleService;
 	
 	//calendarDayList 수강일정리스트(달력)
-	@GetMapping("/calendar")
+	@GetMapping("/member/calendar")
 	public String calendarDayList(Model model
+			, @RequestParam(name = "memberCode") int memberCode
+			, @RequestParam(name = "departmentCode", defaultValue = "0") int departmentCode
 			, @RequestParam(name = "year", defaultValue = "-1") int year
 			, @RequestParam(name = "month", defaultValue = "-1") int month) {
+		log.debug(TeamColor.KJS + "memberCode : " + memberCode);
 		
 		log.debug(TeamColor.KJS + "[CalendarController.getConsultReservationList] year : " + year);
 		log.debug(TeamColor.KJS + "[CalendarController.getConsultReservationList] month : " + month);

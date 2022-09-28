@@ -16,7 +16,6 @@ import com.gd.LMS.assignment.service.AssignmentService;
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.vo.Assignment;
-import com.gd.LMS.vo.AssignmentRegForm;
 import com.gd.LMS.vo.OpenedLecture;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +30,7 @@ public class AssignmentController {
 
 	// 과제 리스트 조회
 
-	@GetMapping("/assignmentList")
+	@GetMapping({"/student/assignmentList", "/professor/assignmentList"})
 	public String assignmentList(Model model, HttpSession session) {
 		int openedLecNo = 41;
 
@@ -57,7 +56,15 @@ public class AssignmentController {
 			return "redirect:/assignment/openedLecList";
 		}
 	}
-
+	
+	/**************
+		student / professor 붙이기
+		학생 교수 공통 : {"/student/assignmentList", "/professor/assignmentList"}
+		교수만 : "/professor/assignmentList"
+		리다이렉트로 리스트 보낼 때 : 둘 중 한개만 : "/professor/assignmentList"
+	
+	**************/
+	
 	// 과제 출제하는 메소드
 	@GetMapping("/addAssignment")
 	public String addAssignment(Model model, HttpSession session) {

@@ -25,7 +25,7 @@ public class TotalLectureController {
 	@Autowired TotalLectureService totalLectureService;
 	
 	// 직원 전체과목 보기
-	@GetMapping("/totalLectureList")
+	@GetMapping("/employee/totalLectureList")
 	public String totalLectureList(PagingVo vo, Model model,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
@@ -44,7 +44,7 @@ public class TotalLectureController {
 		return "lecture/totalLecture/totalLectureList";
 	}
 	
-	@GetMapping("/totalLectureOne")
+	@GetMapping("/employee/totalLectureOne")
 	public String totalLectureOne(Model model, @RequestParam (value = "lectureCode") int lectureCode) {
 		log.debug(TeamColor.LCH + "--- totalLectureOne Controller GetMapping ---");
 		
@@ -56,7 +56,7 @@ public class TotalLectureController {
 		return "lecture/totalLecture/totalLectureOne";
 	}
 	
-	@GetMapping("/addTotalLecture")
+	@GetMapping("/employee/addTotalLecture")
 	public String addTotalLecture(Model model) {
 		log.debug(TeamColor.LCH + "--- addTotalLecture Controller GetMapping ---");
 		
@@ -68,7 +68,7 @@ public class TotalLectureController {
 		return "lecture/totalLecture/addTotalLectureOne";
 	}
 	
-	@PostMapping("/addTotalLecture")
+	@PostMapping("/employee/addTotalLecture")
 	public String addTotalLecture(Model model, TotalLecture totalLecture, RedirectAttributes redirectAttributes) {
 		log.debug(TeamColor.LCH + "--- addTotalLectureOne Controller PostMapping ---");
 		
@@ -81,7 +81,7 @@ public class TotalLectureController {
 		return "redirect:/totalLectureOne";
 	}
 	
-	@GetMapping("/modifyTotalLecture")
+	@GetMapping("/employee/modifyTotalLecture")
 	public String modifyTotalLecture(Model model, @RequestParam (value = "lectureCode") int lectureCode) {
 		log.debug(TeamColor.LCH + "--- modifyTotalLecture Controller GetMapping ---");
 		
@@ -97,7 +97,7 @@ public class TotalLectureController {
 		return "lecture/totalLecture/modifyTotalLecture";
 	}
 	
-	@PostMapping("/modifyTotalLecture")
+	@PostMapping("/employee/modifyTotalLecture")
 	public String modifyTotalLecture(TotalLecture totalLecture, RedirectAttributes redirectAttributes) {
 		log.debug(TeamColor.LCH + "--- modifyTotalLecture Controller PostMapping ---");
 		
@@ -110,7 +110,7 @@ public class TotalLectureController {
 		return "redirect:/totalLectureOne";
 	}
 	
-	@GetMapping("/removeTotalLecture")
+	@GetMapping("/employee/removeTotalLecture")
 	public String removeTotalLecture(@RequestParam (value = "lectureCode") int lectureCode) {
 		log.debug(TeamColor.LCH + "--- removeTotalLecture Controller GetMapping ---");
 		

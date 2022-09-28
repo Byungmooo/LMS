@@ -16,26 +16,78 @@
 </c:choose>
 <!-- Main -->
 <div class="container-xxl flex-grow-1 container-p-y">
-	<h4 class="fw-bold py-3 mb-4">
-		<span class="text-muted fw-light">"이름"님 /</span>학부게시판
-	</h4>
+	<!-- studentLectureMenu -->
+	<div class="row">
+		<div class="col-sm-9 col-12">
+			<h4 class="fw-bold py-3 mb-4">
+				<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
+			</h4>
+		</div>
+		<div class="col-sm-3 col-12">
+			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
+				강의리스트
+			</a>
+		</div>
+	</div>
+	<div>
+		<ul class="nav nav-pills flex-column flex-md-row mb-3">
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${openedLecNo}">
+				<i class="bx bx-user me-1"></i>
+					강의홈
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" href="${pageContext.request.contextPath}/student/lectureNoticeList?openedLecNo=${openedLecNo}">
+				<i class="bx bx-bell me-1"></i> 
+					강의공지사항
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${openedLecNo}">
+				<i class="bx bx-link-alt me-1"></i> 
+					질문게시판
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/assignmentList?openedLecNo=${openedLecNo}&studentCode=${memberCode}">
+				<i class="bx bx-link-alt me-1"></i> 
+					과제게시판
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
+				<i class="bx bx-link-alt me-1"></i> 
+					강의출석
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="">
+				<i class="bx bx-link-alt me-1"></i> 
+					강의시험
+				</a>
+			</li>
+		</ul>
+	</div>
 	<hr class="my-5" />
-			<!-- RowPerPage Option -->
-			<div class="row">
-				<div class="col-sm-9 col-12 text-center"></div>
-				<div class="col-sm-3 col-12 text-center">
-					<select  class="form-select" name="sel" id="#">
-						<option value="5"
-							<c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기</option>
-						<option value="10"
-							<c:if test="${paging.rowPerPage == 10}">selected</c:if>>10줄 보기</option>
-						<option value="15"
-							<c:if test="${paging.rowPerPage == 15}">selected</c:if>>15줄 보기</option>
-						<option value="20"
-							<c:if test="${paging.rowPerPage == 20}">selected</c:if>>20줄 보기</option>
-					</select>
-				</div>
-			</div>
+	
+	<hr class="my-5" />
+	<!-- RowPerPage Option -->
+	<div class="row">
+		<div class="col-sm-9 col-12 text-center"></div>
+		<div class="col-sm-3 col-12 text-center">
+			<select  class="form-select" name="sel" id="#">
+				<option value="5"
+					<c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기</option>
+				<option value="10"
+					<c:if test="${paging.rowPerPage == 10}">selected</c:if>>10줄 보기</option>
+				<option value="15"
+					<c:if test="${paging.rowPerPage == 15}">selected</c:if>>15줄 보기</option>
+				<option value="20"
+					<c:if test="${paging.rowPerPage == 20}">selected</c:if>>20줄 보기</option>
+			</select>
+		</div>
+	</div>
 
 	<!-- TotalNoticeList -->
 	<div class="card">

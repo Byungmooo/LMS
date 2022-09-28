@@ -29,7 +29,7 @@ public class ProfessorController {
     
     
 	// 교수 리스트
-	@GetMapping("/member/professor/professorList")
+	@GetMapping("/employee/professorList")
 	public String ProfessorList(Model model){
 	
 	log.debug(TeamColor.BJH + " professorList 담겼음");
@@ -51,8 +51,8 @@ public class ProfessorController {
 	
 	
 	//교수 상세보기
-	@GetMapping("/member/professor/professorOne")
-	public String ProfessorOne(Model model, @RequestParam(value = "professorCode") int professorCode) {
+	@GetMapping({"/employee/studentOne", "/professor/professorOne"})
+	public String ProfessorOne(Model model, @RequestParam(value = "memberCode") int professorCode) {
 		log.debug(TeamColor.BJH + "welcome");
 			
 		Map<String, Object> professorOne = professorService.getProfessorOne(professorCode);
@@ -66,7 +66,7 @@ public class ProfessorController {
 	}
 	
 	//교수정보 수정 폼
-    @GetMapping("/member/professor/modifyProfessor")
+    @GetMapping("/employee/modifyProfessor")
     public String modifyProfessor(Model model, @RequestParam(value = "professorCode") int professorCode) {
     	
     	log.debug(TeamColor.BJH + professorCode+"professorCode 보내기");
@@ -81,7 +81,7 @@ public class ProfessorController {
     
   
     // 교수정보 수정 액션
-    @PostMapping("/member/professor/modifyProfessorAction")
+    @PostMapping("/employee/modifyProfessorAction")
     public String modifyprofessorAction(Model model, Map<String, Object> map, 
     		Member member, Professor professor, @RequestParam(value = "professorCode") int professorCode) {
     	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
@@ -112,7 +112,7 @@ public class ProfessorController {
     
     
     //교수 삭제
-    @PostMapping("/member/professor/removeProfessorMember")
+    @PostMapping("/employee/removeProfessorMember")
     public String removeProfessorMember(@RequestParam (value= "memberId") String memberId) {
     	
     	professorService.removeProfessorMember(memberId);

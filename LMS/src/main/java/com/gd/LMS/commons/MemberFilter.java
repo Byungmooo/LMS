@@ -31,7 +31,7 @@ public class MemberFilter implements Filter {
 		if (request instanceof HttpServletRequest) {
 			session = ((HttpServletRequest)request).getSession();
 			if (session.getAttribute("memberId") == null) {
-				((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/login");
+				((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/memberLogin");
 				return;
 			} else {
 				// student / professor / employee Code메서드 호출 후 세션에 저장
@@ -42,19 +42,17 @@ public class MemberFilter implements Filter {
 						int memberCode = memberService.getStudentCode(memberId);
 						log.debug(TeamColor.LCH + "studentCode > " + memberCode);
 						session.setAttribute("memberCode", memberCode);
-					}
-					/*
-					else if (memberType.equals("교수")) {
-						int memberCode = studentService.getStudentCode(memberId);
-						log.debug(TeamColor.LCH + "studentCode > " + memberCode);
+					} else if (memberType.equals("교수")) {
+						int memberCode = memberService.getProfessorCode(memberId);
+						log.debug(TeamColor.LCH + "professorCode > " + memberCode);
 						session.setAttribute("memberCode", memberCode);
 					} else if (memberType.equals("직원")) {
-						int memberCode = studentService.getStudentCode(memberId);
-						log.debug(TeamColor.LCH + "studentCode > " + memberCode);
+						int memberCode = memberService.getEmployeeCode(memberId);
+						log.debug(TeamColor.LCH + "employeeCode > " + memberCode);
 						session.setAttribute("memberCode", memberCode);
 					}
-					*/
 				}
+				log.debug(TeamColor.LCH + "통과");
 			}
 		} else {
 			log.debug("웹 요청이 아닙니다.");

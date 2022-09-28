@@ -8,6 +8,7 @@ public class AssignmentRegImg {  //과제등록이미지
 	private String contentType;  //파일유형
 	private String originName;   //기존이름 
 	private String fileName;     //파일이름
+	private long fileSize;
 
 }
  

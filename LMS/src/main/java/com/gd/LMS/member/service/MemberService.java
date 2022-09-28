@@ -95,4 +95,26 @@ public class MemberService {
 		
 		return memberCode;
 	}
+	
+	// 교수코드
+	public int getProfessorCode(String memberId) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
+		
+		// 매퍼메서드 호출 후 리턴값 디버깅
+		int memberCode = memberMapper.selectProfessorCode(memberId);
+		
+		return memberCode;
+	}
+	
+	// 직원코드
+	public int getEmployeeCode(String memberId) {
+		// 파라미터 디버깅
+		log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
+		
+		// 매퍼메서드 호출 후 리턴값 디버깅
+		int memberCode = memberMapper.selectEmployeeCode(memberId);
+		
+		return memberCode;
+	}
 }

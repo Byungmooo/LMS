@@ -27,4 +27,10 @@ public interface MemberMapper {
 	
 	// 학생코드
 	int selectStudentCode(String memberId);
+	
+	// 교수코드
+	int selectProfessorCode(String memberId);
+	
+	// 직원코드
+	int selectEmployeeCode(String memberId);
 }

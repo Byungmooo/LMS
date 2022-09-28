@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.department.service.DepartmentService;
@@ -28,7 +29,7 @@ public class StudentController {
     ////////////////////////학생
     
 	// 학생 리스트
-	@GetMapping("/member/student/studentList")
+	@GetMapping("/employee/studentList")
 	public String StudentList(Model model){
 	
 	log.debug(TeamColor.BJH + " studentList 담겼음");
@@ -50,8 +51,8 @@ public class StudentController {
 	
 	
 	//학생 상세보기
-	@GetMapping("/member/student/studentOne")
-	public String StudentOne(Model model, @RequestParam(value = "studentCode") int studentCode) {
+	@GetMapping({"/employee/studentOne", "/student/studentOne"})
+	public String StudentOne(Model model, @RequestParam(value = "memberCode") int studentCode) {
 		log.debug(TeamColor.BJH + "welcome");
 			
 		Map<String, Object> studentOne = studentService.getStudentOne(studentCode);
@@ -64,8 +65,9 @@ public class StudentController {
 	
 	}
 	
-	//학생정보 수정 폼
-    @GetMapping("/member/student/modifyStudent")
+	// 수정 삭제 추가는 직원만
+	// 학생정보 수정 폼
+    @GetMapping("/employee/modifyStudent")
     public String modifyStudent(Model model, @RequestParam(value = "studentCode") int studentCode) {
     	
     	log.debug(TeamColor.BJH + studentCode+"studentCode 보내기");
@@ -74,14 +76,15 @@ public class StudentController {
 		model.addAttribute("s", updateOne);
     	log.debug(TeamColor.BJH + updateOne+"studentCode 담아서 보내기");
     	
-    	return "/member/student/modifyStudent";
+    	return "member/student/modifyStudent";
     }
 
     
   
     // 학생정보 수정 액션
-    @PostMapping("/member/student/modifyStudentAction")
-    public String modifyStudentAction(Model model, Map<String, Object> map, 
+    @PostMapping("/employee/modifyStudentAction")
+    public String modifyStudentAction(Model model, Map<String, Object> map,
+    		RedirectAttributes redirectAttributes,
     		Member member, Student student, @RequestParam(value = "studentCode") int studentCode) {
     	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
     	
@@ -104,17 +107,19 @@ public class StudentController {
     	
     	int count = studentService.modifyStudent(map);
     	//log.debug(TeamColor.BJH +  studentService + "확인" );
-    		if (count != 0) {
-    			log.debug(TeamColor.BJH + " 학생정보 수정성공");
-    			return "redirect:studentOne?studentCode="+studentCode;
-    		}
+    	redirectAttributes.addAttribute("studentCode", studentCode);
     	
-    	return "redirect:/modifyStudent?studentCode="+studentCode;
+    	if (count != 0) {
+			log.debug(TeamColor.BJH + " 학생정보 수정성공");
+			return "redirect:/employee/studentOne?studentCode="+studentCode;
+		}
+    	
+    	return "redirect:/employee/modifyStudent?studentCode="+studentCode;
     }
     
     
     //학생 삭제
-    @PostMapping("/member/student/removeStudentMember")
+    @PostMapping("/employee/removeStudentMember")
     public String removeStudentMember(@RequestParam (value= "memberId") String memberId) {
     	
     	studentService.removeStudentMember(memberId);

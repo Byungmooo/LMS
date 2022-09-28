@@ -60,7 +60,7 @@
 			<aside id="layout-menu"
 				class="layout-menu menu-vertical menu bg-menu-theme">
 				<div class="app-brand demo">
-					<a href="index.html" class="app-brand-link"> <span
+					<a href="${pageContext.request.contextPath}/member/index" class="app-brand-link"> <span
 						class="app-brand-logo demo"> <svg width="25"
 								viewBox="0 0 25 42" version="1.1"
 								xmlns="http://www.w3.org/2000/svg"
@@ -124,18 +124,18 @@
 					</a></li>
 					
 					<!-- NOTICE -->
-					<li class="menu-item"><a href=""
+					<li class="menu-item"><a href="#"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-layout"></i>
 							공지사항
 					</a>
 
 						<ul class="menu-sub">
-							<li class="menu-item"><a href="${pageContext.request.contextPath}/totalNotice"
+							<li class="menu-item"><a href="${pageContext.request.contextPath}/member/totalNoticeList"
 								class="menu-link">
 									전체공지사항
 							</a></li>
-							<li class="menu-item"><a href=""
+							<li class="menu-item"><a href="${pageContext.request.contextPath}/member/departmentNoticeList"
 								class="menu-link">
 									학부공지사항
 							</a></li>
@@ -145,26 +145,13 @@
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">MYPAGE</span></li>
 					<li class="menu-item">
-						<a href="" class="menu-link"> 
+						<a href="${pageContext.request.contextPath}/student/studentOne?memberCode=${memberCode}" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-dock-top"></i>
-							학사정보
-						</a>
-						<!-- 메뉴 추가란 -->
-						<!-- <ul class="menu-sub">
-							<li class="menu-item"><a
-								href="" class="menu-link">
-									Account
-							</a></li>
-						</ul> -->
-					</li>
-					<li class="menu-item">
-						<a href="" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-							학사변동내역
+							내정보
 						</a>
 					</li>
 					<li class="menu-item">
-						<a href="" class="menu-link"> 
+						<a href="${pageContext.request.contextPath}/member/calendar?memberCode=${memberCode}" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-cube-alt"></i>
 							캘린더일정
 						</a>
@@ -180,13 +167,13 @@
 						</a>
 					</li>
 					<li class="menu-item">
-						<a href="" class="menu-link menu-toggle"> 
+						<a href="#" class="menu-link menu-toggle"> 
 						<i class="menu-icon tf-icons bx bx-box"></i>
 							강의
 						</a>
 						<ul class="menu-sub">
 							<li class="menu-item">
-								<a href="" class="menu-link">
+								<a href="${pageContext.request.contextPath}/student/lectureSchedule?memberCode=${memberCode}" class="menu-link">
 									시간표
 								</a>
 							</li>
@@ -220,7 +207,7 @@
 							</li>
 							<li class="menu-item">
 								<a href="" class="menu-link">
-									교수진
+									학부교수
 								</a>
 							</li>
 						</ul>
@@ -229,12 +216,6 @@
 						<a href="" class="menu-link"> 
 						<i class="menu-icon tf-icons bx bx-detail"></i>
 							통계
-						</a>
-					</li>
-					<li class="menu-item">
-						<a href ="" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-detail"></i>
-							시스템 FAQ
 						</a>
 					</li>
 				</ul>
@@ -263,7 +244,7 @@
 								href="https://github.com/themeselection/sneat-html-admin-template-free"
 								data-icon="octicon-star" data-size="large"
 								data-show-count="true"
-								aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Star</a>
+								aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Visit</a>
 							</li>
 
 							<!-- User -->

@@ -25,8 +25,10 @@ public class EmployeeFilter implements Filter {
 		HttpSession session = null;
 		if(request instanceof HttpServletRequest) {
 			session = ((HttpServletRequest) request).getSession();
+			log.debug(TeamColor.LCH + "memberId > " + session.getAttribute("memberId"));
+			log.debug(TeamColor.LCH + "memberType > " + session.getAttribute("memberType"));
 			if (session.getAttribute("memberId") == null || !session.getAttribute("memberType").equals("직원")) {
-				((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/login");
+				((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/memberLogin");
 				return;
 			}
 		} else {

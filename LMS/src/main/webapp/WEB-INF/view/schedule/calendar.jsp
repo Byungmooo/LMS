@@ -2,7 +2,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!-- Header -->
-<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>
+<c:choose>
+	<c:when test="${memberType eq '학생'}">
+		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>	
+	</c:when>
+	<c:when test="${memberType eq '교수'}">
+		<c:import url="/WEB-INF/view/include/professorHeader.jsp"></c:import>	
+	</c:when>
+	<c:when test="${memberType eq '직원'}">
+		<c:import url="/WEB-INF/view/include/employeeHeader.jsp"></c:import>	
+	</c:when>
+	<c:otherwise>	
+	</c:otherwise>
+</c:choose>
+	<!-- Main -->
 	<div class="container">
 		<h1 style="text-align: center;">수강 일정표</h1>
 		<br>

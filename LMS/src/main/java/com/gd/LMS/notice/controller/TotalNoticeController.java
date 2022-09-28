@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.notice.service.TotalNoticeService;
@@ -27,7 +28,7 @@ public class TotalNoticeController {
 	TotalNoticeService totalNoticeService;
 
 	// 전체공지 목록 리스트
-	@GetMapping(value = { "/totalNotice" })
+	@GetMapping("/member/totalNoticeList")
 	public String totalNoticeList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
@@ -69,7 +70,7 @@ public class TotalNoticeController {
 	}
 
 	// 부서공지 리스트
-	@GetMapping(value = { "/departmentNotice" })
+	@GetMapping("/member/departmentNoticeList")
 	public String departmentNoticeList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
@@ -108,8 +109,8 @@ public class TotalNoticeController {
 	}
 
 	// 전체공지사항 상세보기
-	@GetMapping(value = "/totalNotice/{noticeNo}")
-	public String totalNoticeOne(Model model, @PathVariable(value = "noticeNo") int noticeNo) {
+	@GetMapping("/member/totalNoticeOne")
+	public String totalNoticeOne(Model model, @RequestParam(value = "noticeNo") int noticeNo) {
 
 		TotalNotice totalNotice = totalNoticeService.getTotalNotice(noticeNo);
 
@@ -121,52 +122,71 @@ public class TotalNoticeController {
 
 		return "/notice/totalNotice/totalNoticeOne";
 	}
-
+	
+	
+	// 전체, 부서공지 추가 수정 삭제는 직원만 가능
 	// 전체공지사항 추가 페이지 이동
-	@GetMapping("/addTotalNotice")
+	@GetMapping("/employee/addTotalNotice")
 	public String addTotalNotice() {
+		
 		log.debug(TeamColor.KJS + " [김진수] 전체공지 추가 페이지 이동");
+		
 		return "/notice/totalNotice/addTotalNotice";
 	}
 
 	// 전체공지사항 추가
-	@PostMapping("/addTotalNotice")
+	@PostMapping("/employee/addTotalNotice")
 	public String addTotalNotice(TotalNotice totalNotice) {
+		
 		int count = totalNoticeService.addTotalNotice(totalNotice);
+		
 		if (count >= 1) {
 			log.debug(TeamColor.KJS + " [김진수] 전체공지 추가");
 			return "redirect:totalNotice";
 		}
+		
 		return "/notice/totalNotice/addTotalNotice";
 	}
 
 	// 전체공지사항 수정 페이지 이동
-	@GetMapping("/updateTotalNotice/{noticeNo}")
-	public String updateTotalNotice(Model model, @PathVariable(value = "noticeNo") int noticeNo) {
+	@GetMapping("/employee/updateTotalNotice")
+	public String updateTotalNotice(Model model, @RequestParam(value = "noticeNo") int noticeNo) {
+		
 		TotalNotice totalNotice = totalNoticeService.getTotalNotice(noticeNo);
+		
 		model.addAttribute("totalNotice", totalNotice);
 		log.debug(TeamColor.KJS + " [김진수] 전체공지 수정 페이지 이동");
+		
 		return "/notice/totalNotice/updateTotalNotice";
 	}
 
 	// 전체공지사항 수정
-	@PostMapping("/updateTotalNotice")
-	public String updateTotalNotice(TotalNotice totalNotice) {
+	@PostMapping("/employee/updateTotalNotice")
+	public String updateTotalNotice(TotalNotice totalNotice, RedirectAttributes redirectAttributes) {
+		
 		int count = totalNoticeService.updateTotalNotice(totalNotice);
+		redirectAttributes.addAttribute("noticeNo", totalNotice.getNoticeNo());
+		
 		if (count >= 1) {
 			log.debug(TeamColor.KJS + " [김진수] 전체공지 수정");
-			return "redirect:totalNotice/" + totalNotice.getNoticeNo();
+			
+			return "redirect:/member/totalNoticeOne";
 		}
-		return "redirect:updateTotalNotice/" + totalNotice.getNoticeNo();
+		
+		return "redirect:/employee/updateTotalNotice";
 	}
 
-	@GetMapping(value = "/removeTotalNotice")
-	public String totalNoticeOne(@RequestParam(value = "noticeNo") int noticeNo) {
+	@GetMapping("/employee/removeTotalNotice")
+	public String totalNoticeOne(@RequestParam(value = "noticeNo") int noticeNo, RedirectAttributes redirectAttributes) {
+		
 		int count = totalNoticeService.deleteTotalNotice(noticeNo);
+		redirectAttributes.addAttribute("noticeNo", noticeNo);
+		
 		if (count >= 1) {
 			log.debug(TeamColor.KJS + " [김진수] 전체공지 삭제");
-			return "redirect:totalNotice";
+			return "redirect:/member/totalNoticeList";
 		}
-		return "redirect:totalNotice/" + noticeNo;
+		
+		return "redirect:/member/totalNoticeOne";
 	}
 }

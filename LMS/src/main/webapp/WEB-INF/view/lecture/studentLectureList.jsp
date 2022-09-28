@@ -34,7 +34,6 @@
 							<th>담당교수</th>
 							<th>강의종류</th>
 							<th>학점</th>
-							<th>ETC</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -50,24 +49,6 @@
 								<td>${s.professorName}</td>
 								<td><span class="badge bg-label-primary me-1">${s.lectureType}</span></td>
 								<td><span class="badge bg-label-secondary me-1">${s.credit}</span></td>
-								<td>
-									<div class="dropdown">
-										<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-											data-bs-toggle="dropdown">
-											<i class="bx bx-dots-vertical-rounded"></i>
-										</button>
-										<div class="dropdown-menu">
-											<a class="dropdown-item" href="">
-											<i class="bx bx-book me-1"></i>
-												x
-											</a>
-											<a class="dropdown-item" href="">
-											<i class="bx bx-book me-1"></i>
-												x
-											</a>
-										</div>
-									</div>
-								</td>
 							</tr>
 						</c:forEach>
 					</tbody>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.schedule.service.ScheduleService;
@@ -19,8 +20,9 @@ public class ScheduleController {
 	@Autowired ScheduleService scheduleService;
 	
 	// 강의 시간표
-	@GetMapping("/lectureSchedule")
-	public String lectureSchedule(Model model) {
+	@GetMapping("/student/lectureSchedule")
+	public String lectureSchedule(Model model
+			, @RequestParam(value = "memberCode") int memberCode) {
 		log.debug(TeamColor.LCH + this.getClass());
 		
 		List<Map<String, Object>> list = scheduleService.getLectureSchedule();

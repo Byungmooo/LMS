@@ -32,7 +32,7 @@ public class LectureController {
 	@Autowired ScheduleService scheduleService;
 
 	// 학생이 수강중인 강의리스트
-	@GetMapping("/student/studentLectureList")
+	@GetMapping({"/professor/studentLectureList", "/student/studentLectureList"})
 	public String studentLectureList(Model model, HttpSession session,
 			@RequestParam(value = "memberCode") int memberCode) {
 		log.debug(TeamColor.LCH + "--- studentLectureList Controller GetMapping ---");
@@ -47,7 +47,7 @@ public class LectureController {
 	}
 
 	// 강의 상세보기
-	@GetMapping("/student/openedLectureOne")
+	@GetMapping({"/professor/openedLectureOne", "/student/openedLectureOne"})
 	public String openedLectureOne(Model model, @RequestParam(value = "openedLecNo") int openedLecNo,
 			HttpSession session) {
 		log.debug(TeamColor.LCH + "--- openedLectureOne Controller GetMapping ---");
@@ -190,7 +190,7 @@ public class LectureController {
 	}
 	
 	// 강의 출석 리스트
-	@GetMapping("/lectureAttendanceList")
+	@GetMapping("/student/lectureAttendanceList")
 	public String lectureAttendanceList(Model model, Map<String, Object> map
 			, @RequestParam (value = "openedLecNo") int openedLecNo
 			, @RequestParam (value = "memberCode") int memberCode) {
@@ -289,8 +289,66 @@ public class LectureController {
 		return "redirect:/lectureAttendance";
 	}
 
+	// 교수 강의신청 화면
+	@GetMapping("/professor/professorLectureReg")
+	public String professorLectureReg(PagingVo vo, Model model
+			, @RequestParam(value="memberCode") int memberCode
+			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+			, @RequestParam(value="keyword", defaultValue = "") String keyword) {
+		
+		int totalLectureCount = lectureService.getOpenedLectureCount(keyword);
+		vo = new PagingVo(currentPage, totalLectureCount, rowPerPage, keyword, null);
+		
+		log.debug(TeamColor.LCH + "count > " + totalLectureCount);
+		log.debug(TeamColor.LCH + "vo > " + vo);
+		
+		List<Map<String, Object>> openedLectureList = lectureService.getOpenedLectureList(vo);
+		log.debug(TeamColor.LCH + "openedLectureList > " + openedLectureList);
+		
+		List<Map<String, Object>> studentLectureCartList = lectureService.getStudentLectureCartList(memberCode);
+		int size = 9 - studentLectureCartList.size();
+		
+		if(size < 0 ) { size = 0;}
+		
+		model.addAttribute("openedList", openedLectureList);
+		model.addAttribute("paging", vo);
+		model.addAttribute("size", size);
+		model.addAttribute("cartList", studentLectureCartList);
+		
+		return "lecture/studentLectureReg";
+	}
 	
-
+	// 직원 강의신청 화면
+	@GetMapping("/employee/employeeLectureReg")
+	public String employeeLectureReg(PagingVo vo, Model model
+			, @RequestParam(value="memberCode") int memberCode
+			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
+			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+			, @RequestParam(value="keyword", defaultValue = "") String keyword) {
+		
+		int totalLectureCount = lectureService.getOpenedLectureCount(keyword);
+		vo = new PagingVo(currentPage, totalLectureCount, rowPerPage, keyword, null);
+		
+		log.debug(TeamColor.LCH + "count > " + totalLectureCount);
+		log.debug(TeamColor.LCH + "vo > " + vo);
+		
+		List<Map<String, Object>> openedLectureList = lectureService.getOpenedLectureList(vo);
+		log.debug(TeamColor.LCH + "openedLectureList > " + openedLectureList);
+		
+		List<Map<String, Object>> studentLectureCartList = lectureService.getStudentLectureCartList(memberCode);
+		int size = 9 - studentLectureCartList.size();
+		
+		if(size < 0 ) { size = 0;}
+		
+		model.addAttribute("openedList", openedLectureList);
+		model.addAttribute("paging", vo);
+		model.addAttribute("size", size);
+		model.addAttribute("cartList", studentLectureCartList);
+		
+		return "lecture/studentLectureReg";
+	}
+	
 	// 지울거임
 	@GetMapping("/result")
 	public String resultPage() {
