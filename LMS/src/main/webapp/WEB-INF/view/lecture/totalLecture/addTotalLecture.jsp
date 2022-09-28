@@ -2,7 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Header -->
-<c:import url="/WEB-INF/view/include/employeeHeader.jsp"></c:import>	
+<c:choose>
+	<c:when test="${memberType eq '학생'}">
+		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>	
+	</c:when>
+	<c:when test="${memberType eq '교수'}">
+		<c:import url="/WEB-INF/view/include/professorHeader.jsp"></c:import>	
+	</c:when>
+	<c:when test="${memberType eq '직원'}">
+		<c:import url="/WEB-INF/view/include/employeeHeader.jsp"></c:import>	
+	</c:when>
+	<c:otherwise>	
+	</c:otherwise>
+</c:choose>
 
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
@@ -18,7 +30,7 @@
 				<hr class="my-0" />
 				
 				<div class="card-body">
-					<form action="${pageContext.request.contextPath}/addTotalLecture" method="post" class="form-inline">
+					<form action="${pageContext.request.contextPath}/employee/addTotalLecture" method="post" class="form-inline">
 						<table class="table table-bordered">
 							<tr>
 								<th>강의명</th>
@@ -90,7 +102,7 @@
 						</table>
 						<div style="margin-top: 20px;">
 							<button type="submit" class="btn btn-primary" style="color: #fff;">입력</button>
-							<a href="${pageContext.request.contextPath}/totalLectureList" class="btn btn-primary" style="color: #fff;">취소</a>
+							<a href="${pageContext.request.contextPath}/employee/totalLectureList" class="btn btn-primary" style="color: #fff;">취소</a>
 						</div>
 					</form>
 				</div>

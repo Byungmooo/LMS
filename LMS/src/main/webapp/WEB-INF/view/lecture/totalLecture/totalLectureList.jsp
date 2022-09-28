@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- Header -->
 <c:choose>
 	<c:when test="${memberType eq '학생'}">
 		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>	
@@ -23,6 +24,39 @@
 		
 		<div class="card text-center">
 			<h5 class="card-header">전체강의</h5>
+			
+			<!-- 검색바 -->
+			<div class="row text-center">
+				<div class="col-sm-6 col-12 text-center"></div>
+				<div class="col-sm-1 col-12 text-center">부서별</div>
+				<div class="col-sm-2 col-12 text-center">
+					<select name="dep" id="searchType" class="form-select">
+						<option value=""
+							<c:if test="${paging.searchType eq ''}">selected</c:if>>전체</option>
+						<c:forEach items="${department}" var="d">
+							<option value="${d.departmentCode}"
+								<c:if test="${paging.searchType eq d.departmentCode}">selected</c:if>>${d.departmentName}</option>
+						</c:forEach>
+					</select>
+				</div>
+				<div class="col-sm-1 col-12 text-center">정렬기준</div>
+				<div class="col-sm-2 col-12 text-center">
+					<select class="form-select" name="sel" id="rowPerPage">
+		                <option value="5"
+		                        <c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기
+		                </option>
+		                <option value="10"
+		                        <c:if test="${paging.rowPerPage == 10}">selected</c:if>>10줄 보기
+		                </option>
+		                <option value="15"
+		                        <c:if test="${paging.rowPerPage == 15}">selected</c:if>>15줄 보기
+		                </option>
+		                <option value="20"
+		                        <c:if test="${paging.rowPerPage == 20}">selected</c:if>>20줄 보기
+		                </option>
+		            </select>
+				</div>
+			</div>	
 			<!-- 전체강의 리스트 -->
 			<div class="table-responsive text-nowrap">
 				<table class="table">
@@ -38,7 +72,7 @@
 						<c:forEach var="t" items="${totalList}">
 							<tr>
 								<td><strong>${t.lectureCode}</strong></td>
-								<td><a href="${pageContext.request.contextPath}/totalLectureOne?lectureCode=${t.lectureCode}">${t.lectureName}</a></td>
+								<td><a href="${pageContext.request.contextPath}/employee/totalLectureOne?lectureCode=${t.lectureCode}">${t.lectureName}</a></td>
 								<td><span class="badge bg-label-secondary me-1"></span>${t.writer}</td>
 								<td>${t.createDate}</td>
 							</tr>
@@ -48,42 +82,104 @@
 				</table>
 			</div>
 			<hr class="my-3" />
+			
 			<!-- 검색 -->
-			<form action="${pageContext.request.contextPath}/totalLectureList" method="get">
+			<form action="${pageContext.request.contextPath}/employee/totalLectureList" method="get">
 				<div class="row">
-					<div class="col-sm-2 col-12 text-center">
+					<div class="col-sm-4 col-12 text-center">
 					</div>
-					<div class="col-sm-7 col-12 text-center">
+					<div class="col-sm-4 col-12 text-center">
 						<input type="text" name="keyword" class="form-control" placeholder="과목이름을 입력하세요">
 					</div>
 					<div class="col-sm-2 col-12 text-center">
 						<button type="submit" class="btn btn-dark">검색</button>
 					</div>
+					<div class="col-sm-2 col-12">
+						<a href="${pageContext.request.contextPath}/employee/addTotalLecture" class="btn btn-info">강의추가</a>
+					</div>
 				</div>
 			</form>
+			
 			<!-- 페이징 -->
-			<div style="display: block; text-align: center;">		
-				<c:if test="${paging.prePage}">
-					<a href="${pageContext.request.contextPath}/totalLectureList?currentPage=${paging.currentPage-1}
-						&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&memberCode=${memberCode}">이전</a>
-				</c:if>
-				<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
-					<c:choose>
-						<c:when test="${p == paging.currentPage }">
-							<b>${p}</b>
-						</c:when>
-						<c:when test="${p != paging.currentPage }">
-							<a href="${pageContext.request.contextPath}/totalLectureList?currentPage=${p}
-								&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&memberCode=${memberCode}">${p}</a>
-						</c:when>
-					</c:choose>
-				</c:forEach>
-				<c:if test="${paging.nextPage}">
-					<a href="${pageContext.request.contextPath}/totalLectureList?currentPage=${paging.currentPage+1}
-						&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&memberCode=${memberCode}">다음</a>
-				</c:if>
+			<div class="row text-center" style="margin-top: 20px;">
+				<div class="col-sm-4 col-12 text-center">
+				</div>
+				<div class="col-sm-4 col-12 text-center">
+					<ul class="pagination">
+						<c:if test="${paging.prePage}">
+							<li class="page-item prev">
+								<a class="page-link" href="${pageContext.request.contextPath}/employee/totalLectureList?currentPage=${paging.currentPage-1}
+									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">
+								<i class="tf-icon bx bx-chevron-left"></i>
+								</a>
+							</li>
+						</c:if>
+						<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+							<c:choose>
+								<c:when test="${p == paging.currentPage }">
+									<li class="page-item active">
+										<a class="page-link" href="#">${p}</a>
+									</li>
+								</c:when>
+								<c:when test="${p != paging.currentPage }">
+									<li class="page-item">
+										<a class="page-link" href="${pageContext.request.contextPath}/employee/totalLectureList?currentPage=${p}
+										&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">${p}</a>
+									</li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.nextPage}">
+							<li class="page-item next">
+								<a class="page-link" href="${pageContext.request.contextPath}/employee/totalLectureList?currentPage=${paging.currentPage+1}
+									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">
+								<i class="tf-icon bx bx-chevron-right"></i>
+								</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+				<div class="col-sm-4 col-12 text-center">
+				</div>	
 			</div>
 		</div>
 	</div>
-
-<%@ include file="/WEB-INF/view/include/footer.jsp"%>
+<script>
+	// rowPerPage 갱신
+	$("#rowPerPage").on("change", (e) => {
+	    location.href = createUrl('', e.target.value, '');
+	})
+	
+	// searchType 갱신
+	$("#searchType").on("change", (e) => {
+	    location.href = createUrl('', '', e.target.value);
+	})
+	
+	const goPage = (currentPage, rowPerPage) => {
+	    location.href = createUrl(currentPage, rowPerPage);
+	};
+	
+	const createUrl = (currentPage, rowPerPage, searchType) => {
+	    const path = "${pageContext.request.contextPath}";
+	    const param = {
+	        currentPage:"${paging.currentPage}",
+	        rowPerPage:"${paging.rowPerPage}",
+	        searchType: $('#searchType').val(),
+	        keyword:"${paging.keyword}",
+	    }
+	
+	    if(currentPage != '') param.currentPage = currentPage;
+	    if(rowPerPage != '') param.rowPerPage = rowPerPage;
+	   if(searchType != '') param.searchType = searchType;
+	
+	    var url = path +'/employee/totalLectureList';
+	    url += '?currentPage=' + param.currentPage;
+	    url += '&rowPerPage='+ param.rowPerPage;
+	    url += '&searchType='+ param.searchType ;
+	    url += '&keyword='+ param.keyword ;
+	
+	    return url;
+	}
+</script>
+<!-- Footer -->
+<c:import url="/WEB-INF/view/include/footer.jsp"></c:import>	

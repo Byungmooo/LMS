@@ -12,7 +12,7 @@ import com.gd.LMS.vo.TotalLecture;
 public interface TotalLectureMapper {
 	
 	// 전체과목수
-	int selectTotalLectureCount(String keyword);
+	int selectTotalLectureCount(Map<String, Object> map);
 
 	// 전체과목리스트
 	List<Map<String, Object>> selectTotalLectureList(PagingVo vo);
@@ -29,4 +29,6 @@ public interface TotalLectureMapper {
 	int insertTotalLectureOne(TotalLecture totalLecture);
 	
 	int deleteTotalLectureOne(int lectureCode);
+	
+	List<String> selectCheckFkOpenedLecture(int lectureCode);
 }

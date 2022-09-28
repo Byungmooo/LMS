@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.lecture.mapper.TotalLectureMapper">
-	
-	<sql id="search">
+	<sql id="searchKey">
 		<!-- 검색 키워드가 있을 때 -->
-		<if test="keyword != null and keyword != ''"> AND lecture_name LIKE CONCAT('%', #{keyword},'%') </if>
+		<if test="keyword != ''"> AND lecture_name LIKE CONCAT('%', #{keyword},'%') </if>
+	</sql>
+	<sql id="searchDep">
+		<!-- 부서별 키워드가 있을 때 -->
+		<if test="searchType != ''"> AND department_code = #{searchType} </if>
 	</sql>
 	
 	<!-- 전체과목수 -->
-	<select id="selectTotalLectureCount" parameterType="int" resultType="int"> 
+	<select id="selectTotalLectureCount" parameterType="map" resultType="int"> 
 		SELECT 
 			COUNT(*) 
 		FROM 
 			total_lecture 
 		WHERE 1=1
-			<include refid="search" />
+			<include refid="searchKey" />
+			<include refid="searchDep" />
 	</select>
 	
 	<!-- 전체과목리스트 -->
@@ -31,7 +35,8 @@
 		WHERE
 			t.employee_code = e.employee_code AND
 			e.member_id = m.member_id
-			<include refid="search" />
+			<include refid="searchKey" />
+			<include refid="searchDep" />
 		ORDER BY 
 			t.lecture_code 
 		LIMIT 
@@ -113,4 +118,13 @@
 		DELETE FROM total_lecture
 		WHERE lecture_code = #{lectureCode}
 	</delete>
+	
+	<select id="selectCheckFkOpenedLecture" parameterType="int" resultType="String">
+		SELECT
+			lecture_code
+		FROM
+			opened_lecture
+		WHERE
+			lecture_code = #{lectureCode}
+	</select>
 </mapper>

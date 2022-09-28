@@ -20,8 +20,8 @@ public class TotalLectureService {
 	@Autowired TotalLectureMapper totalLectureMapper;
 	
 	// 전체과목수
-	public int getTotalLectureCount(String keyword) {
-		return totalLectureMapper.selectTotalLectureCount(keyword);
+	public int getTotalLectureCount(Map<String, Object> map) {
+		return totalLectureMapper.selectTotalLectureCount(map);
 	}
 	
 	// 전체과목리스트
@@ -55,5 +55,10 @@ public class TotalLectureService {
 	
 	public int removeTotalLectureOne(int lectureCode) {
 		return totalLectureMapper.deleteTotalLectureOne(lectureCode);
+	}
+	
+	public List<String> getCheckFkOpenedLecture(int lectureCode) {
+		List<String> checkFk = totalLectureMapper.selectCheckFkOpenedLecture(lectureCode);
+		return checkFk;
 	}
 }

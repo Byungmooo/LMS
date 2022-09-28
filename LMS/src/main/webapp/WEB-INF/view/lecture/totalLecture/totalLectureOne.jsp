@@ -2,7 +2,19 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Header -->
-<c:import url="/WEB-INF/view/include/employeeHeader.jsp"></c:import>	
+<c:choose>
+	<c:when test="${memberType eq '학생'}">
+		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>	
+	</c:when>
+	<c:when test="${memberType eq '교수'}">
+		<c:import url="/WEB-INF/view/include/professorHeader.jsp"></c:import>	
+	</c:when>
+	<c:when test="${memberType eq '직원'}">
+		<c:import url="/WEB-INF/view/include/employeeHeader.jsp"></c:import>	
+	</c:when>
+	<c:otherwise>	
+	</c:otherwise>
+</c:choose>
 
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
@@ -55,15 +67,20 @@
 					</table>
 					<div style="margin-top: 20px;">
 						<input type="hidden" id="lectureCode" name="lectureCode" value="${map.lectureCode}">
-						<a href="${pageContext.request.contextPath}/modifyTotalLecture?lectureCode=${map.lectureCode}" class="btn btn-primary" style="color: #fff;">수정</a>
+						<a href="${pageContext.request.contextPath}/employee/modifyTotalLecture?lectureCode=${map.lectureCode}" class="btn btn-primary" style="color: #fff;">수정</a>
 						<button type="button" onclick="del(${map.lectureCode})" class="btn btn-primary" style="color: #fff;">삭제</button>
-						<a href="${pageContext.request.contextPath}/totalLectureList" class="btn btn-primary" style="color: #fff;">목록</a>
+						<a href="${pageContext.request.contextPath}/employee/totalLectureList" class="btn btn-primary" style="color: #fff;">목록</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- / Main -->
+<script>
+	if("${errorMsg}" != '') {
+		alert("${errorMsg}");
+	}
+</script>
 <script>
 	
 	function del(lectureCode) {
