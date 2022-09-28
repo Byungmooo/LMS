@@ -24,26 +24,27 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class AssignmentController {
-	@Autowired AssignmentService assignmentService;
-	@Autowired MemberService memberService;
-	
+	@Autowired
+	AssignmentService assignmentService;
+	@Autowired
+	MemberService memberService;
 
-	// 과제 리스트 조회 
-	
+	// 과제 리스트 조회
+
 	@GetMapping("/assignmentList")
 	public String assignmentList(Model model, HttpSession session) {
 		int openedLecNo = 41;
-		
+
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "assignmentList Controller");
-		
-		//서비스 불러오기
-		List<Assignment>  assignmentList = assignmentService.getAssignmentList(openedLecNo);
+
+		// 서비스 불러오기
+		List<Assignment> assignmentList = assignmentService.getAssignmentList(openedLecNo);
 		log.debug(TeamColor.BJH + assignmentList + "<--assignmentList");
 
 		// 뷰에서 끄내쓸 리스트 보내기
 		model.addAttribute("assignmentList", assignmentList);
-		
+
 		if (assignmentList != null) {
 			// 성공
 			log.debug(TeamColor.BJH + " 과제 리스트 조회 성공");
@@ -57,27 +58,23 @@ public class AssignmentController {
 		}
 	}
 
-	
-	
-	
-
 	// 과제 출제하는 메소드
 	@GetMapping("/addAssignment")
 	public String addAssignment(Model model, HttpSession session) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "addAssignment Controller 실행");
-		
+
 		int openedLecNo = 41;
-		
+
 		// 세션 받아오기
 		String memberId = (String) session.getAttribute("memberId");
-		model.addAttribute("openedLecNo",openedLecNo);
+		model.addAttribute("openedLecNo", openedLecNo);
 		// 로그인한 강사의 멤버아이디
 		log.debug(TeamColor.BJH + memberId + "<-- memberId");
 		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
 
 		return "assignment/addAssignment";
-	} 
+	}
 
 	// 과제 출제하는 메소드
 	// 리턴값 : openedAssignmentList.jsp로 이동
@@ -85,12 +82,12 @@ public class AssignmentController {
 	public String addAssignment(Assignment assignment) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "addAssignment Controller");
-		
+
 		// 수정필요
 		int openedLecNo = 41;
 		assignment.setOpenedLecNo(openedLecNo);
-		
-		//과제 내는 서비스
+
+		// 과제 내는 서비스
 		int row = assignmentService.addAssignment(assignment);
 
 		if (row != 0) {
@@ -102,12 +99,7 @@ public class AssignmentController {
 		}
 		// assgnmentList로 리다이렉트
 		return "redirect:/assignmentList";
-	} 
-	
-	
-	
-	
-	
+	}
 
 	// 출제한 과제 수정하는 메소드
 	@GetMapping("/modifyAssignment")
@@ -125,16 +117,14 @@ public class AssignmentController {
 		model.addAttribute("assignment", assignmentOne);
 
 		return "assignment/modifyAssignment";
-	} 
-	
+	}
+
 	// 출제한 과제 수정하는 메소드
 	@PostMapping("/modifyAssignment")
 	public String modifyAssignment(@RequestParam("assignmentNo") int assignmentNo,
-			@RequestParam("openedLecNo") int openedLecNo,
-			@RequestParam("assignmentTitle") String assignmentTitle, 
-			@RequestParam("assignmentContent") String assignmentContent,
-			@RequestParam("endDate") String endDate) {
-		
+			@RequestParam("openedLecNo") int openedLecNo, @RequestParam("assignmentTitle") String assignmentTitle,
+			@RequestParam("assignmentContent") String assignmentContent, @RequestParam("endDate") String endDate) {
+
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "modifyAssignment Controller");
 
@@ -147,8 +137,7 @@ public class AssignmentController {
 		param.setEndDate(endDate);
 		// 셋팅값 디버깅
 		log.debug(TeamColor.BJH + param + "<-- param");
-		
-		
+
 		int modifyAssignment = assignmentService.modifyAssignment(param);
 		// 디버깅
 		System.out.println("modifyAssignment");
@@ -162,18 +151,15 @@ public class AssignmentController {
 		// 수정에 성공했으면 낸 과제 리스트로 보내기
 		return "redirect:/assignmentList";
 	}
-	
-	
-	
-	
-	//과제 삭제
+
+	// 과제 삭제
 	@GetMapping("/removeAssignment")
 	public String removeAssignment(@RequestParam("assignmentNo") int assignmentNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "removeAssignment Controller");
 		// 파라미터 디버깅
 		log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentNo");
-		
+
 		// 과제 삭제 service call
 		int removeAssignment = assignmentService.removeAssignment(assignmentNo);
 		// 파라미터
@@ -185,13 +171,11 @@ public class AssignmentController {
 		} else {
 			// 실패
 			log.debug(TeamColor.BJH + " 과제 삭제 실패");
-					// reportList로 리다이렉트
-		return "redirect:/assignmentList";
-	
-	
+			// reportList로 리다이렉트
+			return "redirect:/assignmentList";
+
 		}
 		return "redirect:/assignmentList";
 	}
-	
+
 }
-	
