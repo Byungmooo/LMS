@@ -28,7 +28,7 @@ public class AssignmentController {
 	@Autowired MemberService memberService;
 	
 
-	// 과제 리스트 조회
+	// 과제 리스트 조회 
 	
 	@GetMapping("/assignmentList")
 	public String assignmentList(Model model, HttpSession session) {
