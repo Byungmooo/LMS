@@ -29,7 +29,23 @@
 			student_code = #{studentCode} 
 	</select>
 	
-	<!-- 학생수강상세보기 -->
+	<!-- 교수진행강의리스트 -->
+	<select id="selectProfessorLectureList" parameterType="int" resultType="map">
+		SELECT 
+			o.opened_lec_no openedLecNo, 
+			t.lecture_name lectureName, 
+			(SELECT COUNT(*) FROM student_lecture WHERE opened_lec_no = o.opened_lec_no) currentStudentNum,
+			o.open_lecture_date openLectureDate,
+			o.close_lecture_date closeLectureDate
+		FROM 
+			total_lecture t, 
+			opened_lecture o
+		WHERE 
+			t.lecture_code = o.lecture_code AND
+			o.professor_code = #{professorCode}
+	</select>
+	
+	<!-- 강의상세보기 -->
 	<select id="selectOpenedLectureOne" parameterType="int" resultType="map"> 
 		SELECT 
 			m.member_name professorName, 
@@ -60,7 +76,7 @@
 			opened_lec_no = #{openedLecNo} 
 	</select>
 	
-	<!-- 학생수강신청 전체리스트 -->
+	<!-- 학생수강신청 진행강좌 전체리스트 -->
 	<select id="selectOpenedLectureList" parameterType="com.gd.LMS.utils.PagingVo" resultType="map">
 		SELECT 
 			t.lecture_code lectureCode, 
@@ -84,6 +100,19 @@
 			#{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!-- 학생수강신청 진행강좌 전체리스트 개수 -->
+	<select id="selectOpenedLectureCount" parameterType="String" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			opened_lecture o,
+			total_lecture t
+		WHERE
+			o.lecture_code = t.lecture_code
+			<include refid="search" />
+	</select>
+	
+	<!-- 수강신청 진행 -->
 	<insert id="insertStudentLecture" parameterType="java.util.List">
 		INSERT INTO student_lecture ( 
 			student_code, 
@@ -117,18 +146,7 @@
 			s.student_code = #{memberCode} 
 	</select>
 	
-	<select id="selectOpenedLectureCount" parameterType="String" resultType="int">
-		SELECT 
-			COUNT(*) 
-		FROM 
-			opened_lecture o,
-			total_lecture t
-		WHERE
-			o.lecture_code = t.lecture_code
-			<include refid="search" />
-	</select>
-	
-	<!-- 학생수강담기 -->
+	<!-- 수강 장바구니 담기 -->
 	<insert id="studentCartInsert" parameterType="map"> 
 		INSERT INTO student_lecture_cart ( 
 			student_code, 
@@ -141,11 +159,13 @@
 		) 	
 	</insert>
 	
+	<!-- 수강 장바구니 지우기 -->
 	<delete id="studentCartDelete" parameterType="String"> 
 		DELETE FROM student_lecture_cart 
 		WHERE cart_no = #{cartNo} 
 	</delete>
 	
+	<!-- 수강신청 완료 후 장바구니 비우기 -->
 	<delete id="deleteStudentLectureCart" parameterType="String"> 
 		DELETE FROM student_lecture_cart 
 		WHERE student_code = #{studenCode} 

@@ -173,7 +173,7 @@
 						</a>
 						<ul class="menu-sub">
 							<li class="menu-item">
-								<a href="${pageContext.request.contextPath}/professor/studentLectureList?memberCode=${memberCode}" class="menu-link">
+								<a href="${pageContext.request.contextPath}/professor/professorLectureList?memberCode=${memberCode}" class="menu-link">
 									진행중인강의
 								</a>
 							<li class="menu-item">

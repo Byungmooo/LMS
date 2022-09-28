@@ -13,9 +13,12 @@ import com.gd.LMS.vo.LectureQuestion;
 @Mapper
 public interface LectureMapper {
 
-	// 강의리스트
+	// 수강리스트
 	List<Map<String, Object>> selectStudentLectureList(int studentCode);
-
+	
+	// 진행강의리스트
+	List<Map<String, Object>> selectProfessorLectureList(int professorCode);
+	
 	// 강의 상세보기
 	Map<String, Object> selectOpenedLectureOne(int openedLecNo);
 

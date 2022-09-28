@@ -32,7 +32,7 @@ public class LectureController {
 	@Autowired ScheduleService scheduleService;
 
 	// 학생이 수강중인 강의리스트
-	@GetMapping({"/professor/studentLectureList", "/student/studentLectureList"})
+	@GetMapping("/student/studentLectureList")
 	public String studentLectureList(Model model, HttpSession session,
 			@RequestParam(value = "memberCode") int memberCode) {
 		log.debug(TeamColor.LCH + "--- studentLectureList Controller GetMapping ---");
@@ -46,6 +46,21 @@ public class LectureController {
 		return "lecture/studentLectureList";
 	}
 
+	// 교수가 진행중인 강의리스트
+	@GetMapping("/professor/professorLectureList")
+	public String professorLectureList(Model model, HttpSession session,
+			@RequestParam(value = "memberCode") int memberCode) {
+		log.debug(TeamColor.LCH + "--- professorLectureList Controller GetMapping ---");
+
+		// 교수진행강의리스트 메서드 호출 후 리턴값 디버깅
+		List<Map<String, Object>> professorLectureList = lectureService.getProfessorLectureList(memberCode);
+		log.debug(TeamColor.LCH + "professorLectureList (controller) > " + professorLectureList);
+
+		session.setAttribute("memberCode", memberCode);
+		model.addAttribute("list", professorLectureList);
+		return "lecture/professorLectureList";
+	}
+	
 	// 강의 상세보기
 	@GetMapping({"/professor/openedLectureOne", "/student/openedLectureOne"})
 	public String openedLectureOne(Model model, @RequestParam(value = "openedLecNo") int openedLecNo,
@@ -60,6 +75,7 @@ public class LectureController {
 		log.debug(TeamColor.LCH + "openedLectureOne (controller) > " + openedLectureOne);
 
 		model.addAttribute("map", openedLectureOne);
+		session.setAttribute("lectureName", openedLectureOne.get("lectureName"));
 		session.setAttribute("openedLecNo", openedLecNo);
 		return "lecture/openedLectureOne";
 	}	

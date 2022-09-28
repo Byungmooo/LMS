@@ -31,24 +31,24 @@
 					<thead>
 						<tr>
 							<th>강의명</th>
-							<th>담당교수</th>
-							<th>강의종류</th>
-							<th>학점</th>
+							<th>수강학생수</th>
+							<th>개강일</th>
+							<th>종강일</th>
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="s" items="${list}">
+						<c:forEach var="p" items="${list}">
 							<tr>
 								<td>
-									<a href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${s.openedLecNo}">
+									<a href="${pageContext.request.contextPath}/professor/openedLectureOne?openedLecNo=${p.openedLecNo}">
 										<strong>
-											${s.lectureName}
+											${p.lectureName}
 										</strong>
 									</a>		
 								</td>
-								<td>${s.professorName}</td>
-								<td><span class="badge bg-label-primary me-1">${s.lectureType}</span></td>
-								<td><span class="badge bg-label-secondary me-1">${s.credit}</span></td>
+								<td>${p.currentStudentNum}명</td>
+								<td>${p.openLectureDate}</td>
+								<td>${p.closeLectureDate}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
