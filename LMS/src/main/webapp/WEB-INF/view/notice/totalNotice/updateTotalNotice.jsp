@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form name="form" action="${pageContext.request.contextPath}/updateTotalNotice" method="post">
+                <form name="form" action="${pageContext.request.contextPath}/employee/updateTotalNotice" method="post">
                     <div>        <!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 -->
                         <fmt:parseDate value="${totalNotice.createDate}" pattern="yyyy-MM-dd HH:mm" var="noticeDate"/>
                         작성일자 : <fmt:formatDate value="${noticeDate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
@@ -53,10 +53,10 @@
                     <%--                    </div>--%>
                     <div style="width:650px; text-align: center;">
                         <!-- 게시물번호를 hidden으로 처리 -->
-                        <input type="hidden" name="noticeNo" value="${totalNotice.noticeNo}">
- 						<button class="btn btn-primary" type="button" id="btnUpdate">수정</button>
-                        <button class="btn btn-danger" type="button" id="btnDelete">삭제</button>
-                        <button class="btn btn-warning" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
+                        <input type="hidden" name="noticeNo" value="${totalNotice.noticeNo}">            
+ 						<button class="btn btn-info" type="button" id="btnUpdate">수정</button>
+                        <button class="btn btn-info" type="button" id="btnDelete">삭제</button>
+                        <button class="btn btn-info" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
                     </div>
                 </form>
             </div>

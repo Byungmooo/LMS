@@ -65,7 +65,7 @@ public class LectureQnAController {
 	}
 
 	// 강의 질문 상세보기
-	@GetMapping("/student/lectureQuestionOne")
+	@GetMapping({"/professor/lectureQuestionOne","/student/lectureQuestionOne"})
 	public String lectureQuestionOne(Model model, HttpSession session,
 			@RequestParam(value = "lecQuestionNo") int lecQuestionNo) {
 		log.debug(TeamColor.KJS + "--- lectureQuestionOne Controller GetMapping ---");
@@ -83,33 +83,33 @@ public class LectureQnAController {
 			model.addAttribute("answer", lectureAnswerOne);
 		}
 		session.setAttribute("lecQuestionNo", lecQuestionNo);
-		return "lecture/lectureQuestionOne";
+		return "lecture/lectureQnA/lectureQuestionOne";
 	}
 
 	// 강의 질문 답변 추가 페이지 이동
-	@GetMapping("/student/addLectureStudent")
-	public String addLectureStudentOne(HttpSession session) {
+	@GetMapping("/professor/addLectureAnswer")
+	public String addLectureAnswerOne(HttpSession session) {
 		log.debug(TeamColor.KJS + " [김진수] 답변 추가 페이지 이동");
-		return "lecture/addLectureAnswer";
+		return "lecture/lectureQnA/addLectureAnswer";
 	}
 
 	// 강의 질문 답변 추가 - 교수만 해당
-	@PostMapping("/student/addLectureStudent")
-	public String addLectureStudent(LectureAnswer lectureAnswer, HttpSession session) {
+	@PostMapping("/professor/addLectureAnswer")
+	public String addLectureAnswer(LectureAnswer lectureAnswer, HttpSession session) {
 		int lecQuestionNo = (int) session.getAttribute("lecQuestionNo");
 		lectureAnswer.setLecQuestionNo(lecQuestionNo);
 		lectureQnAService.getAddAnswer(lectureAnswer);
 
-		log.debug(TeamColor.KJS + " [김진수] 답변 추가");
-		return "redirect:/student/lectureQuestionList";
-
+		log.debug(TeamColor.KJS + " [김진수] 답변 추가"); 
+		return "redirect:/lecture/lectureQnA/lectureQuestionList?openedLecNo=" + session.getAttribute("openedLecNo"); //연결다리, 상세보기로 돌아가기
+ 
 	}
 
 	// 강의 질문 추가 페이지 이동
 	@GetMapping("/student/addLectureQuestion")
 	public String addLectureQuestionOne(HttpSession session) {
 		log.debug(TeamColor.KJS + " [김진수] 답변 추가 페이지 이동");
-		return "lecture/addLectureQuestion";
+		return "/lecture/lectureQnA/addLectureQuestion";
 
 	}
 
@@ -130,7 +130,7 @@ public class LectureQnAController {
 				.getLectureQuestionOne((int) session.getAttribute("lecQuestionNo"));
 		log.debug(TeamColor.KJS + " [김진수] 학부공지 수정 페이지 이동");
 		model.addAttribute("question", lectureQuestionOne);
-		return "/lecture/updateLectureQuestion";
+		return "/lecture/lectureQnA/updateLectureQuestion";
 	}
 
 	// 질문게시판 수정

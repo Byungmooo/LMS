@@ -45,48 +45,32 @@
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <caption class="ms-4"></caption>
-                <thead>
+                   <thead>
                 <tr>
                     <th>번호</th>
-                    <th>부서코드</th>
-                    <th>글쓴이</th>
                     <th>제목</th>
+                    <th>글쓴이</th>
                     <th>조회수</th>
                     <th>작성일</th>
-                    <th>수정일</th>
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach var="row" items="${list}">
                     <tr>
                         <td>${row.noticeNo}</td>
-                        <td><span class="badge bg-label-primary me-1">${row.departmentCode}</span></td>
-                        <td>${row.writer}</td>
-
-                        <td><span class="badge bg-label-secondary me-1"> <a
-                                href="${pageContext.request.contextPath}/totalNotice/${row.noticeNo}">
-                                ${row.noticeTitle} </a></span></td>
+                        <td> <a href="${pageContext.request.contextPath}/member/totalNoticeOne?noticeNo=${row.noticeNo}"> ${row.noticeTitle} </a></td>
+                        <td>${row.writer}</td>        
                         <td>${row.views}</td>
                         <td>${row.createDate}</td>
-                        <td>${row.updateDate}</td>
                         <td>
-                            <div class="dropdown">
-                                <button type="button"
-                                        class="btn p-0 dropdown-toggle hide-arrow"
-                                        data-bs-toggle="dropdown">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item"
-                                       href="${pageContext.request.contextPath}/updateTotalNotice/${totalNotice.noticeNo}">
-
-                                        <i class="bx bx-book me-1"></i> 게시판수정 <!-- 계획서 등의 내용 -->
-                                    </a> <a class="dropdown-item"
-                                            href="${pageContext.request.contextPath}/removeTotalNotice?noticeNo=${totalNotice.noticeNo}">
-                                    <i class="bx bx-book me-1"></i> 게시판삭제
-                                </a>
-                                </div>
-                            </div>
+                       
+                <div class="dropdown-menu">
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/updateTotalNotice/${totalNotice.noticeNo}">
+                 <i class="bx bx-book me-1"></i> 게시판수정 </a> 
+              <a class="dropdown-item" href="${pageContext.request.contextPath}/removeTotalNotice?noticeNo=${totalNotice.noticeNo}">
+                 <i class="bx bx-book me-1"></i> 게시판삭제 </a>
+                </div>
+                        
                         </td>
                     </tr>
                 </c:forEach>
@@ -175,7 +159,7 @@
 		        if(currentPage != '') param.currentPage = currentPage;
 		        if(rowPerPage != '') param.rowPerPage = rowPerPage;
 		
-		        var url = path +'/totalNotice';
+		        var url = path +'/member/totalNoticeList';
 		        url += '?currentPage=' + param.currentPage;
 		        url += '&rowPerPage='+ param.rowPerPage;
 		        url += '&searchType='+ param.searchType ;
@@ -186,10 +170,12 @@
 		</script>
 		
     </div>
-    <button class="btn btn-danger" type="button" id="btnWrite"
-            style="float: right"
-            onclick="location.href='${pageContext.request.contextPath}/addTotalNotice'">글쓰기
-    </button>
+    
+      <c:if test="${sessionScope.memberType eq '직원'}">
+        <a href="${pageContext.request.contextPath}/employee/addTotalNotice"
+           class="btn btn-info"  style="float: right">글쓰기</a>           
+   </c:if>
+
 </div>
 <!-- / Main -->
 

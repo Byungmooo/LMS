@@ -24,6 +24,14 @@
 		</if>
 	</sql>
 
+	<!-- 총 게시글 갯수 출력 -->
+	<select id="countBoard"
+		parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM total_notice 
+			WHERE 1=1 
+			<include refid="search" />
+			AND department_code IS NOT NULL
+	</select>
 
 	<!-- 페이징 처리 후 게시글 조회 -->
 	<select id="selectBoard" parameterType="map"
@@ -31,6 +39,7 @@
 	SELECT
 		notice_no noticeNo,
 		notice_title noticeTitle,
+		department_code departmentCode,
 		notice_content
 		noticeContent,
 		writer,
@@ -38,7 +47,9 @@
 		create_date createDate,
 		update_date updateDate
 	FROM
-		total_notice WHERE 1=1
+		total_notice 
+		
+		WHERE 1=1
 		<include refid="search" />
 		AND department_code IS NOT NULL
 	ORDER BY
@@ -110,14 +121,7 @@
 		notice_no = #{noticeN o}
 	</delete>
 
-	<!-- 총 게시글 갯수 출력 -->
-	<select id="countBoard"
-		parameterType="map" resultType="int">
-		SELECT COUNT(*) FROM total_notice 
-			WHERE 1=1 
-			<include refid="search" />
-			AND department_code IS NOT NULL
-	</select>
+
 
 	<!-- 부서공지 페이징 처리 후 게시글 조회 -->
 	<select id="selectBoard2" parameterType="map" resultType="com.gd.LMS.vo.TotalNotice">

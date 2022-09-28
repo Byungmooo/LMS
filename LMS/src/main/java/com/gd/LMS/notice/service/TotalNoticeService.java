@@ -30,7 +30,7 @@ public class TotalNoticeService {
 	}
 	
 	// 상세보기 or 조회수 증가
-	public TotalNotice getTotalNotice(int noticeNo) {
+	public TotalNotice getTotalNoticeOne(int noticeNo) {
         return noticeMapper.selectTotalNoticeOne(noticeNo);
     }
 	public void updateTotalNoticeCount(int noticeNo) {

@@ -88,21 +88,39 @@
         	answer_y	  = 'y'
         WHERE lec_question_no  = #{lecQuestionNo}
     </update>    
+    <!-- 답변 상세보기 -->
+    	<select id="selectLectureAnswerOne" parameterType="int" resultType="map">
+		SELECT
+			a.lec_question_no lecQuestionNo,
+			a.answer_content answerContent,
+			a.create_date createDate,
+			a.update_date updateDate
+		FROM
+			lecture_answer a
+		WHERE
+			lec_question_no = #{lecQuestionNo}
+	</select>
     
-    <!-- 학생 질문 답변 추가 -->
+    <!-- 질문 답변 추가 -->
     <insert id="addAnswer" parameterType="com.gd.LMS.vo.LectureAnswer">
-	    INSERT INTO lecture_answer( 
-  			lec_question_no,
-  			answer_content, 
-  			create_date,
-  			update_date 
-	    ) VALUES ( 
-			#{lecQuestionNo},
- 			#{answerContent},
-  			now(),
-  			now() 
-	    ) 
+      INSERT INTO lecture_answer( 
+      			 lec_question_no,
+      			 answer_content, 
+      			 create_date,
+      			 update_date 
+      ) VALUES ( 
+     			 #{lecQuestionNo},
+      			 #{answerContent},
+       			 now(),
+       			 now() 
+       ) 
      </insert>
+    <!-- 답변 삭제 -->
+    <delete id="deleteLecAnswer" parameterType="int">
+        DELETE
+        FROM lecture_answer
+        WHERE lec_question_no  = #{lecQuestionNo}
+    </delete>
        
        <!-- 학생 질문 추가 -->
 	<insert id="addQuestion" parameterType="com.gd.LMS.vo.LectureQuestion">
@@ -139,10 +157,5 @@
         WHERE lec_question_no  = #{lecQuestionNo}
     </delete>
     
-        <!-- 답변 삭제 -->
-    <delete id="deleteLecAnswer" parameterType="int">
-        DELETE
-        FROM lecture_answer
-        WHERE lec_question_no  = #{lecQuestionNo}
-    </delete>
+
 </mapper>

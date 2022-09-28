@@ -46,9 +46,9 @@
 
 
                     <div style="width:650px; text-align: center;">
- 						<button class="btn btn-primary" type="button" id="btnUpdate">수정</button>
-                        <button class="btn btn-danger" type="button" id="btnDelete">삭제</button>
-                        <button class="btn btn-warning" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
+ 						<button class="btn btn-info" type="button" id="btnUpdate">수정</button>
+                        <button class="btn btn-info" type="button" id="btnDelete">삭제</button>
+                        <button class="btn btn-info" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
                     </div>
                 </form>
             </div>

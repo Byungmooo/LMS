@@ -101,16 +101,16 @@
 </table>
 <div>
   <c:if test="${sessionScope.memberType eq '교수'}">
-        <a href="${pageContext.request.contextPath}/student/addLectureStudent"
+        <a href="${pageContext.request.contextPath}/professor/addLectureAnswer"
            class="btn btn-warning">답변하기</a>           
    </c:if>
    <c:if test="${sessionScope.memberType eq '학생'}">
    		<a href="${pageContext.request.contextPath}/student/updateLectureQuestion/${lectureQuesion.opendLecNo}"
-				class="btn btn-warning">수정</a>
+				class="btn btn-info">수정</a>
 		<a href="${pageContext.request.contextPath}/student/removeLectrueQuestion?opendLecNo=${lectureQuesion.opendLecNo}"
 				class="btn btn-info">삭제</a>
   </c:if>
-    <a href="javascript:window.history.back()" class="btn btn-primary">목록</a>
+    <a href="javascript:window.history.back()" class="btn btn-info">목록</a>
     </div>
     </div>
     </div>

@@ -47,11 +47,12 @@ public class TotalNoticeController {
 		int totalCount = totalNoticeService.countBoard(map);
 		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
-		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
-		// 이전 페이지 시작 글 번호와 현재 변경되는 페이지의 시작 글번호에 대한 일치 시키는거 많은 변경이 필요하므로 그냥 1로 처리함
-		if (vo.getBeginRow() >= totalCount) {
-			vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
-		}
+
+        vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+        // 이전 페이지 시작 글 번호와 현재 변경되는 페이지의 시작 글번호에 대한 일치 시키는거 많은 변경이 필요하므로 그냥 1로 처리함
+        if(vo.getBeginRow() >= totalCount){
+            vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
+        }
 		log.debug(TeamColor.KJS + "PagingVo : " + vo);
 
 		map.put("beginRow", vo.getBeginRow());
@@ -110,9 +111,9 @@ public class TotalNoticeController {
 
 	// 전체공지사항 상세보기
 	@GetMapping("/member/totalNoticeOne")
-	public String totalNoticeOne(Model model, @RequestParam(value = "noticeNo") int noticeNo) {
+	public String totalNoticeOne(Model model,HttpSession session, @RequestParam(value = "noticeNo") int noticeNo) {
 
-		TotalNotice totalNotice = totalNoticeService.getTotalNotice(noticeNo);
+		TotalNotice totalNotice = totalNoticeService.getTotalNoticeOne(noticeNo);
 
 		totalNoticeService.updateTotalNoticeCount(noticeNo);
 
@@ -120,6 +121,8 @@ public class TotalNoticeController {
 
 		log.debug(TeamColor.KJS + " [김진수] 전체공지 상세보기");
 
+		
+		
 		return "/notice/totalNotice/totalNoticeOne";
 	}
 	
@@ -128,6 +131,7 @@ public class TotalNoticeController {
 	// 전체공지사항 추가 페이지 이동
 	@GetMapping("/employee/addTotalNotice")
 	public String addTotalNotice() {
+		
 		
 		log.debug(TeamColor.KJS + " [김진수] 전체공지 추가 페이지 이동");
 		
@@ -142,9 +146,9 @@ public class TotalNoticeController {
 		
 		if (count >= 1) {
 			log.debug(TeamColor.KJS + " [김진수] 전체공지 추가");
-			return "redirect:totalNotice";
+			return "redirect:/member/totalNoticeList";
 		}
-		
+	
 		return "/notice/totalNotice/addTotalNotice";
 	}
 
@@ -152,7 +156,7 @@ public class TotalNoticeController {
 	@GetMapping("/employee/updateTotalNotice")
 	public String updateTotalNotice(Model model, @RequestParam(value = "noticeNo") int noticeNo) {
 		
-		TotalNotice totalNotice = totalNoticeService.getTotalNotice(noticeNo);
+		TotalNotice totalNotice = totalNoticeService.getTotalNoticeOne(noticeNo);
 		
 		model.addAttribute("totalNotice", totalNotice);
 		log.debug(TeamColor.KJS + " [김진수] 전체공지 수정 페이지 이동");
@@ -176,8 +180,9 @@ public class TotalNoticeController {
 		return "redirect:/employee/updateTotalNotice";
 	}
 
+	// 전체공지사항 삭제
 	@GetMapping("/employee/removeTotalNotice")
-	public String totalNoticeOne(@RequestParam(value = "noticeNo") int noticeNo, RedirectAttributes redirectAttributes) {
+	public String removeTotalNotice(@RequestParam(value = "noticeNo") int noticeNo, RedirectAttributes redirectAttributes) {
 		
 		int count = totalNoticeService.deleteTotalNotice(noticeNo);
 		redirectAttributes.addAttribute("noticeNo", noticeNo);

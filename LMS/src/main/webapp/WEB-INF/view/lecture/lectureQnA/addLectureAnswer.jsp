@@ -29,7 +29,7 @@
 				<hr class="my-0" />
 				
 				<div class="card-body">
-		                <form name="form" action="${pageContext.request.contextPath}/student/addLectureStudent" method="post">
+		                <form name="form" action="${pageContext.request.contextPath}/professor/addLectureAnswer" method="post">
            
 <%--                    <input type="hidden" name="memberId" value="${session.id}">--%>
 
@@ -39,7 +39,7 @@
                                   placeholder="내용을 입력해주세요"></textarea>
                     </div>
                  <div style="width:650px; text-align: center;">
-                        <button class="btn btn-danger" type="button" id="btnAdd">답변등록</button>
+                        <button class="btn btn-info" type="button" id="btnAdd">답변등록</button>
                         <button class="btn btn-info" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
                     </div>
 </form>

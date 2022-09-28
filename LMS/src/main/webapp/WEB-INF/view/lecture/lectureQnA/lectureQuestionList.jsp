@@ -25,7 +25,7 @@
 				</h4>
 			</div>
 			<div class="col-sm-3 col-12">
-				<a class="btn btn-secondary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
+				<a class="btn btn-info" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
 					강의리스트
 				</a>
 			</div>
@@ -112,9 +112,15 @@
 							<tr>
 								<td><strong>${q.lecQuestionNo}</strong></td>
 								<td>
-									<a href="${pageContext.request.contextPath}/student/lectureQuestionOne?lecQuestionNo=${q.lecQuestionNo}">
-										${q.noticeTitle}
-									</a>
+									<c:if test="${sessionScope.memberType eq '학생'}">
+											<a href="${pageContext.request.contextPath}/student/lectureQuestionOne?lecQuestionNo=${q.lecQuestionNo}">
+										${q.noticeTitle}</a>
+									</c:if>
+									<c:if test="${sessionScope.memberType eq '교수'}">
+											<a href="${pageContext.request.contextPath}/professor/lectureQuestionOne?lecQuestionNo=${q.lecQuestionNo}">
+										${q.noticeTitle}</a>
+									</c:if>
+									
 								</td>
 								<td><span class="badge bg-label-primary me-1"></span>${q.answerY}</td>
 								<td><span class="badge bg-label-secondary me-1"></span>${q.createDate}</td>
@@ -222,11 +228,12 @@
 									
 	
 				</div>
-<button class="btn btn-danger" type="button" id="btnWrite"
-		style="float: right"
-		onclick="location.href='${pageContext.request.contextPath}/student/addLectureQuestion'">질문하기</button>
-<%--		onclick="location.href='${pageContext.request.contextPath}/student/addLectureQuestion?openedLecNo=${openedLecNo}'">질문</button>--%>
-
+				
+<c:if test="${sessionScope.memberType eq '학생'}">
+        <a href="${pageContext.request.contextPath}/student/addLectureQuestion"
+           class="btn btn-warning">질문하기</a>           
+   </c:if>				
+				
 	</div>
 	<!-- / Main -->
 <!-- Footer -->

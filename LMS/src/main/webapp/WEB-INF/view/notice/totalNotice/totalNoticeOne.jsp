@@ -87,14 +87,13 @@
 							<td colspan="5"><textarea class="form-control" rows="20px" readonly="readonly" style="background-color:#fff;">${totalNotice.noticeContent}</textarea></td>
 						</tr>
 					</table>
-								<div>				
-					<a href="${pageContext.request.contextPath}/updateTotalNotice/${totalNotice.noticeNo}"
-							class="btn btn-warning">수정</a>
-					<a href="${pageContext.request.contextPath}/removeTotalNotice?noticeNo=${totalNotice.noticeNo}"
-							class="btn btn-info">삭제</a>
-					<a href="javascript:window.history.back()"
-							class="btn btn-primary">목록</a>
-				</div>
+								<div>	
+   <c:if test="${sessionScope.memberType eq '직원'}">
+        <a href="${pageContext.request.contextPath}/employee/updateTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-info" >수정</a>
+        <a href="${pageContext.request.contextPath}/employee/removeTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-info"  >삭제</a>
+        <a href="javascript:window.history.back()" class="btn btn-info"  >목록</a>
+   </c:if>			
+</div>
 
 				</div>
 			</div>
