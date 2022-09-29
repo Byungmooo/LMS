@@ -23,8 +23,10 @@
 
 	<!-- 과제 제출하기 메소드 -->
 	<insert id="insertAssignmentReg" 
-			parameterType="com.gd.LMS.vo.AssignmentReg"
-			useGeneratedKeys="true">
+			parameterType="com.gd.LMS.vo.AssignmentReg">
+		<selectKey resultType="int" keyProperty="assignmentRegNo" order="BEFORE">
+			select MAX(assignment_reg_no) + 1 from assignment_reg
+		</selectKey>
 		INSERT INTO 
 			assignment_reg(
 						assignment_no,
@@ -46,6 +48,15 @@
 	</insert>
 	<!-- 과제 제출하기 메소드 -->
 	
+	<select id="selectStudentLecNo" parameterType="map" resultType="int">
+		SELECT
+		   student_lec_no
+		FROM
+		   student_lecture
+		WHERE
+		   student_code = #{studentCode} AND
+		   opened_lec_no = #{openedLecNo}
+	</select>
 	
 	<!-- 제출한 과제 상세보기 -->
 	<select id="selectAssignmentRegOne" parameterType="int" resultType="map">

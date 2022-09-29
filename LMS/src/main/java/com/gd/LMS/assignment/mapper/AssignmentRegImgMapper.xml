@@ -21,5 +21,14 @@
 
 	</insert>
 
+	<delete id ="deleteRegFile"  parameterType="int">
+		
+		DELETE FROM 
+			assignment_reg_img
+		WHERE 
+			assignment_reg_no = #{assignmentRegNo}
+	
+	
+	</delete>
 
 </mapper>

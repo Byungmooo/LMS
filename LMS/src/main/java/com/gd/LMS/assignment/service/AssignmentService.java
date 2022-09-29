@@ -54,11 +54,11 @@ public class AssignmentService {
 		log.debug(TeamColor.BJH + assignment + "<-- assignment");
 
 		// Mapper call
-		int addssignment = assignmentMapper.insertAssignment(assignment);
+		int addAssignment = assignmentMapper.insertAssignment(assignment);
 		// Mapper에서 받아온 assignment  디버깅
-		log.debug(TeamColor.BJH + addssignment + "<-- addssignment");
+		log.debug(TeamColor.BJH + addAssignment + "<-- addAssignment");
 
-		return addssignment;
+		return addAssignment;
 	} 
 
 	
