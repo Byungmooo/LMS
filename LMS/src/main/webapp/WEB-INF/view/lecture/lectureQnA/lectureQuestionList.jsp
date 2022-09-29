@@ -231,7 +231,7 @@
 				
 <c:if test="${sessionScope.memberType eq '학생'}">
         <a href="${pageContext.request.contextPath}/student/addLectureQuestion"
-           class="btn btn-warning">질문하기</a>           
+           class="btn btn-primary">질문하기</a>           
    </c:if>				
 				
 	</div>

@@ -89,8 +89,8 @@
 					</table>
 								<div>	
    <c:if test="${sessionScope.memberType eq '직원'}">
-        <a href="${pageContext.request.contextPath}/employee/updateTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-info" >수정</a>
-        <a href="${pageContext.request.contextPath}/employee/removeTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-info"  >삭제</a>
+        <a href="${pageContext.request.contextPath}/employee/updateTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-primary" >수정</a>
+        <a href="${pageContext.request.contextPath}/employee/removeTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-primary"  >삭제</a>
         <a href="javascript:window.history.back()" class="btn btn-info"  >목록</a>
    </c:if>			
 </div>

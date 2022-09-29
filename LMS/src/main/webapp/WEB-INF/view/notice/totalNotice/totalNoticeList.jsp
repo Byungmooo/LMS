@@ -173,7 +173,7 @@
     
       <c:if test="${sessionScope.memberType eq '직원'}">
         <a href="${pageContext.request.contextPath}/employee/addTotalNotice"
-           class="btn btn-info"  style="float: right">글쓰기</a>           
+           class="btn btn-primary"  style="float: right">글쓰기</a>           
    </c:if>
 
 </div>

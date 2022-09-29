@@ -106,9 +106,9 @@
    </c:if>
    <c:if test="${sessionScope.memberType eq '학생'}">
    		<a href="${pageContext.request.contextPath}/student/updateLectureQuestion/${lectureQuesion.opendLecNo}"
-				class="btn btn-info">수정</a>
+				class="btn btn-primary">수정</a>
 		<a href="${pageContext.request.contextPath}/student/removeLectrueQuestion?opendLecNo=${lectureQuesion.opendLecNo}"
-				class="btn btn-info">삭제</a>
+				class="btn btn-primary">삭제</a>
   </c:if>
     <a href="javascript:window.history.back()" class="btn btn-info">목록</a>
     </div>

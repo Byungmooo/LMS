@@ -92,7 +92,7 @@
 					<a href="${pageContext.request.contextPath}/updateLecNotice/${lectureNotice.lecNoticeNo}"
 							class="btn btn-warning">수정</a>
 					<a href="${pageContext.request.contextPath}/removeLecNotice?lecNoticeNo=${lectureNotice.lecNoticeNo}"
-							class="btn btn-info">삭제</a>
+							class="btn btn-primary">삭제</a>
 					<a href="javascript:window.history.back()"
 							class="btn btn-primary">목록</a>
 				</div>

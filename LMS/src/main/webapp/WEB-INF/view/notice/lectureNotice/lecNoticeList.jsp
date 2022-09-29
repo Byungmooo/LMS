@@ -239,7 +239,7 @@
 		</script>
 		
 </div>
-	<button class="btn btn-danger" type="button" id="btnWrite"
+	<button class="btn btn-primary" type="button" id="btnWrite"
 		style="float: right"
 		onclick="location.href='${pageContext.request.contextPath}/addLecNotice'">글쓰기</button>
 </div>

@@ -43,8 +43,8 @@
                                   placeholder="내용을 입력해주세요"></textarea>
                     </div>
                  <div style="width:650px; text-align: center;">
-                        <button class="btn btn-danger" type="button" id="btnAdd">추가</button>
-                        <button class="btn btn-info" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
+                        <button class="btn btn-primary" type="button" id="btnAdd">추가</button>
+                        <button class="btn btn-primary" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
                     </div>
 </form>
 				</div>
