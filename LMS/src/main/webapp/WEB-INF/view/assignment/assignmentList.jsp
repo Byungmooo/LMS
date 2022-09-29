@@ -75,7 +75,7 @@
 		<div class="container-fluid">
 			<form
 				action="${pageContext.request.contextPath}/assignmentList"
-				id="reportListForm" method="post">
+				id="assignmentForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
@@ -84,14 +84,14 @@
 							<hr>
 							<c:if test="${memberType eq '학생'}">
 								<div class="container">
-									<a href="${pageContext.request.contextPath}/assignmentRegListById">나의
+									<a href="${pageContext.request.contextPath}/assignmentRegMyList">나의
 										과제 제출 리스트</a>
 								</div>
 							</c:if>
 							<c:if test="${memberType eq '교수'}">
 								<div class="container-info">
 									<div>
-									<a href="${pageContext.request.contextPath}/assignmentList">
+									<a href="${pageContext.request.contextPath}/assignmentRegList">
 										학생 과제 제출 리스트</a>
 									</div>
 									<div>
