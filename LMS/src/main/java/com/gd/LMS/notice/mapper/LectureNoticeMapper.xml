@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.notice.mapper.LectureNoticeMapper">
 
-
 	<!-- 게시글 검색 -->
 	<sql id="search">
 		<!-- 검색 키워드가 있을 때 -->
@@ -32,105 +31,109 @@
 		</if>
 	</sql>
 
-	<!-- 총 게시글 갯수 출력 -->
-	<select id="countBoard" parameterType="map" resultType="int">
-		SELECT COUNT(*) FROM lecture_notice WHERE 1=1
-		<include refid="search" />
+	<!-- 강의공지 목록 리스트 -->
+	<select id="selectLectureNoticeList" parameterType="map" resultType="map">
+		SELECT
+			lec_notice_no lecNoticeNo,
+			opened_lec_no openedLecNo,
+			notice_title noticeTitle,
+			notice_content noticeContent,
+			views,
+			writer,
+			create_date createDate
+		FROM 
+			lecture_notice  
+		WHERE
+			opened_lec_no = #{openedLecNo}
+			<include refid="search"/>
+		ORDER BY 
+			lec_notice_no
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 강의공지 게시글수 -->
+	<select id="selectLectureNoticeCount" parameterType="map" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			lecture_notice 
+		WHERE
+			opened_lec_no = #{openedLecNo}
+			<include refid="search" />
 	</select>
 
-   <!-- 페이징 처리 후 게시글 조회 -->
-   <select id="selectBoard" parameterType="map" resultType="com.gd.LMS.vo.LectureNotice">
-      SELECT
-         lec_notice_no       lecNoticeNo,
-         opened_lec_no        openedLecNo,
-         notice_title     noticeTitle,
-         notice_content   noticeContent,
-         views   views,
-         writer    writer,
-         create_date       createDate,
-         update_date         updateDate
-      FROM 
-         lecture_notice  
-      WHERE 1 = 1
-         <include refid="search"/>
-         AND opened_lec_no = #{openedLecNo}
-      ORDER BY 
-         lec_notice_no
-      LIMIT 
-         #{beginRow}, #{rowPerPage}
-   </select>
 
-
-
-	<!-- 전체공지사항 상세보기 -->
-	<select id="selectLecNoticeOne" parameterType="int"
-		resultType="com.gd.LMS.vo.LectureNotice">
-	SELECT
-		lec_notice_no lecNoticeNo,
-		opened_lec_no openedLecNo,
-		notice_title noticeTitle,
-		notice_content noticeContent,
-		create_date createDate,
-		update_date updateDate,
-		views views,
-		writer writer
-	FROM
-		lecture_notice
-	WHERE
-		lec_notice_no = #{lecNoticeNo}
+	<!-- 강의공지 상세보기 -->
+	<select id="selectLectureNoticeOne" parameterType="int" resultType="com.gd.LMS.vo.LectureNotice">
+		SELECT
+			lec_notice_no lecNoticeNo,
+			opened_lec_no openedLecNo,
+			notice_title noticeTitle,
+			notice_content noticeContent,
+			create_date createDate,
+			update_date updateDate,
+			views views,
+			writer writer
+		FROM
+			lecture_notice
+		WHERE
+			lec_notice_no = #{lecNoticeNo}
 	</select>
-
-	<!-- 전체공지사항 추가 -->
-	<insert id="addLecNotice"
-		parameterType="com.gd.LMS.vo.LectureNotice">
-	INSERT INTO lecture_notice(
-		opened_lec_no,
-		notice_title,
-		notice_content,
-		writer,
-		create_date,
-		update_date
-		)
-	VALUES (
-		#{openedLecNo},
-		#{noticeTitle},
-		#{noticeContent},
-		#{writer},
-		now(),
-		now()
+	
+	<!-- 강의공지 조회수 증가 -->
+	<update id="updateLectureNoticeViews" parameterType="int">
+		UPDATE
+			lecture_notice
+		SET views = views + 1
+		WHERE lec_notice_no = #{lecNoticeNo}
+	</update>
+	
+	<!-- 증가된 조회수 적용 -->
+	<select id="getLectureNoticeUpdateViews" parameterType="int" resultType="int">
+		SELECT
+			views
+		FROM
+			lecture_notice
+		WHERE
+			lec_notice_no = #{lecNoticeNo}
+	</select>
+	
+	<!-- 강의공지 추가 -->
+	<insert id="insertLectureNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
+		<selectKey resultType="int" keyProperty="lecNoticeNo" order="BEFORE">
+			select MAX(lec_notice_no) + 1 from lecture_notice
+		</selectKey>
+		INSERT INTO lecture_notice(
+			opened_lec_no,
+			notice_title,
+			notice_content,
+			writer,
+			create_date
+		) VALUES (
+			#{openedLecNo},
+			#{noticeTitle},
+			#{noticeContent},
+			#{writer},
+			now()
 		)
 	</insert>
-
-	<!-- 공지사항 조회수 증가 -->
-	<update id="updateLecNoticeCount"
-		parameterType="com.gd.LMS.vo.LectureNotice">
-	UPDATE
-		lecture_notice
-	SET views = views + 1
-	WHERE lec_notice_no = #{lecNoticeNo}
-	</update>
-
-
+	
 	<!-- 공지사항 수정 -->
-	<update id="updateLecNotice"
-		parameterType="com.gd.LMS.vo.LectureNotice">
-	UPDATE
-		lecture_notice
-	SET
-		opened_lec_no = #{openedLecNo},
-		notice_title = #{noticeTitle},
-		notice_content = #{noticeContent},
-		update_date = now()
-	WHERE lec_notice_no = #{lecNoticeNo}
+	<update id="updateLectureNoticeOne" parameterType="com.gd.LMS.vo.LectureNotice">
+		UPDATE
+			lecture_notice
+		SET
+			notice_title = #{noticeTitle},
+			notice_content = #{noticeContent},
+			update_date = now()
+		WHERE 
+			lec_notice_no = #{lecNoticeNo}
 	</update>
 
 	<!-- 공지사항 삭제 -->
-	<delete id="deleteLecNoticeOne" parameterType="int">
-	DELETE
-	FROM lecture_notice
-	WHERE lec_notice_no = #{lecNoticeNo}
+	<delete id="deleteLectureNoticeOne" parameterType="int">
+		DELETE FROM lecture_notice
+		WHERE lec_notice_no = #{lecNoticeNo}
 	</delete>
-
-
-
 </mapper>

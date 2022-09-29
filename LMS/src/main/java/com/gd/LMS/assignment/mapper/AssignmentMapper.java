@@ -28,12 +28,12 @@ public interface AssignmentMapper {
 		int insertAssignment(Assignment assignment);
 		
 		// 출제한 과제 수정 form
-		Assignment selectAssignmentOne(int assignmentNo);
+		Assignment selectAssignmentOne(int openedLecNo);
 
 		// 출제한 과제 수정 action
 		int updateAssignment(Assignment assignment);
 		
 		//과제 삭제
-		int deleteAssignment(int assignmentNo);
+		int deleteAssignment(int openedLecNo);
 	
 }

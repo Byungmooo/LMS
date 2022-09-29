@@ -15,82 +15,115 @@
 	<c:otherwise>	
 	</c:otherwise>
 </c:choose>
-
-
-<!-- Main Contents -->
-	<div class="header-advance-area">
-		<!-- Mobile Menu end -->
-		<div class="breadcome-area">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="breadcome-list single-page-breadcome">
-							<div class="row">
-								<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-									<ul class="breadcome-menu" style="float: left;">
-										<li><a href="#">Home</a> <span class="bread-slash">/</span></li>
-										<li><a href="#">강의</a> <span class="bread-slash">/</span></li>
-										<li><a
-											href="${pageContext.request.contextPath}/loginCheck/reportSubmitList">과제</a>
-											<span class="bread-slash">/</span></li>
-										<li><span class="bread-blod" style="font-weight: bold;">상세보기</span></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+<!-- studentMenu -->
+	<div class="row">
+		<div class="col-sm-9 col-12">
+			<h4 class="fw-bold py-3 mb-4">
+				<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
+			</h4>
+		</div>
+		<div class="col-sm-3 col-12">
+			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
+				강의리스트
+			</a>
 		</div>
 	</div>
-<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/loginCheck/modifyReport"
-				id="modifyReportForm" method="post">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="product-status-wrap drp-lst">
-							<h4>Modify ReportSubmit</h4>
-							<hr>
-							<div class="form-group">
-								<input name="reportNo" type="hidden" value="${reportOne.reportNo}">
-							</div>
-							<div class="form-group">
-								<label for="subjectName">subjectName</label> <input
-									name="subjectName" id="subjectName" type="text"
-									class="form-control" value="${reportOne.subjectName}" readonly>
-							</div>
-							<div class="form-group">
-								<label for="reportTitle">reportSubmitTitle</label> <input
-									name="reportTitle" id="reportTitle" type="text"
-									class="form-control" value="${reportOne.reportTitle}">
-							</div>
-							<div class="form-group edit-ta-resize res-mg-t-15">
-								<label for="reportContent">reportSubmitContent</label>
-								<textarea name="reportContent" id="reportContent">${reportOne.reportContent}</textarea>
-							</div>
-							<div class="form-group">
-								<label for="reportStartDate">reportStartDate</label> <input
-									name="reportStartDate" id="reportStartDate" type="date"
-									class="form-control" value="${reportOne.reportStartDate}">
-							</div>
-							<div class="form-group">
-								<label for="reportEndDate">reportEndDate</label> <input
-									name="reportEndDate" id="reportEndDate" type="date"
-									class="form-control" value="${reportOne.reportEndDate}">
-							</div>
-						</div>
-						<div class="payment-adress">
-							<button type="button" id="modifyReportBtn"
-								class="btn btn-primary waves-effect waves-light"
-								style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
-						</div>
-					</div>
-
-				</div>
-			</form>
-			<!-- </form> -->
-		</div>
+	<div>
+		<ul class="nav nav-pills flex-column flex-md-row mb-3">
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${openedLecNo}">
+				<i class="bx bx-user me-1"></i>
+					강의홈
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureNoticeList?openedLecNo=${openedLecNo}">
+				<i class="bx bx-bell me-1"></i> 
+					강의공지사항
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${openedLecNo}">
+				<i class="bx bx-link-alt me-1"></i> 
+					질문게시판
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" href="${pageContext.request.contextPath}/student/assignmentList?openedLecNo=${openedLecNo}">
+				<i class="bx bx-link-alt me-1"></i> 
+					과제게시판
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
+				<i class="bx bx-link-alt me-1"></i> 
+					강의출석
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="">
+				<i class="bx bx-link-alt me-1"></i> 
+					강의시험
+				</a>
+			</li>
+		</ul>
 	</div>
+	<hr class="my-5" />
+	<!-- Main Contents -->
 	
-	<c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 
+	<div class="product-status mg-b-15">
+		<div class="container-fluid">
+			<form action="${pageContext.request.contextPath}/student/assignmentRegList" method="get">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+						style="padding: 1%;">
+						<div class="product-status-wrap drp-lst">
+							<h4>과제 상세보기</h4>
+							<hr>
+							
+							<c:if test="${memberType eq '교수'}">
+								<div class="container-info">
+									<div>
+									<a href="${pageContext.request.contextPath}/professor/assignmentScore?studentLecNo=${assignmentReg.studentLecNo}">
+										학생 과제 제출 체점하기</a>
+									</div>
+								</div>
+							</c:if>
+							<div class="card bady">
+							<div class="asset-inner">
+								<table class="table">
+									<tr>
+										<th>제출해야할 과제번호</th>
+										<td>${assignment.assignmentNo}</td>			
+									</tr>						
+									<tr>
+									<th>제목</th>
+										<td>${assignment.assignmentTitle}</td>
+									</tr>
+									<tr>
+										<th>내용</th>
+										<td>${assignment.assignmentContent}</td>				
+									</tr>
+									<tr>
+										<th>작성일</th>
+										<th>${assignment.createDate}</th>
+									</tr>
+									<tr>
+									<c:if test="${memberType eq '학생'}">
+										<div class="container-info">
+											<div>
+												<a href="${pageContext.request.contextPath}/student/addAssignmentReg/assignmentNo=${assignment.assignmentNo}"
+													class= "btn btn-primary">과제 제출</a>
+											</div>
+										</div>
+									</c:if>	
+								</table>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</form>	
+		</div>
+	</div>
+<c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 

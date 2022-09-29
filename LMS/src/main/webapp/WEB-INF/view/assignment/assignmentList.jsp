@@ -15,67 +15,72 @@
 	<c:otherwise>	
 	</c:otherwise>
 </c:choose>
-	<!-- studentLectureMenu -->
-	<div class="row">
-		<div class="col-sm-9 col-12">
-			<h4 class="fw-bold py-3 mb-4">
-				<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
-			</h4>
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		
+		<!-- studentLectureMenu -->
+		<div class="row">
+			<div class="col-sm-9 col-12">
+				<h4 class="fw-bold py-3 mb-4">
+					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
+				</h4>
+			</div>
+			<div class="col-sm-3 col-12">
+				<a class="btn btn-secondary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
+					강의리스트
+				</a>
+			</div>
 		</div>
-		<div class="col-sm-3 col-12">
-			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
-				강의리스트
-			</a>
+		<div>
+			<ul class="nav nav-pills flex-column flex-md-row mb-3">
+				<li class="nav-item">
+					<a class="nav-link active" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${openedLecNo}">
+					<i class="bx bx-user me-1"></i>
+						강의홈
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureNoticeList?openedLecNo=${openedLecNo}">
+					<i class="bx bx-bell me-1"></i> 
+						강의공지사항
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${openedLecNo}">
+					<i class="bx bx-link-alt me-1"></i> 
+						질문게시판
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/student/assignmentList?openedLecNo=${openedLecNo}&studentCode=${memberCode}">
+					<i class="bx bx-link-alt me-1"></i> 
+						과제게시판
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
+					<i class="bx bx-link-alt me-1"></i> 
+						강의출석
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="">
+					<i class="bx bx-link-alt me-1"></i> 
+						강의시험
+					</a>
+				</li>
+			</ul>
 		</div>
-	</div>
-	<div>
-		<ul class="nav nav-pills flex-column flex-md-row mb-3">
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${openedLecNo}">
-				<i class="bx bx-user me-1"></i>
-					강의홈
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureNoticeList?openedLecNo=${openedLecNo}">
-				<i class="bx bx-bell me-1"></i> 
-					강의공지사항
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${openedLecNo}">
-				<i class="bx bx-link-alt me-1"></i> 
-					질문게시판
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" href="${pageContext.request.contextPath}/student/assignmentList?openedLecNo=${openedLecNo}">
-				<i class="bx bx-link-alt me-1"></i> 
-					과제게시판
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
-				<i class="bx bx-link-alt me-1"></i> 
-					강의출석
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="">
-				<i class="bx bx-link-alt me-1"></i> 
-					강의시험
-				</a>
-			</li>
-		</ul>
-	</div>
-	<hr class="my-5" />
-	<!-- Main Contents -->
-	
-	<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<form
-				action="${pageContext.request.contextPath}/assignmentList"
-				id="reportListForm" method="post">
+		<hr class="my-5" />
+		
+		<!-- studentLectureOne -->
+		<div class="row text-center">
+			<div class="card">
+				<h5 class="card-header"><strong>${map.lectureName}</strong></h5>
+				<hr class="my-0" />
+				
+			<%-- <<form action="${pageContext.request.contextPath}/assignmentList"
+				id="assignmentForm" method="post">  --%>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
@@ -84,14 +89,14 @@
 							<hr>
 							<c:if test="${memberType eq '학생'}">
 								<div class="container">
-									<a href="${pageContext.request.contextPath}/assignmentRegListById">나의
+									<a href="${pageContext.request.contextPath}/assignmentRegMyList">나의
 										과제 제출 리스트</a>
 								</div>
 							</c:if>
 							<c:if test="${memberType eq '교수'}">
 								<div class="container-info">
 									<div>
-									<a href="${pageContext.request.contextPath}/assignmentList">
+									<a href="${pageContext.request.contextPath}/assignmentRegList">
 										학생 과제 제출 리스트</a>
 									</div>
 									<div>
@@ -100,10 +105,8 @@
 									</div>
 								</div>
 							</c:if>
-							<div class="card bady">
-							<div class="asset-inner">
-								<table class="table">
-									<tr>
+								<div class="card-body">
+									<table class="table table-bordered"><tr>
 										<th>assignmentNo</th>
 										<th>openedLecNo</th>
 										<th>assignmentTitle</th>
@@ -115,9 +118,7 @@
 										<tr>
 											<td>${assignment.assignmentNo}</td>
 											<td>${assignment.openedLecNo}</td>
-											<td>
-												<a href="${pageContext.request.contextPath}/assignmentOne?assignmentNo=${assignment.assignmentNo}" style="float: bottom;">${assignment.assignmentTitle}</a>
-											</td>
+											<td>${assignment.assignmentTitle}</td>
 											<td>
 												<div>
 													<textarea name="assignmentContent" id="assignmentContent"
@@ -130,27 +131,16 @@
 											
 											<c:if test="${memberType eq '교수'}">
 												<td><a
-													href="${pageContext.request.contextPath}/modifyAssignment?assignmentNo=${assignment.assignmentNo}">
-														<button data-toggle="tooltip" title="Edit"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-														</button>
+													href="${pageContext.request.contextPath}/modifyAssignment?assignmentNo=${assignment.assignmentNo}"
+														class= "btn btn-primary">
 												</a><a
-													href="${pageContext.request.contextPath}/removeAssignment?assignmentNo=${assignment.assignmentNo}">
-														<button data-toggle="tooltip" title="Trash"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-trash-o" aria-hidden="true"></i>
-														</button>
+													href="${pageContext.request.contextPath}/removeAssignment?assignmentNo=${assignment.assignmentNo}"
+														class= "btn btn-primary">
 												</a></td>
 											</c:if>
 											<c:if test="${memberType eq '학생'}">
-												<td><a
-													href="${pageContext.request.contextPath}/addassignmentReg?assignmentNo=${assignment.assignmentNo}">
-														<button data-toggle="tooltip" title="submit"
-															class="pd-setting-ed" type="button">
-															<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-														</button>
-												</a></td>
+												<td><a href="${pageContext.request.contextPath}/student/addAssignmentReg?assignmentNo=${assignment.assignmentNo}" 
+												class= "btn btn-primary">과제 제출</a></td>
 											</c:if>
 										</tr>
 									</c:forEach>
@@ -160,7 +150,6 @@
 						</div>
 					</div>
 				</div>
-			</form>
 			<!-- </form> -->
 		</div>
 	</div>

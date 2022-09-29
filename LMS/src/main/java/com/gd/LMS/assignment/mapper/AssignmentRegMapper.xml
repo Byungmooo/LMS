@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.assignment.mapper.AssignmentRegMapper">
+
+<!--전체 제출한 과제 리스트 조회 메소드 -->
+	<select id="selectAssignmentRegList"  resultType="map">
+		SELECT
+			a.opened_lec_no	openedLecNo,
+			r.assignment_reg_no assignmentRegNo,
+			r.assignment_no assignmentNo,
+			r.assignment_reg_title assignmentRegTitle,
+			r.assignment_reg_content assignmentRegContent,
+			r.assignment_score	assignmentScore,
+			r.create_date createDate
+		FROM 
+			 assignment a,
+			 assignment_reg r
+		WHERE
+			a.assignment_no = r.assignment_no
+		ORDER BY 
+			r.create_date DESC
+	</select>
+
+	<!-- 과제 제출하기 메소드 -->
+	<insert id="insertAssignmentReg" 
+			parameterType="com.gd.LMS.vo.AssignmentReg">
+		<selectKey resultType="int" keyProperty="assignmentRegNo" order="BEFORE">
+			select MAX(assignment_reg_no) + 1 from assignment_reg
+		</selectKey>
+		INSERT INTO 
+			assignment_reg(
+						assignment_no,
+						student_lec_no,
+						assignment_reg_title,
+						assignment_reg_content,
+						update_date, 
+						create_date							
+						)
+						VALUES (
+						#{assignmentNo},
+						#{studentLecNo},
+						#{assignmentRegTitle},
+						#{assignmentRegContent},
+						NOW(),
+						NOW()
+					)
+		
+	</insert>
+	<!-- 과제 제출하기 메소드 -->
+	
+	<select id="selectStudentLecNo" parameterType="map" resultType="int">
+		SELECT
+		   student_lec_no
+		FROM
+		   student_lecture
+		WHERE
+		   student_code = #{studentCode} AND
+		   opened_lec_no = #{openedLecNo}
+	</select>
+	
+	<!-- 제출한 과제 상세보기 -->
+	<select id="selectAssignmentRegOne" parameterType="int" resultType="map">
+		SELECT
+			r.assignment_reg_no assignmentRegNo,
+			r.assignment_no assignmentNo,
+			r.assignment_reg_title assignmentRegTitle,
+			r.assignment_reg_content assignmentRegContent,
+			r.assignment_score	assignmentScore,
+			r.create_date createDate,
+			i.origin_name originName,
+			i.file_name fileName
+		FROM 
+			assignment_reg r left outer join assignment_reg_img i
+		ON 
+			r.assignment_reg_no = i.assignment_reg_no
+		WHERE 
+			r.assignment_no = #{assignmentNo}
+		<!-- img랑 join -->
+	</select>
+	<!-- 제출한 과제 상세보기 -->
+
+
+
+	<!-- 제출한 과제 수정하기  -->
+	<update id="updateAssignmentReg" parameterType="com.gd.LMS.vo.AssignmentReg">
+		UPDATE 
+			assignment_reg
+		SET 
+			assignment_reg_title = #{assignmentRegTitle},
+			assignment_reg_content = #{assignmentRegContent},
+			update_date= now(),
+			origin_name = #{originName},
+			file_name = #{fileName}
+		WHERE
+			assignment_no = #{assignmentNo}
+	</update>
+	<!-- 제출한 과제 수정하기  -->
+
+
+
+
+	<!-- 제출한 과제 점수 수정하기 -->
+	<update id="updateAssignmentRegScore" parameterType="int">
+		UPDATE
+			assignment_reg
+		SET 
+			assignment_score = #{assignmentScore}
+		WHERE
+			assignment_no = #{assignmentNo}
+	</update>
+	<!-- 제출한 과제 점수 수정하기 -->
+
+
+
+
+	<!-- 제출한 과제 삭제하기 -->
+	<delete id="deleteAssignmentReg" parameterType="int">
+		DELETE FROM
+			assignment_reg
+		WHERE 
+			assignment_no = #{assignmentNo}
+	</delete>
+	<!-- 제출한 과제 삭제하기 -->
+
+
+
+
+</mapper>

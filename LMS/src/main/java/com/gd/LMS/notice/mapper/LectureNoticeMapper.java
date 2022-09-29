@@ -12,29 +12,30 @@ import com.gd.LMS.vo.LectureNotice;
 
 @Mapper
 public interface LectureNoticeMapper { //강의 공지게시판
-	
-	// 게시물 총 갯수
-	public int countBoard(Map<String, Object> map);
 
-	// 페이징 처리 게시글 조회
-	public List<LectureNotice> selectBoard(Map<String, Object> map);
-
+	// 강의공지 목록 리스트
+	public List<Map<String, Object>> selectLectureNoticeList(Map<String, Object> map);
 	
-	// 공지사항 상세보기
-	public LectureNotice selectLecNoticeOne(int lecNoticeNo);
+	// 강의공지 게시글수
+	public int selectLectureNoticeCount(Map<String, Object> map);
+	
+	// 강의공지 상세보기
+	public LectureNotice selectLectureNoticeOne(int lecNoticeNo);
+	
+	// 강의공지 조회수 증가
+	public int updateLectureNoticeViews(int lecNoticeNo);
+	
+	// 강의공지 증가된 조회수 가져오기
+	public int getLectureNoticeUpdateViews(int lecNoticeNo);
+	
+	// 강의공지 추가
+	public int insertLectureNoticeOne(LectureNotice lectureNotice);
 	
 	// 공지사항 수정
-	public int updateLecNotice(LectureNotice lectureNotice);
-	
-	// 공지사항 추가
-	public int addLecNotice(LectureNotice lectureNotice);
-	
-	// 공지사항 조회수 증가
-	public void updateLecNoticeCount(int lecNoticeNo);
-
+	public int updateLectureNoticeOne(LectureNotice lectureNotice);
 	
 	// 공지사항 삭제
-	public int deleteLecNoticeOne(int lectureNotice);
+	public int deleteLectureNoticeOne(int lectureNotice);
 	
 	
 
