@@ -15,9 +15,9 @@
 <!-- Main -->
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">"이름"님 /</span>전체게시판
+        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span>전체게시판
     </h4>
-    <hr class="my-5"/>
+    <hr class="my-1"/>
     <!-- RowPerPage Option -->
     <div class="row">
         <div class="col-sm-9 col-12 text-center"></div>
@@ -38,6 +38,7 @@
             </select>
         </div>
     </div>
+     <br> 
 
     <!-- TotalNoticeList -->
     <div class="card">
@@ -47,11 +48,11 @@
                 <caption class="ms-4"></caption>
                    <thead>
                 <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>글쓴이</th>
-                    <th>조회수</th>
-                    <th>작성일</th>
+                    <th width="10%">번호</th>
+                    <th width="50%">제목</th>
+                    <th width="20%">글쓴이</th>
+                    <th width="10%">조회수</th>
+                    <th width="10%">작성일</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -80,6 +81,11 @@
     </div>
     <!--  search bar -->
     <hr class="my-3"/>
+          <c:if test="${sessionScope.memberType eq '직원'}">
+        <a href="${pageContext.request.contextPath}/employee/addTotalNotice"
+           class="btn btn-primary"  style="float: right">글쓰기</a>           
+   </c:if>
+    
     <div class="row">
         <div class="col-sm-2 col-12 text-center"></div>
         <div class="col-sm-7 col-12 text-center">
@@ -171,10 +177,6 @@
 		
     </div>
     
-      <c:if test="${sessionScope.memberType eq '직원'}">
-        <a href="${pageContext.request.contextPath}/employee/addTotalNotice"
-           class="btn btn-primary"  style="float: right">글쓰기</a>           
-   </c:if>
 
 </div>
 <!-- / Main -->

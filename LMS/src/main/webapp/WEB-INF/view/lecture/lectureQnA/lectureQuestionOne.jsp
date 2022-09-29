@@ -71,6 +71,7 @@
 <hr class="my-0"/>
 
 <div class="card-body">
+<form name="form" action="${pageContext.request.contextPath}/employee/removeTotalNotice" method="get">
 <table class="table table-bordered">
     <tr>
         <th>질문번호</th>
@@ -99,23 +100,43 @@
                                   style="background-color:#fff;">${answer.answerContent}</textarea></td>
     </tr>
 </table>
-<div>
+<div> 
+<!-- 목록 경로 수정해야함. -->
+ 
   <c:if test="${sessionScope.memberType eq '교수'}">
         <a href="${pageContext.request.contextPath}/professor/addLectureAnswer"
-           class="btn btn-warning">답변하기</a>           
+           class="btn btn-primary">답변하기</a>
+  <a href="${pageContext.request.contextPath}/professor/lectureQuestionList?openedLecNo=${sessionScope.openedLecNo}" class="btn btn-primary">목록</a>           
    </c:if>
+   
    <c:if test="${sessionScope.memberType eq '학생'}">
+   
    		<a href="${pageContext.request.contextPath}/student/updateLectureQuestion/${lectureQuesion.opendLecNo}"
-				class="btn btn-primary">수정</a>
-		<a href="${pageContext.request.contextPath}/student/removeLectrueQuestion?opendLecNo=${lectureQuesion.opendLecNo}"
-				class="btn btn-primary">삭제</a>
+				class="btn btn-primary" >수정</a>
+		
+		<button	class="btn btn-primary" type="button" id="btnDelete">삭제</button>
+	<a href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${sessionScope.openedLecNo}" class="btn btn-primary">목록</a>	
   </c:if>
-    <a href="javascript:window.history.back()" class="btn btn-primary">목록</a>
-    </div>
+    </div></form>
     </div>
     </div>
     </div>
     </div>
     <!-- / Main -->
+    
+    <script>
+    $(document).ready(function () {
+        $("#btnDelete").click(function () {
+            if (confirm("삭제하시겠습니까?")) {
+                document.form.action = "${pageContext.request.contextPath}/removeLectureQuestion?openedLecNo=${lectureQuesion.openedLecNo}";
+                document.form.method = "get";
+                document.form.submit();
+            }
+        });
+
+     
+        });
+</script>
+    
     <!-- Footer -->
     <c:import url="/WEB-INF/view/include/footer.jsp"></c:import>

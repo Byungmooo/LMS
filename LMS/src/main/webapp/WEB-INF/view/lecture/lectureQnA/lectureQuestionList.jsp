@@ -24,7 +24,7 @@
 					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
 				</h4>
 			</div>
-			<div class="col-sm-3 col-12">
+		   <div class="col-sm-3 col-12" style="float:right;">
 				<a class="btn btn btn-primary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
 					강의리스트
 				</a>
@@ -68,12 +68,17 @@
 						강의시험
 					</a>
 				</li>
+	
 			</ul>
 		</div>
-		<hr class="my-5" />
+		
+		
+		<hr class="my-1" />
 	
-	<!-- RowPerPage Option -->
+		
+					<!-- RowPerPage Option -->
     <div class="row">
+    
         <div class="col-sm-9 col-12 text-center"></div>
         <div class="col-sm-3 col-12 text-center">
             <select class="form-select" name="sel" id="rowPerPage">
@@ -92,6 +97,7 @@
             </select>
         </div>
     </div>
+  <br>
 		
 		<!-- studentAssignmentList -->
 		<div class="card text-center">
@@ -132,12 +138,20 @@
 			</div>
 			
 		</div>	
+
 			<!--  search bar -->
 				<hr class="my-3" />
+												<div >
+								<c:if test="${sessionScope.memberType eq '학생'}">
+        <a href="${pageContext.request.contextPath}/student/addLectureQuestion"
+           class="btn btn-primary" style="float:right;" >질문하기</a>           
+   </c:if>
+   </div>
 				<div class="row">
 					<div class="col-sm-2 col-12 text-center"></div>
-					<div class="col-sm-7 col-12 text-center">
+					<div class="col-sm-8 col-12 text-center">
 						<form action="${pageContext.request.contextPath}/student/lectureQuestionList" method="get">
+						
 							<div class="row">
 								<div class="col-sm-3 col-12 text-center">
 									<select name="searchType" class="form-select">
@@ -151,14 +165,14 @@
 									<input name="keyword" class="form-control">
 								</div>
 								<div class="col-sm-2 col-12 text-center">
-									<button type="submit" class="btn btn-dark">검색</button>
+									<button type="submit" class="btn btn-dark">검색</button>			
+																			
 								</div>
 							</div>
 						</form>
 					</div>
 		<!--  search bar end -->
-		
-		
+	
 				
         <div style="display: block; text-align: center;">
             <c:if test="${paging.prePage}">
@@ -227,13 +241,7 @@
 
 									
 	
-				</div>
-				
-<c:if test="${sessionScope.memberType eq '학생'}">
-        <a href="${pageContext.request.contextPath}/student/addLectureQuestion"
-           class="btn btn-primary" style="float:right;" >질문하기</a>           
-   </c:if>				
-				
+				</div>				
 	</div>
 	<!-- / Main -->
 <!-- Footer -->

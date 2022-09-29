@@ -130,8 +130,12 @@ public class TotalNoticeController {
 	// 전체, 부서공지 추가 수정 삭제는 직원만 가능
 	// 전체공지사항 추가 페이지 이동
 	@GetMapping("/employee/addTotalNotice")
-	public String addTotalNotice() {
+	public String addTotalNotice(Model model) {
 		
+		List<Map<String, Object>> list = totalNoticeService.getTotalDepartmentName();
+		log.debug(TeamColor.LCH + "departmentList > " + list);
+		
+		model.addAttribute("department", list);
 		
 		log.debug(TeamColor.KJS + " [김진수] 전체공지 추가 페이지 이동");
 		
@@ -140,7 +144,9 @@ public class TotalNoticeController {
 
 	// 전체공지사항 추가
 	@PostMapping("/employee/addTotalNotice")
-	public String addTotalNotice(TotalNotice totalNotice) {
+	public String addTotalNotice(Model model, TotalNotice totalNotice) {
+		
+	
 		
 		int count = totalNoticeService.addTotalNotice(totalNotice);
 		

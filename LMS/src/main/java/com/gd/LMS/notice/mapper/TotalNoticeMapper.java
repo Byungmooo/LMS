@@ -37,4 +37,8 @@ public interface TotalNoticeMapper {
 	
 	//부서공지 조회
 	public List<TotalNotice> selectBoard2(Map<String, Object> map);
+	
+	// 부서코드 리스트
+	List<Map<String, Object>> selectTotalDepartmentName();
+		
 }

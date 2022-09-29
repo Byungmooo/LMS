@@ -33,6 +33,7 @@ public class LectureQnAController {
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType,
 			@RequestParam (value = "openedLecNo") int openedLecNo) {
+		
 		map.put("keyword", keyword);
 		map.put("searchType", searchType);
 		map.put("openedLecNo", openedLecNo);
@@ -53,7 +54,7 @@ public class LectureQnAController {
 
 		// --------
 		log.debug(TeamColor.KJS + "--- lectureQuestionList Controller GetMapping ---");
-
+		
 		// List<LectureQuestion> lectureQuestionList =
 		// lectureService.getLectureQuestionList(openedLecNo);
 		List<LectureQuestion> list1 = lectureQnAService.selectBoard(map);
@@ -61,6 +62,7 @@ public class LectureQnAController {
 		// log.debug(TeamColor.LCH + "lectureQuestionList > " + lectureQuestionList);
 		model.addAttribute("paging", vo);
 		model.addAttribute("question", list1);
+		
 		return "lecture/lectureQnA/lectureQuestionList";
 	}
 
@@ -84,43 +86,6 @@ public class LectureQnAController {
 		}
 		session.setAttribute("lecQuestionNo", lecQuestionNo);
 		return "lecture/lectureQnA/lectureQuestionOne";
-	}
-
-	// 강의 질문 답변 추가 페이지 이동
-	@GetMapping("/professor/addLectureAnswer")
-	public String addLectureAnswerOne(HttpSession session) {
-		log.debug(TeamColor.KJS + " [김진수] 답변 추가 페이지 이동");
-		return "lecture/lectureQnA/addLectureAnswer";
-	}
-
-	// 강의 질문 답변 추가 - 교수만 해당
-	@PostMapping("/professor/addLectureAnswer")
-	public String addLectureAnswer(LectureAnswer lectureAnswer, HttpSession session) {
-		int lecQuestionNo = (int) session.getAttribute("lecQuestionNo");
-		lectureAnswer.setLecQuestionNo(lecQuestionNo);
-		lectureQnAService.getAddAnswer(lectureAnswer);
-
-		log.debug(TeamColor.KJS + " [김진수] 답변 추가"); 
-		return "redirect:/lecture/lectureQnA/lectureQuestionList?openedLecNo=" + session.getAttribute("openedLecNo"); //연결다리, 상세보기로 돌아가기
- 
-	}
-
-	// 강의 질문 추가 페이지 이동
-	@GetMapping("/student/addLectureQuestion")
-	public String addLectureQuestionOne(HttpSession session) {
-		log.debug(TeamColor.KJS + " [김진수] 답변 추가 페이지 이동");
-		return "/lecture/lectureQnA/addLectureQuestion";
-
-	}
-
-	// 강의 질문 추가
-	@PostMapping("/student/addLectureQuestion")
-	public String addLectureStudent(LectureQuestion lectureQuestion, HttpSession session) {
-		int count = lectureQnAService.getAddQuestion(lectureQuestion);
-
-		log.debug(TeamColor.KJS + lectureQuestion + " [김진수] 답변 추가");
-		return "redirect:/student/lectureQuestionList?openedLecNo=" + session.getAttribute("openedLecNo");
-
 	}
 
 	// 질문게시판 수정 페이지 이동
@@ -154,4 +119,47 @@ public class LectureQnAController {
 		}
 		return "redirect:/student/lectureQuestionList?openedLecNo=" + session.getAttribute("openedLecNo");
 	}
+
+
+	// 강의 질문 추가 페이지 이동
+	@GetMapping("/student/addLectureQuestion")
+	public String addLectureQuestionOne(HttpSession session) {
+		log.debug(TeamColor.KJS + " [김진수] 답변 추가 페이지 이동");
+		return "/lecture/lectureQnA/addLectureQuestion";
+
+	}
+
+	// 강의 질문 추가
+	@PostMapping("/student/addLectureQuestion")
+	public String addLectureStudent(LectureQuestion lectureQuestion, HttpSession session) {
+		int count = lectureQnAService.getAddQuestion(lectureQuestion);
+
+		log.debug(TeamColor.KJS + lectureQuestion + " [김진수] 답변 추가");
+		return "redirect:/student/lectureQuestionList?openedLecNo=" + session.getAttribute("openedLecNo");
+
+	}
+	
+	// 강의 질문 답변 추가 페이지 이동
+	@GetMapping("/professor/addLectureAnswer")
+	public String addLectureAnswerOne(Model model,HttpSession session) {
+		
+		
+		
+		log.debug(TeamColor.KJS + " [김진수] 답변 추가 페이지 이동");
+		return "lecture/lectureQnA/addLectureAnswer";
+	}
+
+	// 강의 질문 답변 추가 - 교수만 해당
+	@PostMapping("/professor/addLectureAnswer")
+	public String addLectureAnswer( LectureAnswer lectureAnswer, HttpSession session) {
+		int lecQuestionNo = (int) session.getAttribute("lecQuestionNo");
+		lectureAnswer.setLecQuestionNo(lecQuestionNo);
+		lectureQnAService.getAddAnswer(lectureAnswer);
+
+		log.debug(TeamColor.KJS + " [김진수] 답변 추가"); 
+		return "redirect:/professor/lectureQuestionOne?lecQuestionNo=" + session.getAttribute("lecQuestionNo"); //연결다리, 상세보기로 돌아가기
+ 
+	}
+
+
 }

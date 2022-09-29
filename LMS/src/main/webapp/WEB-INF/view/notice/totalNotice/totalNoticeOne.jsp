@@ -16,6 +16,7 @@
 </c:choose>
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
+	<form name="form" action="${pageContext.request.contextPath}/employee/removeTotalNotice" method="get">
 		<h4 class="fw-bold py-3 mb-4">
 			<span class="text-muted fw-light">${totalNotice.writer} 님 /</span>
 		</h4>
@@ -57,7 +58,7 @@
 		</ul>
 		<hr class="my-5" />
 		
-		<!-- studentLectureOne -->
+		<!-- totalNoticeOne -->
 		<div class="row text-center">
 			<div class="card">
 				<h5 class="card-header"><strong>제목 : ${totalNotice.noticeTitle}</strong></h5>
@@ -71,8 +72,8 @@
 							<td>${totalNotice.writer}</td>
 							<th>부서코드</th>
 							<td>${totalNotice.departmentCode}</td>
-							<th>조회수</th>
-							<td>${totalNotice.views}</td>
+							<th rowspan="2">조회수</th>
+							<td rowspan="2">${totalNotice.views}</td>
 						</tr>
 						<tr>
 							<th>등록일</th>
@@ -90,15 +91,25 @@
 								<div>	
    <c:if test="${sessionScope.memberType eq '직원'}">
         <a href="${pageContext.request.contextPath}/employee/updateTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-primary" >수정</a>
-        <a href="${pageContext.request.contextPath}/employee/removeTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-primary"  >삭제</a>
-        <a href="javascript:window.history.back()" class="btn btn-info"  >목록</a>
+        	<button class="btn btn-primary" type="button" id="btnDelete">삭제</button>
+        <a href="${pageContext.request.contextPath}/member/totalNoticeList" class="btn btn-primary"  >목록</a>
    </c:if>			
 </div>
 
 				</div>
 			</div>
-		</div>
+		</div></form>
 	</div>
 	<!-- / Main -->
-
+<script>
+    $(document).ready(function () {
+		 $("#btnDelete").click(function () {
+            if (confirm("삭제하시겠습니까?")) {
+                document.form.action = "${pageContext.request.contextPath}/employee/removeTotalNotice?noticeNo=${totalNotice.noticeNo}";
+                document.form.method = "get";
+                document.form.submit();
+            }
+        });
+    });
+</script>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>

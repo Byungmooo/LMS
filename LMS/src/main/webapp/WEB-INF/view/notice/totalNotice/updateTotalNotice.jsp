@@ -55,7 +55,6 @@
                         <!-- 게시물번호를 hidden으로 처리 -->
                         <input type="hidden" name="noticeNo" value="${totalNotice.noticeNo}">            
  						<button class="btn btn-primary" type="button" id="btnUpdate">수정</button>
-                        <button class="btn btn-primary" type="button" id="btnDelete">삭제</button>
                         <button class="btn btn-primary" type="button" id="btnCancel" onclick="window.history.back()">취소</button>
                     </div>
                 </form>
@@ -76,28 +75,12 @@
 </body>
 <script>
     $(document).ready(function () {
-        $("#btnDelete").click(function () {
-            if (confirm("삭제하시겠습니까?")) {
-                document.form.action = "${pageContext.request.contextPath}/removeTotalNotice";
-                document.form.method = "get";
+		 $("#btnUpdate").click(function () {
+            if (confirm("수정하시겠습니까?")) {
+                document.form.action = "${pageContext.request.contextPath}/employee/updateTotalNotice";
+                document.form.method = "post";
                 document.form.submit();
             }
-        });
-
-        $("#btnUpdate").click(function () {
-            let title = $("#title").val();
-            let content = $("#content").val();
-            if (!title) {
-                alert("제목을 입력하세요");
-                document.form.title.focus();
-                return;
-            }
-            if (!content) {
-                alert("내용을 입력하세요");
-                document.form.content.focus();
-                return;
-            }
-            document.form.submit();
         });
     });
 </script>

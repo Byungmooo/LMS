@@ -17,43 +17,50 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class TotalNoticeService {
-	@Autowired  TotalNoticeMapper noticeMapper;
+	@Autowired  TotalNoticeMapper totalNoticeMapper;
 	
 	// 전체공지사항 목록 리스트
 	public List<TotalNotice> selectBoard(Map<String, Object> map) {
-		return noticeMapper.selectBoard(map);
+		return totalNoticeMapper.selectBoard(map);
 	}
 	
 	// 리스트 총 개수
 	public int countBoard(Map<String, Object> map) {
-		return noticeMapper.countBoard(map);
+		return totalNoticeMapper.countBoard(map);
 	}
 	
 	// 상세보기 or 조회수 증가
 	public TotalNotice getTotalNoticeOne(int noticeNo) {
-        return noticeMapper.selectTotalNoticeOne(noticeNo);
+        return totalNoticeMapper.selectTotalNoticeOne(noticeNo);
     }
 	public void updateTotalNoticeCount(int noticeNo) {
-    	noticeMapper.updateTotalNoticeCount(noticeNo);
+		totalNoticeMapper.updateTotalNoticeCount(noticeNo);
     }
 	
     // 공지사항 입력
     public int addTotalNotice(TotalNotice totalNotice) {
-        return noticeMapper.addTotalNotice(totalNotice);
+        return totalNoticeMapper.addTotalNotice(totalNotice);
     }
 
     // 수정
     public int updateTotalNotice(TotalNotice totalNotice) {
-        return noticeMapper.updateTotalNotice(totalNotice);
+        return totalNoticeMapper.updateTotalNotice(totalNotice);
     }
     
     // 삭제
     public int deleteTotalNotice(int noticeNo) {
-        return noticeMapper.deleteTotalNotice(noticeNo);
+        return totalNoticeMapper.deleteTotalNotice(noticeNo);
     }
     
 	// 부서공지사항 목록 리스트
 	public List<TotalNotice> selectBoard2(Map<String, Object> map) {
-		return noticeMapper.selectBoard2(map);
+		return totalNoticeMapper.selectBoard2(map);
 	}
+	
+	// 전체학부
+	public List<Map<String, Object>> getTotalDepartmentName() {
+		List<Map<String, Object>> map = totalNoticeMapper.selectTotalDepartmentName();
+		return map;
+	}
+	
 }
