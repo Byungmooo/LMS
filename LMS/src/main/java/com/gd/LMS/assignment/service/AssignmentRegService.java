@@ -44,12 +44,12 @@ public class AssignmentRegService {
 	
 	
 	//내 과제리스트 조회
-	   public List<Map<String, Object>> getAssignmentRegList() {
+	   public List<Map<String, Object>> getAssignmentRegList(int openedLecNo) {
 	      // 디버깅 영역구분
 	      log.debug(TeamColor.BJH + "getAssignmentRegList Service");
 
 	      // assignmentListMapper 실행
-	      List<Map<String, Object>> assignmentRegList = assignmentRegMapper.selectAssignmentRegList();
+	      List<Map<String, Object>> assignmentRegList = assignmentRegMapper.selectAssignmentRegList(openedLecNo);
 	      
 	      // 디버깅
 	      log.debug(TeamColor.BJH + assignmentRegList + "<-- assignmentRegList");
@@ -58,12 +58,12 @@ public class AssignmentRegService {
 	   } 
 	   
 	 //나의 과제 상세보기
-	public Map<String, Object> getAssignmentRegOne(int assignmentRegNo) {
+	public Map<String, Object> getAssignmentRegOne(int assignmentNo) {
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + "나의 과제 상세보기 (service) > " + assignmentRegNo);
+		log.debug(TeamColor.BJH + "나의 과제 상세보기 (service) > " + assignmentNo);
 		
 		// 매퍼메서드 호출 후 리턴값 디버깅
-		Map<String, Object> One = assignmentRegMapper.selectAssignmentRegOne(assignmentRegNo);
+		Map<String, Object> One = assignmentRegMapper.selectAssignmentRegOne(assignmentNo);
 		log.debug(TeamColor.BJH + "getAssignmentRegOne 성공 > " + One);
 				
 		 return One;
@@ -191,13 +191,13 @@ public class AssignmentRegService {
 		
 	
 	// 제출한 과제 점수 수정
-	public int modifyAssignmentRegScore(int assignmentRegNo) {
+	public int modifyAssignmentRegScore(int assignmentNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "modifyAssignmentRegScore  Service");
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + assignmentRegNo + "<-- assignmentRegNo");
+		log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentRegNo");
 
-		int modifyAssignmentRegScore = assignmentRegMapper.updateAssignmentRegScore(assignmentRegNo);
+		int modifyAssignmentRegScore = assignmentRegMapper.updateAssignmentRegScore(assignmentNo);
 		
 		log.debug(TeamColor.BJH + modifyAssignmentRegScore + "<-- 과제 점수 수정 성공");
 
@@ -206,16 +206,16 @@ public class AssignmentRegService {
 
 		
 	// 제출 과제 삭제
-	public int removeAssignmentReg(int assignmentRegNo) {
+	public int removeAssignmentReg(int assignmentNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "removeAssignmentReg Service");
-		int row= assignmentRegMapper.deleteAssignmentReg(assignmentRegNo);
+		int row= assignmentRegMapper.deleteAssignmentReg(assignmentNo);
 		// 파일이 업로드 되었다면
 		if (row != 0) {
 			System.out.println("과제가 등록되어 수정할 수 없습니다 메시지 띄우기");
 			return 0;
 		}
-		return assignmentRegNo;
+		return assignmentNo;
 	}
 	
 	

@@ -31,8 +31,7 @@ public class AssignmentController {
 	// 과제 리스트 조회
 
 	@GetMapping({"/student/assignmentList", "/professor/assignmentList"})
-	public String assignmentList(Model model, HttpSession session) {
-		int openedLecNo = 41;
+	public String assignmentList(Model model, @RequestParam(value="openedLecNo") int openedLecNo) {
 
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "assignmentList Controller");
@@ -67,12 +66,12 @@ public class AssignmentController {
 	
 	// 과제 출제하는 메소드
 	@GetMapping("/professor/addAssignment")
-	public String addAssignment(Model model, HttpSession session) {
+	public String addAssignment(Model model, HttpSession session,
+			@RequestParam(value="openedLecNo") int openedLecNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "addAssignment Controller 실행");
 
-		int openedLecNo = 41;
-
+	
 		// 세션 받아오기
 		String memberId = (String) session.getAttribute("memberId");
 		model.addAttribute("openedLecNo", openedLecNo);
@@ -86,12 +85,11 @@ public class AssignmentController {
 	// 과제 출제하는 메소드
 	// 리턴값 : openedAssignmentList.jsp로 이동
 	@PostMapping("/professor/addAssignment")
-	public String addAssignment(Assignment assignment) {
+	public String addAssignment(Assignment assignment, @RequestParam(value="openedLecNo") int openedLecNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "addAssignment Controller");
 
-		// 수정필요
-		int openedLecNo = 41;
+		
 		assignment.setOpenedLecNo(openedLecNo);
 
 		// 과제 내는 서비스
@@ -110,13 +108,13 @@ public class AssignmentController {
 
 	// 출제한 과제 수정하는 메소드
 	@GetMapping("/professor/modifyAssignment")
-	public String modifyAssignment(Model model, @RequestParam("assignmentNo") int assignmentNo) {
+	public String modifyAssignment(Model model, @RequestParam(value="openedLecNo") int openedLecNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "modifyAssignment Controller");
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + assignmentNo + "<-- reportNo");
+		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
 
-		Assignment assignmentOne = assignmentService.getAssignmentOne(assignmentNo);
+		Assignment assignmentOne = assignmentService.getAssignmentOne(openedLecNo);
 		// 디버깅
 		log.debug(TeamColor.BJH + assignmentOne + "<-- assignmentOne");
 
@@ -161,14 +159,14 @@ public class AssignmentController {
 
 	// 과제 삭제
 	@GetMapping("/professor/removeAssignment")
-	public String removeAssignment(@RequestParam("assignmentNo") int assignmentNo) {
+	public String removeAssignment(@RequestParam("assignmentNo") int openedLecNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "removeAssignment Controller");
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentNo");
+		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
 
 		// 과제 삭제 service call
-		int removeAssignment = assignmentService.removeAssignment(assignmentNo);
+		int removeAssignment = assignmentService.removeAssignment(openedLecNo);
 		// 파라미터
 		log.debug(TeamColor.BJH + removeAssignment + "<-- removeAssignment");
 

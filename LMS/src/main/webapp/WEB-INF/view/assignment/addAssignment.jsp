@@ -18,8 +18,7 @@
 	
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/addAssignment"
-				id="addForm" method="post">
+			<form action="${pageContext.request.contextPath}/addAssignment" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:3%;">
 						<div class="product-status-wrap drp-lst">
@@ -44,9 +43,7 @@
 						</div>
 					</div>
 					<div class="payment-adress">
-						<button type="submit"
-							class="btn btn-primary"
-							style="float: right; margin-top: 3%; margin-right: 3%;">Submit</button>
+						<button type="submit" class="btn btn-primary">Submit</button>
 					</div>
 				</div>
 				<!-- row -->

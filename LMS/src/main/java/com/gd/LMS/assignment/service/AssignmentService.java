@@ -63,14 +63,14 @@ public class AssignmentService {
 
 	
 	//제출한 과제 수정 폼
-	public Assignment getAssignmentOne(int assignmentNo) {
+	public Assignment getAssignmentOne(int openedLecNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH+ "getAssignmentOne Service");
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentNo");
+		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
 
 		// Mapper call
-		Assignment getAssignmentOne = assignmentMapper.selectAssignmentOne(assignmentNo);
+		Assignment getAssignmentOne = assignmentMapper.selectAssignmentOne(openedLecNo);
 		// Mapper에서 받아온 assignmentNo 값 디버깅
 		log.debug(TeamColor.BJH + getAssignmentOne + "<-- getAssignmentOne");
 
@@ -96,14 +96,14 @@ public class AssignmentService {
 	
 	
 	//과제 삭제
-	public int removeAssignment(int assignmentNo) {
+	public int removeAssignment(int openedLecNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "removeAssignment Service");
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentNo");
+		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
 
 		// Mapper call
-		int removeAssignment = assignmentMapper.deleteAssignment(assignmentNo);
+		int removeAssignment = assignmentMapper.deleteAssignment(openedLecNo);
 		// Mapper에서 받아온 assignmentNo 값 디버깅
 		log.debug(TeamColor.BJH + removeAssignment + "<-- deleteAssignment");
 

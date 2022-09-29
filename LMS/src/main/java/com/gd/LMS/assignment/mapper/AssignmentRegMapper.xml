@@ -63,7 +63,7 @@
 		ON 
 			r.assignment_reg_no = i.assignment_reg_no
 		WHERE 
-			r.assignment_reg_no = #{assignmentRegNo}
+			r.assignment_no = #{assignmentNo}
 		<!-- img랑 join -->
 	</select>
 	<!-- 제출한 과제 상세보기 -->
@@ -81,7 +81,7 @@
 			origin_name = #{originName},
 			file_name = #{fileName}
 		WHERE
-			assignment_reg_no = #{assignmentRegNo}
+			assignment_no = #{assignmentNo}
 	</update>
 	<!-- 제출한 과제 수정하기  -->
 
@@ -95,7 +95,7 @@
 		SET 
 			assignment_score = #{assignmentScore}
 		WHERE
-			assignment_reg_no = #{assignmentRegNo}
+			assignment_no = #{assignmentNo}
 	</update>
 	<!-- 제출한 과제 점수 수정하기 -->
 
@@ -107,7 +107,7 @@
 		DELETE FROM
 			assignment_reg
 		WHERE 
-			assignment_reg_no = #{assignmentRegNo}
+			assignment_no = #{assignmentNo}
 	</delete>
 	<!-- 제출한 과제 삭제하기 -->
 

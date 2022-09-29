@@ -33,13 +33,14 @@ public class AssignmentRegController {
 	
 	// 과제 리스트 조회	
 	@GetMapping("/student/assignmentRegList")
-	public String assignmentRegList(Model model, HttpSession session) {
+	public String assignmentRegList(Model model, HttpSession session,
+			@RequestParam(value ="openedLecNo")int openedLecNo) {
 		
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "assignmentRegList Controller");
 		
 		//서비스 불러오기
-		List<Map<String, Object>>  assignmentRegList = assignmentRegService.getAssignmentRegList();
+		List<Map<String, Object>>  assignmentRegList = assignmentRegService.getAssignmentRegList(openedLecNo);
 		log.debug(TeamColor.BJH + assignmentRegList + "<--assignmentList");
 
 		// 뷰에서 끄내쓸 리스트 보내기
@@ -54,16 +55,16 @@ public class AssignmentRegController {
 			// 실패
 			log.debug(TeamColor.BJH + "나의 과제 리스트 조회실패");
 			// index로 리다이렉트
-			return "redirect:/assignment/assignmentRegList";
+			return "redirect:/student/studentLectureList";
 		}
 	}
 		
 		//과제 상세보기
-		@GetMapping({"/student/assignmentRegOne", "/professor/assignmentRegOne" })
-		public String getAssignmentRegOne(@RequestParam("assignmentRegNo") int assignmentRegNo ,Model model, Map<String, Object> assignmentRegOne) {
-		log.debug(TeamColor.BJH + "assignmentRegNo > " + assignmentRegNo);
+		@GetMapping("/student/assignmentRegOne")
+		public String getAssignmentRegOne(@RequestParam("assignmentNo") int assignmentNo ,Model model, Map<String, Object> assignmentRegOne) {
+		log.debug(TeamColor.BJH + "assignmentNo > " + assignmentNo);
 			
-		assignmentRegOne = assignmentRegService.getAssignmentRegOne(assignmentRegNo);
+		assignmentRegOne = assignmentRegService.getAssignmentRegOne(assignmentNo);
 		
 		//모델에 담아서 상세보기 리스트에서 꺼내 쓰면 됨
 		model.addAttribute("RegOne", assignmentRegOne);
@@ -72,32 +73,39 @@ public class AssignmentRegController {
 		log.debug(TeamColor.BJH + "RegOne 값 들어갔나?----->s" + assignmentRegOne);
 		
 		
-		return "assignment/assignmentRegOne";
+		return "redirect:/student/assignmentRegOne";
 		
 		}
+		
+		
+		
 		// 과제 제출하는 메소드
 		@GetMapping("/student/addAssignmentReg")
 		public String addAssignmentReg(Model model, HttpSession session, 
-				@RequestParam(value="assignmentRegNo") int assignmentRegNo) {
+				@RequestParam(value="assignmentNo") int assignmentNo) {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "addAssignmentReg Controller 실행");
 			
 			
 			// 세션 받아오기
 			String memberId = (String) session.getAttribute("memberId");
-			model.addAttribute("assignmentRegNo",assignmentRegNo);
+			model.addAttribute("assignmentNo",assignmentNo);
 			// 로그인한 강사의 멤버아이디
 			log.debug(TeamColor.BJH + memberId + "<-- memberId");
-			log.debug(TeamColor.BJH + assignmentRegNo + "<-- assignmentRegNo");
+			log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentNo");
 
-			return "redirect:/assignment/addAssignmentReg";
+			return "redirect:/student/addAssignmentReg";
 		} 
 
 		
 
 		// 과제 제출 Action
 		@PostMapping("/student/addAssignmentRegAction")
-		public String addAssignmentRegAction(AssignmentReg assignmentReg,MultipartFile[] regFile, HttpServletRequest request) throws UnsupportedEncodingException  {
+		public String addAssignmentRegAction(AssignmentReg assignmentReg,
+				MultipartFile[] regFile, 
+				HttpServletRequest request,
+				@RequestParam (value="assignmentNo") int assignmentNo
+				) throws UnsupportedEncodingException  {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "addAssignmentReg ACTION Controller----실행");
 		
@@ -111,7 +119,7 @@ public class AssignmentRegController {
 			
 			
 			
-			return "redirect:/assignment/assignmentRegList";
+			return "redirect:/assignmentRegList";
 		}
 
 		
@@ -119,19 +127,19 @@ public class AssignmentRegController {
 		
 		// 제출한 과제 점수 수정 Form
 		@GetMapping("/professor/modifyAssignmentRegScore")
-		public String modifyAssignmentRegScore(Model model, @RequestParam("assignmentRegNo") int assignmentRegNo) {
+		public String modifyAssignmentRegScore(Model model, @RequestParam("assignmentNo") int assignmentNo) {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "modifyassignmentRegScore 과제수정 Get Controller");
 			// 파라미터 디버깅
 		
-			int score = assignmentRegService.modifyAssignmentRegScore(assignmentRegNo);
+			int score = assignmentRegService.modifyAssignmentRegScore(assignmentNo);
 			// 디버깅
 			log.debug(TeamColor.BJH + score + "<-- 수정할 내용 담아서 넘기기");
 
 			// 모델단에 reportSubmitOne을 addAttribute해서 폼으로 전달
 			model.addAttribute("score", score);
 
-			return "redirect:/assignment/modifyAssignmentRegScore";
+			return "redirect:/professor/modifyAssignmentRegScore";
 		} 
 		// 제출한 과제 점수 수정 Action
 		@PostMapping("/professor/modifyassignmentRegScore")
@@ -146,29 +154,29 @@ public class AssignmentRegController {
 
 		// 제출한 과제 수정 Form
 		@GetMapping("/student/modifyAssignmentReg")
-		public String modifyAssignmentReg(Model model, AssignmentReg assignmentReg,int assignmentRegNo) {
+		public String modifyAssignmentReg(Model model, AssignmentReg assignmentReg,int assignmentNo) {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "modifyAssignmentReg Controller");
 			// 파라미터 디버깅
 			log.debug(TeamColor.BJH + assignmentReg + "<-- assignmentReg");
 
 			// assignmentRegOne 리스트 model값으로 보내기
-			Map<String, Object> modifyAssignmentReg = assignmentRegService.getAssignmentRegOne(assignmentRegNo);
+			Map<String, Object> modifyAssignmentReg = assignmentRegService.getAssignmentRegOne(assignmentNo);
 			// 디버깅
 			log.debug(TeamColor.BJH + modifyAssignmentReg + "<-- assignmentReg");
 
 			// 모델에 assignmentRegOne을 addAttribute해서 폼으로 전달
 			model.addAttribute("modifyReg", modifyAssignmentReg);
 
-			return "redirect:/assignment/modifyAssignmentReg";
+			return "student/modifyAssignmentReg";
 
 		} 
 		
 
 		
 		// 제출한 과제 수정action
-		@PostMapping("/student/modifyAssignmentReg")
-		public String modifyAssignmentReg(AssignmentReg assignmentReg)throws UnsupportedEncodingException  {
+		@PostMapping("/student/modifyAssignmentRegAction")
+		public String modifyAssignmentRegAction(AssignmentReg assignmentReg)throws UnsupportedEncodingException  {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "modifyAssignmentReg Controller");
 			
@@ -185,27 +193,27 @@ public class AssignmentRegController {
 			}
 
 			// assignmentRegList로 이동
-			return "redirect:/assignment/assignmentRegList";
+			return "student/assignmentRegList";
 		} 
 		
 		
 
 		// 제출한 과제 삭제
 		@PostMapping("/student/removeAssignmentReg")
-		public String removeAssignmentReg(@RequestParam("assignmentRegNo") int assignmentRegNo) {
+		public String removeAssignmentReg(@RequestParam("assignmentNo") int assignmentNo) {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "removeAssignment Controller");
-			assignmentRegService.removeAssignmentReg(assignmentRegNo);
+			assignmentRegService.removeAssignmentReg(assignmentNo);
 			
 			// 파라미터 디버깅
-			log.debug(TeamColor.BJH + assignmentRegNo + "<-- assignmentRegNo");
+			log.debug(TeamColor.BJH + assignmentNo + "<-- assignmentNo");
 							
-			if (assignmentRegNo != 0) {
+			if (assignmentNo != 0) {
 				// 성공
 				log.debug(TeamColor.BJH + "과제가 존재하여 삭제불가능");
-				return "redirect:/assignment/assignmentRegList";
+				return "student/assignmentRegList";
 			}
-			return "redirect:/assignment/assignmentRegOne";
+			return "student/assignmentRegOne";
 		}
 		
 		

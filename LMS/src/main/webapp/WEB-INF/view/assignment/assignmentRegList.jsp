@@ -78,22 +78,8 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
 						<div class="product-status-wrap drp-lst">
-							<h4>과제리스트</h4>
-							<hr>
-							<c:if test="${memberType eq '학생'}">
-								<div class="container">
-									<a href="${pageContext.request.contextPath}/student/assignmenMytRegList">나의
-										과제 제출 리스트</a>
-								</div>
-							</c:if>
-							<c:if test="${memberType eq '교수'}">
-								<div class="container-info">
-									<div>
-									<a href="${pageContext.request.contextPath}/professor/assignmentRegScore?studentLecNo=${assignmentReg.studentLecNo}">
-										학생 과제 제출 체점하기</a>
-									</div>
-								</div>
-							</c:if>
+							<h4>내가 제출한 과제목록</h4>
+							
 							<div class="card bady">
 							<div class="asset-inner">
 								<table class="table">
@@ -110,7 +96,7 @@
 											<td>${assignmentReg.assignmentNo}</td>
 											<td>${assignmentReg.openedLecNo}</td>
 											<td>
-												<a href="${pageContext.request.contextPath}/assignmentRegOne?assignmentRegNo=${assignmentReg.assignmentRegNo}" style="float: bottom;">
+												<a href="${pageContext.request.contextPath}/assignmentRegOne?assignmentNo=${assignmentReg.assignmentNo}" style="float: bottom;">
 												${assignmentReg.assignmentRegTitle}</a>
 											</td>
 											<td>${assignmentReg.createDate}</td>
@@ -118,8 +104,8 @@
 											
 											
 											<c:if test="${memberType eq '학생'}">
-												<td><a href="${pageContext.request.contextPath}/student/addAssignmentReg?assignmentRegNo=${assignmentReg.assignmentRegNo}" class= "btn btn-primary">
-												과제 제출</a></td>
+												<td><a href="${pageContext.request.contextPath}/student/addAssignmentReg?assignmentNo=${assignmentReg.assignmentNo}" 
+												class= "btn btn-primary" type="button">과제 제출</a></td>
 											</c:if>
 										</tr>
 									</c:forEach>

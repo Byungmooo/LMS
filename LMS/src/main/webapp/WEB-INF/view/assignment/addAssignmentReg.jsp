@@ -18,7 +18,7 @@
 	
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/addAssignmentRegAction"
+			<form action="${pageContext.request.contextPath}/student/addAssignmentRegAction"
 			enctype="multipart/form-data" id="addForm" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:3%;">
