@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Header -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <c:choose>
 	<c:when test="${memberType eq '학생'}">
 		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>	
@@ -122,7 +124,7 @@
 									</tr>
 									<tr>
 										<th>첨부파일</th>
-										<td> <img src ="${pageContext.request.contextPath}/imgFile/file/${RegOne.fileName}.${RegOne.fileType}">
+										<td> <img src ="${pageContext.request.contextPath}/imgFile/file/${RegOne.fileName}">
 											<a href="${pageContext.request.contextPath}/downloadFile?fileName=${RegOne.fileName}&assignmentRegNo=${RegOne.assignmentRegNo}">${RegOne.originName}</a>
 										</td>
 									</tr>

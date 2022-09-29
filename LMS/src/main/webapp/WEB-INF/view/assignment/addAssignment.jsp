@@ -18,13 +18,13 @@
 	
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/addAssignment" method="post">
+			<form action="${pageContext.request.contextPath}/professor/addAssignment" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:3%;">
 						<div class="product-status-wrap drp-lst">
 							<h4>과제 출제</h4>
 							<hr>
-						
+							<input type="hidden" name="openedLecNo" value="${openedLecNo}">
 							<div class="form-group">
 								<label for="assignmentTitle">assignmentTitle</label>
 								<input name="assignmentTitle" id="assignmentTitle" type="text"

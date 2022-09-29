@@ -31,7 +31,7 @@ public class AssignmentController {
 	// 과제 리스트 조회
 
 	@GetMapping({"/student/assignmentList", "/professor/assignmentList"})
-	public String assignmentList(Model model, @RequestParam(value="openedLecNo") int openedLecNo) {
+	public String assignmentList(Model model,Assignment assignment, @RequestParam(value="openedLecNo") int openedLecNo) {
 
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "assignmentList Controller");
@@ -74,24 +74,26 @@ public class AssignmentController {
 	
 		// 세션 받아오기
 		String memberId = (String) session.getAttribute("memberId");
-		model.addAttribute("openedLecNo", openedLecNo);
 		// 로그인한 강사의 멤버아이디
 		log.debug(TeamColor.BJH + memberId + "<-- memberId");
 		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
 
-		return "redirect:/assignment/addAssignment";
+		return "assignment/addAssignment";
 	}
 
 	// 과제 출제하는 메소드
 	// 리턴값 : openedAssignmentList.jsp로 이동
 	@PostMapping("/professor/addAssignment")
-	public String addAssignment(Assignment assignment, @RequestParam(value="openedLecNo") int openedLecNo) {
+	public String addAssignment(Assignment assignment,
+			HttpSession session) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "addAssignment Controller");
 
+		int openedLecNo = (int)session.getAttribute("openedLecNo"); 
+		log.debug(TeamColor.BJH + openedLecNo + "<--openedLecNo");
 		
-		assignment.setOpenedLecNo(openedLecNo);
-
+		int memberId = (int)session.getAttribute("memberId");
+		log.debug(TeamColor.BJH +  memberId + "<-----memberId" );
 		// 과제 내는 서비스
 		int row = assignmentService.addAssignment(assignment);
 
@@ -103,9 +105,11 @@ public class AssignmentController {
 			log.debug(TeamColor.BJH + " 과제 내기 실패");
 		}
 		// assgnmentList로 리다이렉트
-		return "redirect:/assignment/assignmentList";
+		return "redirect:/professor/assignmentList?openedLecNo" + openedLecNo;
 	}
 
+	
+	
 	// 출제한 과제 수정하는 메소드
 	@GetMapping("/professor/modifyAssignment")
 	public String modifyAssignment(Model model, @RequestParam(value="openedLecNo") int openedLecNo) {
@@ -121,7 +125,7 @@ public class AssignmentController {
 		// 상세보기 내용 담아서 보내기
 		model.addAttribute("assignment", assignmentOne);
 
-		return "redirect:/assignment/modifyAssignment";
+		return "redirect:/professor/modifyAssignment";
 	}
 
 	// 출제한 과제 수정하는 메소드
@@ -154,7 +158,7 @@ public class AssignmentController {
 			log.debug(TeamColor.BJH + " 제출한 과제 수정 실패");
 		}
 		// 수정에 성공했으면 낸 과제 리스트로 보내기
-		return "redirect:/assignment/assignmentList";
+		return "redirect:/professor/assignmentList";
 	}
 
 	// 과제 삭제
@@ -177,10 +181,10 @@ public class AssignmentController {
 			// 실패
 			log.debug(TeamColor.BJH + " 과제 삭제 실패");
 			// reportList로 리다이렉트
-			return "redirect:/assignment/assignmentList";
+			return "redirect:/professor/modifyAssignment";
 
 		}
-		return "redirect:/assignment/assignmentList";
+		return "redirect:/professor/assignmentList";
 	}
 
 }

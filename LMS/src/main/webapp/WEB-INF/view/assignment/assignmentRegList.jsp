@@ -96,7 +96,7 @@
 											<td>${assignmentReg.assignmentNo}</td>
 											<td>${assignmentReg.openedLecNo}</td>
 											<td>
-												<a href="${pageContext.request.contextPath}/assignmentRegOne?assignmentNo=${assignmentReg.assignmentNo}" style="float: bottom;">
+												<a href="${pageContext.request.contextPath}/student/assignmentRegOne?assignmentRegNo=${assignmentReg.assignmentRegNo}" style="float: bottom;">
 												${assignmentReg.assignmentRegTitle}</a>
 											</td>
 											<td>${assignmentReg.createDate}</td>

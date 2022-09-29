@@ -49,12 +49,12 @@ public class AssignmentRegService {
 	
 	
 	//내 과제리스트 조회
-	   public List<Map<String, Object>> getAssignmentRegList(int assignmentNo) {
+	   public List<Map<String, Object>> getAssignmentRegList(int assignmentRegNo) {
 	      // 디버깅 영역구분
 	      log.debug(TeamColor.BJH + "getAssignmentRegList Service");
 
 	      // assignmentListMapper 실행
-	      List<Map<String, Object>> assignmentRegList = assignmentRegMapper.selectAssignmentRegList(assignmentNo);
+	      List<Map<String, Object>> assignmentRegList = assignmentRegMapper.selectAssignmentRegList(assignmentRegNo);
 	      
 	      // 디버깅
 	      log.debug(TeamColor.BJH + assignmentRegList + "<-- assignmentRegList");
@@ -63,12 +63,12 @@ public class AssignmentRegService {
 	   } 
 	   
 	 //나의 과제 상세보기
-	public Map<String, Object> getAssignmentRegOne(int assignmentNo) {
+	public Map<String, Object> getAssignmentRegOne(int assignmentRegNo) {
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + "나의 과제 상세보기 (service) > " + assignmentNo);
+		log.debug(TeamColor.BJH + "나의 과제 상세보기 (service) > " + assignmentRegNo);
 		
 		// 매퍼메서드 호출 후 리턴값 디버깅
-		Map<String, Object> One = assignmentRegMapper.selectAssignmentRegOne(assignmentNo);
+		Map<String, Object> One = assignmentRegMapper.selectAssignmentRegOne(assignmentRegNo);
 		log.debug(TeamColor.BJH + "getAssignmentRegOne 성공 > " + One);
 				
 		 return One;

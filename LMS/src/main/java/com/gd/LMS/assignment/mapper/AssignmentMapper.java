@@ -23,7 +23,6 @@ public interface AssignmentMapper {
 		//과제 개수 카운트
 		int selectAssignmentTotalCount();
 		
-				
 		// 과제 출제
 		int insertAssignment(Assignment assignment);
 		

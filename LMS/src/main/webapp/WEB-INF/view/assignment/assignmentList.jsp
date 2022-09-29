@@ -89,18 +89,18 @@
 							<hr>
 							<c:if test="${memberType eq '학생'}">
 								<div class="container">
-									<a href="${pageContext.request.contextPath}/assignmentRegMyList">나의
+									<a href="${pageContext.request.contextPath}/student/assignmentRegList?assignmentNo=${assignment.assignmentNo}">나의
 										과제 제출 리스트</a>
 								</div>
 							</c:if>
 							<c:if test="${memberType eq '교수'}">
 								<div class="container-info">
 									<div>
-									<a href="${pageContext.request.contextPath}/assignmentRegList">
+									<a href="${pageContext.request.contextPath}/professor/assignmentRegList">
 										학생 과제 제출 리스트</a>
 									</div>
 									<div>
-									<a href="${pageContext.request.contextPath}/addAssignment?openedLecNo=${assignment.openedLecNo}">
+									<a href="${pageContext.request.contextPath}/professor/addAssignment?openedLecNo=${openedLecNo}">
 										과제추가</a>
 									</div>
 								</div>

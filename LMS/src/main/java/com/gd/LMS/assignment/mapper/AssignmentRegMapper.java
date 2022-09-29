@@ -22,7 +22,7 @@ public interface AssignmentRegMapper {
 	List<Map<String,Object>> selectAssignmentRegList(int assignmentNo);
 	
 	// 상세보기
-	Map<String,Object> selectAssignmentRegOne(int assignmentNo);
+	Map<String,Object> selectAssignmentRegOne(int assignmentRegNo);
 
 	// 과제 제출 
 	List<Assignment> addAssignmentForm(int assignmentNo); //교수가 낸 과제

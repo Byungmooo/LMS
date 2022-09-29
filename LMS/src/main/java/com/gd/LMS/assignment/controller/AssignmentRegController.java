@@ -63,13 +63,14 @@ public class AssignmentRegController {
 		}
 	}
 		
+	
 		//과제 상세보기
 		@GetMapping("/student/assignmentRegOne")
-		public String getAssignmentRegOne(@RequestParam("assignmentNo") int assignmentNo ,
-				Model model, Map<String, Object> assignmentRegOne) {
-		log.debug(TeamColor.BJH + "assignmentNo > " + assignmentNo);
+		public String getAssignmentRegOne(@RequestParam("assignmentRegNo") int assignmentRegNo ,
+				Model model) {
+		log.debug(TeamColor.BJH + "assignmentRegNo > " + assignmentRegNo);
 			
-		assignmentRegOne = assignmentRegService.getAssignmentRegOne(assignmentNo);
+		Map<String, Object> assignmentRegOne = assignmentRegService.getAssignmentRegOne(assignmentRegNo);
 		
 		//모델에 담아서 상세보기 리스트에서 꺼내 쓰면 됨
 		model.addAttribute("RegOne", assignmentRegOne);
@@ -78,7 +79,7 @@ public class AssignmentRegController {
 		log.debug(TeamColor.BJH + "RegOne 값 들어갔나?----->s" + assignmentRegOne);
 		
 		
-		return "redirect:/student/assignmentRegOne";
+		return "/assignment/assignmentRegOne";
 		
 		}
 		
@@ -86,7 +87,8 @@ public class AssignmentRegController {
 		
 		// 과제 제출하는 메소드
 		@GetMapping("/student/addAssignmentReg")
-		public String addAssignmentRegOne(Model model, HttpSession session) {
+		public String addAssignmentRegOne(Model model, HttpSession session, 
+				@RequestParam("assignmentNo") int assignmentNo) {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "addAssignmentReg Controller 실행");
 			
@@ -98,6 +100,7 @@ public class AssignmentRegController {
 			log.debug(TeamColor.BJH + list + "<-- list에 openedLecNo");
 			
 			model.addAttribute("list",list);
+			model.addAttribute("assignmentNo",assignmentNo);
 			log.debug(TeamColor.BJH + list + "<-- list");
 
 			// 로그인한 멤버아이디
@@ -119,14 +122,19 @@ public class AssignmentRegController {
 			log.debug(TeamColor.BJH + "addAssignmentReg ACTION Controller----실행");
 			
 			int openedLecNo = (int)session.getAttribute("openedLecNo"); 
+			log.debug(TeamColor.BJH + openedLecNo + "<--openedLecNo");
+			
 			int studentCode = (int)session.getAttribute("memberCode");
-			int assignmentNo = (int)session.getAttribute("assignmentNo");
+			log.debug(TeamColor.BJH +  studentCode + "<-----memberCode" );
+			
 			Map<String, Object> map = new HashMap<>();
 			
 
 			map.put("openedLecNo", openedLecNo);
+			log.debug(TeamColor.BJH +  openedLecNo + "<-----openedLecNo" );
+			
 			map.put("studentCode", studentCode);
-			map.put("assignmentNo", assignmentNo);
+			log.debug(TeamColor.BJH +  studentCode + "<-----studentCode" );
 			
 			// Service Call
 			assignmentRegService.addAssignmentRegForm(assignmentReg,  regFile, request, map);
@@ -136,10 +144,11 @@ public class AssignmentRegController {
 			log.debug(TeamColor.BJH + assignmentReg + "<--assignmentReg");
 			log.debug(TeamColor.BJH +  regFile + "<-----regFile" );
 			log.debug(TeamColor.BJH +  request + "<-----request" );
+			log.debug(TeamColor.BJH +  map + "<-----map" );
 			
 			
 			
-			return "redirect:/student/assignmentRegOne";
+			return "redirect:/student/assignmentRegList?assignmentNo=" + assignmentReg.getAssignmentNo();
 		}
 
 		

@@ -74,7 +74,7 @@
 		ON 
 			r.assignment_reg_no = i.assignment_reg_no
 		WHERE 
-			r.assignment_no = #{assignmentNo}
+			r.assignment_reg_no = #{assignmentRegNo}
 		<!-- img랑 join -->
 	</select>
 	<!-- 제출한 과제 상세보기 -->
