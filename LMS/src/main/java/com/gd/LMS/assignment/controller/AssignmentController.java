@@ -66,7 +66,7 @@ public class AssignmentController {
 	**************/
 	
 	// 과제 출제하는 메소드
-	@GetMapping("/addAssignment")
+	@GetMapping("/professor/addAssignment")
 	public String addAssignment(Model model, HttpSession session) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "addAssignment Controller 실행");
@@ -80,12 +80,12 @@ public class AssignmentController {
 		log.debug(TeamColor.BJH + memberId + "<-- memberId");
 		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
 
-		return "assignment/addAssignment";
+		return "redirect:/assignment/addAssignment";
 	}
 
 	// 과제 출제하는 메소드
 	// 리턴값 : openedAssignmentList.jsp로 이동
-	@PostMapping("/addAssignment")
+	@PostMapping("/professor/addAssignment")
 	public String addAssignment(Assignment assignment) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "addAssignment Controller");
@@ -105,11 +105,11 @@ public class AssignmentController {
 			log.debug(TeamColor.BJH + " 과제 내기 실패");
 		}
 		// assgnmentList로 리다이렉트
-		return "redirect:/assignmentList";
+		return "redirect:/assignment/assignmentList";
 	}
 
 	// 출제한 과제 수정하는 메소드
-	@GetMapping("/modifyAssignment")
+	@GetMapping("/professor/modifyAssignment")
 	public String modifyAssignment(Model model, @RequestParam("assignmentNo") int assignmentNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "modifyAssignment Controller");
@@ -123,11 +123,11 @@ public class AssignmentController {
 		// 상세보기 내용 담아서 보내기
 		model.addAttribute("assignment", assignmentOne);
 
-		return "assignment/modifyAssignment";
+		return "redirect:/assignment/modifyAssignment";
 	}
 
 	// 출제한 과제 수정하는 메소드
-	@PostMapping("/modifyAssignment")
+	@PostMapping("/professor/modifyAssignment")
 	public String modifyAssignment(@RequestParam("assignmentNo") int assignmentNo,
 			@RequestParam("openedLecNo") int openedLecNo, @RequestParam("assignmentTitle") String assignmentTitle,
 			@RequestParam("assignmentContent") String assignmentContent, @RequestParam("endDate") String endDate) {
@@ -156,11 +156,11 @@ public class AssignmentController {
 			log.debug(TeamColor.BJH + " 제출한 과제 수정 실패");
 		}
 		// 수정에 성공했으면 낸 과제 리스트로 보내기
-		return "redirect:/assignmentList";
+		return "redirect:/assignment/assignmentList";
 	}
 
 	// 과제 삭제
-	@GetMapping("/removeAssignment")
+	@GetMapping("/professor/removeAssignment")
 	public String removeAssignment(@RequestParam("assignmentNo") int assignmentNo) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "removeAssignment Controller");
@@ -179,10 +179,10 @@ public class AssignmentController {
 			// 실패
 			log.debug(TeamColor.BJH + " 과제 삭제 실패");
 			// reportList로 리다이렉트
-			return "redirect:/assignmentList";
+			return "redirect:/assignment/assignmentList";
 
 		}
-		return "redirect:/assignmentList";
+		return "redirect:/assignment/assignmentList";
 	}
 
 }
