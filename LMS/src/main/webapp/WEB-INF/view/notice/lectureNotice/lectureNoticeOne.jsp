@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Header -->
 <c:choose>
@@ -15,7 +14,7 @@
 	<c:otherwise>	
 	</c:otherwise>
 </c:choose>
-
+	
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
 		<div class="row">
@@ -31,27 +30,17 @@
 			</div>
 		</div>
 		
-		<!-- Menu -->
-		<%-- <c:choose>
-			<c:when test="${memberType eq '학생'}">
-				<c:import url="/WEB-INF/view/lecture/lectureMenu/studentLectureMenu.jsp"></c:import>	
-			</c:when>
-			<c:when test="${memberType eq '교수'}">
-				<c:import url="/WEB-INF/view/lecture/lectureMenu/professorLectureMenu.jsp"></c:import>	
-			</c:when>
-		</c:choose> --%>
-		
 		<!-- studentLectureMenu -->
 		<div>
 			<ul class="nav nav-pills flex-column flex-md-row mb-3">
 				<li class="nav-item">
-					<a class="nav-link active" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${openedLecNo}">
+					<a class="nav-link" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${openedLecNo}">
 					<i class="bx bx-user me-1"></i>
 						강의홈
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureNoticeList?openedLecNo=${openedLecNo}">
+					<a class="nav-link active" href="${pageContext.request.contextPath}/student/lectureNoticeList?openedLecNo=${openedLecNo}">
 					<i class="bx bx-bell me-1"></i> 
 						강의공지사항
 					</a>
@@ -87,13 +76,13 @@
 		<div>
 			<ul class="nav nav-pills flex-column flex-md-row mb-3">
 				<li class="nav-item">
-					<a class="nav-link active" href="${pageContext.request.contextPath}/professor/openedLectureOne?openedLecNo=${openedLecNo}">
+					<a class="nav-link" href="${pageContext.request.contextPath}/professor/openedLectureOne?openedLecNo=${openedLecNo}">
 					<i class="bx bx-user me-1"></i>
 						강의홈
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/professor/lectureNoticeList?openedLecNo=${openedLecNo}">
+					<a class="nav-link active" href="${pageContext.request.contextPath}/professor/lectureNoticeList?openedLecNo=${openedLecNo}">
 					<i class="bx bx-bell me-1"></i> 
 						강의공지사항
 					</a>
@@ -129,45 +118,54 @@
 		<!-- studentLectureOne -->
 		<div class="row text-center">
 			<div class="card">
-				<h5 class="card-header"><strong>${map.lectureName}</strong></h5>
-				<hr class="my-0" />
-				
+				<h5 class="card-header"><strong>강의공지사항</strong></h5>
 				<div class="card-body">
+					<div style="float: right;">
+						<span>조회수 : ${map.views}</span>
+					</div>
 					<table class="table table-bordered">
 						<tr>
-							<th>담당교수</th>
-							<td>${map.professorName}</td>
-							<th>교과구분</th>
-							<td>${map.lectureType}</td>
-							<th>이수학점</th>
-							<td>${map.credit}</td>
+							<th width="20%">작성자</th>
+							<td width="30%">${map.writer}</td>
+							<th width="20%">등록일자</th>
+							<td width="30%">${map.createDate}</td>
 						</tr>
 						<tr>
-							<th>개설학부</th>
-							<td>${map.departmentName}</td>
-							<th>개설년도</th>
-							<td>${map.lectureYear}</td>
-							<th>개설학기</th>
-							<td>${map.lectureSemester}</td>
+							<th>제목</th>
+							<td colspan="5">${map.noticeTitle}</td>
 						</tr>
 						<tr>
-							<th>강의장소</th>
-							<td>${map.lecClassroom}</td>
-							<th>강의정원</th>
-							<td>${map.studentNum}</td>
-							<th>신청인원</th>
-							<td>????</td>							
-						</tr>
-						<tr>
-							<th>강의계획서</th>
-							<td colspan="5"><textarea class="form-control" rows="20px" readonly="readonly" style="background-color:#fff;">${map.syllabus}</textarea></td>
+							<th>공지내용</th>
+							<td colspan="5">
+								<textarea class="form-control" rows="20px" readonly="readonly" style="background-color:#fff;">
+									${map.noticeContent}
+								</textarea>
+							</td>
 						</tr>
 					</table>
-
+					<div style="margin-top: 20px;">
+						<c:if test="${memberType eq '교수'}">
+							<input type="hidden" id="lecNoticeNo" name="lecNoticeNo" value="${map.lecNoticeNo}">
+							<a href="${pageContext.request.contextPath}/professor/modifyLectureNotice?lecNoticeNo=${map.lecNoticeNo}" class="btn btn-primary" style="color: #fff;">수정</a>
+							<button type="button" onclick="del(${map.lecNoticeNo})" class="btn btn-primary" style="color: #fff;">삭제</button>
+							<a href="${pageContext.request.contextPath}/professor/lectureNoticeList?openedLecNo=${openedLecNo}" class="btn btn-primary" style="color: #fff;">목록</a>
+						</c:if>
+						<c:if test="${memberType eq '학생'}">
+							<a href="${pageContext.request.contextPath}/student/lectureNoticeList?openedLecNo=${openedLecNo}" class="btn btn-primary" style="color: #fff;">목록</a>
+						</c:if>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- / Main -->
+<script>
+	function del(lecNoticeNo) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href='removeLectureNotice?lecNoticeNo='+lecNoticeNo;
+		}
+	}
+</script>
 <!-- Footer -->
 <c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 

@@ -105,7 +105,7 @@
 				<div class="col-sm-4 col-12 text-center">
 				</div>
 				<div class="col-sm-4 col-12 text-center">
-					<ul class="pagination">
+					<ul class="pagination justify-content-center">
 						<c:if test="${paging.prePage}">
 							<li class="page-item prev">
 								<a class="page-link" href="${pageContext.request.contextPath}/employee/totalLectureList?currentPage=${paging.currentPage-1}
