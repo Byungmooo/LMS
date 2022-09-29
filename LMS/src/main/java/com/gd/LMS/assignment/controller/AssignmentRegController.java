@@ -1,7 +1,6 @@
 package com.gd.LMS.assignment.controller;
 
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +20,6 @@ import com.gd.LMS.assignment.service.AssignmentRegService;
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.vo.AssignmentReg;
-import com.gd.LMS.vo.AssignmentRegImg;
-import com.gd.LMS.vo.OpenedLecture;
-import com.gd.LMS.vo.Professor;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
