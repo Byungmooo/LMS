@@ -110,7 +110,7 @@
 		<a href="${pageContext.request.contextPath}/student/removeLectrueQuestion?opendLecNo=${lectureQuesion.opendLecNo}"
 				class="btn btn-primary">삭제</a>
   </c:if>
-    <a href="javascript:window.history.back()" class="btn btn-info">목록</a>
+    <a href="javascript:window.history.back()" class="btn btn-primary">목록</a>
     </div>
     </div>
     </div>

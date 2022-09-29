@@ -25,7 +25,7 @@
 				</h4>
 			</div>
 			<div class="col-sm-3 col-12">
-				<a class="btn btn-info" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
+				<a class="btn btn btn-primary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
 					강의리스트
 				</a>
 			</div>
@@ -231,7 +231,7 @@
 				
 <c:if test="${sessionScope.memberType eq '학생'}">
         <a href="${pageContext.request.contextPath}/student/addLectureQuestion"
-           class="btn btn-primary">질문하기</a>           
+           class="btn btn-primary" style="float:right;" >질문하기</a>           
    </c:if>				
 				
 	</div>
