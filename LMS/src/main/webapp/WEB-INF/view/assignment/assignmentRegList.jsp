@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Header -->
 <c:choose>
@@ -15,48 +16,68 @@
 	</c:otherwise>
 </c:choose>
 
-	<!-- Main -->
-	<div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="fw-bold py-3 mb-4">
-			<span class="text-muted fw-light">"이름"님 /</span>${map.lectureName}
-		</h4>
-		
-		<hr class="my-5" />
-		
-		<!-- studentAssignmentList -->
-		<div class="card text-center">
-			<h5 class="card-header">과제게시판</h5>
-			<div class="table-responsive text-nowrap">
-			<button class="btn btn-danger" type="button" style="float: right"
-					onclick="location.href='${pageContext.request.contextPath}/assignment/AddAssignment'">글쓰기</button>
-			
-				<table class="table">
-					<caption class="ms-4">List of Assignment</caption>
-					<thead>
-						<tr>
-							<th width="10%">번호</th>
-							<th width="50%">과제명</th>
-							<th width="10%">등록</th>
-							<th width="10%">평가</th>
-							<th width="20%">날짜</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="s" items="${assignmentList}">
-							<tr>
-								<td><strong>${s.assignmentNo}</strong></td>
-								<td><a href="${pageContext.request.contextPath}/assignment/openedAssignmentOne?assignmentNo=${s.assignmentNo}">${s.assignmentTitle}</a></td>
-								<td><span class="badge bg-label-primary me-1">${s.assignmentDid}</span></td>
-								<td><span class="badge bg-label-secondary me-1">${s.assignmentScore}</span></td>
-								<td>${s.createDate}</td>
-								<td>${s.endDate}</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+	<!-- Main Contents -->
+	
+	<div class="product-status mg-b-15">
+		<div class="container-fluid">
+			<form action="${pageContext.request.contextPath}/assignmentRegList" method="post">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+						style="padding: 1%;">
+						<div class="product-status-wrap drp-lst">
+							<h4>과제리스트</h4>
+							<hr>
+							<c:if test="${memberType eq '학생'}">
+								<div class="container">
+									<a href="${pageContext.request.contextPath}/assignmenMytRegList">나의
+										과제 제출 리스트</a>
+								</div>
+							</c:if>
+							<c:if test="${memberType eq '교수'}">
+								<div class="container-info">
+									<div>
+									<a href="${pageContext.request.contextPath}/assignmentScore?studentLecNo=${assignmentReg.studentLecNo}">
+										학생 과제 제출 체점하기</a>
+									</div>
+								</div>
+							</c:if>
+							<div class="card bady">
+							<div class="asset-inner">
+								<table class="table">
+									<tr>
+										<th>assignmentNo</th>
+										<th>openedLecNo</th>
+										<th>assignmentTitle</th>
+										<th>createDate</th>
+										<th>score</th>
+										<th>Setting</th>
+									</tr>
+									<c:forEach var="assignmentReg" items="${assignmentRegList}">
+										<tr>
+											<td>${assignmentReg.assignmentNo}</td>
+											<td>${assignmentReg.openedLecNo}</td>
+											<td>
+												<a href="${pageContext.request.contextPath}/assignmentRegOne?assignmentRegNo=${assignmentReg.assignmentRegNo}" style="float: bottom;">
+												${assignmentReg.assignmentRegTitle}</a>
+											</td>
+											<td>${assignmentReg.createDate}</td>
+											<td>${assignmentReg.assignmentScore}</td>
+											
+											
+											<c:if test="${memberType eq '학생'}">
+												<td><a href="${pageContext.request.contextPath}/addAssignmentReg?assignmentRegNo=${assignmentReg.assignmentRegNo}" class= "btn btn-primary">
+												과제 제출</a></td>
+											</c:if>
+										</tr>
+									</c:forEach>
+								</table>
+							</div>
+						</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!-- </form> -->
 		</div>
 	</div>
-	<!-- / Main -->
-<!-- Footer -->
 <c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 
