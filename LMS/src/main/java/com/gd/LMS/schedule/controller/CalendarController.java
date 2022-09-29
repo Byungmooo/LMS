@@ -46,7 +46,7 @@ public class CalendarController {
 		model.addAttribute("month", map.get("month"));
 		
 		// 강의리스트 (시간)
-		List<Map<String, Object>> lectureTimeList = scheduleService.getLectureSchedule();
+		List<Map<String, Object>> lectureTimeList = scheduleService.getLectureSchedule(memberCode);
 		
 		log.debug(TeamColor.LCH + "lecTimeList > " +lectureTimeList);
 		

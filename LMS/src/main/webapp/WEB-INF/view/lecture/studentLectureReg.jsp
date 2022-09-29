@@ -38,7 +38,27 @@
 									<td>${t.lectureName}</td>
 									<td><span class="badge bg-label-primary me-1"></span>${t.memberName}</td>
 									<td><span class="badge bg-label-secondary me-1"></span>${t.credit}</td>
-									<td><button type="button" id="cartAddBtn" class="addBtn" value="${t.openedLecNo}">add</button></td>
+									<td><button type="button" id="cartAddBtn" class="addBtn" style="   
+	display: inline-block;
+    font-weight: 400;
+    line-height: 1.53;
+    color: #697a8d;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.4375rem 1.25rem;
+    font-size: 0.9375rem;
+    border-radius: 0.375rem;
+    transition: all 0.2s ease-in-out;	
+	color: #fff;
+    background-color: #696cff;
+    border-color: #696cff;
+    box-shadow: 0 0.125rem 0.25rem 0 rgb(105 108 255 / 40%);" value="${t.openedLecNo}">add</button></td>
 								</tr>
 								<input type="hidden" name="studentCode" id="studentCode" value="${memberCode}">
 							</c:forEach>
@@ -158,7 +178,7 @@
 				if(json == 'y') {
 					alert('수강 장바구니에서 삭제되었습니다.');
 				} else {
-					alert('수강 장바구니에서 삭제되지 못했습니다.');
+					alert('수강 장바구니에서 삭제되지 못했습니다.');					
 				}
 			}
 		});
@@ -171,6 +191,8 @@
 		lectureAddForm.submit();
 	});
 </script>
-
+<script>
+	
+</script>
 <!-- Footer -->
 <c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 

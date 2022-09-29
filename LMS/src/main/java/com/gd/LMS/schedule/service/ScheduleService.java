@@ -17,9 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 public class ScheduleService {
 	@Autowired ScheduleMapper scheduleMapper;
 	
-	public List<Map<String, Object>> getLectureSchedule() {
+	public List<Map<String, Object>> getLectureSchedule(int memberCode) {
 		
-		List<Map<String, Object>> list = scheduleMapper.selectLectureSchedule();
+		List<Map<String, Object>> list = scheduleMapper.selectLectureSchedule(memberCode);
 		
 		return list;
 	}

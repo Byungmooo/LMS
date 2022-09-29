@@ -4,30 +4,32 @@
 <!-- Header -->
 <c:choose>
 	<c:when test="${memberType eq '학생'}">
-		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>	
+		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>
 	</c:when>
 	<c:when test="${memberType eq '교수'}">
-		<c:import url="/WEB-INF/view/include/professorHeader.jsp"></c:import>	
+		<c:import url="/WEB-INF/view/include/professorHeader.jsp"></c:import>
 	</c:when>
 	<c:when test="${memberType eq '직원'}">
-		<c:import url="/WEB-INF/view/include/employeeHeader.jsp"></c:import>	
+		<c:import url="/WEB-INF/view/include/employeeHeader.jsp"></c:import>
 	</c:when>
-	<c:otherwise>	
+	<c:otherwise>
 	</c:otherwise>
 </c:choose>
 	<!-- Main -->
-	<div class="container">
-		<h1 style="text-align: center;">수강 일정표</h1>
-		<br>
-		<h4 style="text-align: center;">
-
-			<a
-				href="${pageContext.request.contextPath}/calendar?year=${ year }&month=${ month - 1 }"
-				class="btn btn-primary">이전 달</a> &nbsp; ${ year }년 ${ month }월
-			&nbsp; <a
-				href="${pageContext.request.contextPath}/calendar?year=${ year }&month=${ month + 1 }"
-				class="btn btn-primary">다음 달</a>
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<h4 class="fw-bold py-3 mb-4 text-center">
+			<strong>강의시간표</strong>
 		</h4>
+		<hr class="my-5" />
+			<div class="text-center">
+				<a href="${pageContext.request.contextPath}/member/calendar?year=${ year }&month=${ month - 1 }
+					&memberCode=${memberCode}" class="btn btn-primary">이전 달</a> &nbsp; 
+					<strong style="font-size: x-large;">${ year }년 ${ month }월</strong>
+				&nbsp; <a
+					href="${pageContext.request.contextPath}/member/calendar?year=${ year }&month=${ month + 1 }
+					&memberCode=${memberCode}" class="btn btn-primary">다음 달</a>
+			</div>
 		<br>
 
 		<div class="mt-2" style="height: auto; width: auto;">
@@ -46,7 +48,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<c:forEach var="i" begin="1" end="${totalTd}" step="1"> <!--  -->
+						<c:forEach var="i" begin="1" end="${totalTd}" step="1">
 							<c:choose>
 								<c:when test="${(i - startBlank) > 0 && i <= endDay+startBlank}">
 									<td style="float: top;" width="10%">
@@ -58,23 +60,31 @@
 										<div style="display: flex; flex-direction: column; height: 200px;">
 											
 											<!-- 학부일정 -->
-											<p>●학부일정</p>
+											<c:if test="${!((i%7 == 0)||(i%7 == 1))}">
+												<strong>●학부일정</strong>
+											</c:if>
 											<div style="flex-grow: 1; width1: 50%;">
 												<c:forEach items="${scheduleList}" var="s">
 													<c:if test="${s.scheduleYear==year&&s.scheduleMonth==month&&s.scheduleDay==(i-startBlank)}">
-														- ${s.depScheduleContent}
-														<br>
+														
+															<span>-${s.depScheduleContent}</span>
+															<br>
+														<c:if test=""></c:if>
 													</c:if>
 												</c:forEach>
 											</div>
-											
+
 											<!-- 오늘내강의 -->
-											<p>●강의</p>
+											<c:if test="${!((i%7 == 0)||(i%7 == 1))}">
+												<strong>●강의</strong>
+											</c:if>
 											<div style="flex-grow: 4;">
 												<c:forEach items="${list}" var="l">
-													<c:if test="${i%7==(l.lectureYoil+1)}">
-														<a href="#">-${l.lectureName}</a>
-														<br>
+													<c:if test="${(l.openMoth <= month)&&(l.closeMoth >= month)}">
+														<c:if test="${i%7==(l.lectureYoil+1)}">
+															<a href="#">-${l.lectureName}</a>
+															<br>
+														</c:if>
 													</c:if>
 												</c:forEach>
 											</div>

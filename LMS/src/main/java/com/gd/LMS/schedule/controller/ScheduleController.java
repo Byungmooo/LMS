@@ -25,7 +25,7 @@ public class ScheduleController {
 			, @RequestParam(value = "memberCode") int memberCode) {
 		log.debug(TeamColor.LCH + this.getClass());
 		
-		List<Map<String, Object>> list = scheduleService.getLectureSchedule();
+		List<Map<String, Object>> list = scheduleService.getLectureSchedule(memberCode);
 		
 		log.debug(TeamColor.LCH + list);
 		
