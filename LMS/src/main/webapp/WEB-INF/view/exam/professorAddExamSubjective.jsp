@@ -19,6 +19,9 @@
 <!-- Main -->
 
 <h4 class="card-header">"이름"님/"강의명"/시험문제 추가</h4>
+<h4>시험지번호 :${examSheet.examNo}번</h4>
+<input type="hidden" name="examNo" id="examNo" value="${examSheet.examNo}">
+<h4>시험이름 :${examSheet.examName}</h4>
 	<body>	
 		<form id="subjectForm">
 			<input type="hidden" name="index" value="5">
@@ -89,6 +92,7 @@
 		dataCheck();
 		
 		var jsonData = {
+			examNo : $('input[name=examNo]').val(),
 			index : $('input[name=index]').val(),
 			subject_content1 : $('input[name=subject_content1]').val(),
 			subject_answer1 : $('input[name=subject_answer1]').val(),
