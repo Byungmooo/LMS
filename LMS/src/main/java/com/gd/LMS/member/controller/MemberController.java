@@ -81,9 +81,6 @@ public class MemberController {
 		// 교수, 직원, 학생 분류해 멤버코드 가져오기
 		// int memberCode = memberService.getMemberCode(resultMember.getMemberId());
 		
-		if(session.getAttribute("memberId") != null) {
-			session.invalidate();
-		}
 		
 		// 로그인에 성공하고 활성화 여부가 'Y'인 계정정보 세션에 저장
 		session.setAttribute("memberId", resultMember.getMemberId());
