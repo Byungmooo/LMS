@@ -36,11 +36,11 @@ public class EmployeeController {
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
     	
     	
-    	String memberDepartmentCode = (String) session.getAttribute("memberDepartmentCode");
+    	String memberCode = (String) session.getAttribute("memberCode");
     	log.debug(TeamColor.BJH + " memberDepartmentCode 담겼음");
     	
     	
-    	map.put("departmentCode", memberDepartmentCode);
+    	map.put("memberCode", memberCode);
 		map.put("keyword", keyword);
 		map.put("searchType", searchType);
     	

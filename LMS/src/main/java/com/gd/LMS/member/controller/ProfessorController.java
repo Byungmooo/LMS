@@ -41,11 +41,11 @@ public class ProfessorController {
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
     	
 		
-		String memberDepartmentCode = (String) session.getAttribute("memberDepartmentCode");
-    	log.debug(TeamColor.BJH + " memberDepartmentCode 담겼음");
+		String memberCode = (String) session.getAttribute("memberCode");
+    	log.debug(TeamColor.BJH + " memberCode 담겼음");
 	
 
-    	map.put("departmentCode", memberDepartmentCode);
+    	map.put("memberCode", memberCode);
 		map.put("keyword", keyword);
 		map.put("searchType", searchType);
     	
@@ -68,14 +68,14 @@ public class ProfessorController {
 
 		log.debug(TeamColor.BJH + "beginRow, rowPerPage > " + map);
 
-		 List<Professor> list = professorService.selectProfessorList(map);
-	    	log.debug(TeamColor.BJH + " getEmployeeList 담겼음");
-	    	
-	    	
-			model.addAttribute("paging", vo);
-			model.addAttribute("list", list);
+		List<Professor> list = professorService.getProfessorList(map);
+    	log.debug(TeamColor.BJH + " 교수리스트 담겼음>>>>>" + list);
+    	
+    	
+		model.addAttribute("paging", vo);
+		model.addAttribute("list", list);
 
-			log.debug(TeamColor.BJH + "교수 전체 리스트");
+		log.debug(TeamColor.BJH + "교수 전체 리스트");
 				
 	     return "member/professor/professorList";
 		
@@ -108,7 +108,7 @@ public class ProfessorController {
 		model.addAttribute("p", updateOne);
 		log.debug(TeamColor.BJH + "교수정보 수정 페이지 이동");
     	
-    	return "redirect:professor/professorOne?professorCode=" + professorCode;
+    	return "professor/professorOne";
     }
 
     
@@ -151,7 +151,7 @@ public class ProfessorController {
     	professorService.removeProfessorMember(memberId);
     
     	log.debug(TeamColor.BJH + memberId+"<====  교수정보 + 멤버정보 삭제성공");
-    	return "redirect:/member/professor/professorList";
+    	return "redirect:professor/professorList";
     					
     }
     

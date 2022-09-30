@@ -44,7 +44,7 @@
     </div>
      <br> 
 
-    <!-- TotalNoticeList -->
+    <!-- 학부리스트 -->
     <div class="card">
         <h5 class="card-header">전체 학부 리스트</h5>
         <div class="table-responsive text-nowrap">
