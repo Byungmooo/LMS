@@ -11,10 +11,10 @@ import com.gd.LMS.vo.Student;
 @Mapper
 public interface EmployeeMapper {
 	
-	//직원 총 갯수
+	//총 직원 수
 	int countEmployee(Map<String, Object> map);
 
-	// 페이징 처리 게시글 조회
+	// 페이징 처리 후 직원 조회
 	List<Employee> selectEmployeeList(Map<String, Object> map);
 	
 	//직원 상세보기

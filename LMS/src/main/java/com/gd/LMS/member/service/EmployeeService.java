@@ -23,7 +23,7 @@ public class EmployeeService {
 	
 	
 	
-	// 전체공지사항 목록 리스트
+	// 전체 직원 목록 리스트
 	public List<Employee> selectEmployeeList(Map<String, Object> map) {
 		return employeeMapper.selectEmployeeList(map);
 	}

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.gd.LMS.assignment.test;
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.mapper.ProfessorMapper;
+import com.gd.LMS.vo.Employee;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,16 +19,11 @@ public class ProfessorService {
 	@Autowired  ProfessorMapper professorMapper;
 	
 	
-	//교수 리스트 보기
-	public List<Map<String, Object>> getProfessorList(){
 
-		 log.debug(TeamColor.BJH + "ProfessorList 담겼음");
-		 
-		 List<Map<String, Object>> ProfessorList = professorMapper.selectProfessorList();
-		 log.debug(TeamColor.BJH + "ProfessorList 넘겨");
-		 
-		 return ProfessorList;
-	};
+	// 전체 교수 목록 리스트
+	public List<Professor> selectProfessorList(Map<String, Object> map) {
+		return employeeMapper.selectEmployeeList(map);
+	}
 	
 		
 	
