@@ -23,10 +23,9 @@ public class StudentService {
 	@Autowired StudentMapper studentMapper;
 	
 	//학생 리스트 보기
-	public List<Student> getStudentList(Map<String, Object> map){
+	public List<Map<String,Object>> getStudentList(Map<String, Object> map){
 		log.debug(TeamColor.BJH + "전체 학생 목록 서비스 진입==============");
 		 
-				 
 		 return studentMapper.selectStudentList(map);
 	};
 	
@@ -44,7 +43,7 @@ public class StudentService {
 		log.debug(TeamColor.BJH + "학생 상세보기 서비스 진입 ================ " + studentCode);
 		
 		// 매퍼메서드 호출 후 리턴값 디버깅
-		Map<String, Object> studentOne = studentMapper.selectStudentOne(studentCode);
+		Map<String, Object> studentOne= studentMapper.selectStudentOne(studentCode);
 		log.debug(TeamColor.BJH + "상세보기 studentOne 담기 >>>>>> " + studentOne);
 				
 		 return studentOne;
@@ -54,7 +53,7 @@ public class StudentService {
 	public Map<String, Object> getStudent(int studentCode) {
 		log.debug(TeamColor.BJH + "student 수정폼 서비스 진입===========" + studentCode);
 		
-		Map<String, Object> updateOne = studentMapper.updateStudentOne(studentCode);
+		Map<String, Object> updateOne = studentMapper.selectStudentOne(studentCode);
 		log.debug(TeamColor.BJH + "updateOne (service) > " + updateOne);
 		return updateOne;
 	}

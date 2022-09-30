@@ -24,7 +24,7 @@ public class EmployeeService {
 	
 	
 	// 전체 직원 목록 리스트
-	public List<Employee> selectEmployeeList(Map<String, Object> map) {
+	public List<Map<String, Object>> selectEmployeeList(Map<String, Object> map) {
 		log.debug(TeamColor.BJH + "전체직원 목록 서비스 진입==============");
 		return employeeMapper.selectEmployeeList(map);
 	}

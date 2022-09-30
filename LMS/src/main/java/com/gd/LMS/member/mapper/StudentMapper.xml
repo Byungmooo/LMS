@@ -25,9 +25,9 @@
 		</if>
 	</sql>
 
-	<!-- 총 직원수 출력 -->
+	<!-- 총 학생수 출력 -->
 	<select id="countStudent"
-		parameterType="map" resultType="com.gd.LMS.vo.Student">
+		parameterType="map" resultType="int">
 		SELECT COUNT(*) FROM student 
 			WHERE 1=1 
 			<include refid="search" />
@@ -36,10 +36,9 @@
 	</select>
 	
 	
-	
 	<!-- 페이징 처리 후 리스트 -->
 	<select id = "selectStudentList"  parameterType="map"
-			resultType="com.gd.LMS.vo.Student">
+			resultType="map">
 	SELECT 
 		s.member_id memberId,
 		s.student_code studentCode,

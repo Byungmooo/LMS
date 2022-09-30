@@ -27,7 +27,7 @@
 
 	<!-- 총 직원수 출력 -->
 	<select id="countEmployee"
-		parameterType="map" resultType="com.gd.LMS.vo.Employee">
+		parameterType="map" resultType="int">
 		SELECT COUNT(*) FROM employee 
 			WHERE 1=1 
 			<include refid="search" />
@@ -39,7 +39,7 @@
 	
 	<!-- 페이징 처리 후 리스트 -->
 	<select id = "selectEmployeeList"  parameterType="map"
-			resultType="com.gd.LMS.vo.Employee">
+			resultType="map">
 	SELECT 
 		e.member_id memberId,
 		m.member_name memberName,

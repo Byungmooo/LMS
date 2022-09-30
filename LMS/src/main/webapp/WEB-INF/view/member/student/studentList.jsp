@@ -18,7 +18,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span>전체게시판
+        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span> 학생게시판
     </h4>
     <hr class="my-1"/>
     <!-- RowPerPage Option -->
@@ -43,7 +43,7 @@
     </div>
      <br> 
 
-    <!-- TotalNoticeList -->
+    <!-- 학생리스트 -->
     <div class="card">
         <h5 class="card-header">전체 학생 리스트</h5>
         <div class="table-responsive text-nowrap">
@@ -63,14 +63,13 @@
 					<c:forEach var="s" items="${list}">
 						<tr>
 							<td>${s.memberId}</td>
-							<td><span class="badge bg-label-secondary me-1">
-								<a href="${pageContext.request.contextPath}/member/student/studentOne?studentCode=${s.studentCode}">${s.memberName}</a>
-								</span>
-								</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/employee/studentOne?studentCode=${s.studentCode}">${s.memberName}</a>
+							</td>
 							<td>${s.studentCode}</td>
 							<td>${s.departmentCode}</td>				
 							<td>${s.studentYear}</td>					
-							<td>${s.studentState}</td>							
+							<td>${s.studentState}</td>						
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -79,11 +78,9 @@
 	</div>
 <!--  search bar -->
     <hr class="my-3"/>
-    
-    <div class="row">
-        <div class="col-sm-2 col-12 text-center"></div>
+     <div class="row">
         <div class="col-sm-7 col-12 text-center">
-            <form action="${pageContext.request.contextPath}/member/studentList" method="get">
+            <form action="${pageContext.request.contextPath}/employee/studentList" method="get">
                 <input type="hidden" name="rowPerPage" value="${paging.rowPerPage}">
                 <div class="row">
                     <div class="col-sm-3 col-12 text-center">
@@ -159,7 +156,7 @@
 		        if(currentPage != '') param.currentPage = currentPage;
 		        if(rowPerPage != '') param.rowPerPage = rowPerPage;
 		
-		        var url = path +'/member/totalNoticeList';
+		        var url = path +'/member/studentList';
 		        url += '?currentPage=' + param.currentPage;
 		        url += '&rowPerPage='+ param.rowPerPage;
 		        url += '&searchType='+ param.searchType ;

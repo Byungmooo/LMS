@@ -131,8 +131,10 @@ public class AssignmentController {
 	// 출제한 과제 수정하는 메소드
 	@PostMapping("/professor/modifyAssignment")
 	public String modifyAssignment(@RequestParam("assignmentNo") int assignmentNo,
-			@RequestParam("openedLecNo") int openedLecNo, @RequestParam("assignmentTitle") String assignmentTitle,
-			@RequestParam("assignmentContent") String assignmentContent, @RequestParam("endDate") String endDate) {
+			@RequestParam("openedLecNo") int openedLecNo, 
+			@RequestParam("assignmentTitle") String assignmentTitle,
+			@RequestParam("assignmentContent") String assignmentContent,
+			@RequestParam("endDate") String endDate) {
 
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "modifyAssignment Controller");

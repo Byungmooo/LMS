@@ -15,7 +15,7 @@ public interface EmployeeMapper {
 	int countEmployee(Map<String, Object> map);
 
 	// 페이징 처리 후 직원 조회
-	List<Employee> selectEmployeeList(Map<String, Object> map);
+	List<Map<String, Object>> selectEmployeeList(Map<String, Object> map);
 	
 	//직원 상세보기
 	Map<String, Object> selectEmployeeOne(int employeeCode);

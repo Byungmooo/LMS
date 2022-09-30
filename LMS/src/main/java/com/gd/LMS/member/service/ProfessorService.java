@@ -22,7 +22,7 @@ public class ProfessorService {
 	
 	
 	// 전체 교수 목록 리스트
-	public List<Professor> getProfessorList(Map<String, Object> map) {
+	public List<Map<String, Object>> getProfessorList(Map<String, Object> map) {
 		log.debug(TeamColor.BJH + "전체 교수 목록 서비스 진입==============");
 		return professorMapper.selectProfessorList(map);
 	}

@@ -1,5 +1,6 @@
 package com.gd.LMS.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,24 +30,17 @@ public class EmployeeController {
 	
     // 전체직원 리스트
     @GetMapping("/employee/employeeList")
-    public String getEmployeeList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
+    public String getEmployeeList(PagingVo vo, Model model, HttpSession session,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
     	
     	
-    	String memberId = (String) session.getAttribute("memberId");
-    	log.debug(TeamColor.BJH + " memberDepartmentCode 담겼음");
     	
-    	
-    	map.put("memberId", memberId);
-		map.put("keyword", keyword);
-		map.put("searchType", searchType);
-    	
-		log.debug(TeamColor.BJH + "keyword,searchType,memberDepartmentCode 담김  > " + map);
-		
+		Map<String, Object> map = new HashMap<>();
 
+		
 		int totalCount = employeeService.countEmployee(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
@@ -63,8 +57,8 @@ public class EmployeeController {
 
 		log.debug(TeamColor.BJH + "beginRow, rowPerPage > " + map);
 
-    	
-        List<Employee> list = employeeService.selectEmployeeList(map);
+
+		List<Map<String,Object>> list = employeeService.selectEmployeeList(map);
     	log.debug(TeamColor.BJH + " getEmployeeList 담겼음");
     	
     	
@@ -80,8 +74,7 @@ public class EmployeeController {
     
     //직원상세보기
     @GetMapping("/employee/employeeOne")
-    public String EmployeeOne(Model model, HttpSession session,
-    		@RequestParam(value = "memberCode") int employeeCode) {
+    public String EmployeeOne(Model model, @RequestParam(value = "employeeCode") int employeeCode) {
        
     	log.debug(TeamColor.BJH + "직원 상세보기 controller진입=========" + employeeCode);
     			
@@ -91,7 +84,7 @@ public class EmployeeController {
     	log.debug(TeamColor.BJH + "map에 직원정보 담아서 보내기" + map);
     	
     	
-        return "employee/employeeOne";
+        return "member/employee/employeeOne";
    
     }
 	
@@ -105,14 +98,15 @@ public class EmployeeController {
 		model.addAttribute("e", updateOne);
 		log.debug(TeamColor.BJH + "직원 수정 페이지 이동");
     	
-    	return "employee/modifyEmployee";
+    	return "member/employee/modifyEmployee";
     }
     
   
     // 직원정보 수정 액션
     @PostMapping("/employee/modifyEmployeeAction")
     public String modifyEmployeeAction(Model model, Map<String, Object> map, 
-    		Member member, Employee employee, @RequestParam(value = "employeeCode") int employeeCode) {
+    		Member member, Employee employee, 
+    		@RequestParam(value = "employeeCode") int employeeCode) {
     	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
     	
     	map.put("employeeCode", employeeCode);
@@ -127,7 +121,7 @@ public class EmployeeController {
     	map.put("memberContact", member.getMemberContact());
     	
     	
-    	log.debug(TeamColor.BJH + this.getClass() + map);
+    	log.debug(TeamColor.BJH + "modifyEmployeeAction에 정보 담기>>>>>"+ map);
     	
     	int count = employeeService.modifyEmployee(map);
     		if (count != 0) {
@@ -135,7 +129,7 @@ public class EmployeeController {
     			return "redirect:employeeOne?employeeCode="+employeeCode;
     		}
     	
-    	return "redirect:emeployee/employeeOne?employeeCode="+employeeCode;
+    	return "redirect:employeeOne?employeeCode="+employeeCode;
     }
     
     
@@ -146,7 +140,7 @@ public class EmployeeController {
     	employeeService.removeEmployeeMember(memberId);
     
     	log.debug(TeamColor.BJH + memberId+"<====  학생정보 + 멤버정보 삭제성공");
-    	return "redirect:/member/employee/employeeList";
+    	return "redirect:employeeList";
     					
     }
 }

@@ -25,7 +25,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <form name="form" action="${pageContext.request.contextPath}/member/professor/modifyProfessorAction" method="post">
+                <form name="form" action="${pageContext.request.contextPath}/emplpoyee/modifyProfessor" method="get">
                    <div class="form-group">
 	                    <label for="memberId">아이디:</label>
 	                    <input type="text" name="memberId" class="form-control"
@@ -69,7 +69,7 @@
                    <div class="form-group">
 	                    <label for="memberBirth">생일:</label>
 	                    <input type="text" name="memberBirth" class="form-control"
-					 		value="${e.memberBirth}" >  
+					 		value="${p.memberBirth}" >  
                    </div>
                    <div class="form-group">
 	                    <label for="memberEmail">이메일:</label>

@@ -1,5 +1,6 @@
 package com.gd.LMS.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,24 +35,15 @@ public class ProfessorController {
     
 	// 교수 리스트
 	@GetMapping({"/employee/professorList", "/professor/professorList"})
-	public String ProfessorList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
+	public String ProfessorList(PagingVo vo, Model model, HttpSession session,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
     	
-		
-		String memberId = (String) session.getAttribute("memberId");
-    	log.debug(TeamColor.BJH + " memberCode 담겼음");
-	
-
-    	map.put("memberId", memberId);
-		map.put("keyword", keyword);
-		map.put("searchType", searchType);
+		Map<String, Object> map = new HashMap<>();
     	
-		log.debug(TeamColor.BJH + "keyword,searchType,memberDepartmentCode 담김  > " + map);
 		
-
 		int totalCount = professorService.countProfessor(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
@@ -68,7 +60,7 @@ public class ProfessorController {
 
 		log.debug(TeamColor.BJH + "beginRow, rowPerPage > " + map);
 
-		List<Professor> list = professorService.getProfessorList(map);
+		List<Map<String, Object>> list = professorService.getProfessorList(map);
     	log.debug(TeamColor.BJH + " 교수리스트 담겼음>>>>>" + list);
     	
     	
@@ -86,7 +78,7 @@ public class ProfessorController {
 	//교수 상세보기
 	@GetMapping({"/employee/professorOne", "/professor/professorOne"})
 	public String ProfessorOne(Model model,HttpSession session,
-			@RequestParam(value = "memberCode") int professorCode) {
+			@RequestParam(value = "professorCode") int professorCode) {
 		
 		log.debug(TeamColor.BJH + "교수 상세보기 controller 진입===========");
 			
@@ -94,7 +86,7 @@ public class ProfessorController {
 		model.addAttribute("p", professorOne);
 		log.debug(TeamColor.BJH + "map에 교수정보 담아서 보내기" + professorCode);
 		
-		return "professor/professorOne";
+		return "member/professor/professorOne";
 	
 	}
 	
@@ -108,16 +100,19 @@ public class ProfessorController {
 		model.addAttribute("p", updateOne);
 		log.debug(TeamColor.BJH + "교수정보 수정 페이지 이동");
     	
-    	return "professor/professorOne";
+    	return "member/professor/modifyProfessor";
     }
 
     
   
     // 교수정보 수정 액션
-    @PostMapping("/employee/modifyProfessorAction")
-    public String modifyprofessorAction(Model model, Map<String, Object> map, 
-    		Member member, Professor professor, @RequestParam(value = "professorCode") int professorCode) {
-    	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
+    @PostMapping("/employee/modifyProfessor")
+    public String modifyprofessor(Model model, 
+    		Member member, Professor professor, 
+    		@RequestParam(value = "professorCode") int professorCode) {
+    	log.debug(TeamColor.BJH + "교수 정보 수정액션 professorCode 실행===========" +professorCode);
+    	
+    	Map<String, Object> map = new HashMap<>();
     	
     	map.put("professorCode", professorCode);
     	map.put("departmentCode", professor.getDepartmentCode());    	
@@ -132,7 +127,7 @@ public class ProfessorController {
     	map.put("memberContact", member.getMemberContact());
     	
     	
-    	log.debug(TeamColor.BJH + this.getClass() + map);
+    	log.debug(TeamColor.BJH + "map에 담아서 보내기>>>>>" + map);
     	
     	int count = professorService.modifyProfessor(map);
     		if (count != 0) {

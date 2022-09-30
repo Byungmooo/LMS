@@ -18,7 +18,7 @@
 				</when>
 				<!-- 전체 검색일 때 때 -->
 				<otherwise> AND ( 
-					empolyee_code LIKE CONCAT('%', #{keyword}, '%') OR
+					professor_code LIKE CONCAT('%', #{keyword}, '%') OR
 					member_id LIKE CONCAT('%', #{keyword}, '%') ) OR
 					member_name LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
 			</choose>
@@ -27,7 +27,7 @@
 
 	<!-- 총 교수 수 출력 -->
 	<select id="countProfessor"
-		parameterType="map" resultType="com.gd.LMS.vo.Professor">
+		parameterType="map" resultType="int">
 		SELECT COUNT(*) FROM professor 
 			WHERE 1=1 
 			<include refid="search" />
@@ -39,7 +39,7 @@
 	
 	<!-- 페이징 처리 후 리스트 -->
 	<select id = "selectProfessorList"  parameterType="map"
-			resultType="com.gd.LMS.vo.Professor">
+			resultType="map">
 	SELECT 
 		p.member_id memberId,
 		m.member_name memberName,

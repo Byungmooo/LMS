@@ -1,5 +1,6 @@
 package com.gd.LMS.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,26 +32,16 @@ public class StudentController {
     ////////////////////////학생
     
 	@GetMapping({"/employee/studentList", "/professor/professorList"})
-	public String ProfessorList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
+	public String studentList(PagingVo vo, Model model, HttpSession session,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
     	
 		
-		String memberId = (String) session.getAttribute("memberId");
-    	log.debug(TeamColor.BJH + " memberId 담겼음");
-	
-
-    	map.put("memberId", memberId);
-		map.put("keyword", keyword);
-		map.put("searchType", searchType);
-    	
-		log.debug(TeamColor.BJH + "keyword,searchType,memberDepartmentCode 담김  > " + map);
+		Map<String, Object> map = new HashMap<>();
+		 
 		
-		
-		
-
 		int totalCount = studentService.countStudent(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
@@ -68,9 +59,7 @@ public class StudentController {
 		log.debug(TeamColor.BJH + "beginRow, rowPerPage > " + map);
 		
 		
-		
-		
-		List<Student> list = studentService.getStudentList(map);
+		List<Map<String,Object>> list = studentService.getStudentList(map);
 		log.debug(TeamColor.BJH + " 학생리스트 담겼음" + list);
 		      
 		model.addAttribute("paging", vo);
@@ -78,28 +67,24 @@ public class StudentController {
 
 		log.debug(TeamColor.BJH + "학생 전체 리스트");
 		 
-	    return "member/student/studentList";
+	    return "member/student/studentList"; //뷰 페이지 경로 지정 
 		
 	}
-		
-	//학생 추가 폼
-	
-	
-	
 	
 	
 	//학생 상세보기
 	@GetMapping({"/employee/studentOne", "/student/studentOne"})
-	public String StudentOne(Model model, HttpSession session,
-			@RequestParam(value = "memberCode") int studentCode) {
+	public String StudentOne(Model model, @RequestParam(value = "studentCode") int studentCode) {
 		log.debug(TeamColor.BJH + "학생 상세보기 controller 진입===========");
 			
 		Map<String, Object> studentOne = studentService.getStudentOne(studentCode);
-		model.addAttribute("s", studentOne);
-		
+
 		log.debug(TeamColor.BJH + "map에 학생정보 담아서 보내기" + studentCode);
 		
-		return "student/studentOne";
+		model.addAttribute("s", studentOne);
+		log.debug(TeamColor.BJH + " 학생 상세보기 controller 성공");
+		
+		return "member/student/studentOne";
 	
 	}
 	
@@ -108,13 +93,13 @@ public class StudentController {
     @GetMapping("/employee/modifyStudent")
     public String modifyStudent(Model model, @RequestParam(value = "studentCode") int studentCode) {
     	
-    	log.debug(TeamColor.BJH + "교수정보 페이지서비스 진입=======studentCode========>" + studentCode);
+    	log.debug(TeamColor.BJH + "학생정보 페이지서비스 진입=======studentCode========>" + studentCode);
     	Map<String, Object> updateOne = studentService.getStudent(studentCode);
     
 		model.addAttribute("s", updateOne);
     	log.debug(TeamColor.BJH + "학생정보 수정 페이지 이동");
     	
-    	return "student/studentOne";
+    	return "member/student/studentOne";
     }
 
     
@@ -122,15 +107,12 @@ public class StudentController {
     // 학생정보 수정 액션
     @PostMapping("/employee/modifyStudentAction")
     public String modifyStudentAction(Model model, Map<String, Object> map,
-    		RedirectAttributes redirectAttributes,
-    		Member member, Student student, @RequestParam(value = "studentCode") int studentCode) {
+    		Member member, Student student,
+    		@RequestParam(value = "studentCode") int studentCode) {
     	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
     	
     	map.put("studentCode", studentCode);
-    	map.put("studentYear", student.getStudentYear());
-    	log.debug(TeamColor.BJH + student.getStudentYear());
-    	
-    	
+    	map.put("studentYear", student.getStudentYear());    	
     	map.put("studentState", student.getStudentState());
     	map.put("memberName", member.getMemberName());
     	map.put("memberGender", member.getMemberGender());
@@ -141,11 +123,9 @@ public class StudentController {
     	map.put("memberContact", member.getMemberContact());
     	
     	
-    	log.debug(TeamColor.BJH + this.getClass() + map);
+    	log.debug(TeamColor.BJH + "modifyStudentAction에 정보 담기>>>>>"+ map);
     	
     	int count = studentService.modifyStudent(map);
-    	//log.debug(TeamColor.BJH +  studentService + "확인" );
-    	redirectAttributes.addAttribute("studentCode", studentCode);
     	
     	if (count != 0) {
 			log.debug(TeamColor.BJH + " 학생정보 수정성공");
@@ -153,6 +133,7 @@ public class StudentController {
 		}
     	
     	return "redirect:modifyStudent?studentCode="+studentCode;
+
     }
     
     
@@ -163,7 +144,7 @@ public class StudentController {
     	studentService.removeStudentMember(memberId);
     
     	log.debug(TeamColor.BJH + memberId+"<====  학생정보 + 멤버정보 삭제성공");
-    	return "redirect:student/studentList";
+    	return "redirect:studentList";
     					
     }
     

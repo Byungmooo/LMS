@@ -91,27 +91,43 @@
 				</thead>
 			</table>
 			<!-- 추가 삭제 목록 버튼 -->
-			<div>				
-				<a href="${pageContext.request.contextPath}/member/student/modifyStudent?studentCode=${s.studentCode}"
-						class="btn btn-warning">수정</a>
-				<form action="${pageContext.request.contextPath}/member/student/removeStudentMember" method="post">
-					<input type="hidden" name="memberId" value="${s.memberId}">
-					<button class="btn btn-danger" onclick="deleteBtn()">삭제</button>
-				</form>		
-				<a href="javascript:window.history.back()"
-						class="btn btn-primary">목록</a>
+				<c:if test="${memberType eq '직원'}">
+					<div style="margin-top: 20px;">
+						<input type="hidden" id="memberId" name="memberId"  value="${s.memberId}">
+						<a href="${pageContext.request.contextPath}/student/modifyStudent?studentCode=${s.studentCode}" class="btn btn-primary" style="color: #fff;">수정</a>
+						<button type="button" onclick="del(${s.studentCode})" class="btn btn-primary" style="color: #fff;">삭제</button>
+						<a href="${pageContext.request.contextPath}/employee/studentList" class="btn btn-primary" style="color: #fff;">목록</a>
+					</div>
+				</c:if>
+				<c:if test="${memberType eq '교수'}">
+					<div class="container-info">
+							<a href="${pageContext.request.contextPath}/student/studentList" class="btn btn-primary">목록</a>
+					</div>
+				</c:if>
+				<c:if test="${memberType eq '학생'}">
+					<div class="container-info">
+							<a href="${pageContext.request.contextPath}/student/studentList" class="btn btn-primary">목록</a>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>
-	
-	</div>
 </div>
-<%@ include file="/WEB-INF/view/include/footer.jsp"%>
 
-
-<script> 
-function deleteBtn(){
-	alert("삭제하시겠습니까?");
-    document.form.submit();
-}
+<script>
+	if("${errorMsg}" != '') {
+		alert("${errorMsg}");
+	}
 </script>
+<script>
+	
+	function del(studentCode) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href='removeStudent?studentCode='+studentCode;
+		}
+	}
+	
+</script>
+<!-- Footer -->
+<c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 

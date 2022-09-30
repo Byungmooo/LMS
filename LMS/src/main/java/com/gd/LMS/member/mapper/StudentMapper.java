@@ -17,11 +17,10 @@ public interface StudentMapper {
 	int countStudent(Map<String, Object> map);
 	
 	// 페이징 처리 후 교수리스트
-	List<Student> selectStudentList(Map<String, Object> map);
+	List<Map<String, Object>> selectStudentList(Map<String, Object> map);
 	
 	//학생정보 상세보기
 	Map<String, Object> selectStudentOne (int studentCode);
-	
 	
 	//수정 폼
 	Map<String, Object> updateStudentOne(int studentCode);

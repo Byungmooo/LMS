@@ -16,10 +16,10 @@
 </c:choose>
 
 <!-- Main -->
+
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">"${sessionScope.memberName}님/</span>
-        학부 전체 리스트
+        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span> 직원 리스트
     </h4>
     <hr class="my-1"/>
     <!-- RowPerPage Option -->
@@ -42,8 +42,7 @@
             </select>
         </div>
     </div>
-     <br> 
-
+    <br> 
     <!--  직원리스트 -->
     <div class="card">
         <h5 class="card-header">전체 직원 리스트</h5>
@@ -63,9 +62,8 @@
 					<c:forEach var="e" items="${list}">
 						<tr>
 							<td>${e.memberId}</td>
-							<td><span class="badge bg-label-secondary me-1">
-							<a href="${pageContext.request.contextPath}/member/employee/employeeOne?employeeCode=${e.employeeCode}">${e.memberName}</a>
-								</span>
+							<td>
+								<a href="${pageContext.request.contextPath}/employee/employeeOne?employeeCode=${e.employeeCode}">${e.memberName}</a>
 							</td>
 							<td>${e.employeeCode}</td>
 							<td>${e.authority}</td>				
@@ -82,7 +80,7 @@
     <div class="row">
         <div class="col-sm-2 col-12 text-center"></div>
         <div class="col-sm-7 col-12 text-center">
-            <form action="${pageContext.request.contextPath}/member/departmentList" method="get">
+            <form action="${pageContext.request.contextPath}/employee/employeeList" method="get">
                 <input type="hidden" name="rowPerPage" value="${paging.rowPerPage}">
                 <div class="row">
                     <div class="col-sm-3 col-12 text-center">
@@ -158,7 +156,7 @@
 		        if(currentPage != '') param.currentPage = currentPage;
 		        if(rowPerPage != '') param.rowPerPage = rowPerPage;
 		
-		        var url = path +'/member/totalNoticeList';
+		        var url = path +'/member/employeeList';
 		        url += '?currentPage=' + param.currentPage;
 		        url += '&rowPerPage='+ param.rowPerPage;
 		        url += '&searchType='+ param.searchType ;

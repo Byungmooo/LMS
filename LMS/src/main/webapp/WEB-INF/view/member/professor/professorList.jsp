@@ -18,8 +18,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span>
-        교수 전체 리스트
+        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span> 교수 전체 리스트
     </h4>
     <hr class="my-1"/>
     <!-- RowPerPage Option -->
@@ -44,7 +43,7 @@
     </div>
      <br> 
 
-    <!-- TotalNoticeList -->
+    <!-- 교수 리스트 -->
     <div class="card">
         <h5 class="card-header">전체 교수 리스트</h5>
         <div class="table-responsive text-nowrap">
@@ -52,9 +51,9 @@
                 <caption class="ms-4"></caption>
                    <thead>
 					<tr>
-						<th>아이디</th>
-						<th>이름</th>
+						<th>아이디</th>						
 						<th>교수코드</th>
+						<th>이름</th>
 						<th>학부코드</th>
 						<th>학과장여부</th>
 						<th>상태</th>
@@ -64,13 +63,19 @@
 					<c:forEach var="p" items="${list}">
 						<tr>
 							<td>${p.memberId}</td>
-							<td>${p.memberName}</td>
-							<td><span class="badge bg-label-secondary me-1">
-								<a href="${pageContext.request.contextPath}/member/professor/stunentprofessorOne?professorCode=${p.professorCode}">${p.professorCode}</a>
-								</span>
-							</td>
+							<td>${p.professorCode}</td>
+							<c:if test="${memberType eq '교수'}">
+								<td>
+									<a href="${pageContext.request.contextPath}/professor/professorOne?professorCode=${p.professorCode}">${p.memberName}</a>
+								</td>
+							</c:if>
+							<c:if test="${memberType eq '직원'}">
+								<td>
+									<a href="${pageContext.request.contextPath}/employee/professorOne?professorCode=${p.professorCode}">${p.memberName}</a>
+								</td>
+							</c:if>
 							<td>${p.departmentCode}</td>				
-							<td>${p.professorLeader}</td>					
+							<td>${p.departmentLeader}</td>					
 							<td>${p.professorState}</td>							
 						</tr>
 					</c:forEach>
@@ -161,7 +166,7 @@
 		        if(currentPage != '') param.currentPage = currentPage;
 		        if(rowPerPage != '') param.rowPerPage = rowPerPage;
 		
-		        var url = path +'/member/totalNoticeList';
+		        var url = path +'/member/professorList';
 		        url += '?currentPage=' + param.currentPage;
 		        url += '&rowPerPage='+ param.rowPerPage;
 		        url += '&searchType='+ param.searchType ;
