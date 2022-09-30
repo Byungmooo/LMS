@@ -35,7 +35,7 @@ public class TotalNoticeController {
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
 
-		String memberDepartmentCode = (String) session.getAttribute("memberDepartmentCode");
+		String memberDepartmentCode = (String) session.getAttribute("noticeNo");
 		log.debug(TeamColor.LCH + "memberDepartmentCode > " + memberDepartmentCode);
 
 		map.put("departmentCode", memberDepartmentCode);
@@ -188,11 +188,12 @@ public class TotalNoticeController {
 
 	// 전체공지사항 삭제
 	@GetMapping("/employee/removeTotalNotice")
-	public String removeTotalNotice(@RequestParam(value = "noticeNo") int noticeNo, RedirectAttributes redirectAttributes) {
+	public String removeTotalNotice(HttpSession session, @RequestParam(value = "noticeNo") int noticeNo, RedirectAttributes redirectAttributes) {
 		
 		int count = totalNoticeService.deleteTotalNotice(noticeNo);
-		redirectAttributes.addAttribute("noticeNo", noticeNo);
+		redirectAttributes.addAttribute("noticeNo",session.getAttribute("noticeNo"));
 		
+	
 		if (count >= 1) {
 			log.debug(TeamColor.KJS + " [김진수] 전체공지 삭제");
 			return "redirect:/member/totalNoticeList";

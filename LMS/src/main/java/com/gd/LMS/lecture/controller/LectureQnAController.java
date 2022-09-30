@@ -141,10 +141,9 @@ public class LectureQnAController {
 	
 	// 강의 질문 답변 추가 페이지 이동
 	@GetMapping("/professor/addLectureAnswer")
-	public String addLectureAnswerOne(Model model,HttpSession session) {
+	public String addLectureAnswerOne(HttpSession session) {
 		
-		
-		
+	
 		log.debug(TeamColor.KJS + " [김진수] 답변 추가 페이지 이동");
 		return "lecture/lectureQnA/addLectureAnswer";
 	}

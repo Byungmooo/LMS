@@ -71,7 +71,7 @@
 <hr class="my-0"/>
 
 <div class="card-body">
-<form name="form" action="${pageContext.request.contextPath}/employee/removeTotalNotice" method="get">
+<form name="form" action="${pageContext.request.contextPath}/student/removeLectrueQuestion" method="get">
 <table class="table table-bordered">
     <tr>
         <th>질문번호</th>
@@ -128,7 +128,7 @@
     $(document).ready(function () {
         $("#btnDelete").click(function () {
             if (confirm("삭제하시겠습니까?")) {
-                document.form.action = "${pageContext.request.contextPath}/removeLectureQuestion?openedLecNo=${lectureQuesion.openedLecNo}";
+                document.form.action = "${pageContext.request.contextPath}/student/removeLectrueQuestion?openedLecNo=${sessionScope.openedLecNo}";
                 document.form.method = "get";
                 document.form.submit();
             }

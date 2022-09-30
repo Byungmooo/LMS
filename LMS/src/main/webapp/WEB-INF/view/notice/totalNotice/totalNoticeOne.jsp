@@ -64,7 +64,7 @@
 				<h5 class="card-header"><strong>제목 : ${totalNotice.noticeTitle}</strong></h5>
 				<hr class="my-0" />
 				
-				<div class="card-body">
+				<div class="card-body">4
 					<table class="table table-bordered">
 					
 						<tr>
@@ -90,6 +90,7 @@
 					</table>
 								<div>	
    <c:if test="${sessionScope.memberType eq '직원'}">
+            <input type="hidden" name="noticeNo" value="${totalNotice.noticeNo}">  
         <a href="${pageContext.request.contextPath}/employee/updateTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-primary" >수정</a>
         	<button class="btn btn-primary" type="button" id="btnDelete">삭제</button>
         <a href="${pageContext.request.contextPath}/member/totalNoticeList" class="btn btn-primary"  >목록</a>

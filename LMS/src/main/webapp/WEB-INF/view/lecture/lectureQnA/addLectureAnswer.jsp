@@ -55,7 +55,7 @@
 					<i class="bx bx-bell me-1"></i> 강의공지사항
 			</a></li>
 			<li class="nav-item"><a class="nav-link active"
-				href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${openedLecNo}">
+				href="${pageContext.request.contextPath}/professor/lectureQuestionList?openedLecNo=${sessionScope.openedLecNo}">
 					<i class="bx bx-link-alt me-1"></i> 질문게시판
 			</a></li>
 			<li class="nav-item"><a class="nav-link"

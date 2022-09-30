@@ -21,37 +21,54 @@
         <div class="card h-100">
             <div class="card-header">
                 <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">게시글 보기</h5>
+                    <h5 class="m-0 me-2">공지사항 수정</h5>
                     <%--                    <small class="text-muted">게시글 보기</small>--%>
                 </div>
             </div>
             <div class="card-body">
                 <form name="form" action="${pageContext.request.contextPath}/employee/updateTotalNotice" method="post">
-                    <div>        <!-- 원하는 날짜형식으로 출력하기 위해 fmt태그 사용 -->
-                        <fmt:parseDate value="${totalNotice.createDate}" pattern="yyyy-MM-dd HH:mm" var="noticeDate"/>
-                        작성일자 : <fmt:formatDate value="${noticeDate}" pattern="yyyy-MM-dd a HH:mm:ss"/>
-                        <!-- 날짜 형식 => yyyy 4자리연도, MM 월, dd 일, a 오전/오후, HH 24시간제, hh 12시간제, mm 분, ss 초 -->
-                    </div>
+             	<!-- totalNoticeOne -->
+		<div class="row text-center">
+			<div class="card">
+				<h5 class="card-header"><strong>제목 :     <input name="noticeTitle" id="title" size="80" value="${totalNotice.noticeTitle}"
+                               placeholder="제목을 입력해주세요"></strong></h5>
+				<hr class="my-0" />
+				
+				<div class="card-body">
+					<table class="table table-bordered">
+					
+						<tr>
+							<th>작성자</th>
+							<td>${totalNotice.writer}</td>
+							<th>부서코드</th>
+							<td>${totalNotice.departmentCode}</td>
+							<th rowspan="2">조회수</th>
+							<td rowspan="2">${totalNotice.views}</td>
+						</tr>
+						<tr>
+							<th>등록일</th>
+							<td>${totalNotice.createDate}</td>
+							<th>수정일</th>
+							<td>${totalNotice.updateDate}</td>
+				
+						</tr>
+		
+						<tr>
+							<th>내용</th>
+							<td colspan="5"> 	  <textarea class="form-control" rows="20px" name="noticeContent" id="content" rows="4" cols="80"
+                                  placeholder="내용을 입력해주세요">${totalNotice.noticeContent}</textarea> </td>
+					
+						</tr>
+					</table>
+								<div>	
 
-                    <div>
-                        조회수 : ${totalNotice.views}
-                    </div>
-                    <div>
-                        제목
-                        <input name="noticeTitle" id="title" size="80" value="${totalNotice.noticeTitle}"
-                               placeholder="제목을 입력해주세요">
-                    </div>
-                    <div>
-                        내용
-                        <textarea name="noticeContent" id="content" rows="4" cols="80"
-                                  placeholder="내용을 입력해주세요">${totalNotice.noticeContent}</textarea>
-                    </div>
-
-                    <%--                    <div>--%>
-                    <%--                        비밀번호--%>
-                    <%--                        <input name="pw" id="pw" size="80" value="" placeholder="비밀번호 입력">--%>
-                    <%--                    </div>--%>
-                    <div style="width:650px; text-align: center;">
+               </div>
+               </div>
+               </div>
+               </div>
+               
+             
+                    <div style="width:650px; text-align: right;">
                         <!-- 게시물번호를 hidden으로 처리 -->
                         <input type="hidden" name="noticeNo" value="${totalNotice.noticeNo}">            
  						<button class="btn btn-primary" type="button" id="btnUpdate">수정</button>

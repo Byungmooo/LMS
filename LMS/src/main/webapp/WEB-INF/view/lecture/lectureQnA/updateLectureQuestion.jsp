@@ -116,10 +116,10 @@
     
 <script>
   $(document).ready(function () {
-	   $("#btnDelete").click(function () {
-            if (confirm("삭제하시겠습니까?")) {
-                document.form.action = "${pageContext.request.contextPath}/removeLectureQuestion";
-                document.form.method = "get";
+	   $("#btnUpdate").click(function () {
+            if (confirm("수정하시겠습니까?")) {
+                document.form.action = "${pageContext.request.contextPath}/student/updateLectureQuestion?lecQuestionNo=${question.lecQuestionNo}";
+                document.form.method = "post";
                 document.form.submit();
             }
         });

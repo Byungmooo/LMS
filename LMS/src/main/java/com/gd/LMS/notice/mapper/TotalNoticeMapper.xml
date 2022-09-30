@@ -118,9 +118,9 @@
 	<!-- 공지사항 삭제 -->
 	<delete id="deleteTotalNotice" parameterType="int"> 
 	DELETE FROM
-		total_notice 
+		total_notice
 	WHERE 
-		notice_no = #{noticeN o}
+		notice_no = #{noticeNo}
 	</delete>
 
 
