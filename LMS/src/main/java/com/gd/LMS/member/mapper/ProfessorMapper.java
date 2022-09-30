@@ -14,8 +14,8 @@ public interface ProfessorMapper {
 	//총 교수 수
 	int countProfessor(Map<String, Object> map);
 	
-	//교수리스트
-	List<Professor> selectProfessorList();
+	// 페이징 처리 후 교수리스트
+	List<Professor> selectProfessorList(Map<String, Object> map);
 	
 	//교수 상세보기
 	Map<String, Object> selectProfessorOne(int professorCode);

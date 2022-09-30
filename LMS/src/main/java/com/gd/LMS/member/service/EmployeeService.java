@@ -25,12 +25,14 @@ public class EmployeeService {
 	
 	// 전체 직원 목록 리스트
 	public List<Employee> selectEmployeeList(Map<String, Object> map) {
+		log.debug(TeamColor.BJH + "전체직원 목록 서비스 진입==============");
 		return employeeMapper.selectEmployeeList(map);
 	}
 	
 	
 	// 학부 총 개수
 	public int countEmployee(Map<String, Object> map) {
+		log.debug(TeamColor.BJH + "전체직원 카운트 서비스 진입==============");
 		return employeeMapper.countEmployee(map);
 	}
 	
@@ -49,10 +51,10 @@ public class EmployeeService {
 	
 	// 직원정보 수정 폼
 	public Map<String, Object> getEmployee(int employeeCode) {
-		log.debug(TeamColor.BJH + "emlpoyee수정폼(service) > " + employeeCode);
+		log.debug(TeamColor.BJH + "emlpoyee 수정폼 서비스 진입===========" + employeeCode);
 		
 		Map<String, Object> updateOne = employeeMapper.updateEmployeeOne(employeeCode);
-		log.debug(TeamColor.BJH + "updateOne (service) > " + updateOne);
+		log.debug(TeamColor.BJH + "updateOne에 담음=========" + updateOne);
 		return updateOne;
 	}
 	

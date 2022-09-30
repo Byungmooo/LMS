@@ -27,7 +27,6 @@ public class EmployeeController {
 	@Autowired EmployeeService employeeService;
 	
 	
-	/////////////////////////////// 직원 리스트 + 상세보기
     // 전체직원 리스트
     @GetMapping("/employee/employeeList")
     public String getEmployeeList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
@@ -35,6 +34,8 @@ public class EmployeeController {
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
+    	
+    	
     	String memberDepartmentCode = (String) session.getAttribute("memberDepartmentCode");
     	log.debug(TeamColor.BJH + " memberDepartmentCode 담겼음");
     	
@@ -87,13 +88,15 @@ public class EmployeeController {
     	Map<String, Object> map= employeeService.getEmployeeOne(employeeCode);
     	model.addAttribute("e", map);
         
-    	log.debug(TeamColor.BJH + "map에 직원정보 담아 보내기" + map);
-        return "member/employee/employeeOne";
+    	log.debug(TeamColor.BJH + "map에 직원정보 담아서 보내기" + map);
+    	
+    	
+        return "employee/employeeOne";
    
     }
 	
     //직원정보 수정 폼
-    @GetMapping("/member/employee/modifyEmployee")
+    @GetMapping("/employee/modifyEmployee")
     public String modifyEmployee(Model model, @RequestParam(value = "employeeCode") int employeeCode) {
 
 		log.debug(TeamColor.BJH + "직원수정 페이지서비스 진입=======employeeCode========>" + employeeCode);
@@ -102,13 +105,12 @@ public class EmployeeController {
 		model.addAttribute("e", updateOne);
 		log.debug(TeamColor.BJH + "직원 수정 페이지 이동");
     	
-    	return "/member/employee/modifyEmployee";
+    	return "employee/modifyEmployee";
     }
-
     
   
     // 직원정보 수정 액션
-    @PostMapping("/member/employee/modifyEmployeeAction")
+    @PostMapping("/employee/modifyEmployeeAction")
     public String modifyEmployeeAction(Model model, Map<String, Object> map, 
     		Member member, Employee employee, @RequestParam(value = "employeeCode") int employeeCode) {
     	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
@@ -133,7 +135,7 @@ public class EmployeeController {
     			return "redirect:employeeOne?employeeCode="+employeeCode;
     		}
     	
-    	return "redirect:modifyEmployee?employeeCode="+employeeCode;
+    	return "redirect:emeployee/employeeOne?employeeCode="+employeeCode;
     }
     
     

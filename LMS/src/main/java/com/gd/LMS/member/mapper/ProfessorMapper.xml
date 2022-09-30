@@ -1,11 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.member.mapper.ProfessorMapper">
+<sql id="search">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'code'.equals(searchType)"> AND professor_code LIKE CONCAT('%', #{keyword},
+							'%') </when>
+						<when test="'id'.equals(searchType)"> AND member_id LIKE CONCAT('%', #{keyword},
+							'%') </when>
+						<when test="'name'.equals(searchType)"> AND member_name LIKE CONCAT('%', #{keyword},
+							'%') </when>
+					</choose>
+				</when>
+				<!-- 전체 검색일 때 때 -->
+				<otherwise> AND ( 
+					empolyee_code LIKE CONCAT('%', #{keyword}, '%') OR
+					member_id LIKE CONCAT('%', #{keyword}, '%') ) OR
+					member_name LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
+			</choose>
+		</if>
+	</sql>
 
-
-<!-- ＃＃＃＃＃＃＃＃ 교수 ＃＃＃＃＃＃＃ -->
-	<!-- 교수리스트 -->
-	<select id = "selectProfessorList" resultType="map">
+	<!-- 총 직원수 출력 -->
+	<select id="countEmployee"
+		parameterType="map" resultType="com.gd.LMS.vo.Professor">
+		SELECT COUNT(*) FROM professor 
+			WHERE 1=1 
+			<include refid="search" />
+			AND 
+			professor_code IS NOT NULL
+	</select>
+	
+	
+	
+	<!-- 페이징 처리 후 리스트 -->
+	<select id = "selectEmployeeList"  parameterType="map"
+			resultType="com.gd.LMS.vo.Professor">
 	SELECT 
 		p.member_id memberId,
 		m.member_name memberName,
@@ -13,18 +47,20 @@
 		d.department_code departmentCode,
 		p.department_leader departmentLeader,
 		p.professor_state professorState
-	FROM 
-		professor p, 
-		member m,
-		department d		
-	Where 
-		p.member_id = m.member_id AND
-		p.department_code = d.department_code
-	ORDER BY 
-		professor_code ASC
+	FROM
+		professor p , member m, department d
+	WHERE 1=1
+		<include refid="search" />
+		AND p.professor_code IS NOT NULL
+		AND p.member_id = m.member_id 
+		AND d.department_code = p.department_code
+	ORDER BY
+		p.professor_code
+	LIMIT
+		#{beginRow}, #{rowPerPage}
 	</select>
 	
-	
+
 	<!-- 교수정보 상세보기 -->
 	<select id ="selectProfessorOne" resultType="map" parameterType="int">
 	SELECT 
@@ -56,7 +92,7 @@
 	
 	
 	<!-- 수정 form -->
-	<select id="updateProfessortOne" parameterType="int" resultType="map">
+	<select id="updateProfessorOne" parameterType="int" resultType="map">
 		SELECT 
 		p.member_id memberId,
 		p.professor_code professorCode,
