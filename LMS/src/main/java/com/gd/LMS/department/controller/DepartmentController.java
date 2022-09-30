@@ -17,8 +17,6 @@ import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.department.service.DepartmentService;
 import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.Department;
-import com.gd.LMS.vo.TotalNotice;
-import com.gd.hr.vo.Region;
 
 import lombok.extern.slf4j.Slf4j;
 

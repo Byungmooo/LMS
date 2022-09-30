@@ -29,7 +29,7 @@ public class ProfessorController {
     
     
 	// 교수 리스트
-	@GetMapping("/employee/professorList")
+	@GetMapping({"/employee/professorList", "/professor/professorList"})
 	public String ProfessorList(Model model){
 	
 	log.debug(TeamColor.BJH + " professorList 담겼음");
@@ -47,7 +47,7 @@ public class ProfessorController {
 	
 	
 	//교수 상세보기
-	@GetMapping({"/employee/studentOne", "/professor/professorOne"})
+	@GetMapping({"/employee/professorOne", "/professor/professorOne"})
 	public String ProfessorOne(Model model, @RequestParam(value = "memberCode") int professorCode) {
 		log.debug(TeamColor.BJH + "welcome");
 			

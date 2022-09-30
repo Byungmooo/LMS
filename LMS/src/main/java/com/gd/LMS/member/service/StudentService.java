@@ -67,19 +67,6 @@ public class StudentService {
     }
     
     
-    //학생정보 > 학과 자동설정 폼
-    
-    public Map<String, Object> addStudentForm() {
-		Map<String, Object> resultMap = new HashMap<>();
-    
-		List<Map<String, Object>> departmentList = departmentMapper.selectDepList();
-		resultMap.put("d", departmentList);
-		
-		return resultMap;
-    }
-    
-    
-    
    
     // 학생 삭제	
     public String removeStudentMember(String memberId) {
