@@ -15,7 +15,8 @@
 					</choose>
 				</when>
 				<!-- 전체 검색일 때 때 -->
-				<otherwise> AND ( department_code LIKE CONCAT('%', #{keyword}, '%') OR
+				<otherwise> AND ( 
+					department_code LIKE CONCAT('%', #{keyword}, '%') OR
 					department_code LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
 			</choose>
 		</if>

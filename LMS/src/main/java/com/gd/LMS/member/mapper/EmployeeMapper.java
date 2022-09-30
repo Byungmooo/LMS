@@ -10,13 +10,15 @@ import com.gd.LMS.vo.Student;
 
 @Mapper
 public interface EmployeeMapper {
-			
-	// 직원 목록
-	List<Map<String,Object>> selectEmployeeList();
+	
+	//직원 총 갯수
+	int countEmployee(Map<String, Object> map);
+
+	// 페이징 처리 게시글 조회
+	List<Employee> selectEmployeeList(Map<String, Object> map);
 	
 	//직원 상세보기
 	Map<String, Object> selectEmployeeOne(int employeeCode);
-
 
 	//수정 폼
 	Map<String, Object> updateEmployeeOne(int employeeCode);
@@ -26,7 +28,6 @@ public interface EmployeeMapper {
 	
 	//직원정보(member, employee) 삭제
 	int deleteEmployeeMember(String memberId);
-		
-		
+
 
 }

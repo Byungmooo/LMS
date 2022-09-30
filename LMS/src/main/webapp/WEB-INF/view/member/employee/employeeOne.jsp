@@ -90,10 +90,10 @@
 			<!-- 추가 삭제 목록 버튼 -->
 			<div>				
 				<a href="${pageContext.request.contextPath}/member/employee/modifyEmployee?employeeCode=${e.employeeCode}"
-						class="btn btn-warning">수정</a>
+						class="btn btn-piramery">수정</a>
 				<form action="${pageContext.request.contextPath}/member/employee/removeEmployeeMember" method="post">
 					<input type="hidden" name="memberId" value="${e.memberId}">
-					<button class="btn btn-danger" onclick="deleteBtn()">삭제</button>
+					<button class="btn btn-piramery" onclick="deleteBtn()">삭제</button>
 				</form>	
 				<a href="javascript:window.history.back()"
 						class="btn btn-primary">목록</a>

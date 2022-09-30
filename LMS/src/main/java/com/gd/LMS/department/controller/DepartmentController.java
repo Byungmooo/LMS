@@ -18,6 +18,7 @@ import com.gd.LMS.department.service.DepartmentService;
 import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.Department;
 
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -27,8 +28,8 @@ public class DepartmentController {
 	@Autowired DepartmentService departmentService;
 	
 
-	//내가 속한 학과(부서) 리스트 조회
-	@GetMapping({"/employee/departMentList", "/professor/departMentList"})
+	//학부 리스트 조회
+	@GetMapping({"/employee/departmentList", "/professor/departmentList"})
 	public String getDepartMentList (PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
@@ -42,7 +43,7 @@ public class DepartmentController {
 		map.put("keyword", keyword);
 		map.put("searchType", searchType);
 
-		log.debug(TeamColor.BJH + "map1 > " + map);
+		log.debug(TeamColor.BJH + "keyword,searchType,memberDepartmentCode 담김  > " + map);
 
 		int totalCount = departmentService.countDepartment(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
@@ -58,21 +59,21 @@ public class DepartmentController {
 		map.put("beginRow", vo.getBeginRow());
 		map.put("rowPerPage", vo.getRowPerPage());
 
-		log.debug(TeamColor.BJH + "map2 > " + map);
+		log.debug(TeamColor.BJH + "beginRow, rowPerPage > " + map);
 
-		List<Department> list = departmentService.selectDepartment(map);
+		List<Department> list = departmentService.getDepartmentList(map);
 		log.debug(TeamColor.BJH + "list : " + list);
 
 		model.addAttribute("paging", vo);
 		model.addAttribute("list", list);
 
 		log.debug(TeamColor.BJH + "학부 전체 리스트");
-		return "/department/departMentList";
+		return "member/department/departmentList";
 	}	
 	
 	
 	//학부 상세보기
-	@GetMapping({"/employee/departMentOne", "/professor/departMentOne"})
+	@GetMapping({"/employee/departmentOne", "/professor/departmentOne"})
 	public String getDepartMentOne (Model model,HttpSession session,
 			@RequestParam(value = "departmentCode") int departmentCode) {
 		log.debug(TeamColor.BJH + "학부 상세보기 컨트롤러 진입=================");
@@ -81,7 +82,7 @@ public class DepartmentController {
 		model.addAttribute("map",map);
 		log.debug(TeamColor.BJH + "map에 학부정보 담아보내기" + map);
 		
-		return "member/departMentOne";
+		return "member/department/departmentOne";
 	}
 
 	
@@ -110,6 +111,7 @@ public class DepartmentController {
 	@GetMapping("/employee/modifyDepartment")
 	public String updateTotalNotice(Model model, @RequestParam(value = "departmentCode") int departmentCode) {
 		
+		log.debug(TeamColor.BJH + "학부수정 페이지서비스 진입=======departmentCode========>" + departmentCode);
 		Map<String, Object>  department = departmentService.getDepartMentOne(departmentCode);
 		
 		model.addAttribute("department", department);
@@ -118,9 +120,11 @@ public class DepartmentController {
 		return "department/modifyDepartment";
 	}
 
-	// 전체공지사항 수정
+	// 학부 수정 액션
 	@PostMapping("/employee/modifyDepartment")
 	public String modifyDepartment(Department department, RedirectAttributes redirectAttributes) {
+		
+		log.debug(TeamColor.BJH + "학부수정 액션 서비스 진입===============");
 		
 		int count = departmentService.modeifyDepartMentOne(department);
 		redirectAttributes.addAttribute("departmentCode", department.getDepartmentCode());
@@ -134,7 +138,7 @@ public class DepartmentController {
 		return "redirect:/employee/modifyDepartment";
 	}
 
-		// 전체공지사항 삭제
+		// 학부 삭제
 		@GetMapping("/employee/removeDepartment")
 		public String removeDepartment(@RequestParam(value = "departmentCode") int departmentCode, 
 				RedirectAttributes redirectAttributes) {

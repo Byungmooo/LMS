@@ -65,12 +65,12 @@
                         <td>${row.createDate}</td>
                         <td>
                        
-                <div class="dropdown-menu">
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/updateTotalNotice/${totalNotice.noticeNo}">
-                 <i class="bx bx-book me-1"></i> 게시판수정 </a> 
-              <a class="dropdown-item" href="${pageContext.request.contextPath}/removeTotalNotice?noticeNo=${totalNotice.noticeNo}">
-                 <i class="bx bx-book me-1"></i> 게시판삭제 </a>
-                </div>
+			                <div class="dropdown-menu">
+				              <a class="dropdown-item" href="${pageContext.request.contextPath}/updateTotalNotice/${totalNotice.noticeNo}">
+				                 <i class="bx bx-book me-1"></i> 게시판수정 </a> 
+				              <a class="dropdown-item" href="${pageContext.request.contextPath}/removeTotalNotice?noticeNo=${totalNotice.noticeNo}">
+				                 <i class="bx bx-book me-1"></i> 게시판삭제 </a>
+			                </div>
                         
                         </td>
                     </tr>

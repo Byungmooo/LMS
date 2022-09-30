@@ -149,12 +149,9 @@
 						<i class="menu-icon tf-icons bx bx-dock-top"></i>
 							내정보
 						</a>
-						<ul class="menu-sub">
-							<li class="menu-item">
-								<a href="${pageContext.request.contextPath}/professor/departmantList?memberCode=${memberCode}" class="menu-link">
-									학부정보
-								</a></li>
-						</ul>
+						<a href="${pageContext.request.contextPath}/member/departmantList?memberCode=${memberCode}" class="menu-link">
+							학부정보
+						</a>
 					</li>
 					<li class="menu-item">
 						<a href="${pageContext.request.contextPath}/member/calendar?memberCode=${memberCode}" class="menu-link"> 

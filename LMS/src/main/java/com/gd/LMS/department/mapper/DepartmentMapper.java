@@ -19,9 +19,6 @@ public interface DepartmentMapper {
 	// 페이징 처리 게시글 조회
 	List<Department> selectDepartment(Map<String, Object> map);
 	
-
-	//학부리스트
-	List<Map<String, Object>> selectDepartMentList();
 	
 	//학부상세보기
 	Map<String, Object> selectDepartMentOne(int departmentCode);
@@ -32,7 +29,7 @@ public interface DepartmentMapper {
 
 	
 	//학부수정
-	Department updateDepartmentForm (int departmentCode);
+	Department updateDepartment (int departmentCode);
 	//수정 action
 	int updateDepartmentAction(Department department);
 

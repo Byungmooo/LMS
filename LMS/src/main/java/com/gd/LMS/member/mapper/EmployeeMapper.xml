@@ -1,10 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.member.mapper.EmployeeMapper">
+<sql id="search">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'code'.equals(searchType)"> AND empolyee_code LIKE CONCAT('%', #{keyword},
+							'%') </when>
+						<when test="'id'.equals(searchType)"> AND member_id LIKE CONCAT('%', #{keyword},
+							'%') </when>
+						<when test="'name'.equals(searchType)"> AND member_name LIKE CONCAT('%', #{keyword},
+							'%') </when>
+					</choose>
+				</when>
+				<!-- 전체 검색일 때 때 -->
+				<otherwise> AND ( 
+					empolyee_code LIKE CONCAT('%', #{keyword}, '%') OR
+					member_id LIKE CONCAT('%', #{keyword}, '%') ) OR
+					member_name LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
+			</choose>
+		</if>
+	</sql>
 
-	<!-- ＃＃＃＃＃＃＃＃ 직원 ＃＃＃＃＃＃＃ -->
-	<!-- 직원리스트 -->
-	<select id = "selectEmployeeList" resultType="map">
+	<!-- 총 직원수 출력 -->
+	<select id="countEmployee"
+		parameterType="map" resultType="com.gd.LMS.vo.Employee">
+		SELECT COUNT(*) FROM employee 
+			WHERE 1=1 
+			<include refid="search" />
+			AND 
+			employee_code IS NOT NULL
+	</select>
+	
+	
+	
+	<!-- 페이징 처리 후 리스트 -->
+	<select id = "selectEmployeeList"  parameterType="map"
+			resultType="com.gd.LMS.vo.Employee">
 	SELECT 
 		e.member_id memberId,
 		m.member_name memberName,
@@ -13,8 +48,14 @@
 		e.employee_state employeeState
 	FROM
 		employee e , member m
-	WHERE
-		e.member_id = m.member_id
+	WHERE 1=1
+		<include refid="search" />
+		AND e.employee_code IS NOT NULL
+		AND e.member_id = m.member_id
+	ORDER BY
+		e.employee_code
+	LIMIT
+		#{beginRow}, #{rowPerPage}
 	</select>
 	
 	<!-- 직원상세보기 -->
@@ -38,7 +79,7 @@
 		employee e inner join member m
 	on
 		e.member_id = m.member_id
-	Where 
+	WHERE 
 		e.employee_code = #{employeeCode}
 	</select>
 

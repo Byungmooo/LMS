@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.mapper.EmployeeMapper;
+import com.gd.LMS.vo.Department;
 import com.gd.LMS.vo.Employee;
 import com.gd.LMS.vo.Student;
 
@@ -21,31 +22,36 @@ public class EmployeeService {
 	@Autowired EmployeeMapper employeeMapper;
 	
 	
-	// 직원 목록
-	public List<Map<String,Object>> getEmployeeList(){
-		log.debug(TeamColor.BJH + "getEmployeeList" );
-		 List<Map<String, Object>> employeetList = employeeMapper.selectEmployeeList();
-		 log.debug(TeamColor.BJH + "employeetList service");
-		return employeetList;
+	
+	// 전체공지사항 목록 리스트
+	public List<Employee> selectEmployeeList(Map<String, Object> map) {
+		return employeeMapper.selectEmployeeList(map);
 	}
-		
+	
+	
+	// 학부 총 개수
+	public int countEmployee(Map<String, Object> map) {
+		return employeeMapper.countEmployee(map);
+	}
+	
+
 	//직원 상세보기
 	public Map<String, Object> getEmployeeOne(int employeeCode) {
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + "employeeCode (service) > " + employeeCode);
+		log.debug(TeamColor.BJH + "직원 상세보기 서비스 진입 ================ " + employeeCode);
 		
 		// 매퍼메서드 호출 후 리턴값 디버깅
-		Map<String, Object> EmployeeOne = employeeMapper.selectEmployeeOne(employeeCode);
-		log.debug(TeamColor.BJH + "getEmployeeOne (service) > " + EmployeeOne);
+		Map<String, Object> employeeOne = employeeMapper.selectEmployeeOne(employeeCode);
+		log.debug(TeamColor.BJH + "상세보기 employeeOne 담기 >>>>>>" + employeeCode);
 				
-		 return EmployeeOne;
+		 return employeeOne;
 	}
 	
 	// 직원정보 수정 폼
 	public Map<String, Object> getEmployee(int employeeCode) {
 		log.debug(TeamColor.BJH + "emlpoyee수정폼(service) > " + employeeCode);
 		
-		Map<String, Object> updateOne = employeeMapper.selectEmployeeOne(employeeCode);
+		Map<String, Object> updateOne = employeeMapper.updateEmployeeOne(employeeCode);
 		log.debug(TeamColor.BJH + "updateOne (service) > " + updateOne);
 		return updateOne;
 	}
@@ -55,7 +61,11 @@ public class EmployeeService {
     	
     	//log.debug(TeamColor.BJH + "map studentYear ==> " + map.get("studentYear"));
     	int row = employeeMapper.updateEmployee(map);
-    	log.debug(TeamColor.BJH + "updateEmployee 수정액션(service) > " + map);
+    	if(row != 0) {
+			log.debug(TeamColor.BJH + "직원정보 수정 성공");
+		}
+		log.debug(TeamColor.BJH + "직원정보 수정 실패");
+
     
         return row;
     }

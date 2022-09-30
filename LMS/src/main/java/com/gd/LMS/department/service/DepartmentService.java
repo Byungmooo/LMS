@@ -21,7 +21,7 @@ public class DepartmentService {
 	@Autowired DepartmentMapper departmentMapper;
 	
 	// 전체공지사항 목록 리스트
-	public List<Department> selectDepartment(Map<String, Object> map) {
+	public List<Department> getDepartmentList(Map<String, Object> map) {
 		return departmentMapper.selectDepartment(map);
 	}
 	
@@ -35,6 +35,7 @@ public class DepartmentService {
 		log.debug(TeamColor.BJH + "학부정보 상세보기 서비스 진입 ================");
 		
 		Map<String, Object> departmentOne = departmentMapper.selectDepartMentOne(departmentCode);
+		log.debug(TeamColor.BJH + "상세보기 departmentOne 담기 >>>>>> " +departmentOne);
 		
 		return departmentOne;
 		
@@ -55,7 +56,7 @@ public class DepartmentService {
 		
 		log.debug(TeamColor.BJH + "학부수정 폼 서비스 진입===============");
 		
-		return departmentMapper.updateDepartmentForm(departmentCode);
+		return departmentMapper.updateDepartment(departmentCode);
 	}
 	
 	//학부 수정 액션
