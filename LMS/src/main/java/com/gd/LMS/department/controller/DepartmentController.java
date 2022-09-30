@@ -68,7 +68,7 @@ public class DepartmentController {
 		model.addAttribute("list", list);
 
 		log.debug(TeamColor.BJH + "학부 전체 리스트");
-		return "member/department/departmentList";
+		return "department/departmentList";
 	}	
 	
 	
@@ -82,7 +82,7 @@ public class DepartmentController {
 		model.addAttribute("map",map);
 		log.debug(TeamColor.BJH + "map에 학부정보 담아보내기" + map);
 		
-		return "member/department/departmentOne";
+		return "department/departmentOne";
 	}
 
 	

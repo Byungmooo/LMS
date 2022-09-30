@@ -38,11 +38,11 @@ public class StudentController {
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
     	
 		
-		String memberCode = (String) session.getAttribute("memberCode");
-    	log.debug(TeamColor.BJH + " memberCode 담겼음");
+		String memberId = (String) session.getAttribute("memberId");
+    	log.debug(TeamColor.BJH + " memberId 담겼음");
 	
 
-    	map.put("memberCode", memberCode);
+    	map.put("memberId", memberId);
 		map.put("keyword", keyword);
 		map.put("searchType", searchType);
     	
