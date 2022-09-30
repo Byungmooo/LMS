@@ -92,7 +92,6 @@
                         <select name="searchType" class="form-select">
                             <option value="" selected="selected">전체</option>
                             <option value="id">아이디</option>
-                            <option value="state">상태</option>
                             <option value="code">교수코드</option>
                             <option value="name">이름</option>
                         </select>

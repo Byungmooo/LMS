@@ -16,17 +16,41 @@
 </c:choose>
 
 <!-- Main -->
-
 <div class="container-xxl flex-grow-1 container-p-y">
-	
-	<!-- employeeList -->
-	<div class="card">
-		<h5 class="card-header">직원리스트</h5>
-		<div class="table-responsive text-nowrap">
-			<table class="table">
-			<caption class="ms-4"></caption>
-							
-				<thead>
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">"${sessionScope.memberName}님/</span>
+        학부 전체 리스트
+    </h4>
+    <hr class="my-1"/>
+    <!-- RowPerPage Option -->
+    <div class="row">
+        <div class="col-sm-9 col-12 text-center"></div>
+        <div class="col-sm-3 col-12 text-center">
+            <select class="form-select" name="sel" id="rowPerPage">
+                <option value="5"
+                        <c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기
+                </option>
+                <option value="10"
+                        <c:if test="${paging.rowPerPage == 10}">selected</c:if>>10줄 보기
+                </option>
+                <option value="15"
+                        <c:if test="${paging.rowPerPage == 15}">selected</c:if>>15줄 보기
+                </option>
+                <option value="20"
+                        <c:if test="${paging.rowPerPage == 20}">selected</c:if>>20줄 보기
+                </option>
+            </select>
+        </div>
+    </div>
+     <br> 
+
+    <!--  직원리스트 -->
+    <div class="card">
+        <h5 class="card-header">전체 직원 리스트</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table">
+                <caption class="ms-4"></caption>
+                   <thead>
 					<tr>
 						<th>아이디</th>
 						<th>이름</th>
@@ -58,15 +82,15 @@
     <div class="row">
         <div class="col-sm-2 col-12 text-center"></div>
         <div class="col-sm-7 col-12 text-center">
-            <form action="${pageContext.request.contextPath}/member/employeeList" method="get">
+            <form action="${pageContext.request.contextPath}/member/departmentList" method="get">
                 <input type="hidden" name="rowPerPage" value="${paging.rowPerPage}">
                 <div class="row">
                     <div class="col-sm-3 col-12 text-center">
                         <select name="searchType" class="form-select">
                             <option value="" selected="selected">전체</option>
-                            <option value="id">아이디</option>
                             <option value="code">직원코드</option>
                             <option value="name">이름</option>
+                            <option value="id">아이디</option>
                         </select>
                     </div>
                     <div class="col-sm-7 col-12 text-center">

@@ -1,28 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.member.mapper.StudentMapper">
+<sql id="search">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'code'.equals(searchType)"> AND student_code LIKE CONCAT('%', #{keyword},
+							'%') </when>
+						<when test="'id'.equals(searchType)"> AND member_id LIKE CONCAT('%', #{keyword},
+							'%') </when>
+						<when test="'name'.equals(searchType)"> AND member_name LIKE CONCAT('%', #{keyword},
+							'%') </when>
+					</choose>
+				</when>
+				<!-- 전체 검색일 때 때 -->
+				<otherwise> AND ( 
+					student_code LIKE CONCAT('%', #{keyword}, '%') OR
+					member_id LIKE CONCAT('%', #{keyword}, '%') ) OR
+					member_name LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
+			</choose>
+		</if>
+	</sql>
 
-<!-- ＃＃＃＃＃＃＃＃ 학생 ＃＃＃＃＃＃＃ -->
-	<!-- 학생리스트 -->
-	<select id = "selectStudentList" resultType="map">
+	<!-- 총 직원수 출력 -->
+	<select id="countStudent"
+		parameterType="map" resultType="com.gd.LMS.vo.Student">
+		SELECT COUNT(*) FROM student 
+			WHERE 1=1 
+			<include refid="search" />
+			AND 
+			student_code IS NOT NULL
+	</select>
+	
+	
+	
+	<!-- 페이징 처리 후 리스트 -->
+	<select id = "selectStudentList"  parameterType="map"
+			resultType="com.gd.LMS.vo.Student">
 	SELECT 
 		s.member_id memberId,
-		m.member_name memberName,
 		s.student_code studentCode,
 		d.department_code departmentCode,
 		s.student_year studentYear,
-		s.student_state studentState
-	FROM 
-		student s, 
-		member m,
-		department d		
-	Where 
-		s.member_id = m.member_id AND
-		s.department_code = d.department_code
-	ORDER BY 
-		student_code ASC
+		s.student_state studentState,
+		m.member_name memberName,
+		m.member_gender memberGender,
+		m.member_type memberType,
+		m.member_birth memberBirth,
+		m.member_email memberEmail,
+		m.member_address memberAddress,
+		m.member_contact memberContact,
+		m.active,
+		m.create_date createDate,
+		m.update_date updateDate
+	FROM
+		student s , member m, department d
+	WHERE 1=1
+		<include refid="search" />
+		AND s.student_code IS NOT NULL
+		AND s.member_id = m.member_id 
+		AND d.department_code = s.department_code
+	ORDER BY
+		s.student_code
+	LIMIT
+		#{beginRow}, #{rowPerPage}
 	</select>
 	
+
 	<!-- 학생정보 상세보기 -->
 	<select id ="selectStudentOne" resultType="map" parameterType="int">
 	SELECT 

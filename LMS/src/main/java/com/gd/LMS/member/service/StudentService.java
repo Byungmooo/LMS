@@ -21,35 +21,38 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class StudentService {
 	@Autowired StudentMapper studentMapper;
-	@Autowired DepartmentMapper departmentMapper;
 	
 	//학생 리스트 보기
-	public List<Map<String, Object>> getStudentList(){
-
-		 log.debug(TeamColor.BJH + "[지혜] getStudentList 담겼음");
+	public List<Student> getStudentList(Map<String, Object> map){
+		log.debug(TeamColor.BJH + "전체 학생 목록 서비스 진입==============");
 		 
-		 List<Map<String, Object>> studentList = studentMapper.selectStudentList();
-		 log.debug(TeamColor.BJH + "[지혜] studentList service");
-		 
-		 return studentList;
+				 
+		 return studentMapper.selectStudentList(map);
 	};
 	
-	
+	// 총 학생 수
+	public int countStudent(Map<String, Object> map) {
+		log.debug(TeamColor.BJH + "전체 학생 수 카운트 서비스 진입==============");
+		
+		return studentMapper.countStudent(map);
+	}
+		
+
 	//학생 상세보기
 	public Map<String, Object> getStudentOne(int studentCode) {
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + "상세보기 (service) > " + studentCode);
+		log.debug(TeamColor.BJH + "학생 상세보기 서비스 진입 ================ " + studentCode);
 		
 		// 매퍼메서드 호출 후 리턴값 디버깅
-		Map<String, Object> StudentOne = studentMapper.selectStudentOne(studentCode);
-		log.debug(TeamColor.BJH + "StudentOne (service) > " + StudentOne);
+		Map<String, Object> studentOne = studentMapper.selectStudentOne(studentCode);
+		log.debug(TeamColor.BJH + "상세보기 studentOne 담기 >>>>>> " + studentOne);
 				
-		 return StudentOne;
+		 return studentOne;
 	}
 	
 	// 학생정보 수정 폼
 	public Map<String, Object> getStudent(int studentCode) {
-		log.debug(TeamColor.BJH + "수정폼(service) > " + studentCode);
+		log.debug(TeamColor.BJH + "student 수정폼 서비스 진입===========" + studentCode);
 		
 		Map<String, Object> updateOne = studentMapper.updateStudentOne(studentCode);
 		log.debug(TeamColor.BJH + "updateOne (service) > " + updateOne);
@@ -59,10 +62,12 @@ public class StudentService {
     // 학생정보 수정액션
     public int modifyStudent(Map<String, Object> map) {
     	
-    	//log.debug(TeamColor.BJH + "map studentYear ==> " + map.get("studentYear"));
+    	
     	int row = studentMapper.updateStudent(map);
-    	log.debug(TeamColor.BJH + "수정액션(service) > " + map);
-    
+    	if(row != 0) {
+			log.debug(TeamColor.BJH + "학생정보 수정 성공" + map);
+		}
+		log.debug(TeamColor.BJH + "학생정보 수정 실패");
         return row;
     }
     

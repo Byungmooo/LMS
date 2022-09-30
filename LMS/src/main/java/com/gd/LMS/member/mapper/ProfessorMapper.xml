@@ -25,8 +25,8 @@
 		</if>
 	</sql>
 
-	<!-- 총 직원수 출력 -->
-	<select id="countEmployee"
+	<!-- 총 교수 수 출력 -->
+	<select id="countProfessor"
 		parameterType="map" resultType="com.gd.LMS.vo.Professor">
 		SELECT COUNT(*) FROM professor 
 			WHERE 1=1 
@@ -38,7 +38,7 @@
 	
 	
 	<!-- 페이징 처리 후 리스트 -->
-	<select id = "selectEmployeeList"  parameterType="map"
+	<select id = "selectProfessorList"  parameterType="map"
 			resultType="com.gd.LMS.vo.Professor">
 	SELECT 
 		p.member_id memberId,

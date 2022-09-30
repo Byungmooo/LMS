@@ -22,7 +22,7 @@ public class ProfessorService {
 	
 	
 	// 전체 교수 목록 리스트
-	public List<Professor> selectProfessorList(Map<String, Object> map) {
+	public List<Professor> getProfessorList(Map<String, Object> map) {
 		log.debug(TeamColor.BJH + "전체 교수 목록 서비스 진입==============");
 		return professorMapper.selectProfessorList(map);
 	}
@@ -60,7 +60,7 @@ public class ProfessorService {
     	
     	int row = professorMapper.updateProfessor(map);
     	if(row != 0) {
-			log.debug(TeamColor.BJH + "교수정보 수정 성공");
+			log.debug(TeamColor.BJH + "교수정보 수정 성공" + map);
 		}
 		log.debug(TeamColor.BJH + "교수정보 수정 실패");
 
