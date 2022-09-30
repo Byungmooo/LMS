@@ -2,205 +2,281 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.exam.mapper.professorExMapper">
 
-<!-- 시험지 리스트 -->
-	<select id="selectExList" parameterType="int" resultType="com.gd.LMS.vo.ExamSheet">
+
+
+
+
+	<!-- 시험지 리스트 -->
+	<select id="selectExList" parameterType="int"
+		resultType="com.gd.LMS.vo.ExamSheet">
 		SELECT
-			exam_no examNo,
-			exam_name examName,
-			create_date createDate,
-			update_date updateDate
+		exam_no examNo,
+		exam_name examName,
+		create_date createDate,
+		update_date updateDate
 		FROM
-			exam_sheet
+		exam_sheet
 	</select>
-	
 
 
 
-<!-- 시험지 상세보기 -->
-	<select id="selectExOne" parameterType="int" resultType="com.gd.LMS.vo.ExamSheet">
+
+	<!-- 시험지 상세보기 -->
+	<select id="selectExOne" parameterType="int"
+		resultType="com.gd.LMS.vo.ExamSheet">
 		SELECT
-			exam_no examNo, 
-			exam_name examName,
-			create_date createDate,
-			update_date updateDate
+		exam_no examNo,
+		exam_name examName,
+		create_date createDate,
+		update_date updateDate
 		FROM
-			exam_sheet
+		exam_sheet
 		WHERE
-			exam_no = #{examNo}
+		exam_no = #{examNo}
 	</select>
 
 
 
-<!-- 시험지상세 : 객관식문제 -->
-	<select id="selectMultipleQ" parameterType="int" resultType="com.gd.LMS.vo.MultipleChoiceQuestion">
-			SELECT 
-			A.opened_lec_no openLecNo,
-			A.multiple_no multipleNo,
-			A.multiple_content multipleContent, 
-			A.multiple_answer multipleAnswer,
-			A.question_point questionPoint,
-			A.create_date createDate,
-			A.update_date updateDate,
-			Z.arrayUs 
+	<!-- 시험지상세 : 객관식문제 -->
+	<select id="selectMultipleQ" parameterType="int"
+		resultType="com.gd.LMS.vo.MultipleChoiceQuestion">
+		SELECT
+		A.opened_lec_no openLecNo,
+		A.multiple_no multipleNo,
+		A.multiple_content multipleContent,
+		A.multiple_answer multipleAnswer,
+		A.question_point questionPoint,
+		A.create_date createDate,
+		A.update_date updateDate,
+		Z.arrayUs
 		FROM multiple_choice_question A
-			,(SELECT B.multiple_no, GROUP_CONCAT(B.arrayUs) AS arrayUs FROM(
-				SELECT example,multiple_no,GROUP_CONCAT(example_content) arrayUs FROM(
-					SELECT * FROM multiple_example WHERE exam_no = #{examNo} ORDER BY multiple_no,example ASC
-					LIMIT 1000
-					)A
-					GROUP BY A.multiple_no,example
-				)B
-				GROUP BY B.multiple_no
-			)Z
-		WHERE A.multiple_no = Z.multiple_no	 AND A.exam_no = #{examNo}
+		,(SELECT B.multiple_no, GROUP_CONCAT(B.arrayUs) AS arrayUs FROM(
+		SELECT example,multiple_no,GROUP_CONCAT(example_content) arrayUs FROM(
+		SELECT * FROM multiple_example WHERE exam_no = #{examNo} ORDER BY
+		multiple_no,example ASC
+		LIMIT 1000
+		)A
+		GROUP BY A.multiple_no,example
+		)B
+		GROUP BY B.multiple_no
+		)Z
+		WHERE A.multiple_no = Z.multiple_no AND A.exam_no = #{examNo}
 
 	</select>
 
 
 
-<!-- 시험지상세 : 객관식보기 -->
-	<select id="selectMultipleExample" parameterType="int" resultType="com.gd.LMS.vo.MultipleExample">
-		SELECT 
-			exam_no examNo,
-			multiple_no multipleNo,
-			example,
-			example_content exampleContent,
-			create_date createDate,
-			update_date updateDate
-		From 
-			multiple_example
-		WHERE 
-			exam_no = #{examNo}
-		
-	</select>
-		
-		
-		
-<!-- 시험지상세 : 주관식보기 -->
-	<select id="selectSubjectiveQ" parameterType="int" resultType="com.gd.LMS.vo.SubjectiveQuestion">
-		SELECT 
-			opened_lec_no openedLecNo,
-			exam_no examNo,
-			subjective_no subjectiveNo,
-			subjective_content subjectiveContent,
-			subjective_answer subjectiveAnswer,
-			question_point questionPoint,
-			create_date createDate,
-			update_date updateDate
-		From 
-			subjective_question
-		WHERE 
-			exam_no = #{examNo} 
+	<!-- 시험지상세 : 객관식보기 -->
+	<select id="selectMultipleExample" parameterType="int"
+		resultType="com.gd.LMS.vo.MultipleExample">
+		SELECT
+		exam_no examNo,
+		multiple_no multipleNo,
+		example,
+		example_content exampleContent,
+		create_date createDate,
+		update_date updateDate
+		From
+		multiple_example
+		WHERE
+		exam_no = #{examNo}
+
 	</select>
 
 
 
+	<!-- 시험지상세 : 주관식보기 -->
+	<select id="selectSubjectiveQ" parameterType="int"
+		resultType="com.gd.LMS.vo.SubjectiveQuestion">
+		SELECT
+		opened_lec_no openedLecNo,
+		exam_no examNo,
+		subjective_no subjectiveNo,
+		subjective_content subjectiveContent,
+		subjective_answer subjectiveAnswer,
+		question_point questionPoint,
+		create_date createDate,
+		update_date updateDate
+		From
+		subjective_question
+		WHERE
+		exam_no = #{examNo}
+	</select>
 
 
+	<!-- 시험지생성 -->
+	<insert id="insertExamSheet"
+		parameterType="com.gd.LMS.vo.ExamSheet">
+		<selectKey resultType="int" keyProperty="examNo"
+			order="BEFORE">
+			select MAX(exam_no) + 1 from exam_sheet
+		</selectKey>
+		INSERT INTO
+		exam_sheet(
+		exam_name,
+		create_date
+		)
+		VALUES(
+		#{examName},
+		NOW()
+		)
+	</insert>
+	<!-- 객관식문제추가 -->
+	<insert id="insertMultiple"
+		parameterType="map">
+		INSERT INTO
+		multiple_choice_question(
+		exam_no,
+		multiple_no,
+		multiple_content,
+		multiple_answer,
+		create_date
+		)
+		VALUES(
+		#{examNo},
+		#{multipleNo},
+		#{multipleContent},
+		#{answer},
+		NOW()
+		)
+	</insert>
+	<!-- 객관식보기추가 -->
+	<insert id="insertExample"
+		parameterType="map">
+		INSERT INTO
+		multiple_example(
+		exam_no,
+		multiple_no,
+		example,
+		example_content,
+		create_date
+		)
+		VALUES(
+		#{examNo},
+		#{multipleNo},
+		#{example},
+		#{exampleContent},
+		NOW()
+		)
+	</insert>
 
-<!-- 시험지이름 수정 -->
-	<update id="updateExamSheetName" parameterType="java.util.HashMap">
-	UPDATE 
-		exam_sheet 
-	SET
+
+	<!-- 시험지이름 수정 -->
+	<update id="updateExamSheetName"
+		parameterType="java.util.HashMap">
+		UPDATE
+		exam_sheet
+		SET
 		exam_name = #{examName}
-	WHERE 
+		WHERE
 		exam_no = #{examNo}
 	</update>
-	
-<!-- 객관식 문제 수정 -->
+
+	<!-- 객관식 문제 수정 -->
 	<update id="updateQuestion" parameterType="java.util.HashMap">
-	UPDATE 
+		UPDATE
 		multiple_choice_question
-	SET
+		SET
 		multiple_content = #{exampleContent}
-	WHERE 
+		WHERE
 		exam_no = #{examNo} AND multiple_no = #{multipleNo}
 	</update>
-	
-<!-- 객관식 문제보기내용 수정 -->
-	<update id="updateExampleContent" parameterType="java.util.HashMap">
-	UPDATE 
+
+	<!-- 객관식 문제보기내용 수정 -->
+	<update id="updateExampleContent"
+		parameterType="java.util.HashMap">
+		UPDATE
 		multiple_example
-	SET
+		SET
 		example_content = #{exampleContent},
 		update_date = NOW()
-	WHERE 
-		exam_no = #{examNo} AND multiple_no = #{multipleNo} AND example = #{exampleNo}
+		WHERE
+		exam_no = #{examNo} AND multiple_no = #{multipleNo} AND example =
+		#{exampleNo}
 	</update>
-	
-<!-- 객관식 정답 수정 -->
-	<update id="updateMultipleAnswer" parameterType="java.util.HashMap">
-	UPDATE 
+
+	<!-- 객관식 정답 수정 -->
+	<update id="updateMultipleAnswer"
+		parameterType="java.util.HashMap">
+		UPDATE
 		multiple_choice_question
-	SET
+		SET
 		multiple_answer = #{multipleAnswer},
 		update_date = NOW()
-	WHERE 
+		WHERE
 		exam_no = #{examNo} AND multiple_no = #{multipleNo}
-	</update>	
-	
-<!-- 주관식 문제 수정 -->
+	</update>
+
+	<!-- 주관식 문제 수정 -->
 	<update id="updateSubContent" parameterType="map">
-	UPDATE 
+		UPDATE
 		subjective_question
-	SET
+		SET
 		subjective_content = #{subjectiveContent}
-	WHERE 
+		WHERE
 		exam_no = #{examNo} AND subjective_no = #{subjectiveNo}
-	</update>	
-	
-	
-<!-- 주관식 정답 수정 -->
+	</update>
+
+
+	<!-- 주관식 정답 수정 -->
 	<update id="updateSubAnswer" parameterType="java.util.HashMap">
-	UPDATE 
+		UPDATE
 		subjective_question
-	SET
+		SET
 		subjective_answer = #{subjectiveAnswer}
-	WHERE 
+		WHERE
 		exam_no = #{examNo} AND subjective_no = #{subjectiveNo}
-	</update>	
-	
-	
-	
-	
+	</update>
 
 
-<!-- 시험지삭제.1 : 객관식 보기 삭제  -->
-	<delete id="deleteMultupleExample" parameterType="int" >
-		DELETE FROM 
-			multiple_example
+	<!-- 주관식 문제 등록 -->
+	<insert id="insertSubjective" parameterType="java.util.HashMap">
+		INSERT INTO subjective_question (
+			EXAM_NO,
+			SUBJECTIVE_NO,
+			SUBJECTIVE_CONTENT,
+			SUBJECTIVE_ANSWER,
+			CREATE_DATE
+		)
+		VALUES(
+			#{examNo},
+			#{subjectNo},
+			#{subjectContent},
+			#{subjectAnswer},
+			NOW()
+		)
+	</insert>
+
+
+
+	<!-- 시험지삭제.1 : 객관식 보기 삭제 -->
+	<delete id="deleteMultupleExample" parameterType="int">
+		DELETE
+		FROM
+		multiple_example
 		WHERE
-			exam_no = ${examNo}
+		exam_no = ${examNo}
 	</delete>
-<!-- 시험지삭제.2 : 객관식 문제 삭제 -->
-	<delete id="deleteMultipleQ" parameterType="int" >
-		DELETE FROM 
-			multiple_choice_question
+	<!-- 시험지삭제.2 : 객관식 문제 삭제 -->
+	<delete id="deleteMultipleQ" parameterType="int">
+		DELETE FROM
+		multiple_choice_question
 		WHERE
-			exam_no = ${examNo}
+		exam_no = ${examNo}
 	</delete>
-<!-- 시험지삭제.3 : 주관식 문제 삭제 -->
-	<delete id="deleteSubjectiveQ" parameterType="int" >
-		DELETE FROM 
-			subjective_question
+	<!-- 시험지삭제.3 : 주관식 문제 삭제 -->
+	<delete id="deleteSubjectiveQ" parameterType="int">
+		DELETE FROM
+		subjective_question
 		WHERE
-			exam_no = ${examNo}
+		exam_no = ${examNo}
 	</delete>
-<!-- 시험지삭제.4 : 시험지 삭제 -->
-	<delete id="deleteExamSheet" parameterType="int" >
-		DELETE FROM 
-			exam_sheet
+	<!-- 시험지삭제.4 : 시험지 삭제 -->
+	<delete id="deleteExamSheet" parameterType="int">
+		DELETE FROM
+		exam_sheet
 		WHERE
-			exam_no = ${examNo}
+		exam_no = ${examNo}
 	</delete>
-
-
-
-
-
-
-
-
 
 </mapper>
