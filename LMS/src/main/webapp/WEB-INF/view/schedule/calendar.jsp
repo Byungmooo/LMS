@@ -61,28 +61,47 @@
 											
 											<!-- 학부일정 -->
 											<c:if test="${!((i%7 == 0)||(i%7 == 1))}">
-												<strong>●학부일정</strong>
+												<strong style="font-size: small;">● 학부일정</strong>
 											</c:if>
 											<div style="flex-grow: 1; width1: 50%;">
 												<c:forEach items="${scheduleList}" var="s">
 													<c:if test="${s.scheduleYear==year&&s.scheduleMonth==month&&s.scheduleDay==(i-startBlank)}">
-														
-															<span>-${s.depScheduleContent}</span>
+															<span style="font-size: x-small;">-${s.depScheduleContent}</span>
 															<br>
-														<c:if test=""></c:if>
 													</c:if>
 												</c:forEach>
 											</div>
 
 											<!-- 오늘내강의 -->
 											<c:if test="${!((i%7 == 0)||(i%7 == 1))}">
-												<strong>●강의</strong>
+												<strong style="font-size: small;">● 강의</strong>
 											</c:if>
 											<div style="flex-grow: 4;">
 												<c:forEach items="${list}" var="l">
-													<c:if test="${(l.openMoth <= month)&&(l.closeMoth >= month)}">
+													<c:if test="${((l.openYear <= year)&&(l.closeYear >= year))&&
+														((l.openMonth < month)&&(l.closeMonth > month))}">
 														<c:if test="${i%7==(l.lectureYoil+1)}">
-															<a href="#">-${l.lectureName}</a>
+															<span style="font-size: x-small;">
+																<a href="#">-${l.lectureName}</a>
+															</span>
+															<br>
+														</c:if>
+													</c:if>
+													<c:if test="${((l.openYear <= year)&&(l.closeYear >= year))&&
+														(l.openMonth == month)&&(l.openDay<=(i - startBlank))}">
+														<c:if test="${i%7==(l.lectureYoil+1)}">
+															<span style="font-size: x-small;">
+																<a href="#">-${l.lectureName}</a>
+															</span>
+															<br>
+														</c:if>
+													</c:if>
+													<c:if test="${((l.openYear <= year)&&(l.closeYear >= year))&&
+														(l.closeMonth == month)&&(l.closeDay>=(i - startBlank))}">
+														<c:if test="${i%7==(l.lectureYoil+1)}">
+															<span style="font-size: x-small;">
+																<a href="#">-${l.lectureName}</a>
+															</span>
 															<br>
 														</c:if>
 													</c:if>

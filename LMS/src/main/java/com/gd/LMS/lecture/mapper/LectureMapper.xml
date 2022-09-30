@@ -269,8 +269,8 @@
 			NOW() 
 		)
 		</foreach>
-	
 	</insert>
+	
 	<!-- 출석상태확인 -->
 	<select id="selectAttendanceState" parameterType="com.gd.LMS.vo.Attendance" resultType="String"> 
 		SELECT

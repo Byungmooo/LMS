@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.lecture.mapper.LectureRegMapper">
+	<!-- 검색 키워드가 있을 때 -->
+	<sql id="search">
+		<if test="keyword != null and keyword != ''"> AND lecture_name LIKE CONCAT('%', #{keyword},'%') </if>
+	</sql>
+	
+	<select id="selectDepartmentCodeByMemberCode" parameterType="int" resultType="String">
+		SELECT 
+			department_code departmentCode 
+		FROM 
+			professor
+		WHERE
+			professor_code = #{memberCode}
+	</select>
+	
+	<select id="selectTotalDepLectureCount" parameterType="map" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			total_lecture
+		WHERE
+			department_code = #{departmentCode}
+			<include refid="search" />
+	</select>
+	
+	<select id="selectTotalDepLectureList"  parameterType="map" resultType="map">
+		SELECT 
+			lecture_code lectureCode, 
+			lecture_name lectureName,
+			lecture_type lectureType,
+			credit,
+			create_date createDate 
+		FROM 
+			total_lecture
+		WHERE
+			department_code = #{departmentCode}
+			<include refid="search" />
+		ORDER BY 
+			lecture_code 
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectTotalDepLectureOne"  parameterType="int" resultType="map">
+		SELECT 
+			t.lecture_code lectureCode, 
+			t.lecture_name lectureName,
+			t.lecture_type lectureType,
+			t.credit,
+			d.department_name departmentName,
+			t.create_date createDate 
+		FROM 
+			total_lecture t,
+			department d
+		WHERE
+			t.department_code = d.department_code AND
+			lecture_code = #{lectureCode}
+	</select>
+</mapper>

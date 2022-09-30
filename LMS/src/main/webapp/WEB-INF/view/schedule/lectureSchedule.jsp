@@ -45,16 +45,21 @@
 						</tr>
 						<c:forEach begin="1" end="9" var="a">
 							<tr height="130">
-								<th style="background-color: #999999; color: #fff;">${a}교시</th>
+								<th style="background-color: #999999; color: #fff;">
+									${a}교시
+									<br/>
+									${a+8}:00 ~ ${a+8}:50
+								</th>
 								<c:forEach begin="1" end="5" var="b">
 									<td><c:forEach items="${list}" var="s">
 											<c:if test="${b==s.lectureYoil && s.lectureStart<=a && a<=s.lectureEnd}">
-										<a href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${s.openedLecNo}"><strong><span style="font-size: small;">${s.lectureName}</span></strong></a>
-										<br/>
-										<span style="font-size: x-small;">${s.lecClassRoom}</span>
-										<br/>
-									</c:if>
-										</c:forEach></td>
+												<a href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${s.openedLecNo}"><strong><span style="font-size: small;">${s.lectureName}</span></strong></a>
+												<br/>
+												<span style="font-size: x-small;">${s.lecClassRoom}</span>
+												<br/>
+											</c:if>
+										</c:forEach>
+									</td>
 									<!-- 요일이 b이고 교시가 <=a<=인 -->
 								</c:forEach>
 							</tr>

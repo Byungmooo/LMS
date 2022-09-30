@@ -65,11 +65,10 @@
 		<div class="card text-center">
 			<h5 class="card-header">강의출석</h5>
 			<div class="table-responsive text-nowrap">
-				<table class="table table-borderless ">
-					<caption class="ms-4">List of Lecture</caption>
+				<table class="table table-bordered ">
+					<caption class="ms-4">List of Attendance</caption>
 					<thead>
 						<tr>
-							<th>번호</th>
 							<th>강의날짜</th>
 							<c:if test="${memberType eq '교수'}">
 								<th>출석부</th>
@@ -81,12 +80,11 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${day}" var="d">
+							<tr>
 							<c:forEach begin="1" end="${d.endDay+d.week-1}" var="i">
 								<c:if test="${(i-d.week+1) > 0}">
 									<c:forEach items="${lectureTime}" var="l">
 										<c:if test="${i%7==(l.lectureYoil+1)}">
-											<tr>
-												<td>no</td>
 												<td>${d.year} / ${d.month} / ${i-d.week+1}</td>
 												<c:if test="${memberType eq '교수'}">
 													<td>
@@ -104,13 +102,21 @@
 															<td><span class="badge bg-label-primary me-1">${s.attendanceState}</span></td>
 														</c:if>
 													</c:forEach>
+													<c:if test="${studentAttendance.get(0).attendanceYear==d.year||studentAttendance.get(0).attendanceMonth==d.month||studentAttendance.get(0).attendanceDay==(i-d.week+1)}">
+														<td><span class="badge bg-label-primary me-1">d</span></td>
+													</c:if>
+													<%-- <c:forEach items="${studentAttendance}" var="s">
+														<c:if test="${s.attendanceYear==d.year&&s.attendanceMonth==d.month&&s.attendanceDay==(i-d.week+1)}">
+															<td><span class="badge bg-label-primary me-1">ㅇㅇ</span></td>
+														</c:if>
+													</c:forEach> --%>
 												</c:if>
-											</tr>
 										</c:if>
 									</c:forEach>
 								</c:if>
 							</c:forEach>
-						</c:forEach>
+							</tr>
+						</c:forEach>					
 					</tbody>
 				</table>
 			</div>
