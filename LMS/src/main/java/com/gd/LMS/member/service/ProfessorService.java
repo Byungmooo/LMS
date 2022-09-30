@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.gd.LMS.assignment.test;
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.mapper.ProfessorMapper;
 
@@ -28,6 +29,7 @@ public class ProfessorService {
 		 return ProfessorList;
 	};
 	
+		
 	
 	//교수 상세보기
 	public Map<String, Object> getProfessorOne(int professorCode) {

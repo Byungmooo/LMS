@@ -1,4 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.department.mapper.DepartmentMapper">
+<sql id="search">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'code'.equals(searchType)"> AND department_code LIKE CONCAT('%', #{keyword},
+							'%') </when>
+						<when test="'name'.equals(searchType)"> AND department_name LIKE CONCAT('%', #{keyword},
+							'%') </when>
+					</choose>
+				</when>
+				<!-- 전체 검색일 때 때 -->
+				<otherwise> AND ( department_code LIKE CONCAT('%', #{keyword}, '%') OR
+					department_code LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
+			</choose>
+		</if>
+	</sql>
+
+	<!-- 총 부서 갯수 출력 -->
+	<select id="countDepartment"
+		parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM department 
+			WHERE 1=1 
+			<include refid="search" />
+			AND department_code IS NOT NULL
+	</select>
+
+	<!-- 페이징 처리 후 부서 조회 -->
+	<select id="selectDepartment" parameterType="map"
+		resultType="com.gd.LMS.vo.Department">
+	SELECT
+		department_code departmentCode,
+		department_name departmentName,
+		create_date createDate,
+		update_date updateDate
+	FROM
+		department 
+		
+		WHERE 1=1
+		<include refid="search" />
+		AND department_code IS NOT NULL
+	ORDER BY
+		department_code
+	LIMIT
+		#{beginRow}, #{rowPerPage}
+	</select>
+
+
+	<!-- 부서 상세보기 -->
+	<select id="selectDepartMentOne" parameterType="int" resultType="com.gd.LMS.vo.Department">
+	SELECT 
+		department_code departmentCode,
+		department_name departmentName,
+		create_date createDate,
+		update_date updateDate
+	FROM
+		department 
+	WHERE 
+		department_code = #{departmentCode}
+	</select>
+
+	<!-- 부서 추가 -->
+	<insert id="insertDepartment" parameterType="com.gd.LMS.vo.Department"> 
+	INSERT INTO department( 
+		department_code,
+		department_name,
+		create_date, 
+		update_date 
+	) VALUES ( 
+		#{departmentCode},
+		#{departmentName},
+		now(), 
+		now() )
+	</insert>
+	
+
+	<!-- 부서 수정 -->
+	<update id="updateDepartment" parameterType="com.gd.LMS.vo.Department">
+	UPDATE 
+		department 
+	SET 
+		department_name = #{departmentName},
+		update_date = now() 
+	WHERE 
+		department_code = #{departmentCode}
+	</update>
+
+	<!-- 부서 삭제 -->
+	<delete id="deleteDepartment" parameterType="int"> 
+	DELETE FROM
+		department 
+	WHERE 
+		department_code = #{departmentCode}
+	</delete>
+
+
+
+
 </mapper>

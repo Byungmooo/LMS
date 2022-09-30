@@ -35,19 +35,19 @@
 					</tr>
 					<tr>
 						<th>교수코드</th>
-						<td>${p.studentCode}</td>
+						<td>${p.professorCode}</td>
 					</tr>
 					<tr>
 						<th>학과코드</th>
 						<td>${p.departmentCode}</td>
 					</tr>
 					<tr>
-						<th>학년</th>
-						<td>${p.studentYear}</td>
+						<th>학과장여부</th>
+						<td>${p.departmentLeader}</td>
 					</tr>
 					<tr>
-						<th>학생상태</th>
-						<td>${p.studentState}</td>
+						<th>교수재직상태</th>
+						<td>${p.professorState}</td>
 					</tr>
 					<tr>
 						<th>이름</th>
@@ -90,15 +90,21 @@
 						<td>${p.updateDate}</td>						
 					</tr>
 				</thead>
-			</table><div>				
-				<a href="${pageContext.request.contextPath}/member/professor/modifyProfessor?professorCode=${p.professorCode}"
+			</table>
+			<div>	
+				<c:if test="${memberType eq '직원'}">
+					<a href="${pageContext.request.contextPath}/professor/modifyProfessor?professorCode=${p.professorCode}"
 						class="btn btn-warning">수정</a>
-				<form action="${pageContext.request.contextPath}/member/professor/removeProfessorMember" method="post">
-					<input type="hidden" name="memberId" value="${p.memberId}">
-					<button class="btn btn-danger" onclick="deleteBtn()">삭제</button>
-				</form>	
-				<a href="javascript:window.history.back()"
-						class="btn btn-primary">목록</a>
+					<form action="${pageContext.request.contextPath}/member/professor/removeProfessorMember" method="post">
+						<input type="hidden" name="memberId" value="${p.memberId}">
+						<button class="btn btn-danger" onclick="deleteBtn()">삭제</button>
+					</form>	
+				</c:if>
+				<c:if test="${memberType eq '교수'}">
+					<div class="container-info">
+							<a href="${pageContext.request.contextPath}/professor/professorList" class="btn btn-primary">목록</a>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</div>

@@ -149,6 +149,12 @@
 						<i class="menu-icon tf-icons bx bx-dock-top"></i>
 							내정보
 						</a>
+						<ul class="menu-sub">
+							<li class="menu-item">
+								<a href="${pageContext.request.contextPath}/professor/departmantList?memberCode=${memberCode}" class="menu-link">
+									학부정보
+								</a></li>
+						</ul>
 					</li>
 					<li class="menu-item">
 						<a href="${pageContext.request.contextPath}/member/calendar?memberCode=${memberCode}" class="menu-link"> 
@@ -175,15 +181,14 @@
 							<li class="menu-item">
 								<a href="${pageContext.request.contextPath}/professor/professorLectureList?memberCode=${memberCode}" class="menu-link">
 									진행중인강의
-								</a>
+								</a></li>
 							<li class="menu-item">
 								<a href="${pageContext.request.contextPath}/exam/professorExList" class="menu-link">
 									시험목록(임시)
-								</a>
-							</li>
-							</li>
+								</a></li>
 						</ul>
 					</li>
+					
 
 					<!-- 그 외 -->
 					<li class="menu-header small text-uppercase"><span

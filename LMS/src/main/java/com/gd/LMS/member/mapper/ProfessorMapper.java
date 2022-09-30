@@ -10,7 +10,7 @@ public interface ProfessorMapper {
 
 	//교수리스트
 	List<Map<String, Object>> selectProfessorList();
-
+	
 	//교수 상세보기
 	Map<String, Object> selectProfessorOne(int professorCode);
 

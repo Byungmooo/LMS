@@ -24,6 +24,7 @@
 		professor_code ASC
 	</select>
 	
+	
 	<!-- 교수정보 상세보기 -->
 	<select id ="selectProfessorOne" resultType="map" parameterType="int">
 	SELECT 

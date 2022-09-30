@@ -5,9 +5,41 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.LMS.vo.Assignment;
+import com.gd.LMS.vo.Department;
+import com.gd.LMS.vo.TotalNotice;
+
 @Mapper
 public interface DepartmentMapper {
 
-	List<Map<String, Object>> selectDepList();
+	
+	//학부 총 갯수
+	int countDepartment(Map<String, Object> map);
+
+	// 페이징 처리 게시글 조회
+	List<Department> selectDepartment(Map<String, Object> map);
+	
+
+	//학부리스트
+	List<Map<String, Object>> selectDepartMentList();
+	
+	//학부상세보기
+	Map<String, Object> selectDepartMentOne(int departmentCode);
+	
+	
+	//학부추가
+	int insertDepartment(Department department);
+
+	
+	//학부수정
+	Department updateDepartmentForm (int departmentCode);
+	//수정 action
+	int updateDepartmentAction(Department department);
+
+		
+	//학부삭제
+	int deleteDepartment(int departmentCode);
+	
+	
  
 }

@@ -89,8 +89,8 @@
 							<hr>
 							<c:if test="${memberType eq '학생'}">
 								<div class="container">
-									<a href="${pageContext.request.contextPath}/student/assignmentRegList?assignmentNo=${assignment.assignmentNo}">나의
-										과제 제출 리스트</a>
+									<a href="${pageContext.request.contextPath}/student/assignmentRegList?openedLecNo=${assignment.openedLecNo}">
+									나의	과제 제출 리스트</a>
 								</div>
 							</c:if>
 							<c:if test="${memberType eq '교수'}">

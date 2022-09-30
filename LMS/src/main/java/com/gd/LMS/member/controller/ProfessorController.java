@@ -43,11 +43,7 @@ public class ProfessorController {
      return "member/professor/professorList";
 	
 	}
-	
-	//학생 추가 폼
-	
-	
-	
+
 	
 	
 	//교수 상세보기
@@ -61,7 +57,7 @@ public class ProfessorController {
 		model.addAttribute("p", professorOne);
 		
 		log.debug(TeamColor.BJH + " 교수 상세보기");
-		return "member/professor/professorOne";
+		return "professor/professorOne";
 	
 	}
 	
@@ -75,7 +71,7 @@ public class ProfessorController {
 		model.addAttribute("s", updateOne);
     	log.debug(TeamColor.BJH + updateOne+"professorCode 담아서 보내기");
     	
-    	return "/member/professor/modifyProfessor";
+    	return "professor/modifyProfessor";
     }
 
     
