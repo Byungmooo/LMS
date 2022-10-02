@@ -76,9 +76,9 @@
     <!--  search bar -->
     <hr class="my-3"/>
           <c:if test="${sessionScope.memberType eq '직원'}">
-        <a href="${pageContext.request.contextPath}/employee/addTotalNotice"
-           class="btn btn-primary"  style="float: right">글쓰기</a>           
-   </c:if>
+	        <a href="${pageContext.request.contextPath}/employee/addTotalNotice"
+	           class="btn btn-primary"  style="float: right">글쓰기</a>           
+	   </c:if>
     
     <div class="row">
         <div class="col-sm-2 col-12 text-center"></div>
@@ -104,11 +104,6 @@
             </form>
         </div>
         <!--  search bar end -->
-
-   			<!-- 페이징 -->
-			<div class="row text-center" style="margin-top: 20px;">
-				<div class="col-sm-4 col-12 text-center">
-				</div>
 				<div class="col-sm-4 col-12 text-center">
 					<ul class="pagination justify-content-center">
 						<c:if test="${paging.prePage}">

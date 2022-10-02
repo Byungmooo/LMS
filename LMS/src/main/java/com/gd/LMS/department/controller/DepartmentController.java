@@ -1,5 +1,6 @@
 package com.gd.LMS.department.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,16 +36,13 @@ public class DepartmentController {
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
+	
 		
-		String memberDepartmentCode = (String) session.getAttribute("memberDepartmentCode");
-		log.debug(TeamColor.BJH + "memberDepartmentCode > " + memberDepartmentCode);
-
-		map.put("departmentCode", memberDepartmentCode);
+		String memberCode = (String) session.getAttribute("departmentCode"); 
+		map.put("departmentCode", memberCode);
 		map.put("keyword", keyword);
 		map.put("searchType", searchType);
-
-		log.debug(TeamColor.BJH + "keyword,searchType,memberDepartmentCode 담김  > " + map);
-
+		
 		int totalCount = departmentService.countDepartment(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
@@ -58,8 +56,9 @@ public class DepartmentController {
 
 		map.put("beginRow", vo.getBeginRow());
 		map.put("rowPerPage", vo.getRowPerPage());
+		
 
-		log.debug(TeamColor.BJH + "beginRow, rowPerPage > " + map);
+		log.debug(TeamColor.KJS + "beginRow,rowPerPage > " + map);
 
 		List<Department> list = departmentService.getDepartmentList(map);
 		log.debug(TeamColor.BJH + "list : " + list);
@@ -73,14 +72,14 @@ public class DepartmentController {
 	
 	
 	//학부 상세보기
-	@GetMapping({"/employee/departmentOne", "/professor/departmentOne"})
-	public String getDepartMentOne (Model model,HttpSession session,
-			@RequestParam(value = "departmentCode") int departmentCode) {
+	@GetMapping("/member/departmentOne")
+	public String getDepartMentOne (Model model,
+			@RequestParam(value = "departmentCode")String departmentCode) {
 		log.debug(TeamColor.BJH + "학부 상세보기 컨트롤러 진입=================");
 		
-		Map<String, Object> map = departmentService.getDepartMentOne(departmentCode);
-		model.addAttribute("map",map);
-		log.debug(TeamColor.BJH + "map에 학부정보 담아보내기" + map);
+		Department  department= departmentService.getDepartMentOne(departmentCode);
+		model.addAttribute("d",department);
+		log.debug(TeamColor.BJH + "map에 학부정보 담아보내기" + department);
 		
 		return "department/departmentOne";
 	}
@@ -109,10 +108,10 @@ public class DepartmentController {
 		
 	// 학부 수정 페이지 이동
 	@GetMapping("/employee/modifyDepartment")
-	public String updateTotalNotice(Model model, @RequestParam(value = "departmentCode") int departmentCode) {
+	public String updateTotalNotice(Model model, @RequestParam(value = "departmentCode") String departmentCode) {
 		
 		log.debug(TeamColor.BJH + "학부수정 페이지서비스 진입=======departmentCode========>" + departmentCode);
-		Map<String, Object>  department = departmentService.getDepartMentOne(departmentCode);
+		 Department department = departmentService.getDepartMentOne(departmentCode);
 		
 		model.addAttribute("department", department);
 		log.debug(TeamColor.BJH + "학부 수정 페이지 이동");

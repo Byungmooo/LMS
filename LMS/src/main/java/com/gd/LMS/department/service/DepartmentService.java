@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.department.mapper.DepartmentMapper;
+import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.Department;
 import com.gd.LMS.vo.TotalNotice;
 
@@ -31,13 +32,10 @@ public class DepartmentService {
 	}
 	
 	//학부정보 상세보기
-	public Map<String, Object> getDepartMentOne(int departmentCode) {
+	public Department getDepartMentOne(String departmentCode) {
 		log.debug(TeamColor.BJH + "학부정보 상세보기 서비스 진입 ================");
-		
-		Map<String, Object> departmentOne = departmentMapper.selectDepartMentOne(departmentCode);
-		log.debug(TeamColor.BJH + "상세보기 departmentOne 담기 >>>>>> " +departmentOne);
-		
-		return departmentOne;
+	
+		return departmentMapper.selectDepartMentOne(departmentCode);
 		
 	}
 	

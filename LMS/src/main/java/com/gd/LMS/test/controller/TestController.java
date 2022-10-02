@@ -32,6 +32,8 @@ public class TestController {
 			, @RequestParam(value="searchType", defaultValue = "") String searchType) {
 		
 		
+		
+		
 		int totalCount = testService.countBoard(keyword, searchType);
 		log.debug(TeamColor.LCH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 		

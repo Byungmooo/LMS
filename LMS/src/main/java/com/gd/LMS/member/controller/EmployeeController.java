@@ -74,7 +74,8 @@ public class EmployeeController {
     
     //직원상세보기
     @GetMapping("/employee/employeeOne")
-    public String EmployeeOne(Model model, @RequestParam(value = "employeeCode") int employeeCode) {
+    public String EmployeeOne(Model model, 
+    		@RequestParam(value = "employeeCode") int employeeCode) {
        
     	log.debug(TeamColor.BJH + "직원 상세보기 controller진입=========" + employeeCode);
     			

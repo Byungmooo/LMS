@@ -8,16 +8,16 @@
 				<!-- 검색 유형이 있을 때 -->
 				<when test="searchType != null and searchType != ''">
 					<choose>
-						<when test="'code'.equals(searchType)"> AND department_code LIKE CONCAT('%', #{keyword},
-							'%') </when>
-						<when test="'name'.equals(searchType)"> AND department_name LIKE CONCAT('%', #{keyword},
-							'%') </when>
+						<when test="'code'.equals(searchType)"> AND department_code LIKE CONCAT('%', #{keyword},'%') 
+						</when>
+						<when test="'name'.equals(searchType)"> AND department_name LIKE CONCAT('%', #{keyword},'%') 
+						</when>
 					</choose>
 				</when>
 				<!-- 전체 검색일 때 때 -->
 				<otherwise> AND ( 
 					department_code LIKE CONCAT('%', #{keyword}, '%') OR
-					department_code LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
+					department_name LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
 			</choose>
 		</if>
 	</sql>
@@ -53,7 +53,7 @@
 
 
 	<!-- 부서 상세보기 -->
-	<select id="selectDepartMentOne" parameterType="int" resultType="com.gd.LMS.vo.Department">
+	<select id="selectDepartMentOne" parameterType="String" resultType="com.gd.LMS.vo.Department">
 	SELECT 
 		department_code departmentCode,
 		department_name departmentName,
@@ -92,7 +92,7 @@
 	</update>
 
 	<!-- 부서 삭제 -->
-	<delete id="deleteDepartment" parameterType="int"> 
+	<delete id="deleteDepartment" parameterType="String"> 
 	DELETE FROM
 		department 
 	WHERE 

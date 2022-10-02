@@ -60,10 +60,9 @@
 				<tbody>
 					<c:forEach var="d" items="${list}">
 						<tr>
-							<td><span class="badge bg-label-secondary me-1">
-								<a href="${pageContext.request.contextPath}/member/department/departmentOne?departmentCode=${d.departmentCode}">${d.departmentName}</a>
-								</span>
-								</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/member/departmentOne?departmentCode=${d.departmentCode}">${d.departmentName}</a>
+							</td>
 							<td>${d.departmentCode}</td>	
 							<td>${d.createDate}</td>								
 						</tr>
@@ -74,7 +73,10 @@
 	</div>
 <!--  search bar -->
     <hr class="my-3"/>
-    
+           <c:if test="${sessionScope.memberType eq '직원'}">
+		        <a href="${pageContext.request.contextPath}/employee/addDepartment"
+		           class="btn btn-primary"  style="float: right">학부추가하기</a>           
+		   </c:if>
     <div class="row">
         <div class="col-sm-2 col-12 text-center"></div>
         <div class="col-sm-7 col-12 text-center">
@@ -85,7 +87,7 @@
                         <select name="searchType" class="form-select">
                             <option value="" selected="selected">전체</option>
                             <option value="code">학과코드</option>
-                            <option value="name">이름</option>
+                            <option value="name">학과이름</option>
                         </select>
                     </div>
                     <div class="col-sm-7 col-12 text-center">
@@ -98,72 +100,85 @@
             </form>
         </div>
         <!--  search bar end -->
+		<!--  search bar end -->
+				<div class="col-sm-4 col-12 text-center">
+					<ul class="pagination justify-content-center">
+						<c:if test="${paging.prePage}">
+							<li class="page-item prev">
+								<a class="page-link" href="${pageContext.request.contextPath}/member/departmentList?currentPage=${paging.currentPage-1}
+									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">
+								<i class="tf-icon bx bx-chevron-left"></i>
+								</a>
+							</li>
+						</c:if>
+						<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+							<c:choose>
+								<c:when test="${p == paging.currentPage }">
+									<li class="page-item active">
+										<a class="page-link" href="#">${p}</a>
+									</li>
+								</c:when>
+								<c:when test="${p != paging.currentPage }">
+									<li class="page-item">
+										<a class="page-link" href="${pageContext.request.contextPath}/member/departmentList?currentPage=${p}
+										&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">${p}</a>
+									</li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging.nextPage}">
+							<li class="page-item next">
+								<a class="page-link" href="${pageContext.request.contextPath}//member/departmentList?currentPage=${paging.currentPage+1}
+									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">
+								<i class="tf-icon bx bx-chevron-right"></i>
+								</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+				<div class="col-sm-4 col-12 text-center">
+				</div>	
+			</div>
+		</div>
+	</div>
+<script>
+	// rowPerPage 갱신
+	$("#rowPerPage").on("change", (e) => {
+	    location.href = createUrl('', e.target.value, '');
+	})
+	
+	// searchType 갱신
+	$("#searchType").on("change", (e) => {
+	    location.href = createUrl('', '', e.target.value);
+	})
+	
+	const goPage = (currentPage, rowPerPage) => {
+	    location.href = createUrl(currentPage, rowPerPage);
+	};
+	
+	const createUrl = (currentPage, rowPerPage, searchType) => {
+	    const path = "${pageContext.request.contextPath}";
+	    const param = {
+	        currentPage:"${paging.currentPage}",
+	        rowPerPage:"${paging.rowPerPage}",
+	        searchType: $('#searchType').val(),
+	        keyword:"${paging.keyword}",
+	    }
+	
+	    if(currentPage != '') param.currentPage = currentPage;
+	    if(rowPerPage != '') param.rowPerPage = rowPerPage;
+	    if(searchType != '') param.searchType = searchType;
+	
+	    var url = path +'/member/departmentList';
+	    url += '?currentPage=' + param.currentPage;
+	    url += '&rowPerPage='+ param.rowPerPage;
+	    url += '&searchType='+ param.searchType ;
+	    url += '&keyword='+ param.keyword ;
+	
+	    return url;
+	}
+</script>
 
-        <div style="display: block; text-align: center;">
-            <c:if test="${paging.prePage}">
-                <c:choose>
-                    <c:when test="${(paging.currentPage-10) < 1}">
-                        <a href="javascript:goPage(1, '');">이전</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="javascript:goPage('${paging.currentPage-10}', '');">이전</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-            <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
-                <c:choose>
-                    <c:when test="${p == paging.currentPage }">
-                        <b>${p}</b>
-                    </c:when>
-                    <c:when test="${p != paging.currentPage }">
-                        <a href="javascript:goPage('${p}', '');">${p}</a>
-                    </c:when>
-                </c:choose>
-            </c:forEach>
-            <c:if test="${paging.nextPage}">
-                <c:choose>
-                    <c:when test="${paging.currentPage+10 > paging.lastPage}">
-                        <a href="javascript:goPage('${paging.lastPage}', '');">다음</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="javascript:goPage('${paging.currentPage+10}', '');" >다음</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-        </div>
-		<script>
-		    // rowPerPage 변경 이벤트
-		    $("#rowPerPage").on("change", (e) => {
-		        location.href = createUrl('', e.target.value);
-		    })
-		
-		    const goPage = (currentPage, rowPerPage) => {
-		        location.href = createUrl(currentPage, rowPerPage);
-		    };
-		
-		    const createUrl = (currentPage, rowPerPage) => {
-		        const path = "${pageContext.request.contextPath}";
-		        const param = {
-		            currentPage:"${paging.currentPage}",
-		            rowPerPage:"${paging.rowPerPage}",
-		            searchType:"${paging.searchType}",
-		            keyword:"${paging.keyword}",
-		        }
-		
-		        if(currentPage != '') param.currentPage = currentPage;
-		        if(rowPerPage != '') param.rowPerPage = rowPerPage;
-		
-		        var url = path +'/member/totalNoticeList';
-		        url += '?currentPage=' + param.currentPage;
-		        url += '&rowPerPage='+ param.rowPerPage;
-		        url += '&searchType='+ param.searchType ;
-		        url += '&keyword='+ param.keyword ;
-		
-		        return url;
-		    }
-		</script>
-    </div>
-</div>
 <!-- / Main -->
 
 
