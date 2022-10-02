@@ -65,7 +65,6 @@ public class TotalNoticeController {
 
 		model.addAttribute("paging", vo);
 		model.addAttribute("list", list);
-
 		log.debug(TeamColor.KJS + " [김진수] 전체공지 리스트");
 		return "/notice/totalNotice/totalNoticeList";
 	}
@@ -77,36 +76,52 @@ public class TotalNoticeController {
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
-
-		String memberDepartmentCode = (String) session.getAttribute("memberDepartmentCode");
-		log.debug(TeamColor.LCH + "memberDepartmentCode > " + memberDepartmentCode);
-
-		map.put("departmentCode", memberDepartmentCode);
+		int memberCode = (int) session.getAttribute("memberCode");
+		String memberType = (String) session.getAttribute("memberType");	
+		
+		map.put("memberCode", memberCode);
 		map.put("keyword", keyword);
 		map.put("searchType", searchType);
 
 		log.debug(TeamColor.KJS + "map1 > " + map);
 
-		int totalCount = totalNoticeService.countBoard(map);
-		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
+		
+		List<TotalNotice> list;
+		if(memberType.equals("학생")) {
+			int totalCount = totalNoticeService.countBoard2(map);
+			log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
-		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
-		log.debug(TeamColor.KJS + "PaginVo : " + vo);
+			vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+	        if(vo.getBeginRow() >= totalCount){
+	            vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
+	        }
+			log.debug(TeamColor.KJS + "PaginVo : " + vo);
 
-		map.put("memberDcode", memberDepartmentCode);
-		map.put("beginRow", vo.getBeginRow());
-		map.put("rowPerPage", vo.getRowPerPage());
+			
+			map.put("beginRow", vo.getBeginRow());
+			map.put("rowPerPage", vo.getRowPerPage());
+			list = totalNoticeService.selectBoard2(map);
+		} else {
+			int totalCount = totalNoticeService.countBoard3(map);
+			log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
-		log.debug(TeamColor.KJS + "map2 > " + map);
-
-		List<TotalNotice> list = totalNoticeService.selectBoard2(map);
+			vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+	        if(vo.getBeginRow() >= totalCount){
+	            vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
+	        }
+			log.debug(TeamColor.KJS + "PaginVo : " + vo);
+ 
+			map.put("beginRow", vo.getBeginRow());
+			map.put("rowPerPage", vo.getRowPerPage());
+			list = totalNoticeService.selectBoard3(map);
+		}
+//		List<TotalNotice> list = totalNoticeService.selectBoard2(map);
 		log.debug(TeamColor.KJS + "noticeList : " + list);
 
 		model.addAttribute("paging", vo);
 		model.addAttribute("list", list);
-
 		log.debug(TeamColor.KJS + " [김진수] 부서공지 리스트");
-		return "/notice/totalNotice/totalNoticeList";
+		return "/notice/departmentNotice/departmentNoticeList";
 	}
 
 	// 전체공지사항 상세보기

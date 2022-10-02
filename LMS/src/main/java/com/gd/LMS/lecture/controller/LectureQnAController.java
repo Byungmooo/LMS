@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.lecture.service.LectureQnAService;
@@ -110,15 +111,25 @@ public class LectureQnAController {
 	}
 
 	// 질문 삭제
-	@GetMapping("/student/removeLectrueQuestion")
-	public String removeLecture(LectureQuestion lecQuestionNo, HttpSession session) {
-		int count = lectureQnAService.deleteQuestion((int) session.getAttribute("lecQuestionNo"));
-		if (count >= 1) {
-			log.debug(TeamColor.KJS + " [김진수] 학부공지 삭제");
-			return "redirect:/student/lectureQuestionList?openedLecNo=" + session.getAttribute("openedLecNo");
-		}
-		return "redirect:/student/lectureQuestionList?openedLecNo=" + session.getAttribute("openedLecNo");
-	}
+	   @GetMapping("/student/removeLectrueQuestion")
+	   public String removeLecture(HttpSession session, RedirectAttributes redirectAttributes) {
+		  int lecQuestionNo = (int) session.getAttribute("lecQuestionNo");
+	      List<String> checkFk = lectureQnAService.getCheckFkLecQuestion(lecQuestionNo);
+	      log.debug(TeamColor.KJS + "checkFk 0? > " + checkFk.size());
+	      if(checkFk.size() != 0) {
+	         log.debug(TeamColor.KJS + "삭제실패 FK 존재");
+	         redirectAttributes.addAttribute("lecQuestionNo", lecQuestionNo); 
+	         redirectAttributes.addAttribute("errorMsg", "이미 답변이 등록되어 잇습니다.");
+	         return "redirect:/student/lectureQuestionOne";
+	      }
+	      
+	      int count = lectureQnAService.deleteQuestion(lecQuestionNo);
+	      if (count >= 1) {
+	         log.debug(TeamColor.KJS + " [김진수] 학부공지 삭제");
+	         return "redirect:/student/lectureQuestionList?openedLecNo=" + lecQuestionNo;
+	      }
+	      return "redirect:/student/lectureQuestionList?openedLecNo=" + lecQuestionNo;
+	   }
 
 
 	// 강의 질문 추가 페이지 이동
@@ -141,8 +152,11 @@ public class LectureQnAController {
 	
 	// 강의 질문 답변 추가 페이지 이동
 	@GetMapping("/professor/addLectureAnswer")
-	public String addLectureAnswerOne(HttpSession session) {
-		
+	public String addLectureAnswerOne(Model model,HttpSession session) {
+		Map<String, Object> lectureQuestionOne = lectureQnAService
+				.getLectureQuestionOne((int) session.getAttribute("lecQuestionNo"));
+		log.debug(TeamColor.KJS + " [김진수] 학부공지 수정 페이지 이동");
+		model.addAttribute("question", lectureQuestionOne);
 	
 		log.debug(TeamColor.KJS + " [김진수] 답변 추가 페이지 이동");
 		return "lecture/lectureQnA/addLectureAnswer";
@@ -159,6 +173,9 @@ public class LectureQnAController {
 		return "redirect:/professor/lectureQuestionOne?lecQuestionNo=" + session.getAttribute("lecQuestionNo"); //연결다리, 상세보기로 돌아가기
  
 	}
+	
+	
+	
 
 
 }

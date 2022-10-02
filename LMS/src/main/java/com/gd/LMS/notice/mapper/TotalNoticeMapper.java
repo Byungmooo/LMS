@@ -35,9 +35,14 @@ public interface TotalNoticeMapper {
 	//공지사항 삭제
 	public int deleteTotalNotice(int noticeNo);
 	
-	//부서공지 조회
+	public int countBoard2(Map<String, Object> map);
+	//부서공지 학생 조회
 	public List<TotalNotice> selectBoard2(Map<String, Object> map);
-	
+
+	public int countBoard3(Map<String, Object> map);
+	//부서공지 교수 조회
+	public List<TotalNotice> selectBoard3(Map<String, Object> map);
+
 	// 부서코드 리스트
 	List<Map<String, Object>> selectTotalDepartmentName();
 		

@@ -65,4 +65,8 @@ public class LectureQnAService {
 		Map<String, Object> lectureAnswer = lectureQnAMapper.selectLectureAnswerOne(lecQuestionNo);
 		return lectureAnswer;
 	}
+	
+	  public List<String> getCheckFkLecQuestion(int lecQuestionNo) {
+	      return lectureQnAMapper.selectCheckFkLecQuestion(lecQuestionNo);
+	    }
 }

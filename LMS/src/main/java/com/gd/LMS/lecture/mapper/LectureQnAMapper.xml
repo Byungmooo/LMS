@@ -157,5 +157,15 @@
         WHERE lec_question_no  = #{lecQuestionNo}
     </delete>
     
+    
+ 	<!-- 답변체크 -->
+    <select id="selectCheckFkLecQuestion" parameterType="int" resultType="String">
+        SELECT
+            lec_question_no
+        FROM
+            lecture_answer
+        WHERE
+            lec_question_no  = #{lecQuestionNo}
+    </select>
 
 </mapper>

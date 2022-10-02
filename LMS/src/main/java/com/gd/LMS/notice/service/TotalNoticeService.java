@@ -56,6 +56,19 @@ public class TotalNoticeService {
 	public List<TotalNotice> selectBoard2(Map<String, Object> map) {
 		return totalNoticeMapper.selectBoard2(map);
 	}
+	// 리스트 총 개수
+	public int countBoard2(Map<String, Object> map) {
+		return totalNoticeMapper.countBoard2(map);
+	}
+	
+	public List<TotalNotice> selectBoard3(Map<String, Object> map) {
+		return totalNoticeMapper.selectBoard3(map);
+	}
+	
+	// 리스트 총 개수
+	public int countBoard3(Map<String, Object> map) {
+		return totalNoticeMapper.countBoard3(map);
+	}
 	
 	// 전체학부
 	public List<Map<String, Object>> getTotalDepartmentName() {

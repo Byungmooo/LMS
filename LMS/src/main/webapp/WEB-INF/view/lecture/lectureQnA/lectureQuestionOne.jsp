@@ -125,6 +125,10 @@
     <!-- / Main -->
     
     <script>
+	if("${param.errorMsg}" != '') {
+		alert("${param.errorMsg}");
+	}
+    
     $(document).ready(function () {
         $("#btnDelete").click(function () {
             if (confirm("삭제하시겠습니까?")) {

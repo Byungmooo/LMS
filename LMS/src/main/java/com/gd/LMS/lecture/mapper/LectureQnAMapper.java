@@ -43,6 +43,6 @@ public interface LectureQnAMapper {
 	// 답변 상세보기
 	Map<String, Object> selectLectureAnswerOne(int lecQuestionNo);
 
-	
+	List<String> selectCheckFkLecQuestion(int lecQuestionNo);
 	
 }

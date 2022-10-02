@@ -97,9 +97,9 @@
 						<tr>
 							<th>강의 번호</th>
 							<td colspan="2"><input type="text" class="form-control"
-								value="${sessionScope.openedLecNo}" readonly="readonly">
+								value="${question.openedLecNo}" readonly="readonly">
 								<input type="hidden" name="openedLecNo"
-								value="${sessionScope.openedLecNo}"></td>
+								value="${question.openedLecNo}"></td>
 						</tr>
 
 						<tr>
@@ -111,7 +111,7 @@
 
 						<tr>
 							<th>제목</th>
-							<td  colspan="2"><input name="noticeTitle" id="title" size="110" value="${noticeTitle}" readonly="readonly"
+							<td  colspan="2"><input name="noticeTitle" id="title" size="110" value="${question.noticeTitle}" readonly="readonly"
 								></td>
 						</tr>
 						<tr>
