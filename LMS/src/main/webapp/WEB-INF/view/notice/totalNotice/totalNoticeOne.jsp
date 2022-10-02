@@ -64,7 +64,7 @@
 				<h5 class="card-header"><strong>제목 : ${totalNotice.noticeTitle}</strong></h5>
 				<hr class="my-0" />
 				
-				<div class="card-body">4
+				<div class="card-body">
 					<table class="table table-bordered">
 					
 						<tr>
