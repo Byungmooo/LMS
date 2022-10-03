@@ -24,7 +24,12 @@
     <hr class="my-1"/>
     <!-- RowPerPage Option -->
     <div class="row">
-        <div class="col-sm-9 col-12 text-center"></div>
+    
+        <div class="col-sm-9 col-12 text-center">
+         <c:if test="${sessionScope.memberType eq '직원'}">
+		 	        <a href="${pageContext.request.contextPath}/employee/addDepartment"
+			           class="btn btn-primary"  style="float: right">학부추가하기</a>           
+		  </c:if></div>
         <div class="col-sm-3 col-12 text-center">
             <select class="form-select" name="sel" id="rowPerPage">
                 <option value="5"
@@ -47,7 +52,8 @@
     <!-- 학부리스트 -->
     <div class="card">
         <h5 class="card-header">전체 학부 리스트</h5>
-        <div class="table-responsive text-nowrap">
+          <div class="table-responsive text-nowrap">
+        
             <table class="table">
                 <caption class="ms-4"></caption>
                    <thead>
@@ -73,15 +79,13 @@
 	</div>
 <!--  search bar -->
     <hr class="my-3"/>
-           <c:if test="${sessionScope.memberType eq '직원'}">
-		        <a href="${pageContext.request.contextPath}/employee/addDepartment"
-		           class="btn btn-primary"  style="float: right">학부추가하기</a>           
-		   </c:if>
+         
     <div class="row">
         <div class="col-sm-2 col-12 text-center"></div>
         <div class="col-sm-7 col-12 text-center">
             <form action="${pageContext.request.contextPath}/member/departmentList" method="get">
                 <input type="hidden" name="rowPerPage" value="${paging.rowPerPage}">
+                
                 <div class="row">
                     <div class="col-sm-3 col-12 text-center">
                         <select name="searchType" class="form-select">
@@ -140,7 +144,6 @@
 				</div>	
 			</div>
 		</div>
-	</div>
 <script>
 	// rowPerPage 갱신
 	$("#rowPerPage").on("change", (e) => {

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.department.service.DepartmentService;
 import com.gd.LMS.utils.PagingVo;
+import com.gd.LMS.vo.Assignment;
 import com.gd.LMS.vo.Department;
 
 import lombok.extern.java.Log;
@@ -77,7 +78,7 @@ public class DepartmentController {
 			@RequestParam(value = "departmentCode")String departmentCode) {
 		log.debug(TeamColor.BJH + "학부 상세보기 컨트롤러 진입=================");
 		
-		Department  department= departmentService.getDepartMentOne(departmentCode);
+		Map<String, Object>  department= departmentService.getDepartMentOne(departmentCode);
 		model.addAttribute("d",department);
 		log.debug(TeamColor.BJH + "map에 학부정보 담아보내기" + department);
 		
@@ -87,18 +88,20 @@ public class DepartmentController {
 	
 	//학부 추가폼
 	@GetMapping("/employee/addDeparMent")
-	public String addDepartMent (Model model, Department department) {
+	public String addDepartMent () {
 		log.debug(TeamColor.BJH + "department 추가 폼 컨트롤러 진입==============");
-		model.addAttribute("department", department);
-			
-		return "department/addDepartment";
+
+		
+		return "department/addDeparMent";
 	}
+	
 	//학부 추가 액션
 	@PostMapping("/employee/addDepartment")
-	public String addDepartment(Department department) {
+	public String addDepartment(Department department, Model model) {
 		log.debug(TeamColor.BJH+ "department 추가 액션 컨트롤러 실행=============");
 		
 		int row= departmentService.addDepartMent(department);
+		model.addAttribute("d", row);
 		if(row !=0) {
 			log.debug(TeamColor.BJH + "학부추가 성공!!!!!! 오예!");
 			return 	"redirect:/department/departmentList";
@@ -106,12 +109,13 @@ public class DepartmentController {
 		return "redirect:/department/addDepartment";
 	}
 		
+	
 	// 학부 수정 페이지 이동
 	@GetMapping("/employee/modifyDepartment")
-	public String updateTotalNotice(Model model, @RequestParam(value = "departmentCode") String departmentCode) {
+	public String modifyDepartment(Model model, @RequestParam(value = "departmentCode") String departmentCode) {
 		
 		log.debug(TeamColor.BJH + "학부수정 페이지서비스 진입=======departmentCode========>" + departmentCode);
-		 Department department = departmentService.getDepartMentOne(departmentCode);
+		Map<String, Object> department = departmentService.getDepartMentOne(departmentCode);
 		
 		model.addAttribute("department", department);
 		log.debug(TeamColor.BJH + "학부 수정 페이지 이동");
@@ -121,12 +125,13 @@ public class DepartmentController {
 
 	// 학부 수정 액션
 	@PostMapping("/employee/modifyDepartment")
-	public String modifyDepartment(Department department, RedirectAttributes redirectAttributes) {
+	public String modifyDepartment(Department department, Model model) {
 		
 		log.debug(TeamColor.BJH + "학부수정 액션 서비스 진입===============");
 		
 		int count = departmentService.modeifyDepartMentOne(department);
-		redirectAttributes.addAttribute("departmentCode", department.getDepartmentCode());
+		model.addAttribute("department", count);
+		
 		
 		if (count >= 1) {
 			log.debug(TeamColor.BJH + "학부 수정");

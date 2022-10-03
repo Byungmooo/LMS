@@ -32,7 +32,7 @@ public class DepartmentService {
 	}
 	
 	//학부정보 상세보기
-	public Department getDepartMentOne(String departmentCode) {
+	public Map<String,Object> getDepartMentOne(String departmentCode) {
 		log.debug(TeamColor.BJH + "학부정보 상세보기 서비스 진입 ================");
 	
 		return departmentMapper.selectDepartMentOne(departmentCode);
@@ -50,27 +50,13 @@ public class DepartmentService {
 	
 	
 	//학부 수정 폼
-	public Department modeifyDepartMentOne (int departmentCode) {
-		
-		log.debug(TeamColor.BJH + "학부수정 폼 서비스 진입===============");
-		
-		return departmentMapper.updateDepartment(departmentCode);
-	}
-	
-	//학부 수정 액션
 	public int modeifyDepartMentOne (Department department) {
 		
-		log.debug(TeamColor.BJH + "학부수정 액션 서비스 진입===============");
-		
-		int row = departmentMapper.updateDepartmentAction(department);
-		if(row != 0) {
-			log.debug(TeamColor.BJH + "학부 수정 성공");
-		}
-		log.debug(TeamColor.BJH + "학부 수정 실패");
-		
-		return row;
+		log.debug(TeamColor.BJH + "학부수정 폼 서비스 진입===============");
+	
+		return departmentMapper.updateDepartment(department);
+	
 	}
-		
 	//학부 삭제
 	
 	public int removeDepartMent (int departmentCode) {

@@ -70,12 +70,10 @@
 	INSERT INTO department( 
 		department_code,
 		department_name,
-		create_date, 
-		update_date 
+		create_date
 	) VALUES ( 
 		#{departmentCode},
 		#{departmentName},
-		now(), 
 		now() )
 	</insert>
 	

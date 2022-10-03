@@ -22,17 +22,15 @@ public interface DepartmentMapper {
 	
 	
 	//학부상세보기
-	Department selectDepartMentOne(String departmentCode);
+	Map<String, Object>  selectDepartMentOne(String departmentCode);
 	
 	
 	//학부추가
 	int insertDepartment(Department department);
 
 	
-	//학부수정
-	Department updateDepartment (int departmentCode);
 	//수정 action
-	int updateDepartmentAction(Department department);
+	int updateDepartment(Department department);
 
 		
 	//학부삭제
