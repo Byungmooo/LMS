@@ -163,6 +163,64 @@
 			s.member_id = #{memberId}
 	</delete>
 	
+	<!-- 승인관련 메서드@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
+	<!-- 학생 승인 대기 목록 -->
+	<select id="selectStudentQueueList" parameterType="map" resultType="com.gd.LMS.vo.Member">
+		SELECT
+			member_name memberName,
+			member_gender memberGender,
+			member_type memberType,
+			member_birth memberBirth,
+			member_email memberEmail,
+			member_address memberAddress,
+			member_contact memberContact
+		FROM
+			member
+		WHERE
+			active = #{active}
+	</select>
+	
+		
+	<!-- 학생 승인 대기 페이징 카운트 -->
+	<select id="selectStudentQueueCount" resultType="com.gd.LMS.vo.Member">
+		SELECT
+			count(*)
+		FROM
+			member
+		WHERE
+			member_type = #{memberType} AND
+			active = #{active}
+	</select>
+	
+	
+	<!-- 학생 승인대기 상세 -->
+	<select id="selectStudentQueueOne" parameterType="String" resultType="com.gd.LMS.vo.Member">
+		SELECT
+			member_id memberId,
+			member_name memberName,
+			member_gender memberGender,
+			member_type memberType,
+			member_birth memberBirth,
+			member_email memberEmail,
+			member_address memberAddress,
+			member_contact memberContact
+		FROM
+			member
+		WHERE
+			active = #{active} AND
+			member_id = #{memberId}
+	</select>
+	
+	<!-- 계정 상태 업데이트 -->
+	<update id="updateStudentState" parameterType="com.gd.LMS.vo.Member">
+		UPDATE 
+			member
+		SET 
+			active = #{active},
+			update_date = now()
+		WHERE
+			member_id = #{memberId}
+	</update>
 	
 	
  </mapper>

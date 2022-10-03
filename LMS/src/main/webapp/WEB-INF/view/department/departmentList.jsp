@@ -26,10 +26,13 @@
     <div class="row">
     
         <div class="col-sm-9 col-12 text-center">
-         <c:if test="${sessionScope.memberType eq '직원'}">
-		 	        <a href="${pageContext.request.contextPath}/employee/addDepartment"
-			           class="btn btn-primary"  style="float: right">학부추가하기</a>           
-		  </c:if></div>
+	        <c:if test="${sessionScope.memberType eq '직원'}">
+		       	<form action ="${pageContext.request.contextPath}/employee/addDepartment" method="get">
+		       		<button type="submit" class="btn btn-primary" style="float: right">학부추가하기</button>  
+		       		<input type="hidden" name ="departmentCode" value="ST101">
+		       	</form>  
+		  </c:if>
+		</div>
         <div class="col-sm-3 col-12 text-center">
             <select class="form-select" name="sel" id="rowPerPage">
                 <option value="5"

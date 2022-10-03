@@ -32,7 +32,7 @@ public class DepartmentService {
 	}
 	
 	//학부정보 상세보기
-	public Map<String,Object> getDepartMentOne(String departmentCode) {
+	public Department getDepartMentOne(String departmentCode) {
 		log.debug(TeamColor.BJH + "학부정보 상세보기 서비스 진입 ================");
 	
 		return departmentMapper.selectDepartMentOne(departmentCode);
@@ -49,7 +49,7 @@ public class DepartmentService {
 	}
 	
 	
-	//학부 수정 폼
+	//학부 수정 
 	public int modeifyDepartMentOne (Department department) {
 		
 		log.debug(TeamColor.BJH + "학부수정 폼 서비스 진입===============");

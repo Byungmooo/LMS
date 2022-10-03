@@ -22,7 +22,7 @@
 	<!-- EmlpoyeeListOne -->
 		<div class="row text-center">
 			<div class="card">
-				<h5 class="card-header"><strong>${p.memberName}님의 정보</strong></h5>
+				<h5 class="card-header"><strong>학과 상세보기</strong></h5>
 				<hr class="my-0" />
 				
 				<div class="card-body">

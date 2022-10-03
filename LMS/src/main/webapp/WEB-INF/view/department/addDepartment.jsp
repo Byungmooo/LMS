@@ -30,8 +30,8 @@
 							<tr>
 								<th>학과이름</th>
 								<td colspan="2">
-									<input type="text" class="form-control" value="departmentName" name="departmentName">
-									<input type="hidden" name="departmentCode" value="departmentCode">
+									<input type="text" class="form-control" name="departmentName">
+									
 								</td>
 							</tr>
 					</table>

@@ -94,12 +94,12 @@ public class StudentController {
     public String modifyStudent(Model model, @RequestParam(value = "studentCode") int studentCode) {
     	
     	log.debug(TeamColor.BJH + "학생정보 페이지서비스 진입=======studentCode========>" + studentCode);
-    	Map<String, Object> updateOne = studentService.getStudent(studentCode);
+    	Map<String, Object> updateOne = studentService.getStudentOne(studentCode);
     
 		model.addAttribute("s", updateOne);
     	log.debug(TeamColor.BJH + "학생정보 수정 페이지 이동");
     	
-    	return "member/student/studentOne";
+    	return "member/student/modifyStudent";
     }
 
     
@@ -147,6 +147,43 @@ public class StudentController {
     	return "redirect:studentList";
     					
     }
+    
+    
+    ////////////////////승인관련
+	// 학생 승인대기 출력
+    @GetMapping("/employee/studentQueueList")
+	public String studentQueueList(Model model,
+			@RequestParam(value = "memberId") String memberId) {
+
+		// 총 페이지
+    	int totalCount = studentService.getCountStudentQueue(); 
+    	
+    	Map<String, Object> map = new HashMap<>();	
+    	List<Member> studentQueueList = studentService.getStudentQueueList(map); // 학생 목록
+		
+    	model.addAttribute("list", studentQueueList);
+    	
+		return "member/student/studentQueueList";
+    }
+    
+ // 학생 승인 거절
+ 	@GetMapping("/employee/studentQueueList")
+ 	public String negativeStudent(
+ 			@RequestParam(value="memberId") String memberId) {
+ 		studentService.negativeStudent(memberId);
+ 		return "redirect:/member/student/studentQueueList";
+ 	}
+ 	
+ 	// 학생 승인
+ 	@GetMapping("/employee/accessStudent")
+ 	public String accessStudent(HttpSession session,
+ 			@RequestParam(value="memberId") String memberId) {
+ 		
+ 		
+ 		studentService.accessStudent(memberId);
+ 		return "redirect:/member/student/studentQueueList";
+ 	}
+ 	
     
 }
 

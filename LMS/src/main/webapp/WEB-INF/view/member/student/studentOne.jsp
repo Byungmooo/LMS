@@ -94,7 +94,7 @@
 				<c:if test="${memberType eq '직원'}">
 					<div style="margin-top: 20px;">
 						<input type="hidden" id="memberId" name="memberId"  value="${s.memberId}">
-						<a href="${pageContext.request.contextPath}/student/modifyStudent?studentCode=${s.studentCode}" class="btn btn-primary" style="color: #fff;">수정</a>
+						<a href="${pageContext.request.contextPath}/employee/modifyStudent?studentCode=${s.studentCode}" class="btn btn-primary" style="color: #fff;">수정</a>
 						<button type="button" onclick="del(${s.studentCode})" class="btn btn-primary" style="color: #fff;">삭제</button>
 						<a href="${pageContext.request.contextPath}/employee/studentList" class="btn btn-primary" style="color: #fff;">목록</a>
 					</div>

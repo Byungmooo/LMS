@@ -15,98 +15,270 @@
 	</c:otherwise>
 </c:choose>
 <!-- Main -->
-<div class="container-xxl flex-grow-1 container-p-y">
-    <!-- Row1 구분 -->
-    <div class="row text-center">
-        <div class="card h-100">
-            <div class="card-header">
-                <div class="card-title mb-0">
-                    <h5 class="m-0 me-2">직원정보 수정</h5>
-                </div>
-              </div>
-              <div class="card-body">
-                <form name="form" action="${pageContext.request.contextPath}/member/employee/modifyEmployeeAction" method="post">
-                   <div class="form-group">
-	                    <label for="memberId">아이디:</label>
-	                    <input type="text" name="memberId" class="form-control"
-					 		value="${e.memberId}" readonly>  
-                   </div>
-                   <div class="form-group">
-	                    <label for="employeeCode">직원코드:</label>
-	                    <input type="text" name="employeeCode" class="form-control"
-					 		value="${e.employeeCode}" readonly>  
-                   </div>
-                   
-                   <div class="form-group">
-	                    <label for="authority">직원권한코드:</label>
-	                    <input type="text" name="authority" class="form-control"
-					 		value="${e.authority}" >  
-                   </div>
-                   <div class="form-group">
-	                    <label for="employeeState">재직상태:</label>
-	                    <input type="text" name="employeeState" class="form-control"
-					 		value="${e.employeeState}" >  
-                   </div>
-                   <div class="form-group">
-	                    <label for="memberName">이름:</label>
-	                    <input type="text" name="memberName" class="form-control"
-					 		value="${e.memberName}" >  
-                   </div>
-                   <div class="form-group">
-	                    <label for="memberGender">성별:</label>
-	                    <input type="text" name="memberGender" class="form-control"
-					 		value="${e.memberGender}" >  
-                   </div>
-                   <div class="form-group">
-	                    <label for="memberType">구분:</label>
-	                    <input type="text" name="memberType" class="form-control"
-					 		value="${e.memberType}"  readonly>  
-                   </div>
-                   <div class="form-group">
-	                    <label for="memberBirth">생일:</label>
-	                    <input type="text" name="memberBirth" class="form-control"
-					 		value="${e.memberBirth}" >  
-                   </div>
-                   <div class="form-group">
-	                    <label for="memberEmail">이메일:</label>
-	                    <input type="text" name="memberEmail" class="form-control"
-					 		value="${e.memberEmail}" >  
-                   </div>
-                   <div class="form-group">
-	                    <label for="memberAddress">주소:</label>
-	                    <input type="text" name="memberAddress" class="form-control"
-					 		value="${e.memberAddress}" >  
-                   </div>
-                   <div class="form-group">
-	                    <label for="memberContact">연락처:</label>
-	                    <input type="text" name="memberContact" class="form-control"
-					 		value="${e.memberContact}" >  
-                   </div>
-                   <div class="form-group">
-	                    <label for="active">권한:</label>
-	                    <input type="text" name="active" class="form-control"
-					 		value="${e.active}" readonly >  
-                   </div>
-                    
-
-                   <div style="text-align: center;">      
-                   	     <!-- 코드를 hidden으로 처리 -->
-                   		<input type="hidden" name="employeeCode" value="${e.employeeCode}">
-                   		<button class="btn btn-primary" type="button" id="btnUpdate" onclick="updateBtn()">수정</button>
-						<button class="btn btn-warning" type="button" onclick="window.history.back()">취소</button> 
-						
-                   </div>
-                </form>
-            </div>
-        </div>
-    </div>
+<!-- Main -->
+		<div class="container-xxl flex-grow-1 container-p-y">	  
+			<!-- Row1 구분 -->
+			<div class="row text-center">	    
+				<div class="card h-100">
+					<div class="card-header">
+						<div class="card-title mb-0">
+							<h5 class="m-0 me-2">직원 정보 수정</h5>
+							<small class="text-muted"></small>
+						</div>
+					</div>
+					<div class="card-body">
+                		<form action="${pageContext.request.contextPath}/employee/modifyEmployeeAction"
+                			class="form-horizontal" method="post" id="updateForm">
+		                   <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		아이디
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+			                   		 <input type="text" name="memberId" class="form-control"
+							 				value="${e.memberId}" readonly>  
+							 	</div>
+		                   </div>
+		                   <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		직원코드
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+			                    	<input type="text" name="employeeCode" class="form-control"
+							 			value="${e.employeeCode}" readonly>
+							 	</div>  
+		                   </div>
+		                   <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		직원권한코드 (마스터:1)
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+			                   		 <input type="text" name="authority" class="form-control"
+							 			value="${e.authority}" >  
+							 	</div>
+		                   </div>
+		                   <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		재직상태
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+			                    <select class="form-select" aria-label="Default select example" name="employeeState" id="employeeState">
+                            			<option value="${e.employeeState}" selected="selected">선택</option>
+                            			<option value="재직중">재직중</option>
+                            			<option value="휴직중">휴직중</option>
+                            			<option value="퇴직자">퇴직자</option>
+                            		</select>
+							 	</div> 
+		                   </div>
+		                  <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		이름
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+			                    	<input type="text" name="memberName" class="form-control"
+							 			value="${e.memberName}" >  
+							 	</div>
+		                   </div>
+		                   <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		성별
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+                            		<input type="text" name="memberGender" class="form-control"
+							 			value="${e.memberGender}" readonly>  
+                           		</div>
+                           </div>
+                           <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		유형
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+                            		<input type="text" name="memberType" class="form-control"
+							 			value="${e.memberType}" readonly>  
+                            	</div>
+                            </div>
+		                 	<div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		생년월일
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+                            		<select class="form-select" aria-label="Default select example" name="birthYear" id="birthYear">
+                            			<option value="" selected="selected">년</option>
+										<c:forEach var="i" begin="1920" end="2022">
+											<option value="${i}">${i}</option>
+										</c:forEach>
+                            		</select>
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+                            		<select class="form-select" aria-label="Default select example" name="birthMonth" id="birthMonth">
+                            			<option value="" selected="selected">월</option>
+										<c:forEach var="i" begin="1" end="12">
+											<c:choose>
+											    <c:when test="${i lt 10 }">
+											        <option value="0${i}">0${i}</option>
+											    </c:when>
+											    <c:otherwise>
+											        <option value="${i}">${i}</option>
+											    </c:otherwise>
+											</c:choose>
+										</c:forEach>
+                            		</select>
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+                            		<select class="form-select" aria-label="Default select example" name="birthDay" id="birthDay">
+                            			<option value="" selected="selected">일</option>
+										<c:forEach var="i" begin="1" end="31">
+											<c:choose>
+											    <c:when test="${i lt 10 }">
+											        <option value="0${i}">0${i}</option>
+											    </c:when>
+											    <c:otherwise>
+											        <option value="${i}">${i}</option>
+											    </c:otherwise>
+											</c:choose>
+										</c:forEach>
+                            		</select>
+                            	</div>
+                            	<div class="col-sm-1 col-12 text-center">
+                            	</div>
+                            </div>
+		                    <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		이메일
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+			                   		 <input type="text" name="memberEmail" class="form-control"
+							 				value="${e.memberEmail}" >  
+							 	</div>
+		                   </div>
+		                   <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		주소
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+                            		<input type="text" name="memberAddr" id="memberAddr" class="form-control" placeholder="Search Address" readonly="readonly">
+                            	</div>
+                            	<div class="col-sm-1 col-12 text-center">
+                            		<button type="button" id="addrBtn" class="btn btn-primary"
+                            			 onclick="sample2_execDaumPostcode()">
+		                            <i class="feather icon-user"></i>
+		                            	검색
+		                            </button>
+                            	</div>
+                            	<div class="col-sm-1 col-12 text-center">
+                            		주소상세
+                            	</div>
+                            	<div class="col-sm-4 col-12 text-center">
+                            		<input type="text" name="memberAddrDetail" id="memberAddrDetail" class="form-control" placeholder="Enter Detail Address">
+                            	</div>
+                            	<div class="col-sm-1 col-12 text-center">
+                            	</div>
+                           </div>
+		                   <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		연락처
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+			                    	<input type="text" name="memberContact" class="form-control"
+							 			value="${e.memberContact}" > 
+                            	</div>
+                            </div> 
+		                   </div>
+		                    <div class="row" style="margin-bottom: 20px;">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		권한여부
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+                            		 <select class="form-select" aria-label="Default select example" name="active" id="active">
+                            			<option value="${e.active}" selected="selected">선택</option>
+                            			<option value="Y">Y</option>
+                            			<option value="N">N</option>
+                            		</select>
+                            	</div>
+                            </div>
+		                   <div style="text-align: center;">      
+		                   	     <!-- 코드를 hidden으로 처리 -->
+		                   		<input type="hidden" name="employeeCode" value="${e.employeeCode}">
+		                   		<button class="btn btn-primary" type="button" id="btnUpdate" onclick="updateBtn()">수정</button>
+								<button class="btn btn-warning" type="button" onclick="window.history.back()">취소</button> 
+							</div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>
     <!-- /Row1 구분 -->
-</div>
 <!-- /Main -->
-<%@ include file="/WEB-INF/view/include/footer.jsp" %>
+	<!-- 주소 API -->		
+		<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">
+			<img src="//t1.daumcdn.net/postcode/resource/images/close.png" id="btnCloseLayer" 
+				style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" onclick="closeDaumPostcode()" alt="닫기 버튼">
+		</div>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	var element_layer = document.getElementById('layer'); 
+	
+	function closeDaumPostcode() {
+	    element_layer.style.display = 'none';
+	}
+	
+	function sample2_execDaumPostcode() {
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            var addr = ''; // 주소 변수
+	            var extraAddr = ''; // 참고항목 변수
+	
+	            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+	                addr = data.roadAddress;
+	            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+	                addr = data.jibunAddress;
+	            }
+	
+	            if(data.userSelectedType === 'R'){
+	
+	                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	                    extraAddr += data.bname;
+	                }
+	                if(data.buildingName !== '' && data.apartment === 'Y'){
+	                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	                }
+	                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+	                if(extraAddr !== ''){
+	                    extraAddr = ' (' + extraAddr + ')';
+	                }
+	
+	            
+	            } 
+	            document.getElementById('memberAddr').value = data.zonecode + ' ' + addr;
+	            element_layer.style.display = 'none';
+	        },
+	        width : '100%',
+	        height : '100%',
+	        maxSuggestItems : 5
+	    }).embed(element_layer);
+	
+	    element_layer.style.display = 'block';
+	
+	    initLayerPosition();
+	}
+	
+	function initLayerPosition(){
+	    var width = 300; //우편번호서비스가 들어갈 element의 width
+	    var height = 400; //우편번호서비스가 들어갈 element의 height
+	    var borderWidth = 5; //샘플에서 사용하는 border의 두께
+	
+	    // 위에서 선언한 값들을 실제 element에 넣는다.
+	    element_layer.style.width = width + 'px';
+	    element_layer.style.height = height + 'px';
+	    element_layer.style.border = borderWidth + 'px solid';
+	    // 실행되는 순간의 화면 너비와 높이 값을 가져와서 중앙에 뜰 수 있도록 위치를 계산한다.
+	    element_layer.style.left = (((window.innerWidth || document.documentElement.clientWidth) - width)/2 - borderWidth) + 'px';
+	    element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
+	}
+</script>
 <script> 
 function updateBtn(){
 	alert("수정하시겠습니까?");
-    document.form.submit();
+    document.updateForm.submit();
 }
 </script>
+
+<%@ include file="/WEB-INF/view/include/footer.jsp" %>

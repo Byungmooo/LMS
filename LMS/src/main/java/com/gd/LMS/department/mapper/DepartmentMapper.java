@@ -22,7 +22,7 @@ public interface DepartmentMapper {
 	
 	
 	//학부상세보기
-	Map<String, Object>  selectDepartMentOne(String departmentCode);
+	Department selectDepartMentOne(String departmentCode);
 	
 	
 	//학부추가

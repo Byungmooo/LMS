@@ -1,5 +1,8 @@
 package com.gd.LMS.member.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,6 +11,7 @@ import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.mapper.MemberMapper;
 import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.vo.Member;
+import com.gd.LMS.vo.Student;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -117,4 +121,8 @@ public class MemberService {
 		
 		return memberCode;
 	}
+	
+	
+	
+	
 }

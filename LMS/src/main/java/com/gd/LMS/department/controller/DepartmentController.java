@@ -78,7 +78,7 @@ public class DepartmentController {
 			@RequestParam(value = "departmentCode")String departmentCode) {
 		log.debug(TeamColor.BJH + "학부 상세보기 컨트롤러 진입=================");
 		
-		Map<String, Object>  department= departmentService.getDepartMentOne(departmentCode);
+		Department department= departmentService.getDepartMentOne(departmentCode);
 		model.addAttribute("d",department);
 		log.debug(TeamColor.BJH + "map에 학부정보 담아보내기" + department);
 		
@@ -87,26 +87,26 @@ public class DepartmentController {
 
 	
 	//학부 추가폼
-	@GetMapping("/employee/addDeparMent")
-	public String addDepartMent () {
+	@GetMapping("/employee/addDepartment")
+	public String addDepartment (Model model, Department department) {
 		log.debug(TeamColor.BJH + "department 추가 폼 컨트롤러 진입==============");
-
+		model.addAttribute("d" , department);
 		
-		return "department/addDeparMent";
+		return "department/addDepartment";
 	}
 	
 	//학부 추가 액션
 	@PostMapping("/employee/addDepartment")
-	public String addDepartment(Department department, Model model) {
+	public String addDepartment(Department department) {
 		log.debug(TeamColor.BJH+ "department 추가 액션 컨트롤러 실행=============");
 		
 		int row= departmentService.addDepartMent(department);
-		model.addAttribute("d", row);
+		
 		if(row !=0) {
 			log.debug(TeamColor.BJH + "학부추가 성공!!!!!! 오예!");
-			return 	"redirect:/department/departmentList";
+			return 	"redirect:/employee/departmentList";
 		}
-		return "redirect:/department/addDepartment";
+		return "redirect:/employee/addDepartment";
 	}
 		
 	
@@ -115,7 +115,7 @@ public class DepartmentController {
 	public String modifyDepartment(Model model, @RequestParam(value = "departmentCode") String departmentCode) {
 		
 		log.debug(TeamColor.BJH + "학부수정 페이지서비스 진입=======departmentCode========>" + departmentCode);
-		Map<String, Object> department = departmentService.getDepartMentOne(departmentCode);
+		Department department = departmentService.getDepartMentOne(departmentCode);
 		
 		model.addAttribute("department", department);
 		log.debug(TeamColor.BJH + "학부 수정 페이지 이동");
