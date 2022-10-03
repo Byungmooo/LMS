@@ -33,7 +33,7 @@ public interface AssignmentRegMapper {
 	int selectStudentLecNo(Map<String, Object> map);
 	
 	// 과제 수정 
-	int updateAssignmentReg(AssignmentReg assignmentReg);
+	int updateAssignmentReg(AssignmentReg assignmentReg, AssignmentRegImg assignmentRegImg);
 		
 	// 제출한 과제 점수 수정 
 	int updateAssignmentRegScore(int assignmentNo);

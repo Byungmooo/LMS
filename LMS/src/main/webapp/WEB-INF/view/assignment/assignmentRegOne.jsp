@@ -75,14 +75,19 @@
 	
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/student/assignmentRegList" method="get">
+			<form action="${pageContext.request.contextPath}/student/modifyAssignmentReg" method="post">
+			<input type="hidden" name="assignmentNo" value="${RegOne.assignmentNo}">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
 						<div class="product-status-wrap drp-lst">
-							<h4>과제 상세보기</h4>
-							<hr>
-							
+							<h4>과제 상세보기</h4>							
+							<div class="container-info">
+							<c:if test="${memberType eq '학생'}">
+								<a href="${pageContext.request.contextPath}/student/modifyAssignmentReg?assignmentRegNo=${assignmentReg.assignmentRegNo}" 
+								class= "btn btn-primary" type="button">과제 수정</a>
+							</c:if>
+							</div>
 							<c:if test="${memberType eq '교수'}">
 								<div class="container-info">
 									<div>
@@ -91,6 +96,7 @@
 									</div>
 								</div>
 							</c:if>
+							<hr>
 							<div class="card bady">
 							<div class="asset-inner">
 								<table class="table">

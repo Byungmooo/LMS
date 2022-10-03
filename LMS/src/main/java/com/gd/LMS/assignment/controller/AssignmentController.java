@@ -31,7 +31,8 @@ public class AssignmentController {
 	// 과제 리스트 조회
 
 	@GetMapping({"/student/assignmentList", "/professor/assignmentList"})
-	public String assignmentList(Model model,Assignment assignment, @RequestParam(value="openedLecNo") int openedLecNo) {
+	public String assignmentList(Model model,Assignment assignment, 
+			@RequestParam(value="openedLecNo") int openedLecNo) {
 
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "assignmentList Controller");

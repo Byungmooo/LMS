@@ -56,7 +56,7 @@
 								<textarea name="assignmentRegContent" class="form-control"></textarea>
 							</div>
 							<div class="form-group">
-								<label for="regFile">첨부파일1</label>
+								<label for="regFile">첨부파일</label>
 								<input name="regFile" id="regFile" type="file" class="form-control">
 							</div>
 						</div>

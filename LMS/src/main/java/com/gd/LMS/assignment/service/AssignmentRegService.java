@@ -195,14 +195,14 @@ public class AssignmentRegService {
 	
 
 	// 제출한 과제 수정 폼
-	public int AssignmentRegOne(AssignmentReg assignmentReg) {
+	public int modifyAssignmentReg(AssignmentReg assignmentReg, AssignmentRegImg assignmentRegImg) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "수정 폼  Service");
 		
 		// 파라미터 디버깅
 		log.debug(TeamColor.BJH + assignmentReg + "<-- assignmentReg");
 		// Mapper call
-		int RegOne = assignmentRegMapper.updateAssignmentReg(assignmentReg);
+		int RegOne = assignmentRegMapper.updateAssignmentReg(assignmentReg,assignmentRegImg);
 		// Mapper에서 받아온 assignmentRegOne 값 디버깅
 		log.debug(TeamColor.BJH + RegOne + "<-- 수정 RegOne");
 		
@@ -239,7 +239,6 @@ public class AssignmentRegService {
 		}
 		return assignmentNo;
 	}
-	
 	
 	
 

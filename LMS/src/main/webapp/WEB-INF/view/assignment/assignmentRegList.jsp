@@ -15,6 +15,8 @@
 	<c:otherwise>	
 	</c:otherwise>
 </c:choose>
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
 	<!-- studentMenu -->
 	<div class="row">
 		<div class="col-sm-9 col-12">
@@ -103,10 +105,7 @@
 											<td>${assignmentReg.assignmentScore}</td>
 											
 											
-											<c:if test="${memberType eq '학생'}">
-												<td><a href="${pageContext.request.contextPath}/student/addAssignmentReg?assignmentNo=${assignmentReg.assignmentNo}" 
-												class= "btn btn-primary" type="button">과제 제출</a></td>
-											</c:if>
+											
 										</tr>
 									</c:forEach>
 								</table>
@@ -118,5 +117,6 @@
 			</form>
 			<!-- </form> -->
 		</div>
+	</div>
 	</div>
 <c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 

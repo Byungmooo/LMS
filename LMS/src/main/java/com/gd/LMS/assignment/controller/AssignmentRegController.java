@@ -23,6 +23,7 @@ import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.vo.Assignment;
 import com.gd.LMS.vo.AssignmentReg;
+import com.gd.LMS.vo.AssignmentRegImg;
 
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
@@ -33,6 +34,7 @@ public class AssignmentRegController {
 	//memberId > 학생 불러오기 위한 객체 
 	@Autowired 	MemberService memberService;
 	@Autowired AssignmentService assignmentService;
+	
 	
 	
 	// 과제 리스트 조회	
@@ -107,7 +109,7 @@ public class AssignmentRegController {
 			log.debug(TeamColor.BJH + memberId + "<-- memberId");
 			log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
 
-			return "/assignment/addAssignmentReg";
+			return "assignment/addAssignmentReg";
 		} 
 
 		
@@ -183,21 +185,20 @@ public class AssignmentRegController {
 
 		// 제출한 과제 수정 Form
 		@GetMapping("/student/modifyAssignmentReg")
-		public String modifyAssignmentRegOne(Model model, AssignmentReg assignmentReg,int assignmentNo) {
+		public String modifyAssignmentReg(Model model, 
+				@RequestParam(value= "assignmentRegNo")  int assignmentRegNo) {
 			// 디버깅 영역구분
-			log.debug(TeamColor.BJH + "modifyAssignmentReg Controller");
-			// 파라미터 디버깅
-			log.debug(TeamColor.BJH + assignmentReg + "<-- assignmentReg");
+			log.debug(TeamColor.BJH + "modifyAssignmentReg Controller====실행");
 
 			// assignmentRegOne 리스트 model값으로 보내기
-			Map<String, Object> modifyAssignmentReg = assignmentRegService.getAssignmentRegOne(assignmentNo);
+			Map<String, Object> modifyAssignmentReg = assignmentRegService.getAssignmentRegOne(assignmentRegNo);
 			// 디버깅
 			log.debug(TeamColor.BJH + modifyAssignmentReg + "<-- assignmentReg");
 
 			// 모델에 assignmentRegOne을 addAttribute해서 폼으로 전달
 			model.addAttribute("modifyReg", modifyAssignmentReg);
 
-			return "student/modifyAssignmentReg";
+			return "assignment/modifyAssignmentReg";
 
 		} 
 		
@@ -205,22 +206,29 @@ public class AssignmentRegController {
 		
 		// 제출한 과제 수정action
 		@PostMapping("/student/modifyAssignmentReg")
-		public String modifyAssignmentRegAction(AssignmentReg assignmentReg)throws UnsupportedEncodingException  {
+		public String modifyAssignmentReg(
+				@RequestParam(value="assignmentRegTitle") String assignmentRegTitle,
+				@RequestParam(value="assignmentRegContent") String assignmentRegContent,
+				@RequestParam(value="assignmentRegNo") int assignmentRegNo,
+				@RequestParam(value="originName") String originName,
+				@RequestParam(value="fileName") String fileName){
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "modifyAssignmentReg Controller");
 			
-			int row = assignmentRegService.AssignmentRegOne(assignmentReg);
-			// modifyReportSubmit 디버깅
-			log.debug(TeamColor.BJH + assignmentReg + "<-- assignmentReg에 수정내용 담기 성공");
+			
+			AssignmentReg reg = new AssignmentReg();
+			reg.setAssignmentRegTitle(reg.getAssignmentRegTitle());
+			reg.setAssignmentRegContent(reg.getAssignmentRegContent());
+			reg.setAssignmentRegNo(reg.getAssignmentRegNo());
+			
 
-			if (row != 0) {
-				// 성공
-				log.debug(TeamColor.BJH + " 제출한 과제 수정 성공");
-			} else {
-				// 실패
-				log.debug(TeamColor.BJH + " 제출한 과제 수정 실패");
-			}
-
+			AssignmentRegImg img = new AssignmentRegImg();
+			img.setFileName(img.getFileName());
+			img.setOriginName(img.getOriginName());
+			img.setAssignmentRegNo(img.getAssignmentRegNo());
+			
+			assignmentRegService.modifyAssignmentReg(reg,img);
+			
 			// assignmentRegList로 이동
 			return "redirect:/student/assignmentRegList";
 		} 
