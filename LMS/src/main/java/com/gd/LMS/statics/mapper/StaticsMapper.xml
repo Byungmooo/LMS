@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gd.LMS.statics.mapper.StaticsMapper">
+    <select id="selectStaticData" resultType="map">
+        SELECT 
+        	--   m.member_id,
+            --   dc.member_code,
+               student_year grade,
+            --	 member_name,
+               member_gender gender,
+               member_type type,
+            --	 member_birth,
+               member_address address,
+               d.department_code dCode,
+               d.department_name dName
+        FROM `member` m
+        JOIN (
+            SELECT member_id, department_code, student_code member_code, student_year
+            FROM student
+            UNION
+            SELECT member_id, department_code, professor_code member_code, null
+            FROM professor
+            ) dc
+        ON m.member_id = dc.member_id
+        JOIN department d
+        ON dc.department_code = d.department_code
+    </select>
+
+</mapper>
