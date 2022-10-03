@@ -1,5 +1,6 @@
 package com.gd.LMS.member.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -123,6 +124,59 @@ public class MemberService {
 	}
 	
 	
+	// 회원가입 승인대기리스트
+	public Map<String,Object> activeMemberList(){
+		
+		// 학생 대기리스트
+		List<Member> studentList = memberMapper.selectQueueStudentLsit();
+		// 교수 대기리스트
+		List<Member> professorList = memberMapper.selectQueueProfessorLsit();
+		// 직원 대기리스트
+		List<Member> employeeList = memberMapper.selectQueueEmployeeLsit();
+		
+		// 디버깅
+		log.debug(TeamColor.BJH + "studentList   서비스 담기=======>" + studentList);
+		log.debug(TeamColor.BJH + "professorList 서비스 담기=======>" + professorList);
+		log.debug(TeamColor.BJH + "employeeList  서비스 담기=======>" + employeeList);
+		
+		//맵에 넣어주기
+		Map<String,Object> map = new HashMap<>();
+		map.put("studentList", studentList);
+		map.put("professorList", professorList);
+		map.put("employeeList", employeeList);
+		
+		// 디버깅
+		log.debug(TeamColor.BJH + "student : " + map.get("studentList"));
+		log.debug(TeamColor.BJH + "teacher : " + map.get("teacherList"));
+		log.debug(TeamColor.BJH + "manager : " + map.get("managerList"));
+		
+		return map;
+	}
 	
+	// 회원가입 승인
+	public int modifyActiveMemberList(String memberId) {
+		
+		// 디버깅
+		log.debug(TeamColor.BJH + "회원가입 승인 memberId====>" +memberId);
+		
+		int row = memberMapper.updateActiveMemberList(memberId);
+		// 디버깅
+		log.debug(TeamColor.BJH + "row=====>" + row);
+		
+		return row;
+	}
 	
+	// 회원가입 거절
+	public int modifyInActiveMemberList(String memberId) {
+		
+		// 디버깅
+		log.debug(TeamColor.BJH + "회원가입 거절 memberId====>" + memberId);
+		
+		int row = memberMapper.updateInActiveMemberList(memberId);
+		// 디버깅
+		log.debug(TeamColor.BJH + "row======>" + row);
+		
+		return row;
+	}
+
 }

@@ -1,9 +1,12 @@
 package com.gd.LMS.member.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -192,5 +195,67 @@ public class MemberController {
 		
 		return "redirect:/memberLogin";
 	}
+	
+	
+	
+	///////////////////////////////////////승인관련
+	
+	
+	// 회원가입 승인 대기리스트 Form
+		@GetMapping("/employee/activeMemberList")
+		public String modifyAccountStateWaitMember(Model model, @RequestParam(value="memberId",
+							defaultValue="all") String memberId) {
+			
+			// 디버깅
+			log.debug(TeamColor.BJH + "회원가입 승인대기 리스트 컨트롤러 진입==========");
+			
+			Map<String, Object> resultMap = memberService.activeMemberList();
+			model.addAttribute("studentList", resultMap.get("studentList"));
+			model.addAttribute("professorList", resultMap.get("professorList"));
+			model.addAttribute("employeeList", resultMap.get("employeeList"));
+			model.addAttribute("memberId", memberId);
+			
+			
+			return "member/activeMemberList";
+		}
+		
+		// 회원가입 승인 Form
+		@GetMapping("/employee/modifyActiveMemberList")
+		public String modifyActiveMember(@RequestParam(value="memberId") String memberId) {
+			
+			// 디버깅
+			log.debug(TeamColor.BJH + "회원가입 승인 폼 컨트롤러 진입===========" + memberId);
+			
+			int row = memberService.modifyActiveMemberList(memberId);
+			
+			if(row != 0) {
+				return "member/activeMemberList";
+			}
+			
+			return "redirect:/member/modifyActiveMemberList";
+		}
+		
+		// 회원가입 거절 Form
+		@GetMapping("/member/modifyInActiveMemberList")
+		public String modifyInActiveMember(@RequestParam(value="memberId") String memberId) {
+			
+			// 디버깅
+			log.debug(TeamColor.BJH + "회원가입 거절 폼 진입=====>memberId :" + memberId);
+			
+			int row = memberService.modifyInActiveMemberList(memberId);
+			
+			if(row != 0) {
+				return "member/acativeMemberList";
+			}
+			
+			return "redirect:/member/modifyInActiveMemberList";
+		}
+	
+	
+	
+	
+	
+	
+	
 	
 }

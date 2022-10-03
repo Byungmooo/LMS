@@ -83,36 +83,6 @@ public class StudentService {
     }
     
     
-    ////////////////////////승인관련
-    
-    // 학생 승인 대기 목록
- 	public List<Member> getStudentQueueList(Map<String, Object> map){
- 		return studentMapper.selectStudentQueueList(map);
- 	}
- 	
- 	// 학생 승인 대기 페이징
- 	public int getCountStudentQueue() {
- 		return studentMapper.selectStudentQueueCount();
- 	}
- 	
-	// 학생 승인 거절
-	public void negativeStudent(String memberId) {
-		// 계정 테이블 삭제
-		studentMapper.deleteStudentQueue(memberId);
-	}
-	
-	// 학생 승인
-	public void accessStudent(String memberId) {
-		Member member = new Member();
-		member.setActive("Y");
-		member.setMemberId(memberId);
-		// 계정 정보 찾기
-		member = studentMapper.selectStudentQueueOne(memberId);
-		// 계정 상태 업데이트
-		studentMapper.updateStudentState(member);
-		
-	}
-		
 	
     
 }

@@ -120,4 +120,84 @@
 		WHERE
 			member_id = #{memberId}
 	</select>
+	
+	
+	<!-- 회원가입 교수 승인대기리스트 -->
+	<select id="selectQueueProfessorLsit"  resultType="com.gd.LMS.vo.Member">
+		SELECT
+			member_id memberId,
+			member_name memberName,
+			member_gender memberGender,
+			member_birth memberBirth,
+			member_email memberEmail,
+			member_address memberAddress,
+			member_contact memberContact
+		FROM
+			member
+		WHERE
+			active = 'W' AND
+			member_type = '교수'
+		
+	</select>
+	
+	<!--회원가입 학생 승인대기리스트 -->
+	<select id="selectQueueStudentLsit" resultType="com.gd.LMS.vo.Member">
+		SELECT
+			member_id memberId,
+			member_name memberName,
+			member_gender memberGender,
+			member_birth memberBirth,
+			member_email memberEmail,
+			member_address memberAddress,
+			member_contact memberContact
+		FROM
+			member
+		WHERE
+			active = 'W' AND
+			member_type = '학생'
+	</select>
+	
+	<!-- 회원가입 직원 승인대기리스트 -->
+	<select id="selectQueueEmployeeLsit" resultType="com.gd.LMS.vo.Member">
+		SELECT
+			member_id memberId,
+			member_name memberName,
+			member_gender memberGender,
+			member_birth memberBirth,
+			member_email memberEmail,
+			member_address memberAddress,
+			member_contact memberContact
+		FROM
+			member
+		WHERE
+			active = 'W' AND
+			member_type = '직원'
+	</select>
+	
+	
+	
+	<!-- 회원가입 승인 -->
+	<update id="updateActiveMemberList" parameterType="com.gd.LMS.vo.Member">
+		UPDATE 
+			member
+		SET 
+			active = 'Y'
+		WHERE 
+			member_id = #{memberId} 
+			
+	</update>
+	
+	
+	
+	<!-- 회원가입 거절 -->
+	<update id="updateInActiveMemberList" parameterType="String">
+		UPDATE 
+			member
+		SET 
+			active = 'N'
+		WHERE 
+			member_id = #{memberId}
+	</update>
+	
+	
 </mapper>

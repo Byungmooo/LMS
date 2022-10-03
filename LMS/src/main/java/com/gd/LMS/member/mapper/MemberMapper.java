@@ -1,8 +1,13 @@
 package com.gd.LMS.member.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.LMS.vo.Employee;
 import com.gd.LMS.vo.Member;
+import com.gd.LMS.vo.Professor;
+import com.gd.LMS.vo.Student;
 
 @Mapper
 public interface MemberMapper {
@@ -33,4 +38,22 @@ public interface MemberMapper {
 	
 	// 직원코드
 	int selectEmployeeCode(String memberId);
+	
+	// 회원가입 교수 승인대기 리스트
+	List<Member> selectQueueProfessorLsit();
+
+	// 회원가입 학생 승인대기 리스트
+	List<Member> selectQueueStudentLsit();
+	
+	// 회원가입 직원 승인대기 리스트
+	List<Member> selectQueueEmployeeLsit();
+	
+
+	
+	// 회원가입 승인 (직원만 가능)
+	int updateActiveMemberList(String memberId);
+	
+	// 회원가입 거절 (직원만 가능)
+	int updateInActiveMemberList(String memberId);
+	
 }
