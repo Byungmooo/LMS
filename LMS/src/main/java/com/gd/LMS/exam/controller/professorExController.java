@@ -53,7 +53,7 @@ public class professorExController {
 
 		return "exam/professorExList";
 	}
-
+  
 	// 시험지 상세보기
 	@GetMapping(value = "/exam/professorExList/{examNo}")
 	public String ExOne(Model model, @PathVariable(value = "examNo") int examNo) {
