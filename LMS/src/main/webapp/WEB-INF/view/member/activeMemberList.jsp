@@ -50,7 +50,14 @@
 						<c:if test="${memberType eq '직원'}">
 							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType=all"
 								selected>전체 리스트</option>
+							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType=all"
+								selected>학생 리스트</option>	
+							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType=all"
+								selected>교수 리스트</option>
+							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType=all"
+								selected>직원 리스트</option>				
 						</c:if>
+						
 					</select>
 					<input type="hidden" name="memberId" id="memberId" value="${memberId}">
                   </div>

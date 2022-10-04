@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.LMS.commons.TeamColor;
+import com.gd.LMS.exam.service.professortExService;
+import com.gd.LMS.member.service.EmployeeService;
 import com.gd.LMS.member.service.MemberService;
+import com.gd.LMS.member.service.ProfessorService;
+import com.gd.LMS.member.service.StudentService;
 import com.gd.LMS.vo.Member;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +26,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class MemberController {
+
 	@Autowired MemberService memberService;
+	@Autowired StudentService studentService;
+	@Autowired EmployeeService employeeService;
+	@Autowired ProfessorService professorService;
+	
+	
 	
 	// 회원 로그아웃
 	@GetMapping("/member/memberLogout")
@@ -209,10 +219,10 @@ public class MemberController {
 			// 디버깅
 			log.debug(TeamColor.BJH + "회원가입 승인대기 리스트 컨트롤러 진입==========");
 			
-			Map<String, Object> resultMap = memberService.activeMemberList();
-			model.addAttribute("studentList", resultMap.get("studentList"));
-			model.addAttribute("professorList", resultMap.get("professorList"));
-			model.addAttribute("employeeList", resultMap.get("employeeList"));
+			Map<String, Object> map = memberService.activeMemberList();
+			model.addAttribute("studentList", map.get("studentList"));
+			model.addAttribute("professorList", map.get("professorList"));
+			model.addAttribute("employeeList", map.get("employeeList"));
 			model.addAttribute("memberId", memberId);
 			
 			
@@ -228,9 +238,6 @@ public class MemberController {
 			
 			int row = memberService.modifyActiveMemberList(memberId);
 			
-			if(row != 0) {
-				return "member/activeMemberList";
-			}
 			
 			return "redirect:/member/modifyActiveMemberList";
 		}

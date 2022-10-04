@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.mapper.MemberMapper;
 import com.gd.LMS.member.service.MemberService;
+import com.gd.LMS.vo.Employee;
 import com.gd.LMS.vo.Member;
+import com.gd.LMS.vo.Professor;
 import com.gd.LMS.vo.Student;
 
 import lombok.extern.slf4j.Slf4j;
@@ -89,40 +91,38 @@ public class MemberService {
 		
 		return result;
 	}
-	
 	// 학생코드
-	public int getStudentCode(String memberId) {
-		// 파라미터 디버깅
-		log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
-		
-		// 매퍼메서드 호출 후 리턴값 디버깅
-		int memberCode = memberMapper.selectStudentCode(memberId);
-		
-		return memberCode;
-	}
-	
-	// 교수코드
-	public int getProfessorCode(String memberId) {
-		// 파라미터 디버깅
-		log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
-		
-		// 매퍼메서드 호출 후 리턴값 디버깅
-		int memberCode = memberMapper.selectProfessorCode(memberId);
-		
-		return memberCode;
-	}
-	
-	// 직원코드
-	public int getEmployeeCode(String memberId) {
-		// 파라미터 디버깅
-		log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
-		
-		// 매퍼메서드 호출 후 리턴값 디버깅
-		int memberCode = memberMapper.selectEmployeeCode(memberId);
-		
-		return memberCode;
-	}
-	
+	   public Student getStudentCodeById(String memberId) {
+	      // 파라미터 디버깅
+	      log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
+	      
+	      // 매퍼메서드 호출 후 리턴값 디버깅
+	      Student student = memberMapper.selectStudentCodeById(memberId);
+	      
+	      return student;
+	   }
+	   
+	   // 교수코드
+	   public Professor getProfessorCodeById(String memberId) {
+	      // 파라미터 디버깅
+	      log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
+	      
+	      // 매퍼메서드 호출 후 리턴값 디버깅
+	      Professor professor = memberMapper.selectProfessorCodeById(memberId);
+	      
+	      return professor;
+	   }
+	   
+	   // 직원코드
+	   public Employee getEmployeeCodeById(String memberId) {
+	      // 파라미터 디버깅
+	      log.debug(TeamColor.LCH + "memberId (service) > " + memberId);
+	      
+	      // 매퍼메서드 호출 후 리턴값 디버깅
+	      Employee employee = memberMapper.selectEmployeeCodeById(memberId);
+	      
+	      return employee;
+	   }
 	
 	// 회원가입 승인대기리스트
 	public Map<String,Object> activeMemberList(){
@@ -147,8 +147,8 @@ public class MemberService {
 		
 		// 디버깅
 		log.debug(TeamColor.BJH + "student : " + map.get("studentList"));
-		log.debug(TeamColor.BJH + "teacher : " + map.get("teacherList"));
-		log.debug(TeamColor.BJH + "manager : " + map.get("managerList"));
+		log.debug(TeamColor.BJH + "professor : " + map.get("professorList"));
+		log.debug(TeamColor.BJH + "employee : " + map.get("employeeList"));
 		
 		return map;
 	}
@@ -160,6 +160,9 @@ public class MemberService {
 		log.debug(TeamColor.BJH + "회원가입 승인 memberId====>" +memberId);
 		
 		int row = memberMapper.updateActiveMemberList(memberId);
+		
+			
+		
 		// 디버깅
 		log.debug(TeamColor.BJH + "row=====>" + row);
 		

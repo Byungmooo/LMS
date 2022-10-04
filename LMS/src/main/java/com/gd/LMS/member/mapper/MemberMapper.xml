@@ -91,34 +91,37 @@
 			<!-- active = 'W' 도 같은 메서드? -->
 	</update>
 	
-	<!-- 학생코드 -->
-	<select id="selectStudentCode" parameterType="String" resultType="int">
-		SELECT
-			student_code
-		FROM 
-			student
-		WHERE
-			member_id = #{memberId}
+	<!--  학생코드  -->
+	<select id="selectStudentCodeById" parameterType="String" resultType="com.gd.LMS.vo.Student"> 
+	SELECT 
+		student_code studentCode, 
+		department_code departmentCode 
+	FROM 
+		student 
+	WHERE 
+		member_id = #{memberId} 
 	</select>
 	
-	<!-- 교수코드 -->
-	<select id="selectProfessorCode" parameterType="String" resultType="int">
-		SELECT
-			professor_code
-		FROM 
-			professor
-		WHERE
-			member_id = #{memberId}
+	<!--  교수코드  -->
+	<select id="selectProfessorCodeById" parameterType="String" resultType="com.gd.LMS.vo.Professor"> 
+	SELECT 
+		professor_code professorCode, 
+		department_code departmentCode 
+	FROM 
+		professor 
+	WHERE 
+		member_id = #{memberId} 
 	</select>
 	
-	<!-- 직원코드 -->
-	<select id="selectEmployeeCode" parameterType="String" resultType="int">
-		SELECT
-			employee_code
-		FROM 
-			employee
-		WHERE
-			member_id = #{memberId}
+	
+	<!--  직원코드  -->
+	<select id="selectEmployeeCodeById" parameterType="String" resultType="com.gd.LMS.vo.Employee"> 
+	SELECT 
+		employee_code employeeCode 
+	FROM 
+		employee 
+	WHERE 
+		member_id = #{memberId} 
 	</select>
 	
 	

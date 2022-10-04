@@ -31,13 +31,13 @@ public interface MemberMapper {
 	int updateMemberActiveY(Member paramMember);
 	
 	// 학생코드
-	int selectStudentCode(String memberId);
-	
-	// 교수코드
-	int selectProfessorCode(String memberId);
-	
-	// 직원코드
-	int selectEmployeeCode(String memberId);
+   Student selectStudentCodeById(String memberId);
+   
+   // 교수코드
+   Professor selectProfessorCodeById(String memberId);
+   
+   // 직원코드
+   Employee selectEmployeeCodeById(String memberId);
 	
 	// 회원가입 교수 승인대기 리스트
 	List<Member> selectQueueProfessorLsit();
