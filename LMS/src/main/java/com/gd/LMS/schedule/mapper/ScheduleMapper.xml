@@ -15,18 +15,23 @@
 			MONTH(o.close_lecture_date) closeMonth,
 			DAY(o.open_lecture_date) openDay,
 			DAY(o.close_lecture_date) closeDay,
-			o.lec_classroom lecClassRoom,
+			b.building_name buildingName,
+			c.classroom_name classroomName,
 			s.student_code studentCode,
 			t.lecture_name lectureName
 		FROM 
 			lecture_time l,
 			opened_lecture o,
 			student_lecture s,
-			total_lecture t
+			total_lecture t,
+			building b,
+			classroom c
 		WHERE
 			l.opened_lec_no = o.opened_lec_no AND
 			o.opened_lec_no = s.opened_lec_no AND
 			t.lecture_code = o.opened_lec_no AND 
+			c.classroom_no = o.classroom_no AND 
+			b.building_no = c.building_no AND
 			s.student_code = #{studentCode}
 	</select>
 	

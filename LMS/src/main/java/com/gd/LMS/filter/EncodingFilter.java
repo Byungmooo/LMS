@@ -1,4 +1,4 @@
-package com.gd.LMS.commons;
+package com.gd.LMS.filter;
 
 import java.io.IOException;
 import javax.servlet.Filter;

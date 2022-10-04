@@ -55,7 +55,7 @@
 											<c:if test="${b==s.lectureYoil && s.lectureStart<=a && a<=s.lectureEnd}">
 												<a href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${s.openedLecNo}"><strong><span style="font-size: small;">${s.lectureName}</span></strong></a>
 												<br/>
-												<span style="font-size: x-small;">${s.lecClassRoom}</span>
+												<span style="font-size: x-small;">${s.buildingName}-${s.classroomName}</span>
 												<br/>
 											</c:if>
 										</c:forEach>

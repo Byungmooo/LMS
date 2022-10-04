@@ -18,7 +18,8 @@
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
 		<div class="row">
-			<div class="col-sm-9 col-12">
+			<div class="col-sm-3 col-12"></div>
+			<div class="col-sm-6 col-12 text-center">
 				<h4 class="fw-bold py-3 mb-4">
 					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
 				</h4>
@@ -30,77 +31,45 @@
 			</div>
 		</div>
 		
-		<!-- studentLectureMenu -->
+		<!-- lectureMenu -->
 		<div>
 			<ul class="nav nav-pills flex-column flex-md-row mb-3">
 				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${openedLecNo}">
+					<a class="nav-link" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/openedLectureOne?openedLecNo=${openedLecNo}">
 					<i class="bx bx-user me-1"></i>
-						강의홈
+						강의상세
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="${pageContext.request.contextPath}/student/lectureNoticeList?openedLecNo=${openedLecNo}">
+					<a class="nav-link active" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/lectureNoticeList?openedLecNo=${openedLecNo}">
 					<i class="bx bx-bell me-1"></i> 
 						강의공지사항
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${openedLecNo}">
+					<a class="nav-link" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/lectureQuestionList?openedLecNo=${openedLecNo}">
 					<i class="bx bx-link-alt me-1"></i> 
 						질문게시판
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/student/assignmentList?openedLecNo=${openedLecNo}&studentCode=${memberCode}">
+					<a class="nav-link" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/assignmentList?openedLecNo=${openedLecNo}&studentCode=${memberCode}">
 					<i class="bx bx-link-alt me-1"></i> 
 						과제게시판
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
-					<i class="bx bx-link-alt me-1"></i> 
-						강의출석
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="">
-					<i class="bx bx-link-alt me-1"></i> 
-						강의시험
-					</a>
-				</li>
-			</ul>
-		</div>
-		<hr class="my-5" />
-		<!-- professorLectureMenu -->
-		<div>
-			<ul class="nav nav-pills flex-column flex-md-row mb-3">
-				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/professor/openedLectureOne?openedLecNo=${openedLecNo}">
-					<i class="bx bx-user me-1"></i>
-						강의홈
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="${pageContext.request.contextPath}/professor/lectureNoticeList?openedLecNo=${openedLecNo}">
-					<i class="bx bx-bell me-1"></i> 
-						강의공지사항
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/professor/lectureQuestionList?openedLecNo=${openedLecNo}">
-					<i class="bx bx-link-alt me-1"></i> 
-						질문게시판
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/professor/assignmentList?openedLecNo=${openedLecNo}&studentCode=${memberCode}">
-					<i class="bx bx-link-alt me-1"></i> 
-						과제게시판
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="${pageContext.request.contextPath}/professor/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
+					<a class="nav-link" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
 					<i class="bx bx-link-alt me-1"></i> 
 						강의출석
 					</a>

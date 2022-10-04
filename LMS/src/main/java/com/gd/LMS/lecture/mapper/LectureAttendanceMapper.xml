@@ -1,4 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.lecture.mapper.LectureAttendanceMapper">
+
+	<!-- 강의 날짜 파라미터 -->
+	<select id="selectLectureAttendanceList" parameterType="int" resultType="map"> 
+		SELECT 
+			opened_lec_no openedLecNo, 
+			open_lecture_date openLectureDate, 
+			close_lecture_date closeLectureDate,
+			YEAR(open_lecture_date) openYear, 
+			MONTH(open_lecture_date) openMonth,
+			DAY(open_lecture_date) openDay, 
+			YEAR(close_lecture_date) closeYear,
+			MONTH(close_lecture_date) closeMonth, 
+			DAY(close_lecture_date) closeDay
+		FROM 
+			opened_lecture 
+		WHERE 
+			opened_lec_no = #{openedLecNo} 
+	</select>
+	
+	<!-- 학생강의코드 -->
+	<select id="selectStudentLectureNo" parameterType="map" resultType="int">
+		SELECT
+			student_lec_no studentLecNo
+		FROM
+			student_lecture
+		WHERE
+			student_code = #{studentCode} AND
+			opened_lec_no = #{openedLecNo}
+	</select>
+	
+	<!-- 출석부생성 -->
+	<insert id="insertAttendanceListByDateAndLecNo" parameterType="java.util.List">
+		INSERT INTO attendance ( 
+			student_lec_no, 
+			attendance_date, 
+			create_date
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=","> 
+		( 
+			#{item.studentLecNo}, 
+			#{item.attendanceDate}, 
+			NOW()
+		)
+		</foreach>			
+	</insert>
+	
+	<!-- 학생의 날짜별 출석 -->
+	<select id="selectStudentAttendanceList" parameterType="map" resultType="map"> 
+		SELECT 
+			a.attendance_state attendanceState, 
+			a.attendance_date attendanceDate
+		FROM 
+			attendance a, 
+			student_lecture l, 
+			opened_lecture o,
+			student s 
+		WHERE 
+			a.student_lec_no = l.student_lec_no AND
+			l.opened_lec_no = o.opened_lec_no AND 
+			s.student_code = l.student_code AND 
+			o.opened_lec_no = #{openedLecNo} AND 
+			s.student_code = #{studentCode}
+		ORDER BY
+			a.attendance_date
+	</select>
+	
+	<!-- 강의 출석부 -->
+	<select id="selectLectureStudentList" parameterType="map" resultType="map"> 
+		SELECT 
+			@SEQ := @SEQ+1 listNo, 
+			m.member_name memberName,
+			s.student_code studentCode, 
+			l.student_lec_no studentLecNo, 
+			o.opened_lec_no openedLecNo,
+			a.attendance_state attendanceState
+		FROM 
+			student s, 
+			member m,
+			student_lecture l,
+			opened_lecture o,
+			attendance a,
+			(SELECT @SEQ := 0) A 
+		WHERE
+			s.member_id = m.member_id AND
+			l.student_code = s.student_code AND
+			l.opened_lec_no = o.opened_lec_no AND
+			a.student_lec_no = l.student_lec_no AND
+			o.opened_lec_no = #{openedLecNo} AND
+			a.attendance_date = #{attendanceDate}
+	</select>	
+
+	
+	
+	<!-- 출석상태확인 -->
+	<select id="selectAttendanceState" parameterType="com.gd.LMS.vo.Attendance" resultType="String"> 
+		SELECT
+			attendance_state attendanceState 
+		FROM 
+			attendance 
+		WHERE 
+			attendance_date = #{attendanceDate} AND 
+			student_lec_no = #{studentLecNo} 
+	</select>
+	
+	<!-- 출석 상태 변경 -->
+	<insert id="updateAttendanceState" parameterType="com.gd.LMS.vo.Attendance"> 
+		UPDATE 
+			attendance 
+		SET 
+			attendance_state = #{attendanceState} 
+		WHERE 
+			attendance_date = #{attendanceDate} AND
+			student_lec_no = #{studentLecNo} 
+	</insert>
 </mapper>

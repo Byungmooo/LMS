@@ -22,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CalendarService {
 	@Autowired CalendarMapper calendarMapper;
 	
-	//CalendarDayList 일정표리스트(달력)
+	// CalendarDayList 일정표리스트(달력)
 	public Map<String, Object> getCalendarDayListByMonth(int year, int month){
 		log.debug(TeamColor.KJS + "[CalendarService.CalendarDayList.param] year : " + year);
 		log.debug(TeamColor.KJS + "[CalendarService.CalendarDayList.param] month : " + month);

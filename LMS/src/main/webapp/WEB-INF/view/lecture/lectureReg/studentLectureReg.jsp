@@ -1,44 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style>
-.addBtn:  {
-
-}
-
-</style>
-<!-- Header -->
-<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>
-	<!-- Main -->
-	<div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="fw-bold py-3 mb-4">
-			<span class="text-muted fw-light">${memberName}님 / <strong>수강신청</strong></span>
-		</h4>
-		<hr class="my-5" />
-		
-		<!-- 수강신청 폼 -->
-		<div style="float: left; width: 55%;">
-			<div class="card text-center">
-				<h5 class="card-header">전체강의</h5>
-				<!-- 전체강의 리스트 -->
-				<div class="table-responsive text-nowrap">
-					<table class="table">
-						<thead>
-							<tr>
-								<th width="10%">강의코드</th>
-								<th width="40%">강의이름</th>
-								<th width="20%">담당교수</th>
-								<th width="10%">학점</th>
-								<th width="10">담기</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="t" items="${openedList}">
-								<tr>
-									<td><strong>${t.lectureCode}</strong></td>
-									<td>${t.lectureName}</td>
-									<td><span class="badge bg-label-primary me-1"></span>${t.memberName}</td>
-									<td><span class="badge bg-label-secondary me-1"></span>${t.credit}</td>
-									<td><button type="button" id="cartAddBtn" class="addBtn" style="   
+.addBtn, .deleteBtn {
 	display: inline-block;
     font-weight: 400;
     line-height: 1.53;
@@ -58,14 +21,51 @@
 	color: #fff;
     background-color: #696cff;
     border-color: #696cff;
-    box-shadow: 0 0.125rem 0.25rem 0 rgb(105 108 255 / 40%);" value="${t.openedLecNo}">add</button></td>
+    box-shadow: 0 0.125rem 0.25rem 0 rgb(105 108 255 / 40%);
+}
+</style>
+<!-- Header -->
+<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="text-center">
+			<h4 class="fw-bold py-3 mb-4">
+				<span class="text-muted fw-light">${memberName}님 / <strong>수강신청</strong></span>
+			</h4>
+		</div>
+		<hr class="my-5" />
+		
+		<!-- 수강신청 폼 -->
+		<div style="float: left; width: 55%;">
+			<div class="card text-center">
+				<h5 class="card-header">전체강의</h5>
+				<!-- 전체강의 리스트 -->
+				<div class="table-responsive text-nowrap">
+					<table class="table text-center">
+						<thead>
+							<tr>
+								<th width="20%" style="background-color: #999999; color: #fff;">강의코드</th>
+								<th width="35%" style="background-color: #999999; color: #fff;">강의이름</th>
+								<th width="20%" style="background-color: #999999; color: #fff;">담당교수</th>
+								<th width="15%" style="background-color: #999999; color: #fff;">학점</th>
+								<th width="10%" style="background-color: #999999; color: #fff;">담기</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="t" items="${openedList}">
+								<tr>
+									<td><strong>${t.openedLecNo}</strong></td>
+									<td>${t.lectureName}</td>
+									<td><span class="badge bg-label-primary me-1"></span>${t.memberName}</td>
+									<td><span class="badge bg-label-secondary me-1"></span>${t.credit}</td>
+									<td><button type="button" id="cartAddBtn" class="addBtn" value="${t.openedLecNo}">add</button></td>
 								</tr>
 								<input type="hidden" name="studentCode" id="studentCode" value="${memberCode}">
 							</c:forEach>
 						</tbody>
 					</table>
 				</div>
-				<hr class="my-3" />
+				<hr>
 				<!-- 검색 -->
 				<form action="${pageContext.request.contextPath}/student/studentLectureReg" method="get">
 					<div class="row">
@@ -107,22 +107,21 @@
 		<form action="${pageContext.request.contextPath}/student/studentLectureReg" method="post" id="lectureAddForm">
 			<div style="float: right; width: 40%;">
 				<div class="card text-center">
-					<h5 class="card-header">내 강의</h5>
+					<h5 class="card-header">내 강의 장바구니</h5>
 					<div class="table-responsive text-nowrap">
-						<table class="table">
-							<caption class="ms-4">Student Lecture</caption>
+						<table class="table text-center">
 							<thead>
 								<tr>
-									<th width="10%">강의코드</th>
-									<th width="40%">강의이름</th>
-									<th width="10%">학점</th>
-									<th width="10">취소</th>
+									<th width="20%" style="background-color: #999999; color: #fff;">강의코드</th>
+									<th width="40%" style="background-color: #999999; color: #fff;">강의이름</th>
+									<th width="20%" style="background-color: #999999; color: #fff;">학점</th>
+									<th width="20%" style="background-color: #999999; color: #fff;">취소</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="c" items="${cartList}">
 									<tr>
-										<td><strong>${c.lectureCode}</strong></td>
+										<td><strong>${c.openedLecNo}</strong></td>
 										<td>${c.lectureName}</td>
 										<td><span class="badge bg-label-primary me-1"></span>${c.credit}</td>
 										<td><button type="button" id="cartDeleteBtn" class="deleteBtn" value="${c.cartNo}">delete</button></td>
@@ -132,23 +131,31 @@
 									<input type="hidden" name="studentCode2" value="${memberCode}">
 								</c:forEach>
 								<c:forEach begin="0" end="${size}" var="b">
-									<tr>
+									<tr height="65">
 										<td colspan="4">강의를 담아주세요</td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
+					<div class="row" style="margin-top: 20px;">
+						<div class="col-sm-8 col12"></div>
+						<div class="col-sm-4 col12">
+							<button type="button" id="lectureAddBtn" class="btn btn-dark">신청</button>
+						</div>
+					</div>
+					<br/>
 				</div>
 			</div>
 		</form>
-		<div style="float: right; margin-top: 20px;">
-			<button type="button" id="lectureAddBtn" class="btn btn-dark">수강신청하기</button>
-			<button class="btn btn-dark">취소</button>
-		</div>
 	</div>
 	<!-- / Main -->
-
+<script>
+	if("${errorMsg}" != '') {
+		alert("${errorMsg}");
+		location.href='studentLectureReg?memberCode='+"${memberCode}";
+	}
+</script>
 <script>
 	$('.addBtn').click(function() {
 		var openedLecNoVal = $(this).val(); 
@@ -160,7 +167,7 @@
 				if(json == 'y') {
 					alert('수강 장바구니에 담겼습니다.');
 				} else {
-					alert('수강 장바구니에 담기지 못했습니다.');
+					alert('이미 장바구니에 있는 과목입니다.');
 				}
 			}
 		});

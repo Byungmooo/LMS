@@ -6,7 +6,9 @@
 		<if test="keyword != null and keyword != ''"> AND lecture_name LIKE CONCAT('%', #{keyword},'%') </if>
 	</sql>
 	
-	<select id="selectDepartmentCodeByMemberCode" parameterType="int" resultType="String">
+	<!-- ///////////////// 교수 ///////////////// -->
+	<!-- 교수해당학부코드 -->
+	<select id="selectDepartmentCodeByProfessorCode" parameterType="int" resultType="String">
 		SELECT 
 			department_code departmentCode 
 		FROM 
@@ -15,6 +17,7 @@
 			professor_code = #{memberCode}
 	</select>
 	
+	<!-- 학부강의개수 -->
 	<select id="selectTotalDepLectureCount" parameterType="map" resultType="int">
 		SELECT 
 			COUNT(*) 
@@ -25,6 +28,7 @@
 			<include refid="search" />
 	</select>
 	
+	<!-- 학부강의리스트 -->
 	<select id="selectTotalDepLectureList"  parameterType="map" resultType="map">
 		SELECT 
 			lecture_code lectureCode, 
@@ -43,6 +47,7 @@
 			#{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!-- 학부강의상세 -->
 	<select id="selectTotalDepLectureOne"  parameterType="int" resultType="map">
 		SELECT 
 			t.lecture_code lectureCode, 
@@ -58,4 +63,209 @@
 			t.department_code = d.department_code AND
 			lecture_code = #{lectureCode}
 	</select>
+	
+	<!-- 건물리스트 -->
+	<select id="selectBuildingList" resultType="map">
+		SELECT
+			building_no buildingNo,
+			building_name buildingName
+		FROM
+			building
+	</select>
+	
+	<!-- 해당건물 호수리스트 -->
+	<select id="selectClassroomList" parameterType="int" resultType="map">
+		SELECT
+			classroom_no classroomNo,
+			classroom_name classroomName,
+			max_people maxPeople
+		FROM
+			classroom
+		WHERE
+			building_no = #{buildingNo}
+	</select>
+	
+	<!-- 중복강의확인 -->
+	<select id="selectProfessorLectureCheck" parameterType="map" resultType="map">
+		SELECT
+			opened_lec_no
+		FROM
+			opened_lecture
+		WHERE
+			lecture_code = #{lectureCode} AND
+			professor_code = #{professorCode}
+	</select>
+	
+	<!-- 강의신청 -->
+	<insert id="professorInsetLectureOne" parameterType="com.gd.LMS.vo.OpenedLecture">
+		<selectKey resultType="int" keyProperty="openedLecNo" 	order="BEFORE">
+			select MAX(opened_lec_no) + 1 from opened_lecture
+		</selectKey>
+		INSERT INTO opened_lecture (
+			professor_code,
+			lecture_code,
+			classroom_no,
+			student_num,
+			syllabus,
+			open_lecture_date,
+			close_lecture_date,
+			create_date
+		) VALUES (
+			#{professorCode},
+			#{lectureCode},
+			#{classroomNo},
+			#{studentNum},
+			#{syllabus},
+			#{openLectureDate},
+			#{closeLectureDate},
+			NOW()
+		)
+	</insert>
+	
+	<!-- 강의시간표생성 -->
+	<insert id="insertLectureTime" parameterType="com.gd.LMS.vo.LectureTime">
+		INSERT INTO lecture_time (
+			opened_lec_no,
+			lecture_yoil,
+			lecture_start,
+			lecture_end,
+			create_date
+		) VALUES (
+			#{openedLecNo},
+			#{lectureYoil},
+			#{lectureStart},
+			#{lectureEnd},
+			NOW()
+		)
+	</insert>
+	
+	<!-- ///////////////// 학생 ///////////////// -->
+	<!-- 학생해당학부코드 -->
+	<select id="selectDepartmentCodeByStudentCode" parameterType="int" resultType="String">
+		SELECT 
+			department_code departmentCode 
+		FROM 
+			student
+		WHERE
+			student_code = #{memberCode}
+	</select>
+	
+	<!-- 학생수강신청 진행강좌 전체리스트 -->
+	<select id="selectOpenedLectureList" parameterType="map" resultType="map">
+		SELECT 
+			t.lecture_code lectureCode, 
+			o.opened_lec_no openedLecNo,
+			t.lecture_name lectureName, 
+			m.member_name memberName, 
+			t.credit credit
+		FROM 
+			total_lecture t, 
+			opened_lecture o, 
+			professor p, 
+			member m 
+		WHERE
+			t.lecture_code = o.lecture_code AND 
+			o.professor_code = p.professor_code AND 
+			p.member_id = m.member_id AND
+			t.department_code = #{departmentCode}
+			<include refid="search" />
+		ORDER BY 
+			o.opened_lec_no 
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 학생수강신청 진행강좌 전체리스트 개수 -->
+	<select id="selectOpenedLectureCount" parameterType="map" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			opened_lecture o,
+			total_lecture t
+		WHERE
+			o.lecture_code = t.lecture_code AND
+			t.department_code = #{departmentCode}
+			<include refid="search" />
+	</select>
+	
+	<!-- 학생수강신청 이미 듣는 과목이 있는지 확인 -->
+	<select id="selectStudentLectureCheck" parameterType="map" resultType="map">
+		SELECT 
+			student_lec_no studentLecNo 
+		FROM 
+			student_lecture
+		WHERE
+			student_code = #{studentCode} AND 
+			opened_lec_no = #{openedLecNo}
+	</select>
+	
+	<!-- 수강신청 진행 -->
+	<insert id="insertStudentLecture" parameterType="java.util.List">
+		INSERT INTO student_lecture ( 
+			student_code, 
+			opened_lec_no, 
+			create_date
+		) VALUES
+		<foreach collection="list" item="item" index="index" separator=","> 
+		( 
+			#{item.studentCode}, 
+			#{item.openedLecNo}, 
+			NOW() 
+		)
+		</foreach>
+	</insert>
+	
+	<!-- 학생수강신청 장바구니 -->
+	<select id="selectStudentLectureCartList" parameterType="int" resultType="map"> 
+		SELECT 
+			s.cart_no cartNo, 
+			o.opened_lec_no openedLecNo,
+			t.lecture_code lectureCode, 
+			t.lecture_name lectureName, 
+			t.credit 
+		FROM
+			total_lecture t, 
+			opened_lecture o, 
+			student_lecture_cart s 
+		WHERE
+			t.lecture_code = o.lecture_code AND 
+			o.opened_lec_no = s.opened_lec_no AND 
+			s.student_code = #{memberCode} 
+	</select>
+	
+	<!-- 수강 장바구니 담기 -->
+	<insert id="studentCartInsert" parameterType="map"> 
+		INSERT INTO student_lecture_cart ( 
+			student_code, 
+			opened_lec_no, 
+			create_date 
+		) VALUES ( 
+			#{studentCode}, 
+			#{openedLecNo}, 
+			NOW() 
+		) 	
+	</insert>
+	
+	<!-- 장바구니 중복확인 -->
+	<select id="selectStudentCartCheck" parameterType="map" resultType="map">
+		SELECT 
+			cart_no cartNo
+		FROM
+			student_lecture_cart 
+		WHERE
+			opened_lec_no = #{openedLecNo} AND 
+			student_code = #{studentCode} 
+	</select>
+	
+	<!-- 수강 장바구니 지우기 -->
+	<delete id="studentCartDelete" parameterType="String"> 
+		DELETE FROM student_lecture_cart 
+		WHERE cart_no = #{cartNo} 
+	</delete>
+	
+	<!-- 수강신청 완료 후 장바구니 비우기 -->
+	<delete id="deleteStudentLectureCart" parameterType="String"> 
+		DELETE FROM student_lecture_cart 
+		WHERE student_code = #{studenCode} 
+	</delete>
 </mapper>

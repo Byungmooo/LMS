@@ -58,238 +58,29 @@
 				WHEN CAST(SUBSTRING(open_lecture_date,6,2) AS unsigned)>=8 
 				THEN 2 ELSE 1 
 			END) AS lectureSemester, 
-			o.lec_classroom lecClassroom, 
+			b.building_name buildingName,
+			c.classroom_name classroomName,
 			o.student_num studentNum, 
 			o.syllabus, 
-			o.opened_lec_no openedLecNo 
+			o.opened_lec_no openedLecNo
 		FROM
 			opened_lecture o, 
 			total_lecture t, 
 			department d, 
 			professor p, 
-			member m
+			member m,
+			building b,
+			classroom c
 		WHERE 
 			o.lecture_code = t.lecture_code AND 
 			t.department_code = d.department_code AND 
 			o.professor_code = p.professor_code AND
-			p.member_id = m.member_id AND 
-			opened_lec_no = #{openedLecNo} 
+			p.member_id = m.member_id AND
+			b.building_no = c.building_no AND
+			o.classroom_no = c.classroom_no AND
+			opened_lec_no = #{openedLecNo}
 	</select>
 	
-	<!-- 학생수강신청 진행강좌 전체리스트 -->
-	<select id="selectOpenedLectureList" parameterType="com.gd.LMS.utils.PagingVo" resultType="map">
-		SELECT 
-			t.lecture_code lectureCode, 
-			o.opened_lec_no openedLecNo,
-			t.lecture_name lectureName, 
-			m.member_name memberName, 
-			t.credit credit
-		FROM 
-			total_lecture t, 
-			opened_lecture o, 
-			professor p, 
-			member m 
-		WHERE
-			t.lecture_code = o.lecture_code AND 
-			o.professor_code = p.professor_code AND 
-			p.member_id = m.member_id
-			<include refid="search" />
-		ORDER BY 
-			t.lecture_code 
-		LIMIT 
-			#{beginRow}, #{rowPerPage}
-	</select>
 	
-	<!-- 학생수강신청 진행강좌 전체리스트 개수 -->
-	<select id="selectOpenedLectureCount" parameterType="String" resultType="int">
-		SELECT 
-			COUNT(*) 
-		FROM 
-			opened_lecture o,
-			total_lecture t
-		WHERE
-			o.lecture_code = t.lecture_code
-			<include refid="search" />
-	</select>
-	
-	<!-- 수강신청 진행 -->
-	<insert id="insertStudentLecture" parameterType="java.util.List">
-		INSERT INTO student_lecture ( 
-			student_code, 
-			opened_lec_no, 
-			create_date
-		) VALUES
-		<foreach collection="list" item="item" index="index" separator=","> 
-		( 
-			#{item.studentCode}, 
-			#{item.openedLecNo}, 
-			NOW() 
-		)
-		</foreach>
-	</insert>
-	
-	<!-- 학생수강신청 장바구니 -->
-	<select id="selectStudentLectureCartList" parameterType="int" resultType="map"> 
-		SELECT 
-			s.cart_no cartNo, 
-			o.opened_lec_no openedLecNo,
-			t.lecture_code lectureCode, 
-			t.lecture_name lectureName, 
-			t.credit 
-		FROM
-			total_lecture t, 
-			opened_lecture o, 
-			student_lecture_cart s 
-		WHERE
-			t.lecture_code = o.lecture_code AND 
-			o.opened_lec_no = s.opened_lec_no AND 
-			s.student_code = #{memberCode} 
-	</select>
-	
-	<!-- 수강 장바구니 담기 -->
-	<insert id="studentCartInsert" parameterType="map"> 
-		INSERT INTO student_lecture_cart ( 
-			student_code, 
-			opened_lec_no, 
-			create_date 
-		) VALUES ( 
-			#{studentCode}, 
-			#{openedLecNo}, 
-			NOW() 
-		) 	
-	</insert>
-	
-	<!-- 수강 장바구니 지우기 -->
-	<delete id="studentCartDelete" parameterType="String"> 
-		DELETE FROM student_lecture_cart 
-		WHERE cart_no = #{cartNo} 
-	</delete>
-	
-	<!-- 수강신청 완료 후 장바구니 비우기 -->
-	<delete id="deleteStudentLectureCart" parameterType="String"> 
-		DELETE FROM student_lecture_cart 
-		WHERE student_code = #{studenCode} 
-	</delete>
-	
-	<!-- 강의 출석 리스트 -->
-	<select id="selectLectureAttendanceList" parameterType="int" resultType="map"> 
-		SELECT 
-			opened_lec_no openedLecNo, 
-			open_lecture_date openLectureDate, 
-			close_lecture_date closeLectureDate,
-			YEAR(open_lecture_date) openYear, 
-			MONTH(open_lecture_date) openMonth,
-			DAY(open_lecture_date) openDay, 
-			YEAR(close_lecture_date) closeYear,
-			MONTH(close_lecture_date) closeMonth, 
-			DAY(close_lecture_date) closeDay
-		FROM 
-			opened_lecture 
-		WHERE 
-			opened_lec_no = #{openedLecNo} 
-		</select>
-	
-	<!-- 학생의 날짜별 출석 -->
-	<select id="selectStudentAttendanceList" parameterType="map" resultType="map"> 
-		SELECT 
-			attendance_state attendanceState, 
-			attendance_date attendanceDate, 
-			YEAR(attendance_date) attendanceYear,
-			MONTH(attendance_date) attendanceMonth, 
-			DAY(attendance_date) attendanceDay 
-		FROM 
-			attendance a, 
-			student_lecture l, 
-			opened_lecture o,
-			student s 
-		WHERE 
-			a.student_lec_no = l.student_lec_no AND
-			l.opened_lec_no = o.opened_lec_no AND 
-			s.student_code = l.student_code AND 
-			o.opened_lec_no = #{openedLecNo} AND 
-			s.student_code = #{studentCode} 
-	</select>
-	
-	<!-- 강의 출석부 -->
-	<select id="selectLectureStudentList" parameterType="map" resultType="map"> 
-		SELECT 
-			@SEQ := @SEQ+1 listNo, 
-			m.member_name memberName,
-			s.student_code studentCode, 
-			t.lecture_name lectureName,
-			l.student_lec_no studentLecNo, 
-			o.opened_lec_no openedLecNo,
-			IFNULL(a.attendance_state, '대기중') attendanceState 
-		FROM 
-			student s 
-		INNER JOIN member m ON s.member_id = m.member_id 
-		INNER JOIN student_lecture l ON l.student_code = s.student_code 
-		INNER JOIN opened_lecture o ON l.opened_lec_no = o.opened_lec_no 
-		INNER JOIN total_lecture t ON t.lecture_code = o.lecture_code 
-		LEFT OUTER JOIN attendance a ON a.student_lec_no = l.student_lec_no
-		, (SELECT @SEQ := 0) A 
-		WHERE
-			o.opened_lec_no = #{openedLecNo} AND 
-			a.attendance_date = #{attendanceDate} 
-	</select>
-	
-	<!-- 출석부 존재 확인 -->
-	<select id="selectAttendanceCheck" parameterType="String" resultType="String"> 
-		SELECT 
-			attendance_state 
-		FROM 
-			attendance 
-		WHERE
-			attendance_date = #{attendanceDate} 
-	</select>
-	
-	<!-- 강의 학생 확인 -->
-	<select id="selectOpenLectureStudentList" parameterType="int" resultType="String"> 
-		SELECT 
-			l.student_lec_no studentLecNo 
-		FROM 
-			student_lecture l, 
-			opened_lecture o 
-		WHERE 
-			l.opened_lec_no = o.opened_lec_no AND
-			o.opened_lec_no = #{openedLecNo} 
-	</select>
-	
-	<!-- 출석부 생성 -->
-	<insert id="insertAttendanceByDate" parameterType="java.util.List">
-		INSERT INTO attendance ( 
-			student_lec_no, 
-			attendance_date, 
-			create_date
-		) VALUES
-		<foreach collection="list" item="item" index="index" separator=","> 
-		( 
-			#{item.studentLecNo}, 
-			#{item.attendanceDate}, 
-			NOW() 
-		)
-		</foreach>
-	</insert>
-	
-	<!-- 출석상태확인 -->
-	<select id="selectAttendanceState" parameterType="com.gd.LMS.vo.Attendance" resultType="String"> 
-		SELECT
-			attendance_state attendanceState 
-		FROM 
-			attendance 
-		WHERE 
-			attendance_date = #{attendanceDate} AND 
-			student_lec_no = #{studentLecNo} 
-	</select>
-	
-	<!-- 출석 상태 변경 -->
-	<insert id="updateAttendanceState" parameterType="com.gd.LMS.vo.Attendance"> 
-		UPDATE 
-			attendance 
-		SET 
-			attendance_state = #{attendanceState} 
-		WHERE 
-			attendance_date = #{attendanceDate} AND
-			student_lec_no = #{studentLecNo} 
-	</insert>
+
 </mapper>

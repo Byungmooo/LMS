@@ -1,4 +1,4 @@
-package com.gd.LMS.commons;
+package com.gd.LMS.filter;
 
 import java.io.IOException;
 
@@ -14,7 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.member.service.MemberService;
+import com.gd.LMS.vo.Employee;
+import com.gd.LMS.vo.Professor;
+import com.gd.LMS.vo.Student;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,17 +43,22 @@ public class MemberFilter implements Filter {
 					String memberId = (String)session.getAttribute("memberId"); 
 					String memberType = (String)session.getAttribute("memberType");
 					if (memberType.equals("학생")) {
-						int memberCode = memberService.getStudentCode(memberId);
-						log.debug(TeamColor.LCH + "studentCode > " + memberCode);
-						session.setAttribute("memberCode", memberCode);
+						Student student = memberService.getStudentCodeById(memberId);
+						log.debug(TeamColor.LCH + "studentInfo > " + student);
+	
+						session.setAttribute("memberCode", student.getStudentCode());
+						session.setAttribute("departmentCode", student.getDepartmentCode());
 					} else if (memberType.equals("교수")) {
-						int memberCode = memberService.getProfessorCode(memberId);
-						log.debug(TeamColor.LCH + "professorCode > " + memberCode);
-						session.setAttribute("memberCode", memberCode);
+						Professor professor = memberService.getProfessorCodeById(memberId);
+						log.debug(TeamColor.LCH + "professorInfo > " + professor);
+						
+						session.setAttribute("memberCode", professor.getProfessorCode());
+						session.setAttribute("departmentCode", professor.getDepartmentCode());
 					} else if (memberType.equals("직원")) {
-						int memberCode = memberService.getEmployeeCode(memberId);
-						log.debug(TeamColor.LCH + "employeeCode > " + memberCode);
-						session.setAttribute("memberCode", memberCode);
+						Employee employee = memberService.getEmployeeCodeById(memberId);
+						log.debug(TeamColor.LCH + "employeeInfo > " + employee);
+						
+						session.setAttribute("memberCode", employee.getEmployeeCode());
 					}
 				}
 				log.debug(TeamColor.LCH + "통과");

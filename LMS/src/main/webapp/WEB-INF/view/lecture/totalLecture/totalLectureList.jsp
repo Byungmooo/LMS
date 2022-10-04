@@ -17,7 +17,7 @@
 
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="fw-bold py-3 mb-4">
+		<h4 class="fw-bold py-3 mb-4 text-center">
 			<span class="text-muted fw-light">${memberName}님 / <strong>전체강의</strong></span>
 		</h4>
 		<hr class="my-5" />
@@ -95,7 +95,7 @@
 						<button type="submit" class="btn btn-dark">검색</button>
 					</div>
 					<div class="col-sm-2 col-12">
-						<a href="${pageContext.request.contextPath}/employee/addTotalLecture" class="btn btn-info">강의추가</a>
+						<a href="${pageContext.request.contextPath}/employee/addTotalLecture" class="btn btn-primary">강의추가</a>
 					</div>
 				</div>
 			</form>
