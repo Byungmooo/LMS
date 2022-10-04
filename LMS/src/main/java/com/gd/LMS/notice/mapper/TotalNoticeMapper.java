@@ -26,24 +26,29 @@ public interface TotalNoticeMapper {
 
 	// 공지사항 상세보기
 	public TotalNotice selectTotalNoticeOne(int noticeNo);
-	
-	
+		
 	// 공지사항 수정
 	public int updateTotalNotice(TotalNotice totalNotice);
-	
-	
+
 	//공지사항 삭제
 	public int deleteTotalNotice(int noticeNo);
 	
-	public int countBoard2(Map<String, Object> map);
-	//부서공지 학생 조회
+	
+	//부서공지 학생 게시판 조회 , 게시물 갯수
 	public List<TotalNotice> selectBoard2(Map<String, Object> map);
-
-	public int countBoard3(Map<String, Object> map);
-	//부서공지 교수 조회
+	public int countBoard2(Map<String, Object> map);
+	
+	//부서공지 교수 게시판 조회 , 게시물 갯수
 	public List<TotalNotice> selectBoard3(Map<String, Object> map);
-
+	public int countBoard3(Map<String, Object> map);
+	
+	//부서공지 직원 게시판 조회 , 게시물 갯수
+	public List<TotalNotice> selectBoard4(Map<String, Object> map);
+	public int countBoard4(Map<String, Object> map);
+	
 	// 부서코드 리스트
 	List<Map<String, Object>> selectTotalDepartmentName();
+	
+	
 		
 }

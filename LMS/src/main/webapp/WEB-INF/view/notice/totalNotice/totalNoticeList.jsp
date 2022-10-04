@@ -17,11 +17,14 @@
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span>전체게시판
     </h4>
-    <hr class="my-1"/>
-    <!-- RowPerPage Option -->
+		<hr class="my-5" />
+		
+		<div class="card text-center">
+        <h5 class="card-header">전체게시판</h5>
+           <!-- RowPerPage Option -->
     <div class="row">
-        <div class="col-sm-9 col-12 text-center"></div>
-        <div class="col-sm-3 col-12 text-center">
+        <div class="col-sm-10 col-12 text-center"></div>
+        <div class="col-sm-2 col-8 text-center">
             <select class="form-select" name="sel" id="rowPerPage">
                 <option value="5"
                         <c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기
@@ -38,11 +41,6 @@
             </select>
         </div>
     </div>
-     <br> 
-
-    <!-- TotalNoticeList -->
-    <div class="card">
-        <h5 class="card-header">전체게시판</h5>
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <caption class="ms-4"></caption>
@@ -73,13 +71,13 @@
             </table>
         </div>
     </div>
-    <!--  search bar -->
+
     <hr class="my-3"/>
           <c:if test="${sessionScope.memberType eq '직원'}">
 	        <a href="${pageContext.request.contextPath}/employee/addTotalNotice"
 	           class="btn btn-primary"  style="float: right">글쓰기</a>           
 	   </c:if>
-    
+        <!--  search bar -->
     <div class="row">
         <div class="col-sm-2 col-12 text-center"></div>
         <div class="col-sm-7 col-12 text-center">
@@ -104,6 +102,11 @@
             </form>
         </div>
         <!--  search bar end -->
+        
+        <!-- 페이징 -->
+        		<div class="row text-center" style="margin-top: 20px;">
+				<div class="col-sm-4 col-12 text-center">
+				</div>
 				<div class="col-sm-4 col-12 text-center">
 					<ul class="pagination justify-content-center">
 						<c:if test="${paging.prePage}">
@@ -143,7 +146,8 @@
 				</div>	
 			</div>
 		</div>
-	</div>
+		</div>
+<!--  페이징 end -->
 <script>
 	// rowPerPage 갱신
 	$("#rowPerPage").on("change", (e) => {

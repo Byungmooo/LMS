@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.notice.mapper.TotalNoticeMapper">
+	
+		<sql id="searchDep">
+		<!-- 부서별 키워드가 있을 때 -->
+		<if test="searchType != ''"> AND department_code = #{searchType} </if>
+	</sql>
+	
+	
 	<sql id="search">
 		<!-- 검색 키워드가 있을 때 -->
 		<if test="keyword != null and keyword != ''">
@@ -126,26 +133,9 @@
 	WHERE 
 		notice_no = #{noticeNo}
 	</delete>
-	<!-- 총 게시글 갯수 출력 -->
-	<select id="countBoard2"
-		parameterType="map" resultType="int">
-      SELECT COUNT(*)
-      FROM total_notice t
-      JOIN (
-         SELECT department_code, student_code
-         FROM student
-         WHERE 1 = 1
-         AND student_code = #{memberCode}
-          ) s
-      ON t.department_code = s.department_code
-      WHERE 1=1
-      <include refid="search" />
-      AND t.department_code IS NOT NULL
-	</select>
 
 
-
-	<!-- 부서공지 페이징 처리 후 게시글 조회 -->
+	<!-- 부서공지 학생 페이징 처리 후 게시글 조회 -->
 	<select id="selectBoard2" parameterType="map" resultType="com.gd.LMS.vo.TotalNotice">
 	SELECT
 		notice_no noticeNo,
@@ -171,23 +161,25 @@
 	LIMIT
 		#{beginRow}, #{rowPerPage}
 	</select>
-		
-		<!-- 총 게시글 갯수 출력 -->
-	<select id="countBoard3"
-		parameterType="map" resultType="int">
-		SELECT COUNT(*) 
-		FROM total_notice t
-		JOIN (
-	         SELECT department_code, professor_code
-	         FROM professor
-	         WHERE 1 = 1
-	         AND professor_code = #{memberCode}
-	          ) p
-	      ON t.department_code = p.department_code
-		<include refid="search" /> 
-		 AND t.department_code IS NOT NULL
-	</select>
 	
+	<select id="countBoard2"
+		parameterType="map" resultType="int">
+      SELECT COUNT(*)
+      FROM total_notice t
+      JOIN (
+         SELECT department_code, student_code
+         FROM student
+         WHERE 1 = 1
+         AND student_code = #{memberCode}
+          ) s
+      ON t.department_code = s.department_code
+      WHERE 1=1
+      <include refid="search" />
+      AND t.department_code IS NOT NULL
+	</select>	
+	
+	<!-- 부서공지 교수 페이징 처리 후 게시글 조회 -->
+
 		<select id="selectBoard3" parameterType="map" resultType="com.gd.LMS.vo.TotalNotice">
 	SELECT
 		notice_no noticeNo,
@@ -213,6 +205,55 @@
 	LIMIT
 		#{beginRow}, #{rowPerPage}
 	</select>
+	<select id="countBoard3"
+		parameterType="map" resultType="int">
+		SELECT COUNT(*) 
+		FROM total_notice t
+		JOIN (
+	         SELECT department_code, professor_code
+	         FROM professor
+	         WHERE 1 = 1
+	         AND professor_code = #{memberCode}
+	          ) p
+	      ON t.department_code = p.department_code
+		<include refid="search" /> 
+		 AND t.department_code IS NOT NULL
+	</select>
+
+	<!-- 부서공지 직원 페이징 처리 후 게시글 조회 -->
+	<select id="selectBoard4" parameterType="map"
+		resultType="com.gd.LMS.vo.TotalNotice">
+	SELECT
+		notice_no noticeNo,
+		notice_title noticeTitle,
+		department_code departmentCode,
+		notice_content
+		noticeContent,
+		writer,
+		views,
+		create_date createDate,
+		update_date updateDate
+	FROM
+		total_notice 
+		
+		WHERE 1=1
+		<include refid="search" />
+		<include refid="searchDep" />
+		AND department_code IS NOT NULL
+	ORDER BY
+		notice_no
+	LIMIT
+		#{beginRow}, #{rowPerPage}
+	</select>
+	
+	<select id="countBoard4"
+		parameterType="map" resultType="int">
+		SELECT COUNT(*) FROM total_notice 
+			WHERE 1=1 
+			<include refid="search" />
+			<include refid="searchDep" />
+			AND department_code IS NOT NULL
+	</select>
 	
 	<!--  부서코드 -->
 	<select id="selectTotalDepartmentName" resultType="map">
@@ -222,5 +263,8 @@
 		FROM
 			department
 	</select>
+	
+	
+
 
 </mapper>

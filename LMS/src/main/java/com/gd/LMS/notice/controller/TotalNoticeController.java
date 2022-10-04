@@ -36,13 +36,13 @@ public class TotalNoticeController {
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
 
 		String memberDepartmentCode = (String) session.getAttribute("noticeNo");
-		log.debug(TeamColor.LCH + "memberDepartmentCode > " + memberDepartmentCode);
+		log.debug(TeamColor.KJS + "memberDepartmentCode > " + memberDepartmentCode);
 
 		map.put("departmentCode", memberDepartmentCode);
 		map.put("keyword", keyword);
 		map.put("searchType", searchType);
 
-		log.debug(TeamColor.LCH + "map1 > " + map);
+		log.debug(TeamColor.KJS + "map1 > " + map);
 
 		int totalCount = totalNoticeService.countBoard(map);
 		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
@@ -69,6 +69,7 @@ public class TotalNoticeController {
 		return "/notice/totalNotice/totalNoticeList";
 	}
 
+
 	// 부서공지 리스트
 	@GetMapping("/member/departmentNoticeList")
 	public String departmentNoticeList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
@@ -85,23 +86,25 @@ public class TotalNoticeController {
 
 		log.debug(TeamColor.KJS + "map1 > " + map);
 
+		List<Map<String, Object>> list2 = totalNoticeService.getTotalDepartmentName();
+		log.debug(TeamColor.KJS + "departmentList > " + list2);
 		
 		List<TotalNotice> list;
 		if(memberType.equals("학생")) {
 			int totalCount = totalNoticeService.countBoard2(map);
 			log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
-
+			
 			vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
 	        if(vo.getBeginRow() >= totalCount){
 	            vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
 	        }
 			log.debug(TeamColor.KJS + "PaginVo : " + vo);
-
-			
+		
 			map.put("beginRow", vo.getBeginRow());
 			map.put("rowPerPage", vo.getRowPerPage());
 			list = totalNoticeService.selectBoard2(map);
-		} else {
+		
+		} else if(memberType.equals("교수")) {
 			int totalCount = totalNoticeService.countBoard3(map);
 			log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
@@ -114,12 +117,28 @@ public class TotalNoticeController {
 			map.put("beginRow", vo.getBeginRow());
 			map.put("rowPerPage", vo.getRowPerPage());
 			list = totalNoticeService.selectBoard3(map);
+		} else {			
+			
+		int totalCount = totalNoticeService.countBoard4(map);
+		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
+
+		vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
+        if(vo.getBeginRow() >= totalCount){
+            vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
+        }
+		log.debug(TeamColor.KJS + "PaginVo : " + vo);
+
+		map.put("beginRow", vo.getBeginRow());
+		map.put("rowPerPage", vo.getRowPerPage());
+		list = totalNoticeService.selectBoard4(map);
+		
 		}
 //		List<TotalNotice> list = totalNoticeService.selectBoard2(map);
 		log.debug(TeamColor.KJS + "noticeList : " + list);
 
 		model.addAttribute("paging", vo);
 		model.addAttribute("list", list);
+		model.addAttribute("department", list2);
 		log.debug(TeamColor.KJS + " [김진수] 부서공지 리스트");
 		return "/notice/departmentNotice/departmentNoticeList";
 	}
@@ -148,7 +167,7 @@ public class TotalNoticeController {
 	public String addTotalNotice(Model model) {
 		
 		List<Map<String, Object>> list = totalNoticeService.getTotalDepartmentName();
-		log.debug(TeamColor.LCH + "departmentList > " + list);
+		log.debug(TeamColor.KJS + "departmentList > " + list);
 		
 		model.addAttribute("department", list);
 		

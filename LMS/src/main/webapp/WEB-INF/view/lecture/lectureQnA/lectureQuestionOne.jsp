@@ -117,6 +117,8 @@
 		<button	class="btn btn-primary" type="button" id="btnDelete">삭제</button>
 	<a href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${sessionScope.openedLecNo}" class="btn btn-primary">목록</a>	
   </c:if>
+  
+  
     </div></form>
     </div>
     </div>
