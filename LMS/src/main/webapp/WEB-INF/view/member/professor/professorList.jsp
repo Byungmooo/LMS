@@ -45,7 +45,7 @@
 
     <!-- 교수 리스트 -->
     <div class="card">
-        <h5 class="card-header">전체 교수 리스트</h5>
+        <h5 class="card-header">승인된 교수 리스트</h5>
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <caption class="ms-4"></caption>

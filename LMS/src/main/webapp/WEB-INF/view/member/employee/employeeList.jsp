@@ -19,7 +19,7 @@
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span> 직원 리스트
+        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span> 직원 전체 리스트
     </h4>
     <hr class="my-1"/>
     <!-- RowPerPage Option -->
@@ -45,7 +45,7 @@
     <br> 
     <!--  직원리스트 -->
     <div class="card">
-        <h5 class="card-header">전체 직원 리스트</h5>
+        <h5 class="card-header">승인된 직원 리스트</h5>
         <div class="table-responsive text-nowrap">
             <table class="table">
                 <caption class="ms-4"></caption>
