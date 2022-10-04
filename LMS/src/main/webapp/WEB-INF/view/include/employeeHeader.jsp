@@ -146,7 +146,7 @@
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">MYPAGE</span></li>
 					<li class="menu-item">
-						<a href="${pageContext.request.contextPath}/employee/employeeOne?memberCode=${memberCode}" class="menu-link"> 
+						<a href="${pageContext.request.contextPath}/member/employeeOne?memberCode=${memberCode}" class="menu-link"> 
 						<i class='menu-icon tf-icons bx bxs-user'></i>
 							내정보
 						</a>
@@ -187,7 +187,7 @@
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">department</span></li>
 					<li class="menu-item">
-						<a href="${pageContext.request.contextPath}/employee/departmentList" class="menu-link"> 
+						<a href="${pageContext.request.contextPath}/departmentList" class="menu-link"> 
 						<i class='menu-icon tf-icons bx bx-building-house' ></i>
 							학부정보
 						</a>

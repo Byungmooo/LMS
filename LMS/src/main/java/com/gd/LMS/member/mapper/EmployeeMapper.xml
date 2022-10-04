@@ -36,21 +36,33 @@
 	</select>
 	
 	<insert id ="insertEmployee" parameterType="com.gd.LMS.vo.Employee">
-		
+	<selectKey resultType="int" keyProperty="employeeCode" order="BEFORE">
+			select MAX(employee_code) + 1 from employee
+	</selectKey>
 		INSERT INTO 
-			employee
+			employee(
 				member_id,
 				employee_code, 
 				authority,
 				employee_state
 			) VALUES ( 
-				#{memberId},
-				#{employeeCode},
+				#{memberId},	
+				RPAD(#{employeeCode}, 8 , '0'),
 				#{authority}, 
 				#{employeeState}
 				)
 
 	</insert>
+	
+	<!-- 가입날짜 가져오기 -->
+	<select id="selectDateEmployeeCode" parameterType="String" resultType="String">
+		SELECT 
+			create_date 
+		FROM
+		 	member
+		WHERE 
+		 	member_id = #{memberId}
+	</select>
 	
 	
 	
@@ -64,11 +76,12 @@
 		e.authority,
 		e.employee_state employeeState
 	FROM
-		employee e , member m
+		member m LEFT OUTER JOIN employee e 
+	ON
+		e.member_id = m.member_id
 	WHERE 1=1
 		<include refid="search" />
 		AND e.employee_code IS NOT NULL
-		AND e.member_id = m.member_id
 	ORDER BY
 		e.employee_code
 	LIMIT

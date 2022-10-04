@@ -29,7 +29,7 @@
 	        <c:if test="${sessionScope.memberType eq '직원'}">
 		       	<form action ="${pageContext.request.contextPath}/employee/addDepartment" method="get">
 		       		<button type="submit" class="btn btn-primary" style="float: right">학부추가하기</button>  
-		       		<input type="hidden" name ="departmentCode" value="ST101">
+		       		<input type="hidden" name ="departmentCode" value="">
 		       	</form>  
 		  </c:if>
 		</div>
@@ -107,85 +107,31 @@
             </form>
         </div>
         <!--  search bar end -->
-		<!--  search bar end -->
-				<div class="col-sm-4 col-12 text-center">
-					<ul class="pagination justify-content-center">
-						<c:if test="${paging.prePage}">
-							<li class="page-item prev">
-								<a class="page-link" href="${pageContext.request.contextPath}/member/departmentList?currentPage=${paging.currentPage-1}
-									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">
-								<i class="tf-icon bx bx-chevron-left"></i>
-								</a>
-							</li>
-						</c:if>
-						<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
-							<c:choose>
-								<c:when test="${p == paging.currentPage }">
-									<li class="page-item active">
-										<a class="page-link" href="#">${p}</a>
-									</li>
-								</c:when>
-								<c:when test="${p != paging.currentPage }">
-									<li class="page-item">
-										<a class="page-link" href="${pageContext.request.contextPath}/member/departmentList?currentPage=${p}
-										&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">${p}</a>
-									</li>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-						<c:if test="${paging.nextPage}">
-							<li class="page-item next">
-								<a class="page-link" href="${pageContext.request.contextPath}//member/departmentList?currentPage=${paging.currentPage+1}
-									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">
-								<i class="tf-icon bx bx-chevron-right"></i>
-								</a>
-							</li>
-						</c:if>
-					</ul>
+		<div style="display: block; text-align: center;">		
+					<c:if test="${paging.prePage}">
+						<a href="${pageContext.request.contextPath}/member/departmentList?currentPage=${paging.currentPage-1}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">이전</a>
+					</c:if>
+					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+						<c:choose>
+							<c:when test="${p == paging.currentPage }">
+								<b>${p}</b>
+							</c:when>
+							<c:when test="${p != paging.currentPage }">
+								<a href="${pageContext.request.contextPath}/member/departmentList?currentPage=${p}
+									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">${p}</a>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					
+					<c:if test="${paging.nextPage}">
+						<a href="${pageContext.request.contextPath}/member/departmentList?currentPage=${paging.currentPage+1}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">다음</a>
+					</c:if>
 				</div>
-				<div class="col-sm-4 col-12 text-center">
-				</div>	
 			</div>
 		</div>
-<script>
-	// rowPerPage 갱신
-	$("#rowPerPage").on("change", (e) => {
-	    location.href = createUrl('', e.target.value, '');
-	})
-	
-	// searchType 갱신
-	$("#searchType").on("change", (e) => {
-	    location.href = createUrl('', '', e.target.value);
-	})
-	
-	const goPage = (currentPage, rowPerPage) => {
-	    location.href = createUrl(currentPage, rowPerPage);
-	};
-	
-	const createUrl = (currentPage, rowPerPage, searchType) => {
-	    const path = "${pageContext.request.contextPath}";
-	    const param = {
-	        currentPage:"${paging.currentPage}",
-	        rowPerPage:"${paging.rowPerPage}",
-	        searchType: $('#searchType').val(),
-	        keyword:"${paging.keyword}",
-	    }
-	
-	    if(currentPage != '') param.currentPage = currentPage;
-	    if(rowPerPage != '') param.rowPerPage = rowPerPage;
-	    if(searchType != '') param.searchType = searchType;
-	
-	    var url = path +'/member/departmentList';
-	    url += '?currentPage=' + param.currentPage;
-	    url += '&rowPerPage='+ param.rowPerPage;
-	    url += '&searchType='+ param.searchType ;
-	    url += '&keyword='+ param.keyword ;
-	
-	    return url;
-	}
-</script>
-
-<!-- / Main -->
+	<!-- / Main -->
 
 
 <%@ include file="/WEB-INF/view/include/footer.jsp" %>

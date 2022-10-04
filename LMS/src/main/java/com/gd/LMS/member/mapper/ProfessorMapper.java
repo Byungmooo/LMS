@@ -32,6 +32,7 @@ public interface ProfessorMapper {
 	//교수 삭제
 	int deleteProfessorMember(String memberId);
 	
-	
+	//코드 생성메서드
+	String selectDateProfessorCode(String memberId);
 	
 }

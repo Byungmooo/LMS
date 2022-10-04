@@ -31,18 +31,20 @@ public class DepartmentController {
 	
 
 	//학부 리스트 조회
-	@GetMapping({"/employee/departmentList", "/professor/departmentList"})
-	public String getDepartMentList (PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
+	@GetMapping("/departmentList")
+	public String getDepartMentList (PagingVo vo, Model model, HttpSession session,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
 	
 		
-		String memberCode = (String) session.getAttribute("departmentCode"); 
-		map.put("departmentCode", memberCode);
-		map.put("keyword", keyword);
+				
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", keyword); 
 		map.put("searchType", searchType);
+	
+		
 		
 		int totalCount = departmentService.countDepartment(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
@@ -73,7 +75,7 @@ public class DepartmentController {
 	
 	
 	//학부 상세보기
-	@GetMapping("/member/departmentOne")
+	@GetMapping({"/employee/departmentOne", "/professor/departmentOne"})
 	public String getDepartMentOne (Model model,
 			@RequestParam(value = "departmentCode")String departmentCode) {
 		log.debug(TeamColor.BJH + "학부 상세보기 컨트롤러 진입=================");
@@ -136,10 +138,10 @@ public class DepartmentController {
 		if (count >= 1) {
 			log.debug(TeamColor.BJH + "학부 수정");
 			
-			return "redirect:/employee/departmentOne";
+			return "redirect:department/departmentOne";
 		}
 		
-		return "redirect:/employee/modifyDepartment";
+		return "redirect:department/modifyDepartment";
 	}
 
 		// 학부 삭제

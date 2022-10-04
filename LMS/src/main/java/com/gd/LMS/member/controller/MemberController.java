@@ -214,7 +214,7 @@ public class MemberController {
 	
 	// 회원가입 승인 대기리스트 Form
 	@GetMapping("/employee/activeMemberList")
-	public String modifyAccountStateWaitMember(Model model, @RequestParam(value="memberId",
+	public String activeMemberList(Model model, @RequestParam(value="memberId",
 						defaultValue="all") String memberId) {
 		
 		// 디버깅
@@ -232,32 +232,34 @@ public class MemberController {
 	
 	
 	// 회원가입 승인 Form
-	@GetMapping("/employee/modifyActiveMemberList")
-	public String modifyActiveMember(Member member,
-			@RequestParam(value="memberId") String memberId) {
+	@GetMapping("/employee/modifyActiveMember")
+	public String modifyActiveMember(Member member) {
 		
+
+		String memberType = member.getMemberType();
 		
 		// 디버깅
 		log.debug(TeamColor.BJH + "회원가입 승인 폼 컨트롤러 진입===========" + member);
 		
 		int row = memberService.modifyActiveMemberList(member);
+		
 		if(row != 0) {
-			if(member.getMemberType().equals("직원")) {
-			log.debug(TeamColor.BJH + "직원 승인 성공!!>>>" );
-			return "redirect:/employee/employeeList";
+			if(memberType.equals("직원")) {
+				log.debug(TeamColor.BJH + "직원 승인 성공!!>>>" );
+				return "redirect:/employee/employeeList";
 			
-			} else if (member.getMemberType().equals("학생")) {
+			} else if (memberType.equals("학생")) {
 				log.debug(TeamColor.BJH + "학생 승인 성공!!>>>>");
-				return "redirect:/student/studentList";
+				return "redirect:/employee/studentList";
 				
-			} else if (member.getMemberType().equals("교수")) {
+			} else if (memberType.equals("교수")) {
 				log.debug(TeamColor.BJH + "교수 승인 성공!!>>>>");
-				return "redirect:/professor/professorList";
+				return "redirect:/employee/professorList";
 			}
-			
+			log.debug(TeamColor.BJH + "if문 마지막");
 		}
 		
-		return "redirect:/member/modifyActiveMemberList";
+		return "redirect:/employee/activeMemberList?memberId="+member.getMemberId();
 	}
 	
 	

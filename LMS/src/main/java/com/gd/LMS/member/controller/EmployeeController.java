@@ -37,8 +37,9 @@ public class EmployeeController {
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
     	
     	
-    	
-		Map<String, Object> map = new HashMap<>();
+    	Map<String, Object> map = new HashMap<>();
+		map.put("keyword", keyword); 
+		map.put("searchType", searchType);
 
 		
 		int totalCount = employeeService.countEmployee(map);

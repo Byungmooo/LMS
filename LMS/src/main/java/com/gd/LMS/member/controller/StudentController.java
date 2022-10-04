@@ -40,8 +40,8 @@ public class StudentController {
     	
 		
 		Map<String, Object> map = new HashMap<>();
-		 
-		
+		map.put("keyword", keyword); 
+		map.put("searchType", searchType);
 		int totalCount = studentService.countStudent(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 

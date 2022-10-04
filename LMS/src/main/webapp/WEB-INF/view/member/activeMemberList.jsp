@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- Header -->
 <c:choose>
 	<c:when test="${memberType eq '학생'}">
 		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>	
@@ -14,83 +14,54 @@
 	<c:otherwise>	
 	</c:otherwise>
 </c:choose>
-<!-- Main -->
 
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span> 학생게시판
-    </h4>
-    <hr class="my-1"/>
-    <!-- RowPerPage Option -->
-    <div class="row">
-        <div class="col-sm-9 col-12 text-center"></div>
-        <div class="col-sm-3 col-12 text-center">
-            <select class="form-select" name="sel" id="rowPerPage">
-                <option value="5"
-                        <c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기
-                </option>
-                <option value="10"
-                        <c:if test="${paging.rowPerPage == 10}">selected</c:if>>10줄 보기
-                </option>
-                <option value="15"
-                        <c:if test="${paging.rowPerPage == 15}">selected</c:if>>15줄 보기
-                </option>
-                <option value="20"
-                        <c:if test="${paging.rowPerPage == 20}">selected</c:if>>20줄 보기
-                </option>
-            </select>
-        </div>
-    </div>
-    <br> 
-    <div class="card">
-        <h5 class="card-header">회원 가입 승인 리스트</h5>
-        	<div class="table-responsive text-nowrap">
-        		 <div id="toolbar">
-                     <select style="font-size:15px;" name="select" id="viewProduct" onchange="window.open(value,'_self');">
-						<c:if test="${memberType eq '직원'}">
-							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType=all"
-								selected>전체 리스트</option>
-							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType='학생'"
-								selected>학생 리스트</option>	
-							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType='직원'"
-								selected>교수 리스트</option>
-							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType='교수'"
-								selected>직원 리스트</option>				
-						</c:if>
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<h4 class="fw-bold py-3 mb-4 text-center">
+			<span class="text-muted fw-light">${memberName}님 / <strong>미승인 대기 리스트</strong></span>
+		</h4>
+		<hr class="my-5" />
+		
+		<div class="card text-center">
+			<h5 class="card-header">미승인 대기 목록</h5>
+			
+			<!-- 검색바 -->
+			<div class="row text-center">
+				<div class="col-sm-6 col-12 text-center"></div>
+				<div class="col-sm-1 col-12 text-center">타입별</div>
+				<div class="col-sm-2 col-12 text-center">
+					<select name="member" id="memberType" class="form-select">
 						
 					</select>
-					<input type="hidden" name="memberId" id="memberId" value="${memberId}">
-                  </div>
-                  <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
-                           data-cookie-id-table="saveId"  data-click-to-select="true" data-toolbar="#toolbar">
+				</div>
+			</div>	
+			<!-- 전체강의 리스트 -->
+			<div class="table-responsive text-nowrap">
+				<table class="table">
                     <thead>
                         <tr>
                             <th>아이디</th>
                             <th>이름</th>
                             <th>성별</th>
                             <th>생년월일</th>
-                            <th>이메일</th>
-                            <th>주소</th>
+                            <th>계정타입</th>
                             <th>연락처</th>
-                            <th>가입날짜</th>
-                            <th>가입 승인 / 가입 거부</th>
+                            <th>승인/거부</th>
                         </tr>
                     </thead>
                     <tbody>
                     <c:if test="${memberType eq '직원'}">
                     	<c:forEach var="s" items="${studentList}">
-	                        <tr>
-								<td>${s.memberId}</td>
+	                       <tr>
+	                        	<td>${s.memberId}</td>
 								<td>${s.memberName}</td>
 								<td>${s.memberGender}</td>
 								<td>${s.memberBirth}</td>
-								<td>${s.memberEmail}</td>
-								<td>${s.memberAddress}</td>
+								<td>${s.memberType}</td>
 								<td>${s.memberContact}</td>
-								<td>${s.createDate}</td>
 								<td>
-									<button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/employee/modifyActiveMemberList?accountId=${s.memberId}'">승인</button>
-	                                <button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/employee/modifyInActiveMemberList?memberId=${s.memberId}'">거절</button>
+									<a class="btn btn-sm btn-primary"  href="${pageContext.request.contextPath}/employee/modifyActiveMember?memberId=${s.memberId}&memberType=${s.memberType}">승인</a>
+									<a class="btn btn-sm btn-danger"  href="${pageContext.request.contextPath}/employee/modifyInActiveMemberList?memberId=${s.memberId}">거절</a>
 	                            </td>
 	                        </tr>
                      	</c:forEach>
@@ -100,14 +71,12 @@
 								<td>${p.memberName}</td>
 								<td>${p.memberGender}</td>
 								<td>${p.memberBirth}</td>
-								<td>${p.memberEmail}</td>
-								<td>${p.memberAddress}</td>
+								<td>${p.memberType}</td>
 								<td>${p.memberContact}</td>
-								<td>${p.createDate}</td>
 								<td>
-									<button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/employee/modifyActiveMemberList?memberId=${p.memberId}'">승인</button>
-                                    <button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/loginCheck/modifyInActiveMemberList?memberId=${p.memberId}'">거절</button>
-                                </td>
+									<a class="btn btn-sm btn-primary"  href="${pageContext.request.contextPath}/employee/modifyActiveMember?memberId=${p.memberId}&memberType=${p.memberType}">승인</a>
+									<a class="btn btn-sm btn-danger" type ="button" href="${pageContext.request.contextPath}/employee/modifyInActiveMemberList?memberId=${p.memberId}">거절</a>
+	                            </td>
 							</tr>
 						</c:forEach>
 						<c:forEach var="e" items="${employeeList}">
@@ -116,19 +85,41 @@
 								<td>${e.memberName}</td>
 								<td>${e.memberGender}</td>
 								<td>${e.memberBirth}</td>
-								<td>${e.memberEmail}</td>
-								<td>${e.memberAddress}</td>
+								<td>${e.memberType}</td>
 								<td>${e.memberContact}</td>
-								<td>${e.createDate}</td>
 								<td>
-									<button type="button" class="btn btn-primary"  onclick="location.href='${pageContext.request.contextPath}/employee/modifyActiveMemberList?memberId=${e.memberId}'">승인</button>
-                                    <button type="button" class="btn btn-danger" onclick="location.href='${pageContext.request.contextPath}/employee/modifyInActiveMemberList?memberId=${e.memberId}'">거절</button>
-                                </td>
+									<a class="btn btn-sm btn-primary"  href="${pageContext.request.contextPath}/employee/modifyActiveMember?memberId=${e.memberId}&memberType=${e.memberType}">승인</a>
+									<a class="btn btn-sm btn-danger" type ="button" href="${pageContext.request.contextPath}/employee/modifyInActiveMemberList?memberId=${e.memberId}">거절</a>
+	                            </td>
 							</tr>
 						</c:forEach>
                     </c:if>
                  </tbody>
               </table>
            </div>
-        </div>
+         </div>
 	</div>
+	<script>
+	
+	// searchType 갱신
+	$("#searchType").on("change", (e) => {
+	    location.href = createUrl('', '', e.target.value);
+	})
+	
+	const createUrl = (searchType) => {
+	    const path = "${pageContext.request.contextPath}";
+	    const param = {
+	        searchType: $('#searchType').val()
+	    }
+	
+	   if(searchType != '') param.searchType = searchType;
+	
+	    var url = path +'/employee/activeMemberList';
+	    url += '&searchType='+ param.searchType ;
+	
+	    return url;
+	}
+</script>
+
+<!-- Footer -->
+<c:import url="/WEB-INF/view/include/footer.jsp"></c:import>	

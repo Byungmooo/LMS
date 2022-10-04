@@ -52,7 +52,7 @@ public interface MemberMapper {
 
 	
 	// 회원가입 승인 (직원만 가능)
-	int updateActiveMember(Map<String, Object> map);
+	int updateActiveMember(String memberId);
 	
 	// 회원가입 거절 (직원만 가능)
 	int updateInActiveMember(String memberId);

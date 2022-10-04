@@ -19,6 +19,7 @@ import com.gd.LMS.vo.Member;
 import com.gd.LMS.vo.Professor;
 import com.gd.LMS.vo.Student;
 
+import ch.qos.logback.core.rolling.helper.IntegerTokenConverter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -171,23 +172,43 @@ public class MemberService {
 		map.put("memberId",member.getMemberId());
 		map.put("memberType",member.getMemberType()); 
 		
-		int row = memberMapper.updateActiveMember(map);
+		log.debug(TeamColor.BJH + "map > " +map);
+		
+		int row = memberMapper.updateActiveMember(member.getMemberId());
+		log.debug(TeamColor.BJH + "Y로 바꾼 row데이터???~?~?~?~???" + row);
 		if(row != 0) {
 			if(member.getMemberType().equals("교수")) {
+
+				//1.member테이블에서 create_date 셀렉트해와서 년도만 빼서 String값으로 갖고있어
+				String createDate = professorMapper.selectDateProfessorCode(member.getMemberId());
+				createDate = createDate.substring(0, 4);
+				//2. 교수 , 학생, 직원이 ex)교수(10번) 으로 분기처리를할수있는 코드와 타입을 String으로 갖고있어 
+				createDate = createDate + "10";//교수는 10
+				//3. 001 +1 되게 쿼리를 짜도록..
+				map.put("professorCode", Integer.parseInt(createDate));
 				row = professorMapper.insertProfessor(map);
-				log.debug(TeamColor.BJH + "교수 인서트로 map 담아서 이동>>>>>>" + map);
 				
+				log.debug(TeamColor.BJH + "교수 인서트로 map 담아서 이동>>>>>>" + map);
 			} else if(member.getMemberType().equals("학생")) {
+				
+				String createDate = studentMapper.selectDateStudentCode(member.getMemberId());
+				createDate = createDate.substring(0,4);
+				createDate = createDate + "20"; //학생은 20
+				map.put("studentCode",Integer.parseInt(createDate));
 				row =  studentMapper.insertStudent(map);
 				log.debug(TeamColor.BJH + "학생 인서트로 map 담아서 이동>>>>>>" + map);
 				
 			} else if(member.getMemberType().equals("직원")) {
+								
+				String createDate = employeeMapper.selectDateEmployeeCode(member.getMemberId());
+				createDate = createDate.substring(0,4);
+				createDate = createDate + "00"; //직원은 00
+				map.put("employeeCode",Integer.parseInt(createDate));								
 				row =  employeeMapper.insertEmployee(map);
 
 				log.debug(TeamColor.BJH + "직원 인서트로 map 담아서 이동>>>>>>" + map);
-			} return row;
+			}
 		}
-		
 		return row;
 	}
 	

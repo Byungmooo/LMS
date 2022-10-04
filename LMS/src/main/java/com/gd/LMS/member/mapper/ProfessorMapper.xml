@@ -37,25 +37,34 @@
 	
 	
 	<insert id ="insertProfessor" parameterType="com.gd.LMS.vo.Professor">
-		
+	<selectKey resultType="int" keyProperty="professorCode" order="BEFORE">
+			select MAX(professor_code) + 1 from professor
+	</selectKey>
 		INSERT INTO 
-			professor
+			professor(
 				member_id,
 				professor_code, 
 				department_code,
-				department_leader, 
-				professor_state
+				department_leader
 			) VALUES ( 
 				#{memberId},
-				#{professorCode},
+				RPAD(#{professorCode}, 9 , '0'),
 				#{departmentCode}, 
-				#{departmentLeader}, 
-				#{professorState}
+				#{departmentLeader}
 				)
-
+				
 	</insert>
 	
 	
+	<!-- 가입날짜 가져오기 -->
+	<select id="selectDateProfessorCode" parameterType="String" resultType="String">
+		SELECT 
+			create_date 
+		FROM
+		 	member
+		WHERE 
+		 	member_id = #{memberId}
+	</select>
 	
 	<!-- 페이징 처리 후 리스트 -->
 	<select id = "selectProfessorList"  parameterType="map"
@@ -64,16 +73,16 @@
 		p.member_id memberId,
 		m.member_name memberName,
 		p.professor_code professorCode,
-		d.department_code departmentCode,
+		p.department_code departmentCode,
 		p.department_leader departmentLeader,
 		p.professor_state professorState
 	FROM
-		professor p , member m, department d
+		member m LEFT OUTER JOIN professor p
+	ON
+		p.member_id = m.member_id 
 	WHERE 1=1
 		<include refid="search" />
 		AND p.professor_code IS NOT NULL
-		AND p.member_id = m.member_id 
-		AND d.department_code = p.department_code
 	ORDER BY
 		p.professor_code
 	LIMIT
@@ -160,7 +169,7 @@
 	
 	
 	
-	<!-- 학생삭제 -->
+	<!-- 교수삭제 -->
 	<delete id="deleteProfessorMember" parameterType="String">
 			DELETE FROM
 			p  , m
@@ -174,6 +183,4 @@
 			p.member_id = #{memberId}
 	</delete>
 	
-
-
 </mapper>

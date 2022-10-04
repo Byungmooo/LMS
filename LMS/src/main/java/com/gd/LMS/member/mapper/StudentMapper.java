@@ -33,7 +33,8 @@ public interface StudentMapper {
 	//학생정보(member, student) 삭제
 	int deleteStudentMember(String memberId);
 
-	
+	//코드 생성메서드
+	String selectDateStudentCode(String memberId);
 	
 
 }

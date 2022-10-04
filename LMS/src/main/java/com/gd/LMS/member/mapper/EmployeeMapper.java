@@ -31,5 +31,7 @@ public interface EmployeeMapper {
 		//직원정보(member, employee) 삭제
 	int deleteEmployeeMember(String memberId);
 
+	//코드 생성메서드
+	String selectDateEmployeeCode(String memberId);
 
 }

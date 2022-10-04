@@ -3,24 +3,24 @@
 <mapper namespace="com.gd.LMS.member.mapper.StudentMapper">
 <sql id="search">
 		<!-- 검색 키워드가 있을 때 -->
-		<if test="keyword != null and keyword != ''">
+		<if test="keyword != ''">
 			<choose>
 				<!-- 검색 유형이 있을 때 -->
-				<when test="searchType != null and searchType != ''">
+				<when test="searchType != ''">
 					<choose>
-						<when test="'code'.equals(searchType)"> AND student_code LIKE CONCAT('%', #{keyword},
+						<when test="'code'.equals(searchType)"> AND s.student_code LIKE CONCAT('%', #{keyword},
 							'%') </when>
-						<when test="'id'.equals(searchType)"> AND member_id LIKE CONCAT('%', #{keyword},
+						<when test="'id'.equals(searchType)"> AND m.member_id LIKE CONCAT('%', #{keyword},
 							'%') </when>
-						<when test="'name'.equals(searchType)"> AND member_name LIKE CONCAT('%', #{keyword},
+						<when test="'name'.equals(searchType)"> AND m.member_name LIKE CONCAT('%', #{keyword},
 							'%') </when>
 					</choose>
 				</when>
 				<!-- 전체 검색일 때 때 -->
 				<otherwise> AND ( 
-					student_code LIKE CONCAT('%', #{keyword}, '%') OR
-					member_id LIKE CONCAT('%', #{keyword}, '%') ) OR
-					member_name LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
+					s.student_code LIKE CONCAT('%', #{keyword}, '%') OR
+					m.member_id LIKE CONCAT('%', #{keyword}, '%') ) OR
+					m.member_name LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
 			</choose>
 		</if>
 	</sql>
@@ -28,34 +28,42 @@
 	<!-- 총 학생수 출력 -->
 	<select id="countStudent"
 		parameterType="map" resultType="int">
-		SELECT COUNT(*) FROM student 
-			WHERE 1=1 
-			<include refid="search" />
-			AND 
-			student_code IS NOT NULL
+			SELECT COUNT(*) FROM student s, member m
+			WHERE 1=1
+				AND s.member_id = m.member_id
+				AND student_code IS NOT NULL
+				<include refid="search" />
 	</select>
 	
-	
-	
+
 	<insert id ="insertStudent" parameterType="com.gd.LMS.vo.Student">
-		
+	<selectKey resultType="int" keyProperty="studentCode" order="BEFORE">
+			select MAX(student_code) + 1 from student
+	</selectKey>
 		INSERT INTO 
-			student
+			student (
 				member_id,
 				student_code, 
 				department_code,
-				student_year, 
-				student_state
+				student_year
 			) VALUES ( 
 				#{memberId},
-				#{studentCode},
+				RPAD(#{studentCode}, 8 , '0'),
 				#{departmentCode}, 
-				#{studentYear}, 
-				#{studentState}
+				#{studentYear}
 				)
 
 	</insert>
 	
+	<!-- 가입날짜 가져오기 -->
+	<select id="selectDateStudentCode" parameterType="String" resultType="String">
+		SELECT 
+			create_date 
+		FROM
+		 	member
+		WHERE 
+		 	member_id = #{memberId}
+	</select>
 	
 	
 	
@@ -65,26 +73,17 @@
 	SELECT 
 		s.member_id memberId,
 		s.student_code studentCode,
-		d.department_code departmentCode,
+		s.department_code departmentCode,
 		s.student_year studentYear,
 		s.student_state studentState,
-		m.member_name memberName,
-		m.member_gender memberGender,
-		m.member_type memberType,
-		m.member_birth memberBirth,
-		m.member_email memberEmail,
-		m.member_address memberAddress,
-		m.member_contact memberContact,
-		m.active,
-		m.create_date createDate,
-		m.update_date updateDate
+		m.member_name memberName
 	FROM
-		student s , member m, department d
+		member m LEFT OUTER JOIN student s
+	ON
+		m.member_id = s.member_id
 	WHERE 1=1
 		<include refid="search" />
 		AND s.student_code IS NOT NULL
-		AND s.member_id = m.member_id 
-		AND d.department_code = s.department_code
 	ORDER BY
 		s.student_code
 	LIMIT
@@ -97,7 +96,7 @@
 	SELECT 
 		s.member_id memberId,
 		s.student_code studentCode,
-		d.department_code departmentCode,
+		s.department_code departmentCode,
 		s.student_year studentYear,
 		s.student_state studentState,
 		m.member_name memberName,
@@ -112,11 +111,9 @@
 		m.update_date updateDate
 	FROM 
 		student s ,
-		member m ,
-		department d
+		member m
 	Where 
 		s.member_id = m.member_id AND
-		d.department_code = s.department_code AND
 		s.student_code = #{studentCode}
 	</select>
 	

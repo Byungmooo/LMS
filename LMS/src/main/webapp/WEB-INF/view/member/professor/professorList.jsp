@@ -64,16 +64,9 @@
 						<tr>
 							<td>${p.memberId}</td>
 							<td>${p.professorCode}</td>
-							<c:if test="${memberType eq '교수'}">
-								<td>
-									<a href="${pageContext.request.contextPath}/professor/professorOne?professorCode=${p.professorCode}">${p.memberName}</a>
-								</td>
-							</c:if>
-							<c:if test="${memberType eq '직원'}">
-								<td>
-									<a href="${pageContext.request.contextPath}/employee/professorOne?professorCode=${p.professorCode}">${p.memberName}</a>
-								</td>
-							</c:if>
+							<td>
+								<a href="${pageContext.request.contextPath}/member/professorOne?professorCode=${p.professorCode}">${p.memberName}</a>
+							</td>
 							<td>${p.departmentCode}</td>				
 							<td>${p.departmentLeader}</td>					
 							<td>${p.professorState}</td>							
@@ -110,74 +103,31 @@
                 </div>
             </form>
         </div>
-        <!--  search bar end -->
-
-        <div style="display: block; text-align: center;">
-            <c:if test="${paging.prePage}">
-                <c:choose>
-                    <c:when test="${(paging.currentPage-10) < 1}">
-                        <a href="javascript:goPage(1, '');">이전</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="javascript:goPage('${paging.currentPage-10}', '');">이전</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-            <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
-                <c:choose>
-                    <c:when test="${p == paging.currentPage }">
-                        <b>${p}</b>
-                    </c:when>
-                    <c:when test="${p != paging.currentPage }">
-                        <a href="javascript:goPage('${p}', '');">${p}</a>
-                    </c:when>
-                </c:choose>
-            </c:forEach>
-            <c:if test="${paging.nextPage}">
-                <c:choose>
-                    <c:when test="${paging.currentPage+10 > paging.lastPage}">
-                        <a href="javascript:goPage('${paging.lastPage}', '');">다음</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="javascript:goPage('${paging.currentPage+10}', '');" >다음</a>
-                    </c:otherwise>
-                </c:choose>
-            </c:if>
-        </div>
-		<script>
-		    // rowPerPage 변경 이벤트
-		    $("#rowPerPage").on("change", (e) => {
-		        location.href = createUrl('', e.target.value);
-		    })
-		
-		    const goPage = (currentPage, rowPerPage) => {
-		        location.href = createUrl(currentPage, rowPerPage);
-		    };
-		
-		    const createUrl = (currentPage, rowPerPage) => {
-		        const path = "${pageContext.request.contextPath}";
-		        const param = {
-		            currentPage:"${paging.currentPage}",
-		            rowPerPage:"${paging.rowPerPage}",
-		            searchType:"${paging.searchType}",
-		            keyword:"${paging.keyword}",
-		        }
-		
-		        if(currentPage != '') param.currentPage = currentPage;
-		        if(rowPerPage != '') param.rowPerPage = rowPerPage;
-		
-		        var url = path +'/member/professorList';
-		        url += '?currentPage=' + param.currentPage;
-		        url += '&rowPerPage='+ param.rowPerPage;
-		        url += '&searchType='+ param.searchType ;
-		        url += '&keyword='+ param.keyword ;
-		
-		        return url;
-		    }
-		</script>
-    </div>
-</div>
-<!-- / Main -->
-
+       <!--  search bar end -->
+			<div style="display: block; text-align: center;">		
+					<c:if test="${paging.prePage}">
+						<a href="${pageContext.request.contextPath}/member/professorList?currentPage=${paging.currentPage-1}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">이전</a>
+					</c:if>
+					<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+						<c:choose>
+							<c:when test="${p == paging.currentPage }">
+								<b>${p}</b>
+							</c:when>
+							<c:when test="${p != paging.currentPage }">
+								<a href="${pageContext.request.contextPath}/member/professorList?currentPage=${p}
+									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">${p}</a>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					
+					<c:if test="${paging.nextPage}">
+						<a href="${pageContext.request.contextPath}/member/professorList?currentPage=${paging.currentPage+1}
+							&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}">다음</a>
+					</c:if>
+				</div>
+			</div>
+		</div>
+	<!-- / Main -->
 
 <%@ include file="/WEB-INF/view/include/footer.jsp" %>

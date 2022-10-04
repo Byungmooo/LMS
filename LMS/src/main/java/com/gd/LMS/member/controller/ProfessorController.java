@@ -40,9 +40,11 @@ public class ProfessorController {
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
-    	
+
+		
 		Map<String, Object> map = new HashMap<>();
-    	
+		map.put("keyword", keyword); 
+		map.put("searchType", searchType);
 		
 		int totalCount = professorService.countProfessor(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
