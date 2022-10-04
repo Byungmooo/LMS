@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:choose>
 	<c:when test="${memberType eq '학생'}">
 		<c:import url="/WEB-INF/view/include/studentHeader.jsp"></c:import>	
@@ -23,21 +24,20 @@
 					<div class="card-header">
 						<div class="card-title mb-0">
 							<h5 class="m-0 me-2">직원 정보 수정</h5>
-							<small class="text-muted"></small>
 						</div>
 					</div>
 					<div class="card-body">
                 		<form action="${pageContext.request.contextPath}/employee/modifyEmployeeAction"
                 			class="form-horizontal" method="post" id="updateForm">
 		                   <div class="row" style="margin-bottom: 20px;">
-                            	<div class="col-sm-2 col-12 text-center">
-                            		아이디
-                            	</div>
-                            	<div class="col-sm-3 col-12 text-center">
+	                           	<div class="col-sm-2 col-12 text-center">
+	                           		아이디
+	                           	</div>
+	                           	<div class="col-sm-3 col-12 text-center">
 			                   		 <input type="text" name="memberId" class="form-control"
 							 				value="${e.memberId}" readonly>  
 							 	</div>
-		                   </div>
+	                   	   </div>
 		                   <div class="row" style="margin-bottom: 20px;">
                             	<div class="col-sm-2 col-12 text-center">
                             		직원코드
@@ -61,11 +61,13 @@
                             		재직상태
                             	</div>
                             	<div class="col-sm-3 col-12 text-center">
-			                    <select class="form-select" aria-label="Default select example" name="employeeState" id="employeeState">
-                            			<option value="${e.employeeState}" selected="selected">선택</option>
-                            			<option value="재직중">재직중</option>
-                            			<option value="휴직중">휴직중</option>
-                            			<option value="퇴직자">퇴직자</option>
+			                    	<select class="form-select" aria-label="Default select example" name="employeeState" id="employeeState">
+                            			<option value="재직중" 
+                            				<c:if test="${e.employeeState eq '재직중'}">selected="selected"</c:if>>재직중</option>
+                            			<option value="휴직중"
+                            				<c:if test="${e.employeeState eq '휴직중'}">selected="selected"</c:if>>휴직중</option>
+                            			<option value="퇴직자"
+                            				<c:if test="${e.employeeState eq '퇴직자'}">selected="selected"</c:if>>퇴직자</option>
                             		</select>
 							 	</div> 
 		                   </div>
@@ -102,9 +104,10 @@
                             	</div>
                             	<div class="col-sm-3 col-12 text-center">
                             		<select class="form-select" aria-label="Default select example" name="birthYear" id="birthYear">
-                            			<option value="" selected="selected">년</option>
+                            			<option value="">년</option>
 										<c:forEach var="i" begin="1920" end="2022">
-											<option value="${i}">${i}</option>
+											<option value="${i}"
+												<c:if test="${(fn:substring(e.memberBirth,0,4)) eq i}">selected="selected"</c:if>>${i}</option>
 										</c:forEach>
                             		</select>
                             	</div>
@@ -114,10 +117,12 @@
 										<c:forEach var="i" begin="1" end="12">
 											<c:choose>
 											    <c:when test="${i lt 10 }">
-											        <option value="0${i}">0${i}</option>
+											        <option value="0${i}"
+											        <c:if test="${(fn:substring(e.memberBirth,5,7)) eq i}">selected="selected"</c:if>>0${i}</option>
 											    </c:when>
 											    <c:otherwise>
-											        <option value="${i}">${i}</option>
+											        <option value="${i}"
+											        <c:if test="${(fn:substring(e.memberBirth,5,7)) eq i}">selected="selected"</c:if>>${i}</option>
 											    </c:otherwise>
 											</c:choose>
 										</c:forEach>
@@ -129,10 +134,12 @@
 										<c:forEach var="i" begin="1" end="31">
 											<c:choose>
 											    <c:when test="${i lt 10 }">
-											        <option value="0${i}">0${i}</option>
+											        <option value="0${i}"
+											       		<c:if test="${(fn:substring(e.memberBirth,8,10)) eq i}">selected="selected"</c:if>>0${i}</option>
 											    </c:when>
 											    <c:otherwise>
-											        <option value="${i}">${i}</option>
+											        <option value="${i}"
+														<c:if test="${(fn:substring(e.memberBirth,8,10)) eq i}">selected="selected"</c:if>>${i}</option>
 											    </c:otherwise>
 											</c:choose>
 										</c:forEach>
@@ -149,7 +156,8 @@
 			                   		 <input type="text" name="memberEmail" class="form-control"
 							 				value="${e.memberEmail}" >  
 							 	</div>
-		                   </div>
+		                    </div>
+		                   <!--  주소 가지고 있는 값으로 가져와야함  -->
 		                   <div class="row" style="margin-bottom: 20px;">
                             	<div class="col-sm-2 col-12 text-center">
                             		주소
@@ -181,17 +189,17 @@
 			                    	<input type="text" name="memberContact" class="form-control"
 							 			value="${e.memberContact}" > 
                             	</div>
-                            </div> 
 		                   </div>
-		                    <div class="row" style="margin-bottom: 20px;">
+		                   <div class="row" style="margin-bottom: 20px;">
                             	<div class="col-sm-2 col-12 text-center">
                             		권한여부
                             	</div>
                             	<div class="col-sm-3 col-12 text-center">
                             		 <select class="form-select" aria-label="Default select example" name="active" id="active">
-                            			<option value="${e.active}" selected="selected">선택</option>
-                            			<option value="Y">Y</option>
-                            			<option value="N">N</option>
+                            			<option value="Y" 
+                            				<c:if test="${e.active eq 'Y'}">selected="selected"</c:if>>Y</option>
+                            			<option value="N"
+                            				<c:if test="${e.active eq 'N'}">selected="selected"</c:if>>N</option>
                             		</select>
                             	</div>
                             </div>
