@@ -4,13 +4,13 @@
 						<div
 							class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
 							<div class="mb-2 mb-md-0">
-								<p class="footer-link fw-bolder">북한 컴퓨터 아카데미</p>
+								<p class="footer-link fw-bolder">Goodee Academy LMS</p>
 							</div>
 							<div>
-								<p class="footer-link me-4">LeechangZ</p>
-								<p class="footer-link me-4">BackChookBok</p>
-								<p class="footer-link me-4">KimByungMoo</p>
-								<p class="footer-link me-4">NorthPennis</p>
+								<p class="footer-link me-4">changZ</p>
+								<p class="footer-link me-4">ChookBok</p>
+								<p class="footer-link me-4">ByungMoo</p>
+								<p class="footer-link me-4">Jinmay</p>
 							</div>
 						</div>
 					</footer>

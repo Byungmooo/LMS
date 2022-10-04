@@ -125,8 +125,8 @@
 					
 					<!-- NOTICE -->
 					<li class="menu-item"><a href="#"
-						class="menu-link menu-toggle"> <i
-							class="menu-icon tf-icons bx bx-layout"></i>
+						class="menu-link menu-toggle">
+						<i class='menu-icon tf-icons bx bx-spreadsheet'></i>
 							공지사항
 					</a>
 
@@ -146,14 +146,14 @@
 						class="menu-header-text">MYPAGE</span></li>
 					<li class="menu-item">
 						<a href="${pageContext.request.contextPath}/student/studentOne?memberCode=${memberCode}" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-dock-top"></i>
+						<i class='menu-icon tf-icons bx bxs-user'></i>
 							내정보
 						</a>
 					</li>
 					<li class="menu-item">
 						<a href="${pageContext.request.contextPath}/member/calendar?memberCode=${memberCode}" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-cube-alt"></i>
-							캘린더일정
+						<i class='menu-icon tf-icons bx bx-calendar'></i>
+							달력
 						</a>
 					</li>
 					
@@ -162,13 +162,13 @@
 						class="menu-header-text">LECTURE</span></li>
 					<li class="menu-item">
 						<a href="${pageContext.request.contextPath}/student/studentLectureReg?memberCode=${memberCode}" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-collection"></i>
+						<i class='menu-icon tf-icons bx bx-book-add'></i>
 							수강신청
 						</a>
 					</li>
 					<li class="menu-item">
 						<a href="#" class="menu-link menu-toggle"> 
-						<i class="menu-icon tf-icons bx bx-box"></i>
+						<i class='menu-icon tf-icons bx bx-book-content'></i>
 							강의
 						</a>
 						<ul class="menu-sub">
@@ -185,8 +185,8 @@
 						</ul>
 					</li>
 					<li class="menu-item">
-						<a href="" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-crown"></i>
+						<a href="" class="menu-link">
+						<i class='menu-icon tf-icons bx bxs-graduation' ></i> 
 							성적조회
 						</a>
 					</li>
@@ -196,7 +196,7 @@
 						class="menu-header-text">etc</span></li>
 					<li class="menu-item">
 						<a href="" class="menu-link menu-toggle"> 
-						<i class="menu-icon tf-icons bx bx-box"></i>
+						<i class='menu-icon tf-icons bx bx-building-house' ></i>
 							학부
 						</a>
 						<ul class="menu-sub">
@@ -214,7 +214,7 @@
 					</li>
 					<li class="menu-item">
 						<a href="" class="menu-link"> 
-						<i class="menu-icon tf-icons bx bx-detail"></i>
+						<i class='menu-icon tf-icons bx bx-line-chart'></i>
 							통계
 						</a>
 					</li>
@@ -241,10 +241,7 @@
 						<ul class="navbar-nav flex-row align-items-center ms-auto">
 							<!-- Place this tag where you want the button to render. -->
 							<li class="nav-item lh-1 me-3"><a class="github-button"
-								href="https://github.com/themeselection/sneat-html-admin-template-free"
-								data-icon="octicon-star" data-size="large"
-								data-show-count="true"
-								aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">Visit</a>
+								href="https://github.com/Byungmooo/LMS" data-size="large">Visit</a>
 							</li>
 
 							<!-- User -->
@@ -252,7 +249,7 @@
 								<a class="nav-link dropdown-toggle hide-arrow" href="" data-bs-toggle="dropdown">
 									<!-- 학생사진 -->
 									<div class="avatar avatar-online">
-										<img src="" alt=""
+										<img src="${pageContext.request.contextPath}/imgFile/profile/default_profile.png" alt="#"
 											class="w-px-40 h-auto rounded-circle" />
 									</div>									
 								</a>
@@ -260,8 +257,8 @@
 									<li>
 										<div class="dropdown-item">
 											<div class="flex-grow-1">
-												<span class="fw-semibold d-block">학생이름</span> <small
-													class="text-muted">student</small>
+												<span class="fw-semibold d-block">${memberName}</span> <small
+													class="text-muted">${memberType}</small>
 											</div>
 										</div>
 									</li>
@@ -277,7 +274,7 @@
 										</a>
 									</li>
 									<li>
-										<a class="dropdown-item" href=""> 
+										<a class="dropdown-item" href="#"> 
 										<i class="bx bx-cog me-2"></i> 
 											<span class="align-middle">
 												Settings
