@@ -36,6 +36,29 @@
 	</select>
 	
 	
+	
+	<insert id ="insertStudent" parameterType="com.gd.LMS.vo.Student">
+		
+		INSERT INTO 
+			student
+				member_id,
+				student_code, 
+				department_code,
+				student_year, 
+				student_state
+			) VALUES ( 
+				#{memberId},
+				#{studentCode},
+				#{departmentCode}, 
+				#{studentYear}, 
+				#{studentState}
+				)
+
+	</insert>
+	
+	
+	
+	
 	<!-- 페이징 처리 후 리스트 -->
 	<select id = "selectStudentList"  parameterType="map"
 			resultType="map">

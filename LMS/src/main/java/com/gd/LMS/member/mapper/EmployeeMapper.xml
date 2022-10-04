@@ -35,6 +35,23 @@
 			employee_code IS NOT NULL
 	</select>
 	
+	<insert id ="insertEmployee" parameterType="com.gd.LMS.vo.Employee">
+		
+		INSERT INTO 
+			employee
+				member_id,
+				employee_code, 
+				authority,
+				employee_state
+			) VALUES ( 
+				#{memberId},
+				#{employeeCode},
+				#{authority}, 
+				#{employeeState}
+				)
+
+	</insert>
+	
 	
 	
 	<!-- 페이징 처리 후 리스트 -->

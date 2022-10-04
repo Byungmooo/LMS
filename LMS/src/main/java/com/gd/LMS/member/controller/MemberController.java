@@ -1,5 +1,6 @@
 package com.gd.LMS.member.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -212,56 +213,75 @@ public class MemberController {
 	
 	
 	// 회원가입 승인 대기리스트 Form
-		@GetMapping("/employee/activeMemberList")
-		public String modifyAccountStateWaitMember(Model model, @RequestParam(value="memberId",
-							defaultValue="all") String memberId) {
-			
-			// 디버깅
-			log.debug(TeamColor.BJH + "회원가입 승인대기 리스트 컨트롤러 진입==========");
-			
-			Map<String, Object> map = memberService.activeMemberList();
-			model.addAttribute("studentList", map.get("studentList"));
-			model.addAttribute("professorList", map.get("professorList"));
-			model.addAttribute("employeeList", map.get("employeeList"));
-			model.addAttribute("memberId", memberId);
-			
-			
-			return "member/activeMemberList";
-		}
+	@GetMapping("/employee/activeMemberList")
+	public String modifyAccountStateWaitMember(Model model, @RequestParam(value="memberId",
+						defaultValue="all") String memberId) {
 		
-		// 회원가입 승인 Form
-		@GetMapping("/employee/modifyActiveMemberList")
-		public String modifyActiveMember(@RequestParam(value="memberId") String memberId) {
-			
-			// 디버깅
-			log.debug(TeamColor.BJH + "회원가입 승인 폼 컨트롤러 진입===========" + memberId);
-			
-			int row = memberService.modifyActiveMemberList(memberId);
-			
-			
-			return "redirect:/member/modifyActiveMemberList";
-		}
+		// 디버깅
+		log.debug(TeamColor.BJH + "회원가입 승인대기 리스트 컨트롤러 진입==========");
 		
-		// 회원가입 거절 Form
-		@GetMapping("/member/modifyInActiveMemberList")
-		public String modifyInActiveMember(@RequestParam(value="memberId") String memberId) {
+		Map<String, Object> map = memberService.activeMemberList();
+		model.addAttribute("studentList", map.get("studentList"));
+		model.addAttribute("professorList", map.get("professorList"));
+		model.addAttribute("employeeList", map.get("employeeList"));
+		model.addAttribute("memberId", memberId);
+		
+		
+		return "member/activeMemberList";
+	}
+	
+	
+	// 회원가입 승인 Form
+	@GetMapping("/employee/modifyActiveMemberList")
+	public String modifyActiveMember(Member member,
+			@RequestParam(value="memberId") String memberId) {
+		
+		
+		// 디버깅
+		log.debug(TeamColor.BJH + "회원가입 승인 폼 컨트롤러 진입===========" + member);
+		
+		int row = memberService.modifyActiveMemberList(member);
+		if(row != 0) {
+			if(member.getMemberType().equals("직원")) {
+			log.debug(TeamColor.BJH + "직원 승인 성공!!>>>" );
+			return "redirect:/employee/employeeList";
 			
-			// 디버깅
-			log.debug(TeamColor.BJH + "회원가입 거절 폼 진입=====>memberId :" + memberId);
-			
-			int row = memberService.modifyInActiveMemberList(memberId);
-			
-			if(row != 0) {
-				return "member/acativeMemberList";
+			} else if (member.getMemberType().equals("학생")) {
+				log.debug(TeamColor.BJH + "학생 승인 성공!!>>>>");
+				return "redirect:/student/studentList";
+				
+			} else if (member.getMemberType().equals("교수")) {
+				log.debug(TeamColor.BJH + "교수 승인 성공!!>>>>");
+				return "redirect:/professor/professorList";
 			}
 			
-			return "redirect:/member/modifyInActiveMemberList";
 		}
+		
+		return "redirect:/member/modifyActiveMemberList";
+	}
 	
 	
 	
-	
-	
+	// 회원가입 거절 Form
+	@GetMapping("/member/modifyInActiveMemberList")
+	public String modifyInActiveMember(@RequestParam(value="memberId") String memberId) {
+		
+		// 디버깅
+		log.debug(TeamColor.BJH + "회원가입 거절 폼 진입=====>memberId :" + memberId);
+		
+		int row = memberService.modifyInActiveMemberList(memberId);
+		
+		if(row != 0) {
+			return "member/acativeMemberList";
+		}
+		
+		return "redirect:/member/modifyInActiveMemberList";
+	}
+
+
+
+
+
 	
 	
 	

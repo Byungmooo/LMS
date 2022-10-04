@@ -36,6 +36,26 @@
 	</select>
 	
 	
+	<insert id ="insertProfessor" parameterType="com.gd.LMS.vo.Professor">
+		
+		INSERT INTO 
+			professor
+				member_id,
+				professor_code, 
+				department_code,
+				department_leader, 
+				professor_state
+			) VALUES ( 
+				#{memberId},
+				#{professorCode},
+				#{departmentCode}, 
+				#{departmentLeader}, 
+				#{professorState}
+				)
+
+	</insert>
+	
+	
 	
 	<!-- 페이징 처리 후 리스트 -->
 	<select id = "selectProfessorList"  parameterType="map"

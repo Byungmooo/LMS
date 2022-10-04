@@ -1,6 +1,7 @@
 package com.gd.LMS.member.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -31,13 +32,13 @@ public interface MemberMapper {
 	int updateMemberActiveY(Member paramMember);
 	
 	// 학생코드
-   Student selectStudentCodeById(String memberId);
+	Student selectStudentCodeById(String memberId);
    
-   // 교수코드
-   Professor selectProfessorCodeById(String memberId);
+	// 교수코드
+	Professor selectProfessorCodeById(String memberId);
    
-   // 직원코드
-   Employee selectEmployeeCodeById(String memberId);
+	// 직원코드
+	Employee selectEmployeeCodeById(String memberId);
 	
 	// 회원가입 교수 승인대기 리스트
 	List<Member> selectQueueProfessorLsit();
@@ -51,9 +52,9 @@ public interface MemberMapper {
 
 	
 	// 회원가입 승인 (직원만 가능)
-	int updateActiveMemberList(String memberId);
+	int updateActiveMember(Map<String, Object> map);
 	
 	// 회원가입 거절 (직원만 가능)
-	int updateInActiveMemberList(String memberId);
+	int updateInActiveMember(String memberId);
 	
 }

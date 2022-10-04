@@ -50,11 +50,11 @@
 						<c:if test="${memberType eq '직원'}">
 							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType=all"
 								selected>전체 리스트</option>
-							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType=all"
+							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType='학생'"
 								selected>학생 리스트</option>	
-							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType=all"
+							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType='직원'"
 								selected>교수 리스트</option>
-							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType=all"
+							<option value="${pageContext.request.contextPath}/employee/activeMemberList?memberType='교수'"
 								selected>직원 리스트</option>				
 						</c:if>
 						

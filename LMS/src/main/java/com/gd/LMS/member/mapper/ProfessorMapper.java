@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.gd.LMS.vo.Member;
 import com.gd.LMS.vo.Professor;
 
 @Mapper
@@ -20,6 +21,9 @@ public interface ProfessorMapper {
 	//교수 상세보기
 	Map<String, Object> selectProfessorOne(int professorCode);
 
+	//교수 추가하기
+	int insertProfessor(Map<String, Object> map);
+	
 	//교수 수정 폼
 	Map<String, Object> updateProfessorOne(int professorCode);
 	//수정 액션

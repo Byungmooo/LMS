@@ -9,7 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gd.LMS.commons.TeamColor;
+import com.gd.LMS.member.mapper.EmployeeMapper;
 import com.gd.LMS.member.mapper.MemberMapper;
+import com.gd.LMS.member.mapper.ProfessorMapper;
+import com.gd.LMS.member.mapper.StudentMapper;
 import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.vo.Employee;
 import com.gd.LMS.vo.Member;
@@ -23,6 +26,10 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MemberService {
 	@Autowired MemberMapper memberMapper;
+	@Autowired ProfessorMapper professorMapper;
+	@Autowired StudentMapper studentMapper;
+	@Autowired EmployeeMapper employeeMapper;
+	
 	
 	// 회원로그인
 	public Member getMemberLogin(Member paramMember) {	
@@ -154,17 +161,32 @@ public class MemberService {
 	}
 	
 	// 회원가입 승인
-	public int modifyActiveMemberList(String memberId) {
+	public int modifyActiveMemberList(Member member) {
+		
+		Map<String, Object> map = new HashMap<>();
 		
 		// 디버깅
-		log.debug(TeamColor.BJH + "회원가입 승인 memberId====>" +memberId);
+		log.debug(TeamColor.BJH + "회원가입 승인 memberId====>" +map);
 		
-		int row = memberMapper.updateActiveMemberList(memberId);
+		map.put("memberId",member.getMemberId());
+		map.put("memberType",member.getMemberType()); 
 		
-			
-		
-		// 디버깅
-		log.debug(TeamColor.BJH + "row=====>" + row);
+		int row = memberMapper.updateActiveMember(map);
+		if(row != 0) {
+			if(member.getMemberType().equals("교수")) {
+				row = professorMapper.insertProfessor(map);
+				log.debug(TeamColor.BJH + "교수 인서트로 map 담아서 이동>>>>>>" + map);
+				
+			} else if(member.getMemberType().equals("학생")) {
+				row =  studentMapper.insertStudent(map);
+				log.debug(TeamColor.BJH + "학생 인서트로 map 담아서 이동>>>>>>" + map);
+				
+			} else if(member.getMemberType().equals("직원")) {
+				row =  employeeMapper.insertEmployee(map);
+
+				log.debug(TeamColor.BJH + "직원 인서트로 map 담아서 이동>>>>>>" + map);
+			} return row;
+		}
 		
 		return row;
 	}
@@ -175,7 +197,7 @@ public class MemberService {
 		// 디버깅
 		log.debug(TeamColor.BJH + "회원가입 거절 memberId====>" + memberId);
 		
-		int row = memberMapper.updateInActiveMemberList(memberId);
+		int row = memberMapper.updateInActiveMember(memberId);
 		// 디버깅
 		log.debug(TeamColor.BJH + "row======>" + row);
 		
