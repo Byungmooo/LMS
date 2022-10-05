@@ -18,7 +18,7 @@
 
 <!-- Main -->
 
-<h4 class="card-header">"이름"님/"강의명"/시험문제 등록</h4>
+<h4 class="card-header">${memberName }님/강의번호:${openedLecNo}/시험문제 등록</h4>
 <body>
 	<div class="container-xxl flex-grow-1 container-p-y">
 		<hr>
@@ -33,6 +33,7 @@
 					※시험지이름 <input name="examName" id="examName" class="form-control"
 						type="text" style="width: 200px" value="${examName}">
 				</div>
+				<input type="hidden" name="openedLecNo" id="openedLecNo" value="${openedLecNo }">
 				<div class="">
 					<button type="submit" class="btn btn-primary">시험지이름 등록</button>
 					<a href="javascript:history.back()" class="btn btn-primary">뒤로가기</a>

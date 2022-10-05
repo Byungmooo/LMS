@@ -12,6 +12,7 @@ public class SubjectiveQuestion {	//====주관식문제
 	private String subjectiveNo;		//주관식 문제 번호(1~5번)
 	private String subjectiveContent;	//주관식 문제 내용
 	private String subjectiveAnswer;	//주관식 문제 답안
+	private int questionPoint;			//문제별점수
 	private String createDate;			//생성일
 	private String updateDate;			//수정일
 	

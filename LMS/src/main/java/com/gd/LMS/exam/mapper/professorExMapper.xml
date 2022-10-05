@@ -10,6 +10,7 @@
 	<select id="selectExList" parameterType="int"
 		resultType="com.gd.LMS.vo.ExamSheet">
 		SELECT
+		opened_lec_no openedLecNo,
 		exam_no examNo,
 		exam_name examName,
 		create_date createDate,
@@ -114,10 +115,12 @@
 		INSERT INTO
 		exam_sheet(
 		exam_name,
+		opened_lec_no,
 		create_date
 		)
 		VALUES(
 		#{examName},
+		#{openedLecNo},
 		NOW()
 		)
 	</insert>

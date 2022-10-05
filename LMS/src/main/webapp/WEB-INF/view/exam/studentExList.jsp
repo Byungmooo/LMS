@@ -8,7 +8,7 @@
 <!-- Main -->
 <div class="container-xxl flex-grow-1 container-p-y">
 	<h4 class="fw-bold py-3 mb-4">
-		<span class="text-muted fw-light">Example : </span>"${memberName}"님./${memberCode }/${departmentCode}/강의번호 : ${openedLecNo}
+		<span class="text-muted fw-light">Example : </span>"${memberName}"님./${memberCode }/${departmentCode}/${openedLecNo}
 	</h4>
 	<hr class="my-5" />
 
@@ -29,37 +29,29 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="e" items="${Exlist}">
+					<c:forEach var="e" items="${studentExlist}">
 						<input type="hidden" value=${openedLecNo } name="openedLecNo">
-						<c:if test="${e.openedLecNo eq openedLecNo}">
-						<tr>
-							<td>${e.examNo}</td>
-							<td><a
-								href="${pageContext.request.contextPath}/exam/professorExList/${e.examNo}">
-									${e.examName}</a></td>
-							<td>${e.createDate}</td>
-							<td>${e.updateDate}</td>
-						</tr>
+						<c:if test="${e.openedLecNo eq openedLecNo}">		
+							<tr>
+								<td>${e.examNo}</td>
+								<td><a
+									href="${pageContext.request.contextPath}/exam/studentExList/${e.examNo}">
+										${e.examName}</a></td>
+								<td>${e.createDate}</td>
+								<td>${e.updateDate}</td>
+							</tr>
 						</c:if>
 					</c:forEach>
+					
 				</tbody>
 			</table>
 		</div>
 	</div>
 	<hr>
 
-	 <a	href="${pageContext.request.contextPath}/exam/AddExamSheet?opendLecNo=${openedLecNo}"
-		style="float: right" class="btn btn-primary">시험지추가(교수)</a>
-
 </div>
 
 <!-- / Main -->
 
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
-<script>
-	function deleteBtn() {
-		alert("삭제되었습니다.");
-		document.form.submit();
-	}
-</script>
 
