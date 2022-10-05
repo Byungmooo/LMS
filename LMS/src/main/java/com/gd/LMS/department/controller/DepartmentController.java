@@ -31,7 +31,7 @@ public class DepartmentController {
 	
 
 	//학부 리스트 조회
-	@GetMapping("/departmentList")
+	@GetMapping("/member/departmentList")
 	public String getDepartMentList (PagingVo vo, Model model, HttpSession session,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,

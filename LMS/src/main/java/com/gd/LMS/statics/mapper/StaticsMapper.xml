@@ -6,6 +6,7 @@
         	--   m.member_id,
             --   dc.member_code,
                student_year grade,
+                DATE_FORMAT(m.create_date, '%Y')   createDate, 
             --	 member_name,
                member_gender gender,
                member_type type,

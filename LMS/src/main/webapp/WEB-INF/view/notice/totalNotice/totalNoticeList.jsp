@@ -134,7 +134,7 @@
 						</c:forEach>
 						<c:if test="${paging.nextPage}">
 							<li class="page-item next">
-								<a class="page-link" href="${pageContext.request.contextPath}//member/totalNoticeList?currentPage=${paging.currentPage+1}
+								<a class="page-link" href="${pageContext.request.contextPath}/member/totalNoticeList?currentPage=${paging.currentPage+1}
 									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">
 								<i class="tf-icon bx bx-chevron-right"></i>
 								</a>

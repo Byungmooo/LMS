@@ -77,7 +77,12 @@
 	
 		
 					<!-- RowPerPage Option -->
-    <div class="row">
+		
+		<!-- studentAssignmentList -->
+		<div class="card text-center">
+			<h5 class="card-header">강의질문</h5>
+			
+			    <div class="row">
     
         <div class="col-sm-9 col-12 text-center"></div>
         <div class="col-sm-3 col-12 text-center">
@@ -97,11 +102,7 @@
             </select>
         </div>
     </div>
-  <br>
-		
-		<!-- studentAssignmentList -->
-		<div class="card text-center">
-			<h5 class="card-header">강의질문</h5>
+    
 			<div class="table-responsive text-nowrap">
 				<table class="table">
 					<caption class="ms-4">List of Assignment</caption>
