@@ -44,7 +44,8 @@ public class DepartmentController {
 		map.put("keyword", keyword); 
 		map.put("searchType", searchType);
 	
-		
+		List<Map<String, Object>> list2 = departmentService.getTotalDepartmentName();
+		log.debug(TeamColor.KJS + "departmentList > " + list2);
 		
 		int totalCount = departmentService.countDepartment(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
@@ -68,6 +69,7 @@ public class DepartmentController {
 
 		model.addAttribute("paging", vo);
 		model.addAttribute("list", list);
+		model.addAttribute("department", list2);
 
 		log.debug(TeamColor.BJH + "학부 전체 리스트");
 		return "department/departmentList";

@@ -71,5 +71,9 @@ public class DepartmentService {
 		return row;
 	}
 	
-
+	// 전체학부이름
+	public List<Map<String, Object>> getTotalDepartmentName() {
+		List<Map<String, Object>> map = departmentMapper.selectTotalDepartmentName();
+		return map;
+	}
 }

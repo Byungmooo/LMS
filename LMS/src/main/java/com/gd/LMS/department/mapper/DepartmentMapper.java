@@ -5,10 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.gd.LMS.utils.PagingVo;
-import com.gd.LMS.vo.Assignment;
+
 import com.gd.LMS.vo.Department;
-import com.gd.LMS.vo.TotalNotice;
+
 
 @Mapper
 public interface DepartmentMapper {
@@ -36,6 +35,7 @@ public interface DepartmentMapper {
 	//학부삭제
 	int deleteDepartment(int departmentCode);
 	
-	
+	// 부서코드 리스트
+	List<Map<String, Object>> selectTotalDepartmentName();
  
 }
