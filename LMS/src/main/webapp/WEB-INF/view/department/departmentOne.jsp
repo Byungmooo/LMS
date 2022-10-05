@@ -48,19 +48,18 @@
 				</thead>
 			</table>
 			<div>	
-				<c:if test="${memberType eq '직원'}">
-					<a href="${pageContext.request.contextPath}/member/modifyDepartment?departmentCode=${d.departmentCode}"
-						class="btn btn-warning">수정</a>
-					<form action="${pageContext.request.contextPath}/member/removeDepartment" method="post">
-						<input type="hidden" name="departmentCode" value="${d.departmentCode}">
-						<button class="btn btn-danger" onclick="deleteBtn()">삭제</button>
-					</form>	
+				<c:if test="${sessionScope.memberType eq '직원'}">
+		
+					<a href="${pageContext.request.contextPath}/employee/modifyDepartment?departmentCode=${d.departmentCode}"
+						class="btn btn-primary">수정</a>
+			
+	
+				<button class="btn btn-primary" type="button" id="btnDelete">삭제</button>
+					
 				</c:if>
-				<c:if test="${memberType eq '교수'}">
-					<div class="container-info">
-							<a href="${pageContext.request.contextPath}/member/departmentList" class="btn btn-primary">목록</a>
-					</div>
-				</c:if>
+				<a href="${pageContext.request.contextPath}/member/departmentList" class="btn btn-primary">목록</a>
+					
+		
 			</div>
 		</div>
 	</div>
@@ -70,9 +69,14 @@
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
 
 
-<script> 
-function deleteBtn(){
-	alert("삭제하시겠습니까??");
-    document.form.submit();
-}
+<script>
+    $(document).ready(function () {
+		 $("#btnDelete").click(function () {
+            if (confirm("삭제하시겠습니까?")) {
+                document.form.action = "${pageContext.request.contextPath}/employee/removeDepartment?departmentCode=${d.departmentCode}";
+                document.form.method = "get";
+                document.form.submit();
+            }
+        });
+    });
 </script>

@@ -77,8 +77,8 @@ public class DepartmentController {
 	
 	
 	//학부 상세보기
-	@GetMapping({"/employee/departmentOne", "/professor/departmentOne"})
-	public String getDepartMentOne (Model model,
+	@GetMapping("/member/departmentOne")
+	public String getDepartMentOne (Model model,HttpSession session,
 			@RequestParam(value = "departmentCode")String departmentCode) {
 		log.debug(TeamColor.BJH + "학부 상세보기 컨트롤러 진입=================");
 		
@@ -108,9 +108,9 @@ public class DepartmentController {
 		
 		if(row !=0) {
 			log.debug(TeamColor.BJH + "학부추가 성공!!!!!! 오예!");
-			return 	"redirect:/employee/departmentList";
+			return 	"redirect:/member/departmentList";
 		}
-		return "redirect:/employee/addDepartment";
+		return "/department/addDepartment";
 	}
 		
 	
@@ -129,13 +129,13 @@ public class DepartmentController {
 
 	// 학부 수정 액션
 	@PostMapping("/employee/modifyDepartment")
-	public String modifyDepartment(Department department, Model model) {
+	public String modifyDepartment(Department department, Model model , RedirectAttributes redirectAttributes) {
 		
 		log.debug(TeamColor.BJH + "학부수정 액션 서비스 진입===============");
 		
 		int count = departmentService.modeifyDepartMentOne(department);
-		model.addAttribute("department", count);
-		
+	
+		redirectAttributes.addAttribute("departmentCode", department.getDepartmentCode());
 		
 		if (count >= 1) {
 			log.debug(TeamColor.BJH + "학부 수정");
@@ -143,23 +143,23 @@ public class DepartmentController {
 			return "redirect:department/departmentOne";
 		}
 		
-		return "redirect:department/modifyDepartment";
+		return "redirect:employee/modifyDepartment";
 	}
 
 		// 학부 삭제
 		@GetMapping("/employee/removeDepartment")
-		public String removeDepartment(@RequestParam(value = "departmentCode") int departmentCode, 
+		public String removeDepartment(HttpSession session, @RequestParam(value = "departmentCode") int departmentCode, 
 				RedirectAttributes redirectAttributes) {
 			
 			int count = departmentService.removeDepartMent(departmentCode);
-			redirectAttributes.addAttribute("departmentCode", departmentCode);
+			redirectAttributes.addAttribute("departmentCode",session.getAttribute("departmentCode") );
 			
 			if (count >= 1) {
 				log.debug(TeamColor.BJH + "학부 삭제........");
-				return "redirect:/employee/departmentList";
+				return "redirect:/member/departmentList";
 			}
 			
-			return "redirect:/employee/departmentOne";
+			return "redirect:/member/departmentOne";
 		}
 	
 }
