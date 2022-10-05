@@ -1,10 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.assignment.mapper.AssignmentMapper">
-	<!-- 학생과제리스트 -->
-	
+<!-- 게시글 검색 -->
+	<sql id="search">
+		<!-- 검색 키워드가 있을 때 -->
+		<if test="keyword != null and keyword != ''">
+			<choose>
+				<!-- 검색 유형이 있을 때 -->
+				<when test="searchType != null and searchType != ''">
+					<choose>
+						<when test="'title'.equals(searchType)">
+							AND assignment_title LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'content'.equals(searchType)">
+							AND assignment_content LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+						<when test="'no'.equals(searchType)">
+							AND opened_lec_no LIKE CONCAT('%', #{keyword}, '%')
+						</when>
+					</choose>
+				</when>
+				<!-- 전체 검색일 때 때 -->
+				<otherwise>
+					AND ( assignment_title LIKE CONCAT('%', #{keyword}, '%') OR 
+						assignment_content	LIKE CONCAT('%', #{keyword}, '%') OR 
+						opened_lec_no LIKE CONCAT('%',	#{keyword}, '%') )
+				</otherwise>
+			</choose>
+		</if>
+	</sql>
+
 	<!-- 전체 과제 리스트 조회하기 -->
-	<select id="selectAssignmentList" parameterType="int" resultType="com.gd.LMS.vo.Assignment">
+	<select id="selectAssignmentList" parameterType="map" resultType="map">
 		SELECT
 			assignment_no assignmentNo, 
 			opened_lec_no openedLecNo, 
@@ -17,24 +44,55 @@
 			assignment
 		WHERE
 			opened_lec_no = #{openedLecNo}
+			<include refid="search"/>
 		ORDER BY 
-			create_date DESC
+			end_date ASC
+		LIMIT 
+			#{beginRow}, #{rowPerPage}
 	</select>
-	<!-- 전체 과제 리스트 조회하기 -->
+	
+	<!-- 전체 과제 게시글수 -->
+	<select id="selectAssignmentCount" parameterType="map" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			assignment 
+		WHERE
+			opened_lec_no = #{openedLecNo}
+			<include refid="search" />
+	</select>
+	
+	<!-- 출제한 과제 상세보기 -->
+	<select id="selectAssignmentOne" parameterType="int" resultType="map">
+		SELECT
+			assignment_no assignmentNo, 
+			opened_lec_no openedLecNo, 
+			assignment_title assignmentTitle,
+			assignment_content assignmentContent, 
+			end_date endDate
+		FROM 
+			assignment
+		WHERE
+			assignment_no = #{assignmentNo}
+	</select>
 
 
 	<!-- 과제 출제하기-->
 	<insert id="insertAssignment" parameterType="com.gd.LMS.vo.Assignment">
-		INSERT INTO
-			assignment(
+		<selectKey resultType="int" keyProperty="assignmentNo" order="BEFORE">
+			select MAX(assignment_no) + 1 from assignment
+		</selectKey>
+		INSERT INTO assignment(
+				assignment_no,
 				opened_lec_no, 
 				assignment_title, 
 				assignment_content, 
 				end_date, 
-				update_date, 
-				create_date
+				create_date,
+				update_date 
 				)
 				VALUES (
+				#{assignmentNo},
 				#{openedLecNo},
 				#{assignmentTitle}, 
 				#{assignmentContent},
@@ -43,25 +101,7 @@
 				now()
 				)
 	</insert>
-	<!-- 과제 출제하기-->
-
-	<!-- 출제한 과제 수정하기 form -->
-	<select id="selectAssignmentOne" resultType="com.gd.LMS.vo.Assignment"
-		parameterType="int">
-		SELECT 
-			assignment_no assignmentNo,  
-			opened_lec_no openedLecNo,
-			assignment_title assignmentTitle,
-			assignment_content assignmentContent,
-			end_date endDate,
-			update_date	updateDate, 
-			create_date createDate
-		FROM 
-			assignment
-		WHERE
-			assignment_no = #{assignmentNo}
-	</select>
-	<!-- 출제한 과제 수정하기 form -->
+	
 
 	<!-- 출제한 과제 수정하기 -->
 	<update id="updateAssignment" parameterType="com.gd.LMS.vo.Assignment">
@@ -75,56 +115,25 @@
 		WHERE 
 			assignment_no = #{assignmentNo}
 	</update>
-	<!-- 출제한 과제 수정하기 -->
+	
 
-	<!-- 행정용 출제한 과제 삭제하기 -->
+	<!-- 과제 삭제하기 -->
 	<delete id="deleteAssignment" parameterType="int">
-		DELETE FROM assignment WHERE assignment_no = #{assignmentNo}
+		DELETE FROM assignment 
+		WHERE assignment_no = #{assignmentNo}
 	</delete>
-	<!-- 행정용 출제한 과제 삭제하기 -->
-	
-	
-	<!-- 
-	
-	
-	<select id="selectStudentAssignmentList" parameterType="map" resultType="map">
-		SELECT
-			a.assignment_no assignmentNo,
-			a.opened_lec_no openedLecNo,
-			a.assignment_title assignmentTitle,
-			a.assignment_content assignmentContent,
-			'N' AS assignmentDid,
-			'평가전' as assignmentScore,
-			a.create_date createDate
-		FROM 
-			assignment a,
-			student_lecture l,
-			student s
+		
+		
+		
+	<!-- 제출한 과제 점수 수정하기 -->
+	<update id="updateAssignmentRegScore" parameterType="map">
+		UPDATE
+			assignment_reg
+		SET 
+			assignment_score = #{assignmentScore}
 		WHERE
-			a.opened_lec_no = l.opened_lec_no AND
-			l.student_code = s.student_code AND 
-			l.opened_lec_no = #{openedLecNo} AND 
-			s.student_code = #{studentCode}
-	</select>
-	
-	학생과제상세보기
-	<select id="selectStudentAssignmentOne" parameterType="int" resultType="map">
-		SELECT
-			a.opened_lec_no openedLecNo,
-			t.lecture_name lectureName,
-			a.assignment_title assignmentTitle,
-			a.assignment_content assignmentContent,
-			a.end_date endDate
-		FROM 
-			assignment a,
-			opened_lecture o,
-			total_lecture t
-		WHERE
-			a.opened_lec_no = o.opened_lec_no AND
-			o.lecture_code = t.lecture_code AND 
-			a.assignment_no = #{assignmentNo}
-	</select>
-	 -->
-	
+			assignment_no = #{assignmentNo}
+	</update>
+	<!-- 제출한 과제 점수 수정하기 -->
 	
 </mapper>

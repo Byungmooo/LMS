@@ -28,188 +28,86 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class AssignmentService {
-	@Autowired AssignmentMapper assignmentMapper; //과제
+	@Autowired private AssignmentMapper assignmentMapper; //과제
 	
 	
 
 	//전체과제리스트 조회
-   public List<Assignment> getAssignmentList(int openedLecNo) {
+   public List<Map<String, Object>>  getAssignmentList(Map<String,Object> map) {
       // 디버깅 영역구분
-      log.debug(TeamColor.BJH + "@getAssignmentList Service");
-
-      // ReportMapper 실행
-      List<Assignment> assignmentList = assignmentMapper.selectAssignmentList(openedLecNo);
-      // 디버깅
-      log.debug(TeamColor.BJH + assignmentList + "<-- assignmentList");
+      log.debug(TeamColor.BJH + "전체 과제(교수)리스트 서비스 진입========");
       
-      return assignmentList;
+      return assignmentMapper.selectAssignmentList(map);
    } 
    
-	
-	// 과제 제출(추가)
+   // 과제 게시글수
+	public int getAssignmentCount(Map<String, Object> map) {
+	// 파라미터 디버깅
+	 log.debug(TeamColor.BJH + "과제 총 게시글수 서비스 진입========");
+
+		return assignmentMapper.selectAssignmentCount(map);
+	}
+    
+   //제출한 과제 상세보기
+ 	public Map<String, Object> getAssignmentOne(int assignmentNo) {
+ 		// 디버깅 영역구분
+ 		log.debug(TeamColor.BJH+ "상세보기 서비스 진입===========");
+ 		Map<String, Object> One = assignmentMapper.selectAssignmentOne(assignmentNo);
+ 		return One;
+ 	} 
+
+ 	
+	// 과제 출제(추가)
 	public int addAssignment(Assignment assignment) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.BJH + "assignment Service");
+		log.debug(TeamColor.BJH + "과제 추가(교수) 서비스 진입========");
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + assignment + "<-- assignment");
+		log.debug(TeamColor.BJH + assignment + "<-- assignment 객체 담기");
 
-		// Mapper call
-		int addAssignment = assignmentMapper.insertAssignment(assignment);
-		// Mapper에서 받아온 assignment  디버깅
-		log.debug(TeamColor.BJH + addAssignment + "<-- addAssignment");
-
-		return addAssignment;
+		int key = assignmentMapper.insertAssignment(assignment);
+		log.debug(TeamColor.BJH + "key > " + key);
+		
+		
+		return key;
 	} 
 
 	
-	//제출한 과제 수정 폼
-	public Assignment getAssignmentOne(int openedLecNo) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.BJH+ "getAssignmentOne Service");
-		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
-
-		// Mapper call
-		Assignment getAssignmentOne = assignmentMapper.selectAssignmentOne(openedLecNo);
-		// Mapper에서 받아온 assignmentNo 값 디버깅
-		log.debug(TeamColor.BJH + getAssignmentOne + "<-- getAssignmentOne");
-
-		return getAssignmentOne;
-	} 
-
-	
-	
-	//제출한 과제 수정 액션
+	// 출제(교수) 과제 수정 
 	public int modifyAssignment(Assignment assignment) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.BJH + "modifyAssignment Service");
-		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + assignment + "<-- assignment");
-		// Mapper call
-		int modifyAssignment = assignmentMapper.updateAssignment(assignment);
-		// Mapper에서 받아온 assignmentNo 값 디버깅
-		log.debug(TeamColor.BJH + modifyAssignment + "<-- modifyAssignment");
-
-		return modifyAssignment;
+		log.debug(TeamColor.BJH + "과제 수정(교수) 서비스 진입=========");
+		
+		return assignmentMapper.updateAssignment(assignment);
 	} 
-	
 	
 	
 	//과제 삭제
 	public int removeAssignment(int openedLecNo) {
 		// 디버깅 영역구분
-		log.debug(TeamColor.BJH + "removeAssignment Service");
+		log.debug(TeamColor.BJH + "과제 삭제(교수) 서비스 진입==========");
 		// 파라미터 디버깅
 		log.debug(TeamColor.BJH + openedLecNo + "<-- openedLecNo");
 
-		// Mapper call
-		int removeAssignment = assignmentMapper.deleteAssignment(openedLecNo);
-		// Mapper에서 받아온 assignmentNo 값 디버깅
-		log.debug(TeamColor.BJH + removeAssignment + "<-- deleteAssignment");
-
-		return removeAssignment;
+		return assignmentMapper.deleteAssignment(openedLecNo);
 	} 
 	
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	/*
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	
-	
-	// 학생이 수강중인 한 강의 과제리스트
-	public List<Map<String, Object>> getStudentAssignmentList(Map<String, Object> paramMap) {
-		// 파라미터 디버깅
-		log.debug(TeamColor.LCH + "paramMap (service) > " + paramMap);
+	// 제출한 과제 점수 수정
+	public List<Map<String,Object>> modifyAssignmentRegScore(Map<String,Object> map) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "학생제출 과제 점수 서비스 진입=========");
 		
-		// 매퍼메서드 호출 후 리턴값 디버깅
-		List<Map<String, Object>> studentAssignmentList = assignmentMapper.selectStudentAssignmentList(paramMap);
-		log.debug(TeamColor.LCH + "studentAssignmentList (service) > " + studentAssignmentList);
 		
-		return studentAssignmentList;
-	}
-	
-	// 학생 수강중 과제 상세보기
-	public Map<String, Object> getStudentAssignmentOne(int assignmentNo) {
-		// 파라미터 디버깅
-		log.debug(TeamColor.LCH + "assignmentNo (service) > " + assignmentNo);
-		
-		// 매퍼메서드 호출 후 리턴값 디버깅
-		Map<String, Object> resultMap = assignmentMapper.selectStudentAssignmentOne(assignmentNo);
-		log.debug(TeamColor.LCH + "resultMap (service) > " + resultMap);
-		
-		return resultMap;
-	}
 
-	
-	//opendLec 자동 설정 추가 폼
-	public Map<String, Object> addAssignmentForm(int studentCode) {
-			
-			Map<String, Object> resultMap = new HashMap<>();
+		List<Map<String,Object>> modifyAssignmentRegScore = assignmentMapper.updateAssignmentRegScore(map);
 		
-			List<Map<String, Object>> opendLecList = lectureMapper.selectStudentLectureList(studentCode);
-			
-			resultMap.put("opendLecList", opendLecList);
-			
-			return resultMap;
-		}
-	
-	//과제 추가 폼
-	public int addAssignment(Assignment assignment) {
-		int row = assignmentMapper.insertStudentAssignment(assignment);
-		log.debug(TeamColor.BJH + assignment +  "<-----assignment 추가 폼");
-		return row;
+		log.debug(TeamColor.BJH + modifyAssignmentRegScore + "<-- 과제 점수 수정 성공");
 
-	}
-	//과제 추가 액션
-	public int addAssignmentAction(Assignment assignment) {
-		int row = assignmentMapper.insertStudentAssignment(assignment);
-		log.debug(TeamColor.BJH + assignment +  "<-----assignment 추가 액션");
-		return row;
-
+		return modifyAssignmentRegScore;
 	}
 	
-	//과제 수정 폼
-	public Map<String, Object> getAssignmentReg(int assignmentNo) {
-		log.debug(TeamColor.BJH + "assignment수정폼(service) > " + assignmentNo);
-		
-		Map<String, Object> updateOne = assignmentMapper.selectStudentAssignmentOne(assignmentNo);
-		log.debug(TeamColor.BJH + "updateOne (service) > " + updateOne);
-		return updateOne;
-	}
-	
-	//과제 수정 액션
-	 public int modifyStudentAssignment(Map<String, Object> map) {
-		
-		//log.debug(TeamColor.BJH + "map studentYear ==> " + map.get("studentYear"));
-		int row = assignmentMapper.updateStudentAssignment(map);
-		log.debug(TeamColor.BJH + "updateStudentAssignment 수정액션(service) > " + map);
-	
-	    return row;
-	}
-		    
-
-	//과제 삭제
-    public int removeAssignmentReg(int assignmentRegNo) {
-        return assignmentMapper.deleteStudentAssignmentReg(assignmentRegNo);
-    }
-	
-    */
 	
 }

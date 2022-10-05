@@ -19,27 +19,23 @@ public interface AssignmentRegMapper {
 	
 	
 	// 제출한 과제 전체 리스트
-	List<Map<String,Object>> selectAssignmentRegList(int assignmentNo);
+	List<Map<String, Object>> selectAssignmentRegList(Map<String,Object> map);
+	
+	//제출한 과제 개수 카운트
+	int selectAssignmentRegCount(Map<String, Object> map);
 	
 	// 상세보기
-	Map<String,Object> selectAssignmentRegOne(int assignmentRegNo);
-
-	// 과제 제출 
-	List<Assignment> addAssignmentForm(int assignmentNo); //교수가 낸 과제
+	AssignmentReg selectAssignmentRegOne(Map<String, Object> map);
+	
+	//과제 제출
 	int insertAssignmentReg(AssignmentReg assignmentReg);
-	// 과제 첨부파일 제출
-	int insertAssignmentRegImg(AssignmentRegImg assignmentRegImg);
-	
-	int selectStudentLecNo(Map<String, Object> map);
-	
-	// 과제 수정 
-	int updateAssignmentReg(AssignmentReg assignmentReg, AssignmentRegImg assignmentRegImg);
 		
-	// 제출한 과제 점수 수정 
-	int updateAssignmentRegScore(int assignmentNo);
+	// 과제 수정 
+	int updateAssignmentReg(AssignmentReg assignmentReg);
+		
 
 	// 제출한 과제 삭제 (assignmentReg에서 삭제)
-	int deleteAssignmentReg(int assignmentNo);
+	int deleteAssignmentReg(int assignmentRegNo);
 	
 	//과제 파일 다운로드
 	ResponseEntity<Object> douwnloadFile(String fileName, String realPatth);

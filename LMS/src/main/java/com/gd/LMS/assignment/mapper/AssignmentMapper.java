@@ -15,24 +15,27 @@ import com.gd.LMS.vo.TotalLecture;
 @Mapper
 public interface AssignmentMapper {
 	
-	
-	
-		// 전체 과제 리스트  
-		List<Assignment> selectAssignmentList(int openedLecNo);
 
-		//과제 개수 카운트
-		int selectAssignmentTotalCount();
-		
-		// 과제 출제
-		int insertAssignment(Assignment assignment);
-		
-		// 출제한 과제 수정 form
-		Assignment selectAssignmentOne(int openedLecNo);
+	// 전체 과제 리스트  
+	List<Map<String, Object>>  selectAssignmentList(Map<String,Object> map);
 
-		// 출제한 과제 수정 action
-		int updateAssignment(Assignment assignment);
-		
-		//과제 삭제
-		int deleteAssignment(int openedLecNo);
+	//과제 개수 카운트
+	int selectAssignmentCount(Map<String, Object> map);
 	
+	//과제 상세보기
+	Map<String, Object> selectAssignmentOne(int assignmentNo);
+	
+	// 과제 출제
+	int insertAssignment(Assignment assignment);
+	
+	// 출제한 과제 수정 
+	int updateAssignment(Assignment assignment);
+	
+	//과제 삭제
+	int deleteAssignment(int openedLecNo);
+	
+	//학생 과제 점수체점
+	List<Map<String, Object>> updateAssignmentRegScore(Map<String,Object> map);
+	
+
 }

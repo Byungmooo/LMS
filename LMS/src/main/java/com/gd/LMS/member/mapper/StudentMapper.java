@@ -14,27 +14,25 @@ public interface StudentMapper {
 	
 
 	//총 학생 수
-	int countStudent(Map<String, Object> map);
+	public int countStudent(Map<String, Object> map);
 	
-	// 페이징 처리 후 학생리스트
-	List<Map<String, Object>> selectStudentList(Map<String, Object> map);
+	//학생리스트
+	public List<Map<String, Object>> selectStudentList(Map<String, Object> map);
 	
 	//학생정보 상세보기
-	Map<String, Object> selectStudentOne (int studentCode);
+	public Map<String, Object> selectStudentOne (int studentCode);
 	
 	//학생 추가하기
-	int insertStudent(Map<String, Object> map);
+	public int insertStudent(Map<String, Object> map);
 	
-	//수정 폼
-	Map<String, Object> updateStudentOne(int studentCode);
-	//수정 액션
-	int updateStudent(Map<String, Object> map);
+	//학생정보 수정
+	public int updateStudent(Map<String, Object> map);
 	
 	//학생정보(member, student) 삭제
-	int deleteStudentMember(String memberId);
+	public int deleteStudentMember(String memberId);
 
 	//코드 생성메서드
-	String selectDateStudentCode(String memberId);
+	public String selectDateStudentCode(String memberId);
 	
 
 }

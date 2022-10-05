@@ -31,17 +31,19 @@ public class StudentController {
 
     ////////////////////////학생
     
-	@GetMapping({"/employee/studentList", "/professor/professorList"})
-	public String studentList(PagingVo vo, Model model, HttpSession session,
+	@GetMapping({"/employee/studentList", "/professor/studentList"})
+	public String studentList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
+			@RequestParam(value = "departmentCode") String departmentCode,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
     	
 		
-		Map<String, Object> map = new HashMap<>();
+		
 		map.put("keyword", keyword); 
 		map.put("searchType", searchType);
+		map.put("departmentCode", departmentCode);
 		int totalCount = studentService.countStudent(map);
 		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
@@ -67,7 +69,7 @@ public class StudentController {
 
 		log.debug(TeamColor.BJH + "학생 전체 리스트");
 		 
-	    return "member/student/studentList"; //뷰 페이지 경로 지정 
+	    return "/member/student/studentList"; //뷰 페이지 경로 지정 
 		
 	}
 	

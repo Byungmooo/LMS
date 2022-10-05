@@ -17,18 +17,6 @@
 	</c:otherwise>
 </c:choose>
 
-  <script>
-	$(document).ready(function(){
-		$('#openedLecNo').change(function() {
-			if($('#openedLecNo').val() == '') {
-				alert('openedLecNo를 선택하세요');
-			} else {
-				$('#assignmentTitle').empty();
-				$('#assignmentTitle').append('<option value="">::: 과제제목 선택 :::</option>')
-			}
-		});
-	});
-	</script>
 	
 	<div class="product-status mg-b-15">
 		<div class="container-xxl flex-grow-1 container-p-y">

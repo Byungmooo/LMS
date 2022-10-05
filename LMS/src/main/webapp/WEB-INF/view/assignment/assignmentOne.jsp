@@ -15,108 +15,121 @@
 	<c:otherwise>	
 	</c:otherwise>
 </c:choose>
-<!-- studentMenu -->
-	<div class="row">
-		<div class="col-sm-9 col-12">
-			<h4 class="fw-bold py-3 mb-4">
-				<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
-			</h4>
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="row">
+			<div class="col-sm-3 col-12"></div>
+			<div class="col-sm-6 col-12 text-center">
+				<h4 class="fw-bold py-3 mb-4">
+					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
+				</h4>
+			</div>
+			<div class="col-sm-3 col-12">
+				<a class="btn btn-secondary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
+					강의리스트
+				</a>
+			</div>
 		</div>
-		<div class="col-sm-3 col-12">
-			<a class="btn btn-secondary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
-				강의리스트
-			</a>
+		<div>
+			<ul class="nav nav-pills flex-column flex-md-row mb-3">
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/openedLectureOne?openedLecNo=${openedLecNo}">
+					<i class="bx bx-user me-1"></i>
+						강의상세
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/lectureNoticeList?openedLecNo=${openedLecNo}">
+					<i class="bx bx-bell me-1"></i> 
+						강의공지사항
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/lectureQuestionList?openedLecNo=${openedLecNo}">
+					<i class="bx bx-link-alt me-1"></i> 
+						질문게시판
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/assignmentList?openedLecNo=${openedLecNo}&studentCode=${memberCode}">
+					<i class="bx bx-link-alt me-1"></i> 
+						과제게시판
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
+					<i class="bx bx-link-alt me-1"></i> 
+						강의출석
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="">
+					<i class="bx bx-link-alt me-1"></i> 
+						강의시험
+					</a>
+				</li>
+			</ul>
 		</div>
-	</div>
-	<div>
-		<ul class="nav nav-pills flex-column flex-md-row mb-3">
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${openedLecNo}">
-				<i class="bx bx-user me-1"></i>
-					강의홈
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureNoticeList?openedLecNo=${openedLecNo}">
-				<i class="bx bx-bell me-1"></i> 
-					강의공지사항
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureQuestionList?openedLecNo=${openedLecNo}">
-				<i class="bx bx-link-alt me-1"></i> 
-					질문게시판
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" href="${pageContext.request.contextPath}/student/assignmentList?openedLecNo=${openedLecNo}">
-				<i class="bx bx-link-alt me-1"></i> 
-					과제게시판
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
-				<i class="bx bx-link-alt me-1"></i> 
-					강의출석
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="">
-				<i class="bx bx-link-alt me-1"></i> 
-					강의시험
-				</a>
-			</li>
-		</ul>
-	</div>
 	<hr class="my-5" />
 	<!-- Main Contents -->
-	
+
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/student/assignmentRegList" method="get">
+			<form action="${pageContext.request.contextPath}/member/assignmentOne" method="get">
+				<input type="hidden" name="assignmentNo" value="${assignmentNo}">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
 						<div class="product-status-wrap drp-lst">
-							<h4>과제 상세보기</h4>
+							<h4>과제 상세보기
+								<c:if test="${memberType eq '교수'}">
+									<td><a
+										href="${pageContext.request.contextPath}/professor/modifyAssignment?assignmentNo=${map.assignmentNo}"
+											class= "btn btn-sm btn-primary">수정
+									</a><a
+										href="${pageContext.request.contextPath}/professor/removeAssignment?assignmentNo=${map.assignmentNo}"
+											class= "btn btn-sm btn-danger">삭제
+									</a></td>
+								</c:if>
+								<c:if test="${memberType eq '학생'}">
+									<td><a href="${pageContext.request.contextPath}/student/addAssignmentReg?openedLecNo=${map.openedLecNo}" 
+									class= "btn btn-sm btn-primary">과제 제출</a></td>
+								</c:if>
+							</h4>
 							<hr>
-							
-							<c:if test="${memberType eq '교수'}">
-								<div class="container-info">
-									<div>
-									<a href="${pageContext.request.contextPath}/professor/assignmentScore?studentLecNo=${assignmentReg.studentLecNo}">
-										학생 과제 제출 체점하기</a>
-									</div>
-								</div>
-							</c:if>
 							<div class="card bady">
 							<div class="asset-inner">
 								<table class="table">
 									<tr>
-										<th>제출해야할 과제번호</th>
-										<td>${assignment.assignmentNo}</td>			
+										<th>과제번호</th>
+										<td>${map.assignmentNo}</td>			
+									</tr>	
+									<tr>
+										<th>수강중인 강의번호</th>
+										<td>${map.openedLecNo}</td>			
 									</tr>						
 									<tr>
 									<th>제목</th>
-										<td>${assignment.assignmentTitle}</td>
+										<td>${map.assignmentTitle}</td>
 									</tr>
 									<tr>
 										<th>내용</th>
-										<td>${assignment.assignmentContent}</td>				
+										<td>${map.assignmentContent}</td>				
 									</tr>
 									<tr>
-										<th>작성일</th>
-										<th>${assignment.createDate}</th>
+										<th>제출기한</th>
+										<th>${map.endDate}</th>
 									</tr>
-									<tr>
-									<c:if test="${memberType eq '학생'}">
-										<div class="container-info">
-											<div>
-												<a href="${pageContext.request.contextPath}/student/addAssignmentReg/assignmentNo=${assignment.assignmentNo}"
-													class= "btn btn-primary">과제 제출</a>
-											</div>
-										</div>
-									</c:if>	
 								</table>
 							</div>
 						</div>
@@ -126,4 +139,5 @@
 			</form>	
 		</div>
 	</div>
+</div>
 <c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 

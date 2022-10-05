@@ -15,7 +15,6 @@
 	</c:otherwise>
 </c:choose>
 
-	
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
 			<form action="${pageContext.request.contextPath}/professor/addAssignment" method="post">
@@ -25,6 +24,7 @@
 							<h4>과제 출제</h4>
 							<hr>
 							<input type="hidden" name="openedLecNo" value="${openedLecNo}">
+							<input type="hidden" name="memberCode" value="${memberCode}">
 							<div class="form-group">
 								<label for="assignmentTitle">assignmentTitle</label>
 								<input name="assignmentTitle" id="assignmentTitle" type="text"
@@ -36,8 +36,7 @@
 							</div>
 							<div class="form-group">
 								<label for="endDate">endDate</label>
-								<input name="endDate" id="endDate" type="date"
-											class="form-control">
+								<input name="endDate" id="endDate" type="date">
 							</div>
 							
 						</div>

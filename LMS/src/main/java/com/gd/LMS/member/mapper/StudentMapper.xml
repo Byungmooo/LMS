@@ -8,19 +8,16 @@
 				<!-- 검색 유형이 있을 때 -->
 				<when test="searchType != ''">
 					<choose>
-						<when test="'code'.equals(searchType)"> AND s.student_code LIKE CONCAT('%', #{keyword},
+						<when test="'code'.equals(searchType)"> AND student_code LIKE CONCAT('%', #{keyword},
 							'%') </when>
-						<when test="'id'.equals(searchType)"> AND m.member_id LIKE CONCAT('%', #{keyword},
-							'%') </when>
-						<when test="'name'.equals(searchType)"> AND m.member_name LIKE CONCAT('%', #{keyword},
+						<when test="'id'.equals(searchType)"> AND member_id LIKE CONCAT('%', #{keyword},
 							'%') </when>
 					</choose>
 				</when>
 				<!-- 전체 검색일 때 때 -->
 				<otherwise> AND ( 
-					s.student_code LIKE CONCAT('%', #{keyword}, '%') OR
-					m.member_id LIKE CONCAT('%', #{keyword}, '%') ) OR
-					m.member_name LIKE CONCAT('%', #{keyword}, '%') ) </otherwise>
+					student_code LIKE CONCAT('%', #{keyword}, '%') OR
+					member_id LIKE CONCAT('%', #{keyword}, '%') ) OR ) </otherwise>
 			</choose>
 		</if>
 	</sql>

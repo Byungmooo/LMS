@@ -15,40 +15,60 @@
 	</c:otherwise>
 </c:choose>
 <!-- Main -->
-
-<div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span> 학생 전체 리스트
-    </h4>
-    <hr class="my-1"/>
-    <!-- RowPerPage Option -->
-		<div class="card text-center">
-			<h5 class="card-header">승인된 학생 리스트</h5>
-			<!-- RowPerPage Option -->
-			<div class="row">
-				<div class="col-sm-9 col-12 text-center"></div>
-				<div class="col-sm-3 col-12 text-center">
-					<select  class="form-select" name="sel" id="rowPerPage">
-						<option value="5"
-							<c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기</option>
-						<option value="10"
-							<c:if test="${paging.rowPerPage == 10}">selected</c:if>>10줄 보기</option>
-						<option value="15"
-							<c:if test="${paging.rowPerPage == 15}">selected</c:if>>15줄 보기</option>
-						<option value="20"
-							<c:if test="${paging.rowPerPage == 20}">selected</c:if>>20줄 보기</option>
-					</select>
-				</div>
+<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="row">
+			<div class="col-sm-3 col-12"></div>
+			<div class="col-sm-6 col-12 text-center">
+				<h4 class="fw-bold py-3 mb-4">
+					<span class="text-muted fw-light">${memberName} ${memberType}님 어서오세요 </span>
+				</h4>
 			</div>
-     <br> 
+		</div>
+    <!-- RowPerPage Option -->
+		<div class="row">
+			<div class="col-sm-10 col-12 text-center"></div>
+			<div class="col-sm-2 col-12 text-center">
+				<select  class="form-select" name="sel" id="rowPerPage">
+					<option value="5"
+						<c:if test="${paging.rowPerPage == 5}">selected</c:if>>5줄 보기</option>
+					<option value="10"
+						<c:if test="${paging.rowPerPage == 10}">selected</c:if>>10줄 보기</option>
+					<option value="15"
+						<c:if test="${paging.rowPerPage == 15}">selected</c:if>>15줄 보기</option>
+					<option value="20"
+						<c:if test="${paging.rowPerPage == 20}">selected</c:if>>20줄 보기</option>
+				</select>
+			</div>
+		</div>
 
-</div>
-    <!-- 학생리스트 -->
-    <div class="card">
-        <div class="table-responsive text-nowrap">
-            <table class="table">
-                <caption class="ms-4"></caption>
-                   <thead>
+
+   <!-- 타입별 학생리스트 -->
+		<div class="card text-center" style="margin-top: 20px;">
+			<ul class="nav nav-pills flex-column flex-md-row mb-3">	
+				<li class="nav-item">
+					<c:choose>
+						<c:when test="${memberType eq '학생'}">
+							<a class="nav-link" href="${pageContext.request.contextPath}/student/studentList?departmentCode=${departmentCode}">
+							<i class="bx bx-user me-1"></i>같은 학부 학생리스트</a>			
+						</c:when>
+						<c:when test="${memberType eq '교수'}">
+							<a class="nav-link" href="${pageContext.request.contextPath}/professor/studentList?departmentCode=${departmentCode}">
+							<i class="bx bx-user me-1"></i>나의 학부 학생리스트</a>			
+						</c:when>
+						<c:when test="${memberType eq '직원'}">
+							<a class="nav-link" href="${pageContext.request.contextPath}/employee/studentList">
+							<i class="bx bx-user me-1"></i>승인된 학생 전체리스트</a>		
+						</c:when>
+						<c:otherwise>	
+						</c:otherwise>
+					</c:choose>					
+				</li>
+			</ul>
+			<div class="table-responsive text-nowrap">
+				<table class="table">
+					<caption class="ms-4"></caption>
+					<thead>
 					<tr>
 						<th>아이디</th>
 						<th>이름</th>
@@ -87,7 +107,6 @@
                             <option value="" selected="selected">전체</option>
                             <option value="id">아이디</option>
                             <option value="code">학번</option>
-                            <option value="name">이름</option>
                         </select>
                     </div>
                     <div class="col-sm-7 col-12 text-center">
