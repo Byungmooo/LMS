@@ -33,22 +33,20 @@
 	</select>
 	
 
-	<insert id ="insertStudent" parameterType="com.gd.LMS.vo.Student">
+	<insert id ="insertStudent" parameterType="map">
 	<selectKey resultType="int" keyProperty="studentCode" order="BEFORE">
 			select MAX(student_code) + 1 from student
 	</selectKey>
 		INSERT INTO 
-			student (
-				member_id,
-				student_code, 
-				department_code,
-				student_year
-			) VALUES ( 
-				#{memberId},
-				RPAD(#{studentCode}, 8 , '0'),
-				#{departmentCode}, 
-				#{studentYear}
-				)
+		student (
+			member_id,
+			student_code, 
+			department_code
+		) VALUES ( 
+			#{memberId},
+			#{memberCode},
+			#{departmentCode}, 
+			)
 
 	</insert>
 	
@@ -115,35 +113,6 @@
 	</select>
 	
 	
-	
-	<!-- 수정 form -->
-	<select id="updateStudentOne" parameterType="int" resultType="map">
-		SELECT 
-		s.member_id memberId,
-		s.student_code studentCode,
-		d.department_code departmentCode,
-		s.student_year studentYear,
-		s.student_state studentState,
-		m.member_name memberName,
-		m.member_gender memberGender,
-		m.member_type memberType,
-		m.member_birth memberBirth,
-		m.member_email memberEmail,
-		m.member_address memberAddress,
-		m.member_contact memberContact,
-		m.active,
-		m.create_date createDate,
-		m.update_date updateDate
-	FROM 
-		student s ,
-		member m ,
-		department d
-	Where 
-		s.member_id = m.member_id AND
-		d.department_code = s.department_code AND
-		s.student_code = #{studentCode}
-	</select>
-	
 	<!--  수정 액션 -->
 	<update id="updateStudent" parameterType="map">
 		UPDATE 
@@ -164,7 +133,14 @@
 			s.student_code = #{studentCode}
 	</update>
 	
-	
+	<select id="selectMaxStudentCode" parameterType="String" resultType="int">
+		SELECT 
+			IFNULL((SUBSTRING(MAX(student_code), 7, 3)+1), 0)
+		FROM 
+			student 
+		WHERE 
+			student_code LIKE CONCAT('%',#{createDate},'%')		
+	</select>
 	
 	<!-- 학생삭제 -->
 	<delete id="deleteStudentMember" parameterType="String">

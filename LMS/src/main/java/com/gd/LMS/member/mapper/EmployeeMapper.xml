@@ -35,22 +35,18 @@
 			employee_code IS NOT NULL
 	</select>
 	
-	<insert id ="insertEmployee" parameterType="com.gd.LMS.vo.Employee">
+	<insert id ="insertEmployee" parameterType="map">
 	<selectKey resultType="int" keyProperty="employeeCode" order="BEFORE">
 			select MAX(employee_code) + 1 from employee
 	</selectKey>
 		INSERT INTO 
 			employee(
 				member_id,
-				employee_code, 
-				authority,
-				employee_state
+				employee_code
 			) VALUES ( 
 				#{memberId},	
-				RPAD(#{employeeCode}, 8 , '0'),
-				#{authority}, 
-				#{employeeState}
-				)
+				#{memberCode}
+			)
 
 	</insert>
 	
@@ -157,7 +153,14 @@
 			e.employee_code = #{employeeCode}
 	</update>
 	
-	
+	<select id="selectMaxEmployeeCode" parameterType="String" resultType="int">
+		SELECT 
+			IFNULL((SUBSTRING(MAX(employee_code), 7, 3)+1), 0)
+		FROM 
+			employee 
+		WHERE 
+			employee_code LIKE CONCAT('%',#{createDate},'%')		
+	</select>
 	
 	<!-- 직원삭제 -->
 	<delete id="deleteEmployeeMember" parameterType="String">

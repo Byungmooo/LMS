@@ -2,9 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.member.mapper.MemberMapper">
 
+	<sql id="tempDepName">
+		<!-- 학부가 키워드가 있을 때 -->
+		<if test="tempDep != ''"> temp_dep, </if>
+	</sql>
+	<sql id="tempDepValue">
+		<!-- 학부가 키워드가 있을 때 -->
+		<if test="tempDep != ''"> #{tempDep}, </if>
+	</sql>
+	<sql id="search">
+		<!-- 서치 키워드가 키워드가 있을 때 -->
+		<if test="searchType != ''">
+			<if test="searchType == '학생'"> AND member_type = '학생' </if>
+			<if test="searchType == '교수'"> AND member_type = '교수' </if>
+			<if test="searchType == '직원'"> AND member_type = '직원' </if>
+		</if>
+	</sql>
+	
 	<!-- 로그인 -->
 	<select id="selectMemberLogin" parameterType="com.gd.LMS.vo.Member" resultType="com.gd.LMS.vo.Member">
-	
 		SELECT 
 			member_id memberId, 
 			member_pw memberPw,
@@ -16,6 +32,15 @@
 		WHERE 
 			member_id = #{memberId} AND 
 			member_pw = #{memberPw}
+	</select>
+	
+	<!-- 전체부서리스트 -->
+	<select id="selectTempDepList" resultType="map">
+		SELECT
+			department_code departmentCode,
+			department_name departmentName
+		FROM
+			department
 	</select>
 	
 	<!-- 회원가입 -->
@@ -30,10 +55,11 @@
 			member_email,
 			member_address,
 			member_contact,
+			<include refid="tempDepName" />
 			create_date
 		) VALUES (
 			#{memberId},
-			#{memberPw},
+			PASSWORD(#{memberPw}),
 			#{memberName},
 			#{memberGender},
 			#{memberType},
@@ -41,6 +67,7 @@
 			#{memberEmail},
 			#{memberAddress},
 			#{memberContact},
+			<include refid="tempDepValue" />
 			NOW()
 		)
 	</insert>
@@ -82,7 +109,7 @@
 			active = 'Y'
 		WHERE 
 			member_id = #{memberId} AND
-			member_pw = #{memberPw} AND
+			member_pw = PASSWORD(#{memberPw}) AND
 			member_name = #{memberName} AND
 			member_birth = #{memberBirth} AND
 			member_gender = #{memberGender} AND
@@ -124,9 +151,40 @@
 		member_id = #{memberId} 
 	</select>
 	
+	<select id="selectDepNameByStudent" parameterType="int" resultType="String">
+		SELECT
+			d.department_name
+		FROM
+			student s,
+			department d
+		WHERE
+			s.department_code = d.department_code AND
+			s.student_code = #{memberCode}
+	</select>
 	
+	<select id="selectDepNameByProfessor" parameterType="int" resultType="String">
+		SELECT
+			d.department_name
+		FROM
+			professor p,
+			department d
+		WHERE
+			p.department_code = d.department_code AND
+			p.professor_code = #{memberCode}	
+	</select>
+	
+	<select id="selectEmpLevelByEmployee" parameterType="int" resultType="String">
+		SELECT
+			authority
+		FROM
+			employee
+		WHERE
+			employee_code = #{memberCode}
+	</select>
+	
+	<!-- ////////////////////////////////////////////////////// -->
 	<!-- 회원가입 교수 승인대기리스트 -->
-	<select id="selectQueueProfessorLsit"  resultType="com.gd.LMS.vo.Member">
+	<select id="selectQueueLsit" resultType="com.gd.LMS.vo.Member" parameterType="String">
 		SELECT
 			member_id memberId,
 			member_name memberName,
@@ -135,52 +193,14 @@
 			member_type memberType,
 			member_email memberEmail,
 			member_address memberAddress,
-			member_contact memberContact
+			member_contact memberContact,
+			temp_dep tempDep		
 		FROM
 			member
 		WHERE
-			active = 'W' AND
-			member_type = '교수'
-		
+			active = 'W'
+			<include refid="search" />
 	</select>
-	
-	<!--회원가입 학생 승인대기리스트 -->
-	<select id="selectQueueStudentLsit" resultType="com.gd.LMS.vo.Member">
-		SELECT
-			member_id memberId,
-			member_name memberName,
-			member_gender memberGender,
-			member_birth memberBirth,
-			member_type memberType,
-			member_email memberEmail,
-			member_address memberAddress,
-			member_contact memberContact
-		FROM
-			member
-		WHERE
-			active = 'W' AND
-			member_type = '학생'
-	</select>
-	
-	<!-- 회원가입 직원 승인대기리스트 -->
-	<select id="selectQueueEmployeeLsit" resultType="com.gd.LMS.vo.Member">
-		SELECT
-			member_id memberId,
-			member_name memberName,
-			member_gender memberGender,
-			member_birth memberBirth,
-			member_type memberType,
-			member_email memberEmail,
-			member_address memberAddress,
-			member_contact memberContact
-		FROM
-			member
-		WHERE
-			active = 'W' AND
-			member_type = '직원'
-	</select>
-	
-	
 	
 	<!-- 회원가입 승인 -->
 	<update id="updateActiveMember" parameterType="String">

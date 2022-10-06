@@ -114,6 +114,19 @@ public class LectureRegController {
 		return "lecture/lectureReg/professorAddLecture";
 	}
 	
+	// Json classroom 리스트
+	@GetMapping("/professor/classroomList")
+	public @ResponseBody List<Map<String, Object>> classroomList(
+			@RequestParam(value="buildingNo") int buildingNo) {
+		log.debug(TeamColor.LCH + "--- classroomList @GetMapping RestController ---");
+		
+		log.debug(TeamColor.LCH + "buildingNo > " + buildingNo);
+		// 호수 리스트리턴 buildingNo를 스크립트로 받아서 실행
+		List<Map<String, Object>> list = lectureRegService.getClassroomList(buildingNo);;
+		
+		return list;
+	}
+	
 	// 강의등록 액션
 	@PostMapping("/professor/professorAddLecture")
 	public String professorAddLecture(Model model, RedirectAttributes redirectAttributes

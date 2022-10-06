@@ -55,7 +55,7 @@
 										<div class="col-sm-4 col12">
 											<select name="buildingNo" id="buildingNo" class="form-select">
 												<option value=""
-													<c:if test="${buildingNo == 0}">selected</c:if>>선택</option>
+													<c:if test="${buildingNo == 0}">selected</c:if>>::건물선택::</option>
 												<c:forEach items="${building}" var="b">
 													<option value="${b.buildingNo}"
 														<c:if test="${buildingNo == b.buildingNo}">selected</c:if>>${b.buildingName}</option>
@@ -66,11 +66,7 @@
 											<span>호실</span>
 										</div>
 										<div class="col-sm-4 col12">
-											<select name="classroomNo" class="form-select">
-												<option value="">선택</option>
-												<c:forEach items="${classroom}" var="c">
-													<option value="${c.classroomNo}">${c.classroomName}</option>	
-												</c:forEach>
+											<select name="classroomNo" id="classroomNo" class="form-select">
 											</select>
 										</div>
 									</div>
@@ -79,19 +75,19 @@
 							<tr>
 								<th>시작일자</th>
 								<td>
-									<input type="date" name="openLectureDate" class="form-control">
+									<input type="date" id="openLectureDate" name="openLectureDate" class="form-control">
 								</td>
 								<th>종강일자</th>
 								<td>
-									<input type="date" name="closeLectureDate" class="form-control">
+									<input type="date" id="closeLectureDate" name="closeLectureDate" class="form-control">
 								</td>
 								<th>강의정원</th>
-								<td><input type="text" name="studentNum" class="form-control"></td>							
+								<td><input type="text" id="studentNum" name="studentNum" class="form-control"></td>							
 							</tr>
 							<tr>
 								<th>요일</th>
 								<td>
-									<select name="lectureYoil" class="form-select">
+									<select name="lectureYoil" id="lectureYoil" class="form-select">
 										<option value="">선택</option>
 										<option value="1">월</option>
 										<option value="2">화</option>
@@ -102,7 +98,8 @@
 								</td>
 								<th>시작시간</th>
 								<td>
-									<select name="lectureStart" class="form-select">
+									<select name="lectureStart" id="lectureStart" class="form-select">
+										<option value="">선택</option>
 										<c:forEach begin="1" end="8" var="i">
 											<option value="${i}">${i}교시 (${i+8}:00 ~ ${i+8}:50)</option>
 										</c:forEach>
@@ -110,7 +107,8 @@
 								</td>
 								<th>종료시간</th>
 								<td>
-									<select name="lectureEnd" class="form-select">
+									<select name="lectureEnd" id="lectureEnd" class="form-select">
+										<option value="">선택</option>
 										<c:forEach begin="2" end="9" var="i">
 											<option value="${i}">${i}교시 (${i+8}:00 ~ ${i+8}:50)</option>
 										</c:forEach>
@@ -119,12 +117,12 @@
 							</tr>
 							<tr>
 								<th>강의계획서</th>
-								<td colspan="5"><textarea name="syllabus" class="form-control" rows="20px"></textarea></td>
+								<td colspan="5"><textarea name="syllabus" id="syllabus" class="form-control" rows="20px"></textarea></td>
 							</tr>
 						</table>
 						<input type="hidden" name=professorCode value="${memberCode}">
 						<input type="hidden" name=lectureCode value="${map.lectureCode}">
-						<button type="submit" id="addBtn" class="btn btn-primary">신청</button>
+						<button type="button" id="addBtn" class="btn btn-primary">신청</button>
 						<a href="${pageContext.request.contextPath}/professor/professorLectureReg?memberCode=${memberCode}" class="btn btn-primary">취소</a>
 					</form>
 				</div>
@@ -139,19 +137,55 @@
 	}
 </script>
 <script>
-	
-	$("#buildingNo").on( "change", function() {
-		const path = "${pageContext.request.contextPath}";
-		const param = {
-		    	lectureCode : "${map.lectureCode}",
-		        buildingNo:$("#buildingNo").val(),
-		    }
-		var url = path +'/professor/professorAddLecture';
-	    url += '?lectureCode=' + param.lectureCode;
-	    url += '&buildingNo='+ param.buildingNo;
-		location.href= url;
-	});
 
+	$('#addBtn').click(function() {
+		if($('#buildingNo').val() == '') {
+			alert('건물을 선택해주세요');
+		} else if($('#classroomNo').val() == '') {
+			alert('호수를 선택해주세요');
+		} else if($('#openLectureDate').val() == '') {
+			alert('시작날짜를 선택해주세요');
+		} else if($('#closeLectureDate').val() == '') {
+			alert('끝나는 날짜를 선택해주세요');
+		} else if($('#studentNum').val() == '') {
+			alert('인원수를 입력해주세요');
+		} else if($('#lectureYoil').val() == '') {
+			alert('강의요일을 선택해주세요');
+		} else if($('#lectureStart').val() == '') {
+			alert('강의시작 시간을 선택해주세요');
+		} else if($('#lectureEnd').val() == '') {
+			alert('강의종료 시간을 선택해주세요');
+		} else if($('#syllabus').val() == '') {
+			alert('강의계획서를 입력해주세요');
+			$("#syllabus").focus();
+		} else {
+			lectureAddForm.submit();
+		}
+	});
+</script>
+<script>
+	
+	$(document).ready(function(){
+		$('#buildingNo').change(function() {
+			if($('#buildingNo').val() == '') {
+				alert('건물을 선택하세요');
+			} else {
+				$('#classroomNo').empty();
+				$('#classroomNo').append('<option value="">::호수 선택::</option>')
+				
+				$.ajax({
+					url : 'classroomList',
+					type : 'get',
+					data : {buildingNo : $('#buildingNo').val()},
+					success : function(json) {
+						$(json).each(function(index, item){
+							$('#classroomNo').append('<option value="'+item.classroomNo+'">'+item.classroomName+'</option>')
+						});
+					}
+				});
+			}
+		});
+	});
 </script>
 <!-- Footer -->
 <c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 

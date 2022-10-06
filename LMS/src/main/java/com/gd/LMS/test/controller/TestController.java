@@ -85,6 +85,24 @@ public class TestController {
 		return "test/testLink";
 	}
 	
+	@GetMapping("/addTestLink")
+	public String addTestLink(@RequestParam(value="clubNo") int clubNo
+			, @RequestParam(value="studentNo") int studentNo) {
+		
+		log.debug(TeamColor.LCH + "no > " + clubNo + "/" + studentNo);
+		
+		return "redirect:/testLink";
+	}
+	
+	@GetMapping("/removeTestLink")
+	public String removeTestLink(@RequestParam(value="clubNo") int clubNo
+			, @RequestParam(value="studentNo") int studentNo) {
+		
+		log.debug(TeamColor.LCH + "no > " + clubNo + "/" + studentNo);
+		
+		return "redirect:/testLink";
+	}
+	
 	@PostMapping("/testPost")
 	public @ResponseBody String testPost(
 			@RequestParam (value = "aNo") String aNo,

@@ -34,5 +34,5 @@ public interface StudentMapper {
 	//코드 생성메서드
 	public String selectDateStudentCode(String memberId);
 	
-
+	int selectMaxStudentCode(String createDate);
 }

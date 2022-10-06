@@ -31,9 +31,9 @@ public class StudentController {
 
     ////////////////////////학생
     
-	@GetMapping({"/employee/studentList", "/professor/studentList"})
+	@GetMapping({"/employee/studentList", "/student/studentList"})
 	public String studentList(PagingVo vo, Model model, HttpSession session, Map<String, Object> map,
-			@RequestParam(value = "departmentCode") String departmentCode,
+			@RequestParam(value = "departmentCode", defaultValue = "") String departmentCode,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,

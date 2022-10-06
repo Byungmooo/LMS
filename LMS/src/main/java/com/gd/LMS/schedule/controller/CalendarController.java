@@ -1,5 +1,7 @@
 package com.gd.LMS.schedule.controller;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
@@ -57,7 +59,19 @@ public class CalendarController {
 		
 		log.debug(TeamColor.LCH + "depSchedule" + depScheduleList);
 		
-		model.addAttribute("scheduleList", depScheduleList);
+		model.addAttribute("scheduleList > ", depScheduleList);
+		
+		// 오늘날짜
+		LocalDate now = LocalDate.now();		
+		int nowYear = now.getYear();        
+		int nowMonth = now.getMonthValue();
+		int nowDay = now.getDayOfMonth();
+		 
+		log.debug(TeamColor.LCH + "now > " + nowYear + "/" + nowMonth + "/" + nowDay);
+
+		model.addAttribute("nowYear", nowYear);
+		model.addAttribute("nowMonth", nowMonth);
+		model.addAttribute("nowDay", nowDay);
 		
 		return "/schedule/calendar";
 	

@@ -35,4 +35,6 @@ public interface ProfessorMapper {
 	//코드 생성메서드
 	String selectDateProfessorCode(String memberId);
 	
+	int selectMaxProfessorCode(String createDate);
+	
 }

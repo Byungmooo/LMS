@@ -33,5 +33,6 @@ public interface EmployeeMapper {
 
 	//코드 생성메서드
 	String selectDateEmployeeCode(String memberId);
-
+	
+	int selectMaxEmployeeCode(String createDate);
 }

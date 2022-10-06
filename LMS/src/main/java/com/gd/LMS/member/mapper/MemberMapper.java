@@ -22,6 +22,9 @@ public interface MemberMapper {
 	// 회원가입 Id 중복체크
 	String selectMemberIdCheck(String checkId);
 	
+	// 전체부서리스트
+	List<Map<String, Object>> selectTempDepList();
+	
 	// 회원 최근 접속일 갱신
 	int updateMemberLastLogin(String memberId);
 	
@@ -30,6 +33,15 @@ public interface MemberMapper {
 	
 	// 회원상태 활성화
 	int updateMemberActiveY(Member paramMember);
+	
+	// 인덱스에 필요한 정보 -------------------------
+	String selectDepNameByStudent(int memberCode);
+	
+	String selectDepNameByProfessor(int memberCode);
+	
+	String selectEmpLevelByEmployee(int memberCode);
+	
+	// ----------------------------------------
 	
 	// 학생코드
 	Student selectStudentCodeById(String memberId);
@@ -41,15 +53,7 @@ public interface MemberMapper {
 	Employee selectEmployeeCodeById(String memberId);
 	
 	// 회원가입 교수 승인대기 리스트
-	List<Member> selectQueueProfessorLsit();
-
-	// 회원가입 학생 승인대기 리스트
-	List<Member> selectQueueStudentLsit();
-	
-	// 회원가입 직원 승인대기 리스트
-	List<Member> selectQueueEmployeeLsit();
-	
-
+	List<Map<String, Object>> selectQueueLsit(String searchType);
 	
 	// 회원가입 승인 (직원만 가능)
 	int updateActiveMember(String memberId);

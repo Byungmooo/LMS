@@ -64,25 +64,32 @@
                             	<div class="col-sm-2 col-12 text-center">
                             		성별
                             	</div>
-                            	<div class="col-sm-3 col-12 text-center">
+                            	<div class="col-sm-2 col-12 text-center">
                             		<select class="form-select" aria-label="Default select example" name="memberGender" id="memberGender">
                             			<option value="" selected="selected">선택</option>
                             			<option value="남">남</option>
                             			<option value="여">여</option>
                             		</select>
                             	</div>
-                            	<div class="col-sm-2 col-12 text-center">
+                            	<div class="col-sm-1 col-12 text-center">
                             		유형
                             	</div>
-                            	<div class="col-sm-3 col-12 text-center">
-                            		<select class="form-select" aria-label="Default select example" name="memberType" id="memberType">
+                            	<div class="col-sm-2 col-12 text-center">
+                            		<select class="form-select" name="memberType" id="memberType">
                             			<option value="" selected="selected">선택</option>
                             			<option value="학생">학생</option>
                             			<option value="교수">교수</option>
                             			<option value="직원">직원</option>
                             		</select>
                             	</div>
-                            	<div class="col-sm-2 col-12 text-center">
+                            	<div class="col-sm-1 col-12 text-center">
+                            		학부
+                            	</div>
+                            	<div class="col-sm-3 col-12 text-center">
+                            		<select name="tempDep" id="tempDep" class="form-select">
+									</select>
+                            	</div>
+                            	<div class="col-sm-1 col-12 text-center">
                             	</div>
                             </div>
                             <div class="row" style="margin-bottom: 20px;">
@@ -308,6 +315,32 @@
 		} else {
 			registerForm.submit();
 		}
+	});
+</script>
+<script>
+	 
+	$(document).ready(function(){
+		$('#memberType').change(function() {
+			if($('#memberType').val() == '') {
+				alert('유형을 선택하세요');
+			} else if($('#memberType').val() == '직원') {
+				$('#tempDep').empty();
+				$('#tempDep').append('<option value="">::LMS관리부서::</option>')
+			} else {
+				$('#tempDep').empty();
+				$('#tempDep').append('<option value="">::학부선택::</option>')
+				
+				$.ajax({
+					url : 'tempDepList',
+					type : 'get',
+					success : function(json) {
+						$(json).each(function(index, item){
+							$('#tempDep').append('<option value="'+item.departmentCode+'">'+item.departmentName+'</option>')
+						});
+					}
+				});
+			}
+		});
 	});
 </script>
 <script>

@@ -36,7 +36,7 @@
 	</select>
 	
 	
-	<insert id ="insertProfessor" parameterType="com.gd.LMS.vo.Professor">
+	<insert id ="insertProfessor" parameterType="map">
 	<selectKey resultType="int" keyProperty="professorCode" order="BEFORE">
 			select MAX(professor_code) + 1 from professor
 	</selectKey>
@@ -44,13 +44,11 @@
 			professor(
 				member_id,
 				professor_code, 
-				department_code,
-				department_leader
+				department_code
 			) VALUES ( 
 				#{memberId},
-				RPAD(#{professorCode}, 9 , '0'),
-				#{departmentCode}, 
-				#{departmentLeader}
+				#{professorCode},
+				#{departmentCode}
 				)
 				
 	</insert>
@@ -167,7 +165,14 @@
 			p.professor_code = #{professorCode}
 	</update>
 	
-	
+	<select id="selectMaxProfessorCode" parameterType="String" resultType="int">
+		SELECT 
+			IFNULL((SUBSTRING(MAX(professor_code), 7, 3)+1), 0)
+		FROM 
+			professor 
+		WHERE 
+			professor_code LIKE CONCAT('%',#{createDate},'%')		
+	</select>
 	
 	<!-- 교수삭제 -->
 	<delete id="deleteProfessorMember" parameterType="String">

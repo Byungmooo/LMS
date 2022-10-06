@@ -65,7 +65,16 @@
 							<td>${p.memberId}</td>
 							<td>${p.professorCode}</td>
 							<td>
-								<a href="${pageContext.request.contextPath}/member/professorOne?professorCode=${p.professorCode}">${p.memberName}</a>
+								<c:if test="${memberType eq '교수'}">
+									<a href="${pageContext.request.contextPath}/professor/professorOne?professorCode=${p.professorCode}">
+									${p.memberName}
+									</a>
+								</c:if>
+								<c:if test="${memberType eq '직원'}">
+									<a href="${pageContext.request.contextPath}/employee/professorOne?professorCode=${p.professorCode}">
+									${p.memberName}
+									</a>
+								</c:if>
 							</td>
 							<td>${p.departmentCode}</td>				
 							<td>${p.departmentLeader}</td>					

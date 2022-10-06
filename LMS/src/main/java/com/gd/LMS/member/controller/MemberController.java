@@ -1,6 +1,6 @@
 package com.gd.LMS.member.controller;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.exam.service.professortExService;
 import com.gd.LMS.member.service.EmployeeService;
 import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.member.service.ProfessorService;
@@ -106,18 +105,30 @@ public class MemberController {
 	
 	// 회원 index화면
 	@GetMapping("/member/index")
-	public String index() {
+	public String index(Model model, HttpSession session) {
 		log.debug(TeamColor.LCH  + "--- index Controller GetMapping ---");
+		
+		int memberCode = (int)session.getAttribute("memberCode");
+		String memberType = (String)session.getAttribute("memberType");
+		String depNameOrLevel = memberService.getDepartmentCodeOrLevel(memberCode, memberType);
+		model.addAttribute("depNameOrLevel", depNameOrLevel);
 		
 		return "index";
 	}
 	
 	// 회원가입 폼
 	@GetMapping("/memberRegister")
-	public String memberRegister() {
+	public String memberRegister(Model model) {
 		log.debug(TeamColor.LCH + "--- memberRegister Controller GetMapping ---");
 		
 		return "member/memberRegister";
+	}
+	
+	@GetMapping("tempDepList")
+	public @ResponseBody List<Map<String, Object>> temDepList() {
+		List<Map<String, Object>> list = memberService.getTempDepList();
+		log.debug(TeamColor.LCH + "list > " + list);
+		return list;
 	}
 	
 	// 회원가입 액션
@@ -210,54 +221,31 @@ public class MemberController {
 	
 	
 	///////////////////////////////////////승인관련
-	
-	
 	// 회원가입 승인 대기리스트 Form
 	@GetMapping("/employee/activeMemberList")
-	public String activeMemberList(Model model, @RequestParam(value="memberId",
-						defaultValue="all") String memberId) {
+	public String activeMemberList(Model model
+			, @RequestParam (value = "searchType", defaultValue = "") String searchType) {
 		
 		// 디버깅
 		log.debug(TeamColor.BJH + "회원가입 승인대기 리스트 컨트롤러 진입==========");
 		
-		Map<String, Object> map = memberService.activeMemberList();
-		model.addAttribute("studentList", map.get("studentList"));
-		model.addAttribute("professorList", map.get("professorList"));
-		model.addAttribute("employeeList", map.get("employeeList"));
-		model.addAttribute("memberId", memberId);
-		
+		List<Map<String, Object>> list = memberService.activeMemberList(searchType);
+		model.addAttribute("memberList", list);
+		model.addAttribute("searchType", searchType);
 		
 		return "member/activeMemberList";
 	}
 	
 	
-	// 회원가입 승인 Form
+	// 회원가입 승인
 	@GetMapping("/employee/modifyActiveMember")
 	public String modifyActiveMember(Member member) {
-		
-
 		String memberType = member.getMemberType();
 		
 		// 디버깅
 		log.debug(TeamColor.BJH + "회원가입 승인 폼 컨트롤러 진입===========" + member);
 		
 		int row = memberService.modifyActiveMemberList(member);
-		
-		if(row != 0) {
-			if(memberType.equals("직원")) {
-				log.debug(TeamColor.BJH + "직원 승인 성공!!>>>" );
-				return "redirect:/employee/employeeList";
-			
-			} else if (memberType.equals("학생")) {
-				log.debug(TeamColor.BJH + "학생 승인 성공!!>>>>");
-				return "redirect:/employee/studentList";
-				
-			} else if (memberType.equals("교수")) {
-				log.debug(TeamColor.BJH + "교수 승인 성공!!>>>>");
-				return "redirect:/employee/professorList";
-			}
-			log.debug(TeamColor.BJH + "if문 마지막");
-		}
 		
 		return "redirect:/employee/activeMemberList?memberId="+member.getMemberId();
 	}

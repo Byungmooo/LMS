@@ -83,7 +83,16 @@
 						<tr>
 							<td>${s.memberId}</td>
 							<td>
-								<a href="${pageContext.request.contextPath}/employee/studentOne?studentCode=${s.studentCode}">${s.memberName}</a>
+								<c:if test="${memberType eq '학생'}">
+									<a href="${pageContext.request.contextPath}/student/studentOne?studentCode=${s.studentCode}">
+									${s.memberName}
+									</a>
+								</c:if>
+								<c:if test="${memberType eq '직원'}">
+									<a href="${pageContext.request.contextPath}/employee/studentOne?studentCode=${s.studentCode}">
+									${s.memberName}
+									</a>
+								</c:if>
 							</td>
 							<td>${s.studentCode}</td>
 							<td>${s.departmentCode}</td>				

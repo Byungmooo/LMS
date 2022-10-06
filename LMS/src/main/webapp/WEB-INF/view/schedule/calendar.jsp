@@ -57,7 +57,15 @@
 										<td style="float: top;" width="10%">
 											<!-- 금일날짜 -->
 											<div>
-												<span style="float: top;">${i - startBlank}</span>
+												<c:choose>
+													<c:when test="${(year==nowYear)&&(month==nowMonth)&&((i - startBlank)==nowDay)}">
+														<span style="float: top;">${i - startBlank}</span>
+														<strong style="color: #f00; float: right;">★TODAY★</strong>
+													</c:when>
+													<c:otherwise>
+														<span style="float: top;">${i - startBlank}</span>
+													</c:otherwise>
+												</c:choose>
 											</div> 
 											
 											<div style="display: flex; flex-direction: column; height: 200px;">
