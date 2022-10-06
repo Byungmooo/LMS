@@ -33,7 +33,7 @@ public interface DepartmentMapper {
 
 		
 	//학부삭제
-	int deleteDepartment(int departmentCode);
+	int deleteDepartment(String departmentCode);
 	
 	// 부서코드 리스트
 	List<Map<String, Object>> selectTotalDepartmentName();

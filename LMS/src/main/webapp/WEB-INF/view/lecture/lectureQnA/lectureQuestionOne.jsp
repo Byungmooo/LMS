@@ -111,7 +111,7 @@
    
    <c:if test="${sessionScope.memberType eq '학생'}">
    
-   		<a href="${pageContext.request.contextPath}/student/updateLectureQuestion/${lectureQuesion.opendLecNo}"
+   		<a href="${pageContext.request.contextPath}/student/updateLectureQuestion/${lectureQuesion.lecQuestionNo}"
 				class="btn btn-primary" >수정</a>
 		
 		<button	class="btn btn-primary" type="button" id="btnDelete">삭제</button>

@@ -59,7 +59,7 @@ public class DepartmentService {
 	}
 	//학부 삭제
 	
-	public int removeDepartMent (int departmentCode) {
+	public int removeDepartMent (String departmentCode) {
 		log.debug(TeamColor.BJH + "학부 삭제 서비스 진입===========");
 		
 		int row = departmentMapper.deleteDepartment(departmentCode);

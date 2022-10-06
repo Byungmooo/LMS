@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.department.mapper.DepartmentMapper">
+	
+	
 	<sql id="searchDep">
 		<!-- 부서별 키워드가 있을 때 -->
 		<if test="searchType != ''"> AND department_code = #{searchType} </if>
@@ -52,7 +54,7 @@
 		
 		WHERE 1=1
 		<include refid="search" />
-			<include refid="searchDep" />
+		<include refid="searchDep" />
 		AND department_code IS NOT NULL
 	ORDER BY
 		department_code

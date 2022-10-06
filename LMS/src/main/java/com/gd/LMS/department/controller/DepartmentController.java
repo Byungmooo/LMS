@@ -137,10 +137,12 @@ public class DepartmentController {
 	
 		redirectAttributes.addAttribute("departmentCode", department.getDepartmentCode());
 		
+		
+		
 		if (count >= 1) {
 			log.debug(TeamColor.BJH + "학부 수정");
 			
-			return "redirect:department/departmentOne";
+			return "redirect:/member/departmentOne";
 		}
 		
 		return "redirect:employee/modifyDepartment";
@@ -148,7 +150,7 @@ public class DepartmentController {
 
 		// 학부 삭제
 		@GetMapping("/employee/removeDepartment")
-		public String removeDepartment(HttpSession session, @RequestParam(value = "departmentCode") int departmentCode, 
+		public String removeDepartment(HttpSession session, @RequestParam(value = "departmentCode") String departmentCode, 
 				RedirectAttributes redirectAttributes) {
 			
 			int count = departmentService.removeDepartMent(departmentCode);

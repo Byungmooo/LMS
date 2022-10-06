@@ -105,7 +105,7 @@ public class LectureQnAController {
 		int count = lectureQnAService.updateQuestion(lectureQuestion);
 		if (count >= 1) {
 			log.debug(TeamColor.KJS + " [김진수] 학부공지 수정");
-			return "redirect:/student/lectureQuestionOne?lecQuestionNo=" + session.getAttribute("lecQuestionNo");
+			return "redirect:/student/lectureQuestionOne?lecQuestionNo=" +session.getAttribute("lecQuestionNo");
 		}
 		return "redirect:/student/updateLectureQuestion";
 	}

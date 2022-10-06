@@ -18,7 +18,7 @@
 <!-- Main -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-	
+		<form name="form" action="${pageContext.request.contextPath}/employee/removeDepartment" method="get">
 	<!-- EmlpoyeeListOne -->
 		<div class="row text-center">
 			<div class="card">
@@ -49,7 +49,7 @@
 			</table>
 			<div>	
 				<c:if test="${sessionScope.memberType eq '직원'}">
-		
+            <input type="hidden" name="departmentCode" value="${d.departmentCode}">  
 					<a href="${pageContext.request.contextPath}/employee/modifyDepartment?departmentCode=${d.departmentCode}"
 						class="btn btn-primary">수정</a>
 			
@@ -64,7 +64,7 @@
 		</div>
 	</div>
 	
-	</div>
+	</div></form>
 </div>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
 

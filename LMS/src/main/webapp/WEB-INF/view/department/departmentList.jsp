@@ -185,6 +185,7 @@
 				</div>	
 			</div>
 		</div>
+</div>
 
 <script>
 	// rowPerPage 갱신
