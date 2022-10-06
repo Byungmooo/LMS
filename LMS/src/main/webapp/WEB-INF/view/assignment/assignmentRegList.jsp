@@ -86,14 +86,13 @@
 							<div class="asset-inner">
 								<table class="table">
 									<tr>
-										<th>assignmentNo</th>
-										<th>openedLecNo</th>
-										<th>assignmentTitle</th>
-										<th>createDate</th>
-										<th>score</th>
-										<th>Setting</th>
+										<th>과제번호</th>
+										<th>수강중인 강의번호</th>
+										<th>제출한 과제제목</th>
+										<th>제출일자</th>
+										<th>내 점수</th>
 									</tr>
-									<c:forEach var="assignmentReg" items="${assignmentRegList}">
+									<c:forEach var="assignmentReg" items="${list}">
 										<tr>
 											<td>${assignmentReg.assignmentNo}</td>
 											<td>${assignmentReg.openedLecNo}</td>
@@ -103,9 +102,6 @@
 											</td>
 											<td>${assignmentReg.createDate}</td>
 											<td>${assignmentReg.assignmentScore}</td>
-											
-											
-											
 										</tr>
 									</c:forEach>
 								</table>

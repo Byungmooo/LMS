@@ -21,7 +21,7 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:3%;">
 						<div class="product-status-wrap drp-lst">
-							<h4>과제 출제</h4>
+							<h4>지금 강의중인 (${openedLecNo})에 대한 과제 출제</h4>
 							<hr>
 							<input type="hidden" name="openedLecNo" value="${openedLecNo}">
 							<input type="hidden" name="memberCode" value="${memberCode}">
@@ -42,7 +42,7 @@
 						</div>
 					</div>
 					<div class="payment-adress">
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-primary">출제</button>
 					</div>
 				</div>
 				<!-- row -->

@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -31,6 +32,7 @@ import com.gd.LMS.assignment.mapper.AssignmentRegImgMapper;
 import com.gd.LMS.assignment.mapper.AssignmentRegMapper;
 
 import com.gd.LMS.commons.TeamColor;
+import com.gd.LMS.lecture.mapper.LectureAttendanceMapper;
 import com.gd.LMS.vo.Assignment;
 import com.gd.LMS.vo.AssignmentReg;
 import com.gd.LMS.vo.AssignmentRegImg;
@@ -43,18 +45,21 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class AssignmentRegService {
 	
-	@Autowired private AssignmentRegMapper assignmentRegMapper;
-	@Autowired private AssignmentRegImgMapper assignmentRegImgMapper;
+	@Autowired AssignmentMapper assignmentMapper;
+	@Autowired AssignmentRegMapper assignmentRegMapper;
+	@Autowired AssignmentRegImgMapper assignmentRegImgMapper;
+	@Autowired LectureAttendanceMapper lectureAttendanceMapper;
 	
 	
 	//내 과제리스트 조회
 	   public List<Map<String, Object>>   getAssignmentRegList(Map<String,Object> map) {
 	      // 디버깅 영역구분
 	      log.debug(TeamColor.BJH + "전체 과제(학생)리스트 서비스 진입========");
+	      List<Map<String, Object>> assignmentRegList = assignmentRegMapper.selectAssignmentRegList(map);
 	      
-	      return assignmentRegMapper.selectAssignmentRegList(map);
+	      return assignmentRegList;
 	   } 
-	   
+	  
 	   
    // 과제 게시글수
 	public int getAssignmentRegCount(Map<String, Object> map) {
@@ -66,11 +71,11 @@ public class AssignmentRegService {
 	    
 	   
 	 //나의 과제 상세보기
-	public AssignmentReg getAssignmentRegOne(Map<String,Object> map) {
+	public Map<String, Object> getAssignmentRegOne(int assignmentNo) {
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + "나의 과제 상세보기 서비스 진입===========" + map);
+		log.debug(TeamColor.BJH + "나의 과제 상세보기 서비스 진입===========" + assignmentNo);
 						
-		 return assignmentRegMapper.selectAssignmentRegOne(map);
+		 return assignmentRegMapper.selectAssignmentRegOne(assignmentNo);
 		 
 	}
 	
@@ -80,9 +85,8 @@ public class AssignmentRegService {
 			, HttpServletRequest request, Map<String, Object> map) {
 		log.debug(TeamColor.BJH + "과제제출 insertAssignmentReg Service 액션진입--->");
 		
-	
-		int row = assignmentRegMapper.insertAssignmentReg(assignmentReg);
 		
+		int row = assignmentRegMapper.insertAssignmentReg(assignmentReg);
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "과제제출 insertAssignmentReg Service--->" + row);
 		
@@ -92,7 +96,7 @@ public class AssignmentRegService {
 					
 					String realPath = request.getSession().getServletContext().getRealPath("/imgFile/file");
 					String originName = "";
-					String contentType  = "";
+					String contentType    = "";
 					int assignmentRegNo = assignmentReg.getAssignmentRegNo();
 					log.debug(TeamColor.BJH + "assignmentRegNo > " + assignmentRegNo);
 					//리스트에 이미지파일 객체 넣기
@@ -206,6 +210,18 @@ public class AssignmentRegService {
 		}
 		return assignmentRegNo;
 	}
+
+	//강의듣는 학생코드
+	public int getStudentLectureNo(int openedLecNo, int memberCode) {
+		
+		Map<String,Object> map = new HashMap<>();
+		map.put("openedLecNo", openedLecNo);
+		map.put("studentCode", memberCode);
+				
+		return lectureAttendanceMapper.selectStudentLectureNo(map);
+	}
+
+
 	
 	
 

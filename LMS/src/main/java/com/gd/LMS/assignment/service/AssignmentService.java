@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class AssignmentService {
-	@Autowired private AssignmentMapper assignmentMapper; //과제
+	@Autowired AssignmentMapper assignmentMapper; //과제
 	
 	
 

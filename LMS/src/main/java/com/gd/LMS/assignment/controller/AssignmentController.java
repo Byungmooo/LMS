@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class AssignmentController {
-	@Autowired private	AssignmentService assignmentService;
+	@Autowired AssignmentService assignmentService;
 
 	// 과제 리스트 조회
 
@@ -70,7 +70,7 @@ public class AssignmentController {
 		model.addAttribute("paging", pagingVo);
 		model.addAttribute("list", list);
 		
-		return "/assignment/assignmentList";
+		return "assignment/assignmentList";
 	}
 	
 	//과제 상세보기
@@ -82,7 +82,7 @@ public class AssignmentController {
 		Map<String, Object> assignmentOne = assignmentService.getAssignmentOne(assignmentNo);
 		model.addAttribute("map", assignmentOne);
 		session.setAttribute("assignmentNo", assignmentNo);
-		return "/assignment/assignmentOne";
+		return "assignment/assignmentOne";
 	}
 	
 	
@@ -93,7 +93,7 @@ public class AssignmentController {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "과제 출제(교수) 컨트롤러(GetMappting) 실행=========");
 
-		return "/assignment/addAssignment";
+		return "assignment/addAssignment";
 	}
 
 	// 과제 출제 액션
@@ -115,7 +115,6 @@ public class AssignmentController {
 	}
 
 	
-	
 	// 출제한 과제 수정하는 메소드
 	@GetMapping("/professor/modifyAssignment")
 	public String modifyAssignment(Model model,
@@ -127,34 +126,27 @@ public class AssignmentController {
 		Map<String,Object> assignmentOne = assignmentService.getAssignmentOne(assignmentNo);
 		// 디버깅
 		log.debug(TeamColor.BJH + assignmentOne + "<-- assignmentOne");
-
+		
 		// 상세보기 내용 담아서 보내기
 		model.addAttribute("map", assignmentOne);
 
-		return "/assignment/modifyAssignment";
+		return "assignment/modifyAssignment";
 	}
 
 	// 출제한 과제 수정 액션
 	@PostMapping("/professor/modifyAssignment")
-	public String modifyAssignment(Assignment assignment, Model model) {
-
+	public String modifyAssignment(Assignment assignment,RedirectAttributes redirectAttributes) {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "과제출제 수정(PostMapping) 컨트롤러 실행=========");
-
-		model.addAttribute("openedLecNo", assignment.getOpenedLecNo());
-
-
-		int result = assignmentService.modifyAssignment(assignment);
-		// 디버깅
-		log.debug(TeamColor.BJH + "result>>>>> " + result);
-		if (result == 0) {
-			// 실패
-			log.debug(TeamColor.BJH + "출제한 과제 수정 실패");
-			//실패했으면 과제 수정 폼으로 보내기
-			return "redirect:/professor/modifyAssignment";
+		
+		int count = assignmentService.modifyAssignment(assignment);
+		redirectAttributes.addAttribute("assignmentNo", assignment.getAssignmentNo());
+		if (count >= 1) {
+			log.debug(TeamColor.BJH + "과제 수정 성공");
+			return "redirect:/professor/assignmentOne";
 		}
-		// 수정에 성공했으면 낸 과제 상세보기 보내기
-		return "redirect:/professor/assignmentOne?openecLecNo=" + assignment.getOpenedLecNo();
+		
+		return "redirect:/professor/modifyAssignment";
 	}
 
 	// 과제 삭제

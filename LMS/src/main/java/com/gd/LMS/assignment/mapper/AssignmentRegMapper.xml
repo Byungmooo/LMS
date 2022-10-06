@@ -45,7 +45,7 @@
 		ON	
 			a.assignment_no = r.assignment_no 
 		WHERE
-			a.opened_lec_no = 1 AND
+			a.opened_lec_no = 1 
 			<include refid="search"/>
 		ORDER BY 
 			r.create_date DESC
@@ -62,14 +62,13 @@
 		ON	
 			a.assignment_no = r.assignment_no 
 		WHERE
-			r.assignment_no = #{assignmentNo}
-			a.opened_lec_no = #{openedLecNo} AND
+			a.opened_lec_no = #{openedLecNo} 
 			<include refid="search" />
 	</select>
 	
 
 	<!-- 제출한 과제 상세보기 -->
-	<select id="selectAssignmentRegOne" parameterType="int" resultType="map">
+	<select id="selectAssignmentRegOne" parameterType="map" resultType="map">
 		SELECT
 			r.assignment_reg_no assignmentRegNo,
 			r.assignment_no assignmentNo,
@@ -84,20 +83,20 @@
 		ON	
 			r.assignment_reg_no = i.assignment_reg_no
 		WHERE
-			r.assignment_no = #{assignmentNo} AND
+			r.assignment_no = #{assignmentNo} 
 			<include refid="search" />
 		<!-- img랑 join -->
 	</select>
-
-
+	
+	
 	<!-- 과제 제출하기 메소드 -->
 	<insert id="insertAssignmentReg" 
 			parameterType="com.gd.LMS.vo.AssignmentReg">
 		<selectKey resultType="int" keyProperty="assignmentRegNo" order="BEFORE">
 			select MAX(assignment_reg_no) + 1 from assignment_reg
 		</selectKey>
-		INSERT INTO assignment_reg(
-						assignment_reg_no,
+		INSERT INTO 
+			assignment_reg(
 						assignment_no,
 						student_lec_no,
 						assignment_reg_title,
@@ -106,7 +105,6 @@
 						create_date							
 						)
 						VALUES (
-						#{assignmentRegNo},
 						#{assignmentNo},
 						#{studentLecNo},
 						#{assignmentRegTitle},
@@ -114,19 +112,32 @@
 						NOW(),
 						NOW()
 					)
-		
 	</insert>
+
+	<!-- 학생강의코드 -->
+	<select id="selectStudentLectureNo" parameterType="map" resultType="int">
+		SELECT
+			student_lec_no studentLecNo
+		FROM
+			student_lecture
+		WHERE
+			student_code = #{studentCode} AND
+			opened_lec_no = #{openedLecNo}
+	</select>
+	
+
+
 
 	<!-- 제출한 과제 수정하기  -->
 	<update id="updateAssignmentReg" parameterType="com.gd.LMS.vo.AssignmentReg">
 		UPDATE 
-			assignment_reg r 
+			assignment_reg 
 		SET 
 			assignment_reg_title = #{assignmentRegTitle},
 			assignment_reg_content = #{assignmentRegContent},
 			update_date= now()
 		WHERE
-			assignment_no = #{assignmentNo}
+			assignment_reg_no = #{assignmentRegNo}
 	</update>
 
 
@@ -135,7 +146,7 @@
 		DELETE FROM
 			assignment_reg
 		WHERE 
-			assignment_no = #{assignmentNo}
+			assignment_reg_no = #{assignmentRegNo}
 	</delete>
 
 

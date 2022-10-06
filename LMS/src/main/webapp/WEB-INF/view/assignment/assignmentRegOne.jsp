@@ -97,36 +97,36 @@
 								<table class="table">
 									<tr>
 										<th>제출한 과제번호</th>
-										<td>${RegOne.assignmentNo}</td>			
+										<td>${map.assignmentNo}</td>			
 									</tr>						
 									<tr>
 									<th>제목</th>
-										<td>${RegOne.assignmentRegTitle}</td>
+										<td>${map.assignmentRegTitle}</td>
 									</tr>
 									<tr>
 										<th>내용</th>
-										<td>${RegOne.assignmentRegContent}</td>				
+										<td>${map.assignmentRegContent}</td>				
 									</tr>
 									<tr>
 										<th>내 점수</th>
-										<th>${RegOne.assignmentScore}</th>
+										<th>${map.assignmentScore}</th>
 									</tr>
 									<tr>
 										<th>작성일</th>
-										<th>${RegOne.createDate}</th>
+										<th>${map.createDate}</th>
 									</tr>
 									<tr>
 										<th>파일이름</th>
-										<th>${RegOne.originName}</th>
+										<th>${map.originName}</th>
 									</tr>
 										<tr>
 										<th>업로드된 파일이름</th>
-										<th>${RegOne.fileName}</th>
+										<th>${map.fileName}</th>
 									</tr>
 									<tr>
 										<th>첨부파일</th>
-										<td> <img src ="${pageContext.request.contextPath}/imgFile/file/${RegOne.fileName}">
-											<a href="${pageContext.request.contextPath}/downloadFile?fileName=${RegOne.fileName}&assignmentRegNo=${RegOne.assignmentRegNo}">${RegOne.originName}</a>
+										<td> <img src ="${pageContext.request.contextPath}/imgFile/file/${map.fileName}">
+											<a href="${pageContext.request.contextPath}/downloadFile?fileName=${map.fileName}&assignmentRegNo=${map.assignmentRegNo}">${map.originName}</a>
 										</td>
 									</tr>
 									

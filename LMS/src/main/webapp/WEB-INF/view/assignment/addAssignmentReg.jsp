@@ -16,47 +16,50 @@
 	<c:otherwise>	
 	</c:otherwise>
 </c:choose>
-
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
 	
-	<div class="product-status mg-b-15">
-		<div class="container-xxl flex-grow-1 container-p-y">
-			<form action="${pageContext.request.contextPath}/student/addAssignmentReg"
-			enctype="multipart/form-data" id="addForm" method="post">
-			
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:3%;">
-						<div class="product-status-wrap drp-lst">
-							<h4>과제 제출</h4>
-							<hr>
-							<div class="form-group">
-								제출해야하는 과제 제목
-								<select name="openedLecNo"> <!-- select + option 은 세트 / 그안에 돌릴것만 넣으면 됨-->
-									<c:forEach var="r" items="${list}">
-										<option value="${r.openedLecNo}">${r.assignmentTitle}</option>
-									 <input type="hidden" name="assignmentNo" id="assignmentNo" value="${r.assignmentNo}">	 
-									</c:forEach>
-								</select>
-							<div class="form-group">
-								<label for="assignmentRegTitle">과제 제목</label>
-								<input name="assignmentRegTitle" type="text" class="form-control">
-							</div>
-							<div class="form-group">
-								<label for="assignmentRegContent">과제 내용</label>
-								<textarea name="assignmentRegContent" class="form-control"></textarea>
-							</div>
-							<div class="form-group">
-								<label for="regFile">첨부파일</label>
-								<input name="regFile" id="regFile" type="file" class="form-control">
-							</div>
-						</div>
+		
+		
+		<hr class="my-5" />
+		
+		<!-- addTotalNotice -->
+		<div class="row text-center">
+			<div class="card">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:3%;">
+					<div class="product-status-wrap drp-lst">
+						<h4>과제 제출</h4>
+						<hr>
 				
-					<div class="payment-adress">
-					<button type="submit" class="btn btn-primary">과제 제출</button>
-					</div>
+						<div class="card-body">
+							<form name="form" action="${pageContext.request.contextPath}/student/addAssignmentReg"
+								enctype="multipart/form-data" method="post">
+									<input type="hidden" name = "studentLecNo" value="${studentLecNo}">
+									<input type="hidden" name = "assignmentNo" value="${assignmentNo}">
+									<input type="hidden" name = "openedLecNo" value="${openedLecNo}">
+								<div class="form-group">
+									<label for="assignmentRegTitle">과제 제목</label>
+									<input name="assignmentRegTitle" id="title" type="text" class="form-control">
+								</div>
+								<div class="form-group">
+									<label for="assignmentRegContent">과제 내용</label>
+									<textarea name="assignmentRegContent" id="content" class="form-control"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="regFile">첨부파일</label>
+									<input name="regFile" id="regFile" type="file" class="form-control">
+								</div>
+						
+								<div style="text-align: center;">
+									<button class="btn btn-primary" type="submit">추가</button>
+		                        	<button class="btn btn-info" type="submit" onclick="window.history.back()">취소</button>
+	                    		</div>
+							</form>
+						</div>
 					</div>
 				</div>
-				<!-- row -->
-			</form>
-			<!-- </form> -->
 			</div>
 		</div>
+	</div>
+	<!-- / Main -->
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>

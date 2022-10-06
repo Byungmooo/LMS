@@ -102,7 +102,7 @@
 									</a></td>
 								</c:if>
 								<c:if test="${memberType eq '학생'}">
-									<td><a href="${pageContext.request.contextPath}/student/addAssignmentReg?openedLecNo=${map.openedLecNo}" 
+									<td><a href="${pageContext.request.contextPath}/student/addAssignmentReg?openedLecNo=${map.openedLecNo}&assignmentNo=${map.assignmentNo}&studentCode=${memberCode}" 
 									class= "btn btn-sm btn-primary">과제 제출</a></td>
 								</c:if>
 							</h4>

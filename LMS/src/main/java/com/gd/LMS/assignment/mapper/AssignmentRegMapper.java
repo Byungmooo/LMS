@@ -25,11 +25,13 @@ public interface AssignmentRegMapper {
 	int selectAssignmentRegCount(Map<String, Object> map);
 	
 	// 상세보기
-	AssignmentReg selectAssignmentRegOne(Map<String, Object> map);
+	Map<String, Object> selectAssignmentRegOne(int assignmentNo);
 	
 	//과제 제출
 	int insertAssignmentReg(AssignmentReg assignmentReg);
-		
+	//학생이 수강중인 강의번호
+	int selectStudentLectureNo(int studentLecNo, int openedLecNo);
+	
 	// 과제 수정 
 	int updateAssignmentReg(AssignmentReg assignmentReg);
 		

@@ -15,47 +15,54 @@
 	</c:otherwise>
 </c:choose>
 
-
-<!-- Main Contents -->
-	
-	<div class="product-status mg-b-15">
-		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/modifyAssignment" method="post">
-			
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="product-status-wrap drp-lst">
-						<hr>
-							<h4>과제 수정 페이지</h4>
-						<hr>	
-							<div class="form-group">
-								<input name="assignmentNo" type="hidden" value="${assignmentNo}">
-								<input name="openedLecNo" type="hidden" value="${openedLecNo}">
-							</div>
-							<div class="form-group">
-								<label for="assignmentTitle">assignmentTitle</label> <input
-									name="assignmentTitle" id="reportTitle" type="text"
-									class="form-control" value="${map.assignmentTitle}">
-							</div>
-							<div class="form-group edit-ta-resize res-mg-t-15">
-								<label for="assignmentContent">assignmentContent</label>
-								<textarea name="assignmentContent" id="assignmentContent">${map.assignmentContent}</textarea>
-							</div>
-							<div class="form-group">
-								<label for="endDate">endDate</label> <input
-									name="endDate" id="endDate" type="date" value="${map.endDate}">
-							</div>
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<h4 class="fw-bold py-3 mb-4">
+			<span class="text-muted fw-light"> ${memberName} / ${memberType}님 반갑습니다.</span>
+		</h4>
+		<hr class="my-5" />
+		
+		<!-- studentLectureOne -->
+		<div class="row text-center">
+			<div class="card">
+				<h5 class="card-header"><strong>과제번호(${map.assingmentNo}) / 수정 Page</strong></h5>
+				<hr class="my-0" />
+				
+				<div class="card-body">
+					<form action="${pageContext.request.contextPath}/professor/modifyAssignment" 
+								method="post" class="form-inline">
+						<table class="table table-bordered">
+							<tr>
+								<th>과제 제목</th>
+								<td colspan="2">
+									<input type="text" name="assignmentTitle" class="form-control" value="${map.assignmentTitle}">
+								</td>
+							</tr>
+							<tr>
+								<th>과제 내용</th>
+								<td colspan="2">
+									<input type="text" name="assignmentContent" class="form-control" value="${map.assignmentContent}">
+								</td>
+							</tr>
+							<tr>
+								<th>제출 기한</th>
+								<td colspan="2">
+									<input type="date" name="endDate" class="form-control" value="${map.endDate}">
+								</td>
+							</tr>
+						</table>
+						<div style="margin-top: 20px;">
+							<input type="hidden" name="assignmentNo" value="${map.assignmentNo}" >
+							<button type="submit" class="btn btn-primary" style="color: #fff;">수정</button>
+							<a href="${pageContext.request.contextPath}/professor/assignmentOne?assignmentNo=${map.assignmentNo}" 
+									class="btn btn-primary" style="color: #fff;">취소</a>
 						</div>
-						<div class="payment-adress">
-							<button type="submit" class="btn btn-primary"
-								style="float: right; margin-top: 3%; margin-right: 3%;"> 과제 수정</button>
-						</div>
-					</div>
-
+					</form>
 				</div>
-			</form>
-			<!-- </form> -->
+			</div>
 		</div>
 	</div>
-<!-- /Main -->
-<%@ include file="/WEB-INF/view/include/footer.jsp" %>
+	<!-- / Main -->
+	
+<!-- Footer -->
+<c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 
