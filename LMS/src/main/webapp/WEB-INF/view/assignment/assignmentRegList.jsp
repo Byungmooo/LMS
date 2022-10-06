@@ -97,7 +97,7 @@
 										<th>제출한 과제제목</th>
 										<th>제출일자</th>
 										<c:if test="${memberType eq '교수'}">
-											<th></th>
+											<th>제출여부</th>
 										</c:if>
 										<c:if test="${memberType eq '학생'}">
 											<th>내 점수</th>
@@ -118,13 +118,7 @@
 											</c:if>
 											
 											<td>${a.createDate}</td>
-											<c:if test="${memberType eq '학생'}">
-												<td>${a.assignmentScore}</td>
-											</c:if>
-											<c:if test="${memberType eq '교수'}">
-												<td><a href="${pageContext.request.contextPath}/professor/addAssignmentScore?assignmentRegNo=${a.assignmentRegNo}&openedLecNo=${openedLecNo}" 
-													class="btn btn-sm btn-primary">점수입력</a></td>
-											</c:if>
+											<td>${a.assignmentDid}</td>
 										</tr>
 									</c:forEach>
 								</table>
