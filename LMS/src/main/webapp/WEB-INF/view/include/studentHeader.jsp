@@ -145,7 +145,7 @@
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">MYPAGE</span></li>
 					<li class="menu-item">
-						<a href="${pageContext.request.contextPath}/student/studentOne?memberCode=${memberCode}" class="menu-link"> 
+						<a href="${pageContext.request.contextPath}/student/studentOne?studentCode=${memberCode}" class="menu-link"> 
 						<i class='menu-icon tf-icons bx bxs-user'></i>
 							내정보
 						</a>

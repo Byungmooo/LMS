@@ -62,7 +62,7 @@
 		
 		WHERE 1=1
 		<include refid="search" />
-		AND department_code IS NOT NULL
+		AND department_code IS NULL
 	ORDER BY
 		notice_no
 	LIMIT

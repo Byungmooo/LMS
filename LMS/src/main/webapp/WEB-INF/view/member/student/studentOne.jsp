@@ -99,16 +99,6 @@
 						<a href="${pageContext.request.contextPath}/employee/studentList" class="btn btn-primary" style="color: #fff;">목록</a>
 					</div>
 				</c:if>
-				<c:if test="${memberType eq '교수'}">
-					<div class="container-info">
-							<a href="${pageContext.request.contextPath}/student/studentList" class="btn btn-primary">목록</a>
-					</div>
-				</c:if>
-				<c:if test="${memberType eq '학생'}">
-					<div class="container-info">
-							<a href="${pageContext.request.contextPath}/student/studentList" class="btn btn-primary">목록</a>
-					</div>
-				</c:if>
 			</div>
 		</div>
 	</div>
