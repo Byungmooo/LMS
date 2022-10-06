@@ -97,12 +97,18 @@ new Chart(document.getElementById("mixed-chart"), {
     data: {
       labels: EY,
       datasets: [{
-          label: "총 입학 인원",
+          label: "남자",
           type: "line",
           borderColor: "#00FF00",
-          data: COUNTS,
+          data: MCOUNTS,
           fill: false
         },  {
+            label: "여자",
+            type: "line",
+            borderColor: "#8B00FF",
+            data: WCOUNTS,
+            fill: false
+          },{
           label: "남자",
           type: "bar",
           backgroundColor: "#0067a3",
