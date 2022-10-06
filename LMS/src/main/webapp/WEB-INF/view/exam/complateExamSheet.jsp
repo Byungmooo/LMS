@@ -134,7 +134,7 @@
 		</div>		
 		<hr>
 		<div class="">
-			<a href="javascript:history.back()" class="btn btn-primary">뒤로가기</a>
+				<a href="${pageContext.request.contextPath}/exam/studentExList" class="btn btn-primary">시험종료</a>
 		</div>
 		
 	</div>
