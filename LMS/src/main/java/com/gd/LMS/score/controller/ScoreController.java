@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gd.LMS.commons.TeamColor;
-import com.gd.LMS.exam.controller.professorExController;
 import com.gd.LMS.score.service.ScoreService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,4 +37,13 @@ public class ScoreController {
 		return "score/studentScoreList";
 	}
 	
+	@PostMapping("/score/studentScoreAction")
+	public String studentScoreAction(Model model, HttpSession session,
+			@RequestParam(value="memberCode") int memberCode,
+			@RequestParam(value="openedLecNo") int openedLecNo) {
+		
+	
+			
+		return "score/studentScoreList";
+	}
 }

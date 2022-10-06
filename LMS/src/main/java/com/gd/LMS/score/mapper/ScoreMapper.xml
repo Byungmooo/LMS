@@ -31,6 +31,64 @@
 			p.member_id = m.member_id AND 
 			student_code = #{studentCode}
 	</select>
+	
+	<!-- 총 출석일  -->
+	<select id="selectAttendanceTotal" parameterType="int" resultType="map">
+	SELECT
+	   COUNT(*) attTotal
+	FROM
+	   attendance a,
+	   student s,
+	   opened_lecture o,
+	   student_lecture l
+	WHERE
+	   a.student_lec_no = l.student_lec_no AND
+	   l.opened_lec_no = o.opened_lec_no AND
+	   s.student_code = l.student_code AND
+	   l.student_code = #{studentCode} AND
+	   l.opened_lec_no = #{openedLecNo}    
+	</select>
+	
+	<!-- 학생 출석일 -->
+	<select id="selectAttendance" parameterType="int" resultType="map">
+	SELECT
+	   COUNT(*) attendance
+	FROM
+	   attendance a,
+	   student s,
+	   opened_lecture o,
+	   student_lecture l
+	WHERE
+	   a.student_lec_no = l.student_lec_no AND
+	   l.opened_lec_no = o.opened_lec_no AND
+	   s.student_code = l.student_code AND
+	   l.student_code = #{studentCode} AND
+	   l.opened_lec_no = #{openedLecNo} 
+	   AND a.attendance_state = '출석';	
+	</select>
+	
+	<!-- 출석점수 등록 -->
+	<update id="updateAttScore" parameterType="map">
+		UPDATE
+			student_lecture
+		SET
+			attendance_score = #{attendanceScore}
+		WHERE
+			student_code = #{studentCode} AND
+			opened_lec_no = #{openedLecNo};
+	</update>
+	
+	<!-- 종강일 -->
+	<select id="selectEndLec">
+	SELECT
+	   attendance_date endLec
+	FROM
+	   attendance a
+	ORDER BY
+	   attendance_date DESC
+	LIMIT
+   	0,1   ;
+	</select>
 
 
 	
