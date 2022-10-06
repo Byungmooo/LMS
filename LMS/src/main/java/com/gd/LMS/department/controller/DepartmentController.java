@@ -32,7 +32,7 @@ public class DepartmentController {
 
 	//학부 리스트 조회
 	@GetMapping("/member/departmentList")
-	public String getDepartMentList (PagingVo vo, Model model, HttpSession session,
+	public String getDepartMentList (PagingVo vo, Model model, HttpSession session,Map<String, Object> map,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
@@ -40,7 +40,7 @@ public class DepartmentController {
 	
 		
 				
-		Map<String, Object> map = new HashMap<>();
+		
 		map.put("keyword", keyword); 
 		map.put("searchType", searchType);
 	
@@ -48,7 +48,7 @@ public class DepartmentController {
 		log.debug(TeamColor.KJS + "departmentList > " + list2);
 		
 		int totalCount = departmentService.countDepartment(map);
-		log.debug(TeamColor.BJH + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
+		log.debug(TeamColor.KJS + "current/rowPer/total : " + currentPage + "/" + rowPerPage + "/" + totalCount);
 
 
         vo = new PagingVo(currentPage, totalCount, rowPerPage, keyword, searchType);
@@ -56,7 +56,7 @@ public class DepartmentController {
         if(vo.getBeginRow() >= totalCount){
             vo = new PagingVo(1, totalCount, rowPerPage, keyword, searchType);
         }
-		log.debug(TeamColor.BJH + "PagingVo : " + vo);
+		log.debug(TeamColor.KJS + "PagingVo : " + vo);
 
 		map.put("beginRow", vo.getBeginRow());
 		map.put("rowPerPage", vo.getRowPerPage());
@@ -65,13 +65,13 @@ public class DepartmentController {
 		log.debug(TeamColor.KJS + "beginRow,rowPerPage > " + map);
 
 		List<Department> list = departmentService.getDepartmentList(map);
-		log.debug(TeamColor.BJH + "list : " + list);
+		log.debug(TeamColor.KJS + "list : " + list);
 
 		model.addAttribute("paging", vo);
 		model.addAttribute("list", list);
 		model.addAttribute("department", list2);
 
-		log.debug(TeamColor.BJH + "학부 전체 리스트");
+		log.debug(TeamColor.KJS + "학부 전체 리스트");
 		return "department/departmentList";
 	}	
 	
