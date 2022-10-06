@@ -45,17 +45,21 @@
 	<select id="selectDepartment" parameterType="map"
 		resultType="com.gd.LMS.vo.Department">
 	SELECT
-		department_code departmentCode,
-		department_name departmentName,
-		create_date createDate,
-		update_date updateDate
+		d.department_code departmentCode,
+		d.department_name departmentName,
+		d.create_date createDate,
+		d.update_date updateDate
 	FROM
-		department 
-		
-		WHERE 1=1
+		department d INNER join student s
+	ON
+		d.department_code = s.department_code
+			
+	WHERE 
+		1=1
 		<include refid="search" />
 		<include refid="searchDep" />
-		AND department_code IS NOT NULL
+		AND s.student_code = #{studentCode}
+		AND d.department_code IS NOT NULL
 	ORDER BY
 		department_code
 	LIMIT
