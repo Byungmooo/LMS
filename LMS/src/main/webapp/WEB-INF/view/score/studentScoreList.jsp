@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!-- Header -->
 <c:choose>
 	<c:when test="${memberType eq '학생'}">
@@ -67,7 +68,12 @@
 									<c:if test="${s.assignmentScore<0}">0</c:if>
 									<c:if test="${s.assignmentScore>=0}">${s.assignmentScore}</c:if>								
 								</td>	
-								<td>총점</td>							
+								<td>
+									<c:set  var="totalScore" value="${(s.examScore*0.4)+(s.attendanceScore*0.3)+(s.assignmentScore*0.3)}" />
+									<c:if test="${totalScore<0}">0</c:if>
+									<c:if test="${totalScore>0}">
+									<fmt:formatNumber value="${totalScore }" pattern=".00"/></c:if>
+								</td>							
 								<td>${s.professorName}</td>
 								<td><span class="badge bg-label-primary me-1">${s.lectureType}</span></td>
 								<td><span class="badge bg-label-secondary me-1">${s.credit}</span></td>
