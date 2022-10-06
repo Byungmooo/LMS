@@ -31,7 +31,7 @@
 			member 
 		WHERE 
 			member_id = #{memberId} AND 
-			member_pw = #{memberPw}
+			member_pw = PASSWORD(#{memberPw})
 	</select>
 	
 	<!-- 전체부서리스트 -->
