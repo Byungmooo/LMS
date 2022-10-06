@@ -126,13 +126,13 @@
 		
 		
 	<!-- 제출한 과제 점수 수정하기 -->
-	<update id="updateAssignmentRegScore" parameterType="map">
+	<update id="insertAssignmentScore" parameterType="com.gd.LMS.vo.AssignmentReg">
 		UPDATE
 			assignment_reg
 		SET 
 			assignment_score = #{assignmentScore}
 		WHERE
-			assignment_no = #{assignmentNo}
+			assignment_reg_no = #{assignmentRegNo}
 	</update>
 	<!-- 제출한 과제 점수 수정하기 -->
 	

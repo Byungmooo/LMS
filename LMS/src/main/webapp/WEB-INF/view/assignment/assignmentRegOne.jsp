@@ -16,15 +16,30 @@
 	</c:when>
 	<c:otherwise>	
 	</c:otherwise>
-</c:choose>
-<!-- studentMenu -->
-	<div class="row">
-		<div class="col-sm-9 col-12">
-			<h4 class="fw-bold py-3 mb-4">
-				<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
-			</h4>
+</c:choose>	
+
+	<!-- Main -->
+	<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="row">
+			<div class="col-sm-3 col-12"></div>
+			<div class="col-sm-6 col-12 text-center">
+				<h4 class="fw-bold py-3 mb-4">
+					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
+				</h4>
+			</div>
+			<c:if test="${memberType eq '학생'}">
+				<div class="col-sm-3 col-12" style="float:right;">
+					<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" 
+						class="btn btn-secondary" style="float: right;">강의리스트</a>
+				</div>
+			</c:if>
+			<c:if test="${memberType eq '교수'}">
+				<div class="col-sm-3 col-12">
+					<a href="${pageContext.request.contextPath}/professor/professorLectureList?memberCode=${memberCode}" 
+						class="btn btn-secondary" style="float: right;">강의리스트</a>
+				</div>
+			</c:if>
 		</div>
-	</div>
 	<div>
 		<ul class="nav nav-pills flex-column flex-md-row mb-3">
 			<li class="nav-item">
@@ -70,27 +85,30 @@
 	
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/student/modifyAssignmentReg" method="post">
-			<input type="hidden" name="assignmentNo" value="${RegOne.assignmentNo}">
-				<div class="row">
+			<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
 						<div class="product-status-wrap drp-lst">
 							<h4>과제 상세보기</h4>							
 							<div class="container-info">
 							<c:if test="${memberType eq '학생'}">
-								<a href="${pageContext.request.contextPath}/student/modifyAssignmentReg?assignmentRegNo=${assignmentReg.assignmentRegNo}" 
+								<a href="${pageContext.request.contextPath}/student/modifyAssignmentReg?openedLecNo=${openedLecNo}&assignmentRegNo=${map.assignmentRegNo}" 
 								class= "btn btn-primary" type="button">과제 수정</a>
 							</c:if>
 							</div>
-							<c:if test="${memberType eq '교수'}">
-								<div class="container-info">
-									<div>
-									<a href="${pageContext.request.contextPath}/professor/assignmentScore?studentLecNo=${assignmentReg.studentLecNo}">
-										학생 과제 제출 체점하기</a>
-									</div>
-								</div>
-							</c:if>
+								<c:if test="${map.assignmentDid eq 'N'}">
+									<c:if test="${memberType eq '교수'}">
+										<div>
+										<form action="${pageContext.request.contextPath}/professor/addAssignmentScore" method="post">
+											<input type="hidden" name="assignmentRegNo" value="${map.assignmentRegNo}">
+											<input type="hidden" name="openedLecNo" value="${openedLecNo}">
+											<input type="hidden" name="studentLecNo" value="${map.studentLecNo}">
+											<input type="text" name="assignmentScore">
+											<button type="submit" class= "btn btn-sm btn-primary">학생 과제 체점하기</button>
+										</form>
+										</div>
+									</c:if>
+								</c:if>
 							<hr>
 							<div class="card bady">
 							<div class="asset-inner">
@@ -108,8 +126,8 @@
 										<td>${map.assignmentRegContent}</td>				
 									</tr>
 									<tr>
-										<th>내 점수</th>
-										<th>${map.assignmentScore}</th>
+										<th>평가여부</th>
+										<th>${map.assignmentDid}</th>
 									</tr>
 									<tr>
 										<th>작성일</th>
@@ -129,7 +147,6 @@
 											<a href="${pageContext.request.contextPath}/downloadFile?fileName=${map.fileName}&assignmentRegNo=${map.assignmentRegNo}">${map.originName}</a>
 										</td>
 									</tr>
-									
 								</table>
 							</div>
 						</div>

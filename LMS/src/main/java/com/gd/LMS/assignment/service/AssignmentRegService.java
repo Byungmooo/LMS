@@ -2,6 +2,8 @@ package com.gd.LMS.assignment.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -71,11 +73,11 @@ public class AssignmentRegService {
 	    
 	   
 	 //나의 과제 상세보기
-	public Map<String, Object> getAssignmentRegOne(int assignmentNo) {
+	public Map<String, Object> getAssignmentRegOne(int assignmentRegNo) {
 		// 파라미터 디버깅
-		log.debug(TeamColor.BJH + "나의 과제 상세보기 서비스 진입===========" + assignmentNo);
+		log.debug(TeamColor.BJH + "나의 과제 상세보기 서비스 진입===========" + assignmentRegNo);
 						
-		 return assignmentRegMapper.selectAssignmentRegOne(assignmentNo);
+		 return assignmentRegMapper.selectAssignmentRegOne(assignmentRegNo);
 		 
 	}
 	
@@ -185,15 +187,14 @@ public class AssignmentRegService {
 	}
 	
 	
-	
-	
-
-	// 제출한 과제 수정 폼
+	// 제출한 과제 수정 
 	public int modifyAssignmentReg(AssignmentReg assignmentReg) {
+			
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "내가 제출한 과제 수정 서비스 진입=========");
 		
 		return assignmentRegMapper.updateAssignmentReg(assignmentReg);
+	
 	} 
 		
 		
@@ -222,6 +223,20 @@ public class AssignmentRegService {
 	}
 
 
+	
+	// 제출한 과제 점수 수정
+	public int modifyAssignmentDid(int assignmentRegNo) {
+		// 디버깅 영역구분
+		log.debug(TeamColor.BJH + "학생제출 과제 제출여부 변경=========");
+		
+		
+		return assignmentRegMapper.updateAssignmentDid(assignmentRegNo);
+	}
+	
+	// 학생수강 과제점수
+	public int addAssignmentScore(Map<String, Object> map) {
+		return assignmentRegMapper.insertAssignmentScore(map);
+	}
 	
 	
 

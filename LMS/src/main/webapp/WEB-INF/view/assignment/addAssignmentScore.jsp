@@ -17,36 +17,26 @@
 
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/professor/addAssignment" method="post">
+			<form action="${pageContext.request.contextPath}/professor/addAssignmentScore" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:3%;">
 						<div class="product-status-wrap drp-lst">
-							<h4>지금 강의중인 (${openedLecNo})에 대한 과제 출제</h4>
+							<h4>${assignmentRegNo}번 과제 점수입력</h4>
 							<hr>
 							<input type="hidden" name="openedLecNo" value="${openedLecNo}">
-							<input type="hidden" name="memberCode" value="${memberCode}">
-								<table class="table">
-									<tr>
-										<th>과제 제목</th>
-										<td>
-											<input type="text" name="assignmentTitle" class="form-control">
-										</td>
-									</tr>
-									<tr>
-										<th>과제 내용</th>
-										<td>
-											<input name="assignmentContent" type="text" class="form-control">
-										</td>
-									</tr>
-									<tr>
-										<th>마감 기한</th>
-										<td><input name="endDate" id="endDate" type="date"></td>
-									</tr>
-								</table>
-							</div>
+							<input type="hidden" name="assignmentRegNo" value="${assignmentRegNo}">
+							<table class="table">
+								<tr>
+									<th>과제 점수 입력</th>
+									<td>
+										<input type="text" name="assignmentScore" class="form-control">
+									</td>
+								</tr>
+							</table>
 						</div>
+					</div>
 					<div class="payment-adress">
-						<button type="submit" class="btn btn-primary">출제</button>
+						<button type="submit" class="btn btn-primary">점수입력</button>
 					</div>
 				</div>
 				<!-- row -->

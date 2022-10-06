@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.gd.LMS.assignment.service.AssignmentRegService;
 import com.gd.LMS.assignment.service.AssignmentService;
 import com.gd.LMS.commons.TeamColor;
 import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.Assignment;
+import com.gd.LMS.vo.AssignmentReg;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class AssignmentController {
 	@Autowired AssignmentService assignmentService;
+	@Autowired AssignmentRegService  assignmentRegService;
 
 	// 과제 리스트 조회
 
@@ -45,7 +48,7 @@ public class AssignmentController {
 		map.put("searchType", searchType);
 		map.put("openedLecNo", openedLecNo);
 		int totalCount = assignmentService.getAssignmentCount(map);
-		log.debug(TeamColor.BJH + " keyword, searchType, openedLecNo > " + totalCount);		
+		log.debug(TeamColor.BJH + " keyword, searchType, openedLecNo >" + totalCount);		
 		
 		
 		// 이전 페이지 시작 글 번호와 현재 변경되는 페이지의 시작 글번호에 대한 일치 시키는거 많은 변경이 필요하므로 그냥 1로 처리함
@@ -92,7 +95,7 @@ public class AssignmentController {
 	public String addAssignment() {
 		// 디버깅 영역구분
 		log.debug(TeamColor.BJH + "과제 출제(교수) 컨트롤러(GetMappting) 실행=========");
-
+		
 		return "assignment/addAssignment";
 	}
 
@@ -167,32 +170,6 @@ public class AssignmentController {
 		redirectAttributes.addAttribute("openedLecNo", session.getAttribute("openedLecNo"));
 		
 		return "redirect:/professor/assignmentList";
-	}
-	
-	
-
-	// 제출한 과제 점수 수정 Form
-	@GetMapping("/professor/modifyAssignmentRegScore")
-	public String modifyAssignmentRegScore(Model model, Map<String,Object> map,
-			@RequestParam("assignmentNo") int assignmentNo) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.BJH + "modifyassignmentRegScore 과제수정 Get Controller");
-		// 파라미터 디버깅
-	
-		List<Map<String,Object>> score = assignmentService.modifyAssignmentRegScore(map);
-		// 디버깅
-		log.debug(TeamColor.BJH + score + "<-- 수정할 내용 담아서 넘기기");
-
-		// 모델단에 reportSubmitOne을 addAttribute해서 폼으로 전달
-		model.addAttribute("score", score);
-
-		return "redirect:/professor/modifyAssignmentRegScore";
-	} 
-	// 제출한 과제 점수 수정 Action
-	@PostMapping("/professor/modifyassignmentRegScore")
-	public String modifyassignmentRegScore() {
-		return null;
-
 	}
 	
 

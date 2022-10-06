@@ -25,19 +25,13 @@
 				</h4>
 			</div>
 			<c:if test="${memberType eq '학생'}">
-				<div class="container">
-					<a href="${pageContext.request.contextPath}/student/assignmentRegList?openedLecNo=${openedLecNo}&studentCode=${memberCode}"
-						class="btn btn-primary">나의	과제 제출 리스트</a>
+				<div class="col-sm-3 col-12" style="float:right;">
 					<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" 
 						class="btn btn-secondary" style="float: right;">강의리스트</a>
 				</div>
 			</c:if>
 			<c:if test="${memberType eq '교수'}">
-				<div class="col-sm-5 col-10 text-center">
-					<a href="${pageContext.request.contextPath}/professor/addAssignment"
-					 	class="btn btn-primary">과제 추가 </a>
-                	<a href="${pageContext.request.contextPath}/professor/assignmentRegList?openedLecNo=${openedLecNo}"
-						class="btn btn-primary">학생 과제 제출 리스트</a>
+				<div class="col-sm-3 col-12">
 					<a href="${pageContext.request.contextPath}/professor/professorLectureList?memberCode=${memberCode}" 
 						class="btn btn-secondary" style="float: right;">강의리스트</a>
 				</div>
@@ -93,6 +87,7 @@
 				</li>
 			</ul>
 		</div>
+		
 		<hr class="my-5" />
 		
 		<!-- 정렬 -->
@@ -114,7 +109,13 @@
 	
 		<!-- assignment -->
 		<div class="card text-center" style="margin-top: 20px;">
-			<h2 class="card-header">과제 리스트</h2>
+			<c:if test="${memberType eq '학생'}">
+				<h3 class="card-header">내가 제출해야 될 과제 리스트</h3>
+			</c:if>
+			<c:if test="${memberType eq '교수'}">
+				<h3 class="card-header">과제 리스트</h3>
+			</c:if>
+			
 			<div class="table-responsive text-nowrap">
 				<table class="table table-bordered">
 					<caption class="ms-4"></caption>
@@ -143,7 +144,7 @@
 								<td>
 									<div>
 										<textarea name="assignmentContent" id="assignmentContent"
-											style="width: 300px; border-color: white;" readonly>
+											style="width: 100%; border-color: white;" readonly>
 											 ${map.assignmentContent}</textarea>
 									</div>	
 								</td>
@@ -176,6 +177,12 @@
                 </div>
                 <div class="col-sm-2 col-12 text-center">
                     <button type="submit" class="btn btn-dark">검색</button>
+                </div>
+                <div class="col-sm-2 col-12 text-center">
+					<c:if test="${memberType eq '교수'}">
+						<a href="${pageContext.request.contextPath}/professor/addAssignment" 
+							class="btn btn-primary">과제 추가</a>
+					</c:if>
                 </div>
             </div>
         </form>

@@ -88,16 +88,16 @@ public class AssignmentRegController {
 		//과제 상세보기
 		@GetMapping({"/professor/assignmentRegOne", "/student/assignmentRegOne"})
 		public String getAssignmentRegOne(Model model,AssignmentReg assignmentReg,
-				@RequestParam(value = "assignmentRegNo") int assignmentRegNo) {
-			
+				@RequestParam(value = "assignmentRegNo") int assignmentRegNo,
+				@RequestParam(value = "openedLecNo") int openedLecNo) {
+					
 		
 		Map<String,Object> assignmentRegOne = assignmentRegService.getAssignmentRegOne(assignmentRegNo);
 		
-		//모델에 담아서 상세보기 리스트에서 꺼내 쓰면 됨
 		model.addAttribute("map", assignmentRegOne);
 		log.debug(TeamColor.BJH + "assignmentRegOne 값 들어갔나?----->" + assignmentRegOne);
 		
-		
+
 		return "assignment/assignmentRegOne";
 		
 		}
@@ -164,15 +164,15 @@ public class AssignmentRegController {
 		@GetMapping("/student/modifyAssignmentReg")
 		public String modifyAssignmentReg(Model model, Map<String,Object> map,
 				@RequestParam(value= "openedLecNo")  int openedLecNo,
-				@RequestParam(value = "assignmentNo") int assignmentNo) {
+				@RequestParam(value = "assignmentRegNo") int assignmentRegNo) {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "과제 수정 컨트롤러(getMapping) 실행=========");
 
 			map.put("openedLecNo",openedLecNo);
-			map.put("assignmentNo",assignmentNo);
+			map.put("assignmentRegNo",assignmentRegNo);
 			
 			// assignmentRegOne 리스트 model값으로 보내기
-			Map<String,Object> assignmentRegOne = assignmentRegService.getAssignmentRegOne(assignmentNo);
+			Map<String,Object> assignmentRegOne = assignmentRegService.getAssignmentRegOne(assignmentRegNo);
 			// 디버깅
 			log.debug(TeamColor.BJH + assignmentRegOne + "<-- assignmentRegOne");
 
@@ -183,8 +183,8 @@ public class AssignmentRegController {
 
 		} 
 		
-		// 제출한 과제 수정 액션
-		@PostMapping("/stduent/modifyAssignment")
+		// 기존에 썼던 제출한 과제 수정 액션
+		@PostMapping("/stduent/modifyAssignmentReg")
 		public String modifyAssignmentReg(AssignmentReg assignmentReg, RedirectAttributes redirectAttributes) {
 
 			// 디버깅 영역구분
@@ -192,12 +192,11 @@ public class AssignmentRegController {
 
 			redirectAttributes.addAttribute("assignmentNo", assignmentReg.getAssignmentNo());
 			
-
-
 			int result = assignmentRegService.modifyAssignmentReg(assignmentReg);
 			// 디버깅
 			log.debug(TeamColor.BJH + "result>>>>> " + result);
 			if (result == 0) {
+				
 				// 실패
 				log.debug(TeamColor.BJH + " 제출한 과제 수정 실패");
 				//실패했으면 과제 수정 폼으로 보내기
@@ -207,35 +206,6 @@ public class AssignmentRegController {
 			return "redirect:/member/assignmentRegOne";
 		}
 		
-		
-		
-		// 제출한 과제 수정action
-		@PostMapping("/student/modifyAssignmentReg")
-		public String modifyAssignmentReg(
-				@RequestParam(value="assignmentNo") int assignmentNo,
-				@RequestParam(value="originName") String originName,
-				@RequestParam(value="fileName") String fileName){
-			// 디버깅 영역구분
-			log.debug(TeamColor.BJH + "modifyAssignmentReg Controller");
-			
-			
-			AssignmentReg reg = new AssignmentReg();
-			reg.setAssignmentRegTitle(reg.getAssignmentRegTitle());
-			reg.setAssignmentRegContent(reg.getAssignmentRegContent());
-			reg.setAssignmentRegNo(reg.getAssignmentRegNo());
-			
-
-			AssignmentRegImg img = new AssignmentRegImg();
-			img.setFileName(img.getFileName());
-			img.setOriginName(img.getOriginName());
-			img.setAssignmentRegNo(img.getAssignmentRegNo());
-			
-			assignmentRegService.modifyAssignmentReg(reg);
-			
-			// assignmentRegList로 이동
-			return "redirect:/member/assignmentRegList";
-		} 
-	
 		
 
 		// 제출한 과제 삭제
@@ -278,6 +248,30 @@ public class AssignmentRegController {
 		
 	}
 		
+		//과제 상세보기
+		@PostMapping("/professor/addAssignmentScore")
+		public String addAssignmentScore(Model model,AssignmentReg assignmentReg,
+				@RequestParam(value = "assignmentRegNo") int assignmentRegNo,
+				@RequestParam(value = "openedLecNo") int openedLecNo,
+				@RequestParam(value = "assignmentScore") int assignmentScore,
+				@RequestParam(value = "studentLecNo") int studentLecNo) {
+		
+		log.debug(TeamColor.BJH + " 값 들어갔나?----->" + assignmentReg + "/" + assignmentScore);
+		
+		// 과제 제출 여부
+		Map<String, Object> map = new HashMap<>();
+		map.put("assignmentRegNo", map);
+		int row = assignmentRegService.modifyAssignmentDid(assignmentRegNo);
+		
+		// 학생수강 과제점수 등록
+		map.put("studentLecNo", studentLecNo);
+		map.put("assignmentScore", assignmentScore);
+		int result = assignmentRegService.addAssignmentScore(map);
+		
+		
+		return "redirect:/professor/assignmentRegOne?assignmentRegNo=" +assignmentRegNo + "&openecLecNo=" + openedLecNo;
+		}
+
 		
 
 }

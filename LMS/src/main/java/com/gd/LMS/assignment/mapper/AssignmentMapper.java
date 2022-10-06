@@ -34,8 +34,6 @@ public interface AssignmentMapper {
 	//과제 삭제
 	int deleteAssignment(int openedLecNo);
 	
-	//학생 과제 점수체점
-	List<Map<String, Object>> updateAssignmentRegScore(Map<String,Object> map);
 	
 
 }

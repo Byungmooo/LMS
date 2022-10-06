@@ -21,6 +21,19 @@
 
 	</insert>
 
+	<update id ="updateRegFile" parameterType="com.gd.LMS.vo.AssignmentRegImg">
+	update 
+		assignment_reg_img 
+	set 
+		file_type = #{fileType},
+		origin_name = #{originName}, 
+		file_name = #{fileName}
+	where 
+		assignment_reg_no = #{assignmentRegNo}
+	
+	</update>
+
+
 	<delete id ="deleteRegFile"  parameterType="int">
 		
 		DELETE FROM 
@@ -30,5 +43,6 @@
 	
 	
 	</delete>
+	
 
 </mapper>

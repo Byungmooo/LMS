@@ -24,11 +24,6 @@
 					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
 				</h4>
 			</div>
-			<div class="col-sm-3 col-12">
-				<a class="btn btn-secondary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
-					강의리스트
-				</a>
-			</div>
 		</div>
 		<div>
 			<ul class="nav nav-pills flex-column flex-md-row mb-3">
@@ -93,17 +88,20 @@
 						<div class="product-status-wrap drp-lst">
 							<h4>과제 상세보기
 								<c:if test="${memberType eq '교수'}">
-									<td><a
-										href="${pageContext.request.contextPath}/professor/modifyAssignment?assignmentNo=${map.assignmentNo}"
+									<td><a href="${pageContext.request.contextPath}/professor/modifyAssignment?assignmentNo=${map.assignmentNo}"
 											class= "btn btn-sm btn-primary">수정
-									</a><a
-										href="${pageContext.request.contextPath}/professor/removeAssignment?assignmentNo=${map.assignmentNo}"
-											class= "btn btn-sm btn-danger">삭제
-									</a></td>
+										</a>
+										<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" 
+											class="btn btn-sm btn-secondary" style="float: right;">	강의리스트</a>
+										<a href="${pageContext.request.contextPath}/professor/assignmentRegList?memberCode=${memberCode}&openedLecNo=${openedLecNo}&assignmentNo=${assignmentNo}" 
+												class="btn btn-sm btn-primary">학생 과제 제출 리스트</a>
+									</td>
 								</c:if>
 								<c:if test="${memberType eq '학생'}">
 									<td><a href="${pageContext.request.contextPath}/student/addAssignmentReg?openedLecNo=${map.openedLecNo}&assignmentNo=${map.assignmentNo}&studentCode=${memberCode}" 
 									class= "btn btn-sm btn-primary">과제 제출</a></td>
+									<td><a href="${pageContext.request.contextPath}/student/assignmentRegList?openedLecNo=${map.openedLecNo}&assignmentNo=${map.assignmentNo}&studentCode=${memberCode}" 
+									class= "btn btn-sm btn-primary">나의 과제리스트</a></td>
 								</c:if>
 							</h4>
 							<hr>

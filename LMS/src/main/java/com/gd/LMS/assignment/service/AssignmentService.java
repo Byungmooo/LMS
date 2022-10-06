@@ -92,22 +92,4 @@ public class AssignmentService {
 	} 
 	
 	
-	
-	
-	
-	// 제출한 과제 점수 수정
-	public List<Map<String,Object>> modifyAssignmentRegScore(Map<String,Object> map) {
-		// 디버깅 영역구분
-		log.debug(TeamColor.BJH + "학생제출 과제 점수 서비스 진입=========");
-		
-		
-
-		List<Map<String,Object>> modifyAssignmentRegScore = assignmentMapper.updateAssignmentRegScore(map);
-		
-		log.debug(TeamColor.BJH + modifyAssignmentRegScore + "<-- 과제 점수 수정 성공");
-
-		return modifyAssignmentRegScore;
-	}
-	
-	
 }

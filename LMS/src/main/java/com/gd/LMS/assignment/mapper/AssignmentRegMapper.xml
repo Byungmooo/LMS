@@ -38,14 +38,15 @@
 			r.assignment_no assignmentNo,
 			r.assignment_reg_title assignmentRegTitle,
 			r.assignment_reg_content assignmentRegContent,
-			r.assignment_score	assignmentScore,
+			r.student_lec_no studentLecNo,
+			r.assignment_did assignmentDid,
 			r.create_date createDate
 		FROM 
 			 assignment_reg r LEFT OUTER JOIN  assignment a 
 		ON	
 			a.assignment_no = r.assignment_no 
 		WHERE
-			a.opened_lec_no = 1 
+			a.opened_lec_no = #{openedLecNo}
 			<include refid="search"/>
 		ORDER BY 
 			r.create_date DESC
@@ -74,7 +75,8 @@
 			r.assignment_no assignmentNo,
 			r.assignment_reg_title assignmentRegTitle,
 			r.assignment_reg_content assignmentRegContent,
-			r.assignment_score	assignmentScore,
+			r.student_lec_no studentLecNo,
+			r.assignment_did	assignmentDid,
 			r.create_date createDate,
 			i.origin_name originName,
 			i.file_name fileName
@@ -83,7 +85,7 @@
 		ON	
 			r.assignment_reg_no = i.assignment_reg_no
 		WHERE
-			r.assignment_no = #{assignmentNo} 
+			r.assignment_reg_no = #{assignmentRegNo} 
 			<include refid="search" />
 		<!-- img랑 join -->
 	</select>
@@ -94,7 +96,7 @@
 			parameterType="com.gd.LMS.vo.AssignmentReg">
 		<selectKey resultType="int" keyProperty="assignmentRegNo" order="BEFORE">
 			select MAX(assignment_reg_no) + 1 from assignment_reg
-		</selectKey>
+		</selectKey> 
 		INSERT INTO 
 			assignment_reg(
 						assignment_no,
@@ -149,6 +151,23 @@
 			assignment_reg_no = #{assignmentRegNo}
 	</delete>
 
+	<update id="updateAssignmentDid" parameterType="int">
+		UPDATE
+			assignment_reg
+		SET
+			assignment_did = 'Y'
+		WHERE
+			assignment_no = #{assignmentRegNo}
+	</update>
 
+	<update id="insertAssignmentScore" parameterType="map">
+		
+		UPDATE
+			student_lecture
+		SET
+			assignment_score = #{assignmentScore}
+		WHERE
+			student_lec_no = #{studentLecNo}	
+	</update>
 
 </mapper>

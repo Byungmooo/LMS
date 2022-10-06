@@ -75,8 +75,10 @@
 	
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<form action="${pageContext.request.contextPath}/student/modifyAssignmentReg" method="post">
-				<input type="hidden" name="assignmentNo" value="${modifyReg.assignmentNo}">			
+			<form action="${pageContext.request.contextPath}/student/modifyAssignmentReg" 
+			      enctype="multipart/form-data" method="post">
+				<input type="hidden" name="assignmentRegNo" value="${map.assignmentRegNo}">		<!-- assignmentNo가 기존히든키 -->	
+				<input type="hidden" name="openedLecNo" value="${map.openedLecNo}">	
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
@@ -89,28 +91,20 @@
 									<tr>
 										<th>제출한 과제번호</th>
 										<td><input type="text" name="assignmentNo" class="form-control"
-											 value="${modifyReg.assignmentNo}" readonly>
+											 value="${map.assignmentNo}" readonly>
 										</td>
 									</tr>
 									<tr>
 										<th>제목</th>
 										<td><input type="text" name="assignmentRegTitle" class="form-control"
-											value="${modifyReg.assignmentRegTitle}">
+											value="${map.assignmentRegTitle}">
 										</td>
 									</tr>
 									<tr>
 										<th>내용</th>
 										<td><input type="text" name="assignmentRegContent" class="form-control"
-											value="${modifyReg.assignmentRegContent}">
+											value="${map.assignmentRegContent}">
 										</td>
-									</tr>
-									<tr>
-										<th>파일이름</th>
-										<th>${modifyReg.originName}
-										<img src ="${pageContext.request.contextPath}/imgFile/file/${modifyReg.fileName}">
-											<a href="${pageContext.request.contextPath}/downloadFile?fileName=${modifyReg.fileName}&assignmentRegNo=${modifyReg.assignmentRegNo}">${modifyReg.originName}</a>
-										<input name="regFile" id="regFile" type="file" class="form-control">
-										</th>
 									</tr>
 									</table>	
 								</div>

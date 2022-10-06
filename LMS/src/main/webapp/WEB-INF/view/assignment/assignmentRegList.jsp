@@ -80,28 +80,51 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
 						<div class="product-status-wrap drp-lst">
-							<h4>내가 제출한 과제목록</h4>
+							<c:if test="${memberType eq '교수'}">
+								<h4>학생이 제출한 과제목록</h4>	
+							</c:if>
+							<c:if test="${memberType eq '학생'}">
+								<h4>내가 제출한 과제목록</h4>
+							</c:if>
 							
 							<div class="card bady">
 							<div class="asset-inner">
 								<table class="table">
 									<tr>
+										<th>제출한 과제번호</th>
 										<th>과제번호</th>
-										<th>수강중인 강의번호</th>
+										<th>강의번호</th>
 										<th>제출한 과제제목</th>
 										<th>제출일자</th>
-										<th>내 점수</th>
+										<c:if test="${memberType eq '교수'}">
+											<th></th>
+										</c:if>
+										<c:if test="${memberType eq '학생'}">
+											<th>내 점수</th>
+										</c:if>
 									</tr>
-									<c:forEach var="assignmentReg" items="${list}">
+									<c:forEach var="a" items="${list}">
 										<tr>
-											<td>${assignmentReg.assignmentNo}</td>
-											<td>${assignmentReg.openedLecNo}</td>
-											<td>
-												<a href="${pageContext.request.contextPath}/student/assignmentRegOne?assignmentRegNo=${assignmentReg.assignmentRegNo}" style="float: bottom;">
-												${assignmentReg.assignmentRegTitle}</a>
-											</td>
-											<td>${assignmentReg.createDate}</td>
-											<td>${assignmentReg.assignmentScore}</td>
+											<td>${a.assignmentRegNo}</td>
+											<td>${a.assignmentNo}</td>
+											<td>${a.openedLecNo}</td>
+											<c:if test="${memberType eq '학생'}">
+												<td><a href="${pageContext.request.contextPath}/student/assignmentRegOne?assignmentRegNo=${a.assignmentRegNo}&openedLecNo=${openedLecNo}" style="float: bottom;">
+												${a.assignmentRegTitle}</a></td>
+											</c:if>
+											<c:if test="${memberType eq '교수'}">
+												<td><a href="${pageContext.request.contextPath}/professor/assignmentRegOne?assignmentRegNo=${a.assignmentRegNo}&openedLecNo=${openedLecNo}" style="float: bottom;">
+												${a.assignmentRegTitle}</a></td>
+											</c:if>
+											
+											<td>${a.createDate}</td>
+											<c:if test="${memberType eq '학생'}">
+												<td>${a.assignmentScore}</td>
+											</c:if>
+											<c:if test="${memberType eq '교수'}">
+												<td><a href="${pageContext.request.contextPath}/professor/addAssignmentScore?assignmentRegNo=${a.assignmentRegNo}&openedLecNo=${openedLecNo}" 
+													class="btn btn-sm btn-primary">점수입력</a></td>
+											</c:if>
 										</tr>
 									</c:forEach>
 								</table>

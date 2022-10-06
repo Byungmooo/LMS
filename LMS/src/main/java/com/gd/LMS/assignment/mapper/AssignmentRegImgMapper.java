@@ -13,6 +13,8 @@ public interface AssignmentRegImgMapper {
 	// 제출한 과제 첨부파일 삭제
 	int deleteRegFile(int assignmentRegNo);
 
+	int updateRegFile(AssignmentRegImg regImgFile);
+
 
 	
 

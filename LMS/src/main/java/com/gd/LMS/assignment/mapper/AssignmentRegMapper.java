@@ -25,7 +25,7 @@ public interface AssignmentRegMapper {
 	int selectAssignmentRegCount(Map<String, Object> map);
 	
 	// 상세보기
-	Map<String, Object> selectAssignmentRegOne(int assignmentNo);
+	Map<String, Object> selectAssignmentRegOne(int assignmentRegNo);
 	
 	//과제 제출
 	int insertAssignmentReg(AssignmentReg assignmentReg);
@@ -43,6 +43,9 @@ public interface AssignmentRegMapper {
 	ResponseEntity<Object> douwnloadFile(String fileName, String realPatth);
 
 
+	//학생 과제 점수체점
+	int updateAssignmentDid(int assignmentRegNo);
 	
-	
+	// 학생과제점수
+	int insertAssignmentScore(Map<String, Object> map);
 }
