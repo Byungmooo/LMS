@@ -185,7 +185,7 @@
 						</ul>
 					</li>
 					<li class="menu-item">
-						<a href="" class="menu-link">
+						<a href="${pageContext.request.contextPath}/score/studentScoreListForm?memberCode=${memberCode}" class="menu-link">
 						<i class='menu-icon tf-icons bx bxs-graduation' ></i> 
 							성적조회
 						</a>

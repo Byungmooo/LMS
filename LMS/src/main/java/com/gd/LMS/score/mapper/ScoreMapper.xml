@@ -1,3 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gd.LMS.score.mapper.ScoreMapper"></mapper>
+<mapper namespace="com.gd.LMS.score.mapper.ScoreMapper">
+
+	<!-- 학생시험점수리스트 -->
+	<select id="selectStudentScoreList" parameterType="int" resultType="map"> 
+		SELECT 
+			o.opened_lec_no openedLecNo, 
+			t.lecture_name lectureName, 
+			m.member_name professorName, 
+			t.lecture_type lectureType, 
+			s.exam_score examScore,
+			s.attendance_score attendanceScore,
+			s.assignment_score assignmentScore,
+			a.exam_name examName,
+			t.credit 
+		FROM 
+			total_lecture t, 
+			student_lecture s,
+			professor p, 
+			member m,
+			opened_lecture o
+		LEFT OUTER JOIN
+			exam_sheet a
+		ON 
+			a.opened_lec_no = o.opened_lec_no
+		WHERE 
+			t.lecture_code = o.lecture_code AND
+			o.opened_lec_no = s.opened_lec_no AND 
+			p.professor_code = o.professor_code AND 
+			p.member_id = m.member_id AND 
+			student_code = #{studentCode}
+	</select>
+
+
+	
+</mapper>
