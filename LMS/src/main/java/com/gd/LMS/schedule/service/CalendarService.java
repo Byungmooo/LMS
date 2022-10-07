@@ -96,8 +96,8 @@ public class CalendarService {
 		return returnMap;
 	}
 	
-	public List<Map<String, Object>> getDepartmentSchedule() {
-		List<Map<String, Object>> list = calendarMapper.selectDepartmentSchedule();
+	public List<Map<String, Object>> getDepartmentSchedule(String departmentCode) {
+		List<Map<String, Object>> list = calendarMapper.selectDepartmentSchedule(departmentCode);
 		
 		return list;
 	}

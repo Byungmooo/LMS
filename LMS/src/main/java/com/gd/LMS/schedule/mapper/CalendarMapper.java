@@ -15,6 +15,6 @@ public interface CalendarMapper {
 	List<CalendarDayList> selectCalendarDayListByMonth(int year, int month);
 	
 	// 학부일정
-	List<Map<String, Object>> selectDepartmentSchedule();
+	List<Map<String, Object>> selectDepartmentSchedule(String departmentCode);
 	
 }

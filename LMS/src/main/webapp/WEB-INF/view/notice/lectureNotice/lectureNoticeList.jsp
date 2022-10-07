@@ -20,7 +20,7 @@
 			<div class="col-sm-3 col-12"></div>
 			<div class="col-sm-6 col-12 text-center">
 				<h4 class="fw-bold py-3 mb-4">
-					<span class="text-muted fw-light">"${memberName}"님</span>${lectureName}
+					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
 				</h4>
 			</div>
 			<div class="col-sm-3 col-12">
@@ -75,13 +75,8 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="${pageContext.request.contextPath}/
-<<<<<<< HEAD
 					<c:if test="${memberType eq '학생'}">exam/studentExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>
 					<c:if test="${memberType eq '교수'}">exam/professorExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>">
-=======
-						<c:if test="${memberType eq '학생'}">exam/studentExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>
-						<c:if test="${memberType eq '교수'}">exam/professorExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>">
->>>>>>> branch 'main' of https://github.com/Byungmooo/LMS.git
 					<i class="bx bx-link-alt me-1"></i> 
 						강의시험
 					</a>

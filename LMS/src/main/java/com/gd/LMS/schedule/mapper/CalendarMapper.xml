@@ -13,7 +13,7 @@
 			date_data 
 	</select>  
 
-	<select id="selectDepartmentSchedule" resultType="map">
+	<select id="selectDepartmentSchedule" parameterType="String" resultType="map">
 		SELECT
 			YEAR(dep_schedule_date) scheduleYear,
 			MONTH(dep_schedule_date) scheduleMonth,
@@ -21,8 +21,6 @@
 			dep_schedule_content depScheduleContent
 		FROM 
 			department_schedule
-		WHERE
-			department_code = 'HT104'
 	</select>
 
 </mapper>
