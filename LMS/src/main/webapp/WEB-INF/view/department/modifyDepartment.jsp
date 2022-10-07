@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			 <div class="card-body">
-		        <form name="form" action="${pageContext.request.contextPath}/member/modifyDepartment" method="post">
+		        <form name="form" action="${pageContext.request.contextPath}/emplyoee/modifyDepartment" method="post">
 					<div class="card bady">
 						<div class="asset-inner">
 							<table class="table">

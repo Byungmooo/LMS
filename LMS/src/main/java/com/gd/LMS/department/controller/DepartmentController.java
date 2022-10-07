@@ -31,7 +31,7 @@ public class DepartmentController {
 	
 
 	//학부 리스트 조회
-	@GetMapping("/member/departmentList")
+	@GetMapping("/emplyoee/departmentList")
 	public String getDepartMentList (PagingVo vo, Model model, HttpSession session,Map<String, Object> map,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
 			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
@@ -77,7 +77,7 @@ public class DepartmentController {
 	
 	
 	//학부 상세보기
-	@GetMapping("/member/departmentOne")
+	@GetMapping("/emplyoee/departmentOne")
 	public String getDepartMentOne (Model model,HttpSession session,
 			@RequestParam(value = "departmentCode")String departmentCode) {
 		log.debug(TeamColor.BJH + "학부 상세보기 컨트롤러 진입=================");
@@ -108,7 +108,7 @@ public class DepartmentController {
 		
 		if(row !=0) {
 			log.debug(TeamColor.BJH + "학부추가 성공!!!!!! 오예!");
-			return 	"redirect:/member/departmentList";
+			return 	"redirect:/emplyoee/departmentList";
 		}
 		return "/department/addDepartment";
 	}
@@ -142,7 +142,7 @@ public class DepartmentController {
 		if (count >= 1) {
 			log.debug(TeamColor.BJH + "학부 수정");
 			
-			return "redirect:/member/departmentOne";
+			return "redirect:/emplyoee/departmentOne";
 		}
 		
 		return "redirect:employee/modifyDepartment";
@@ -158,10 +158,10 @@ public class DepartmentController {
 			
 			if (count >= 1) {
 				log.debug(TeamColor.BJH + "학부 삭제........");
-				return "redirect:/member/departmentList";
+				return "redirect:/emplyoee/departmentList";
 			}
 			
-			return "redirect:/member/departmentOne";
+			return "redirect:/emplyoee/departmentOne";
 		}
 	
 }

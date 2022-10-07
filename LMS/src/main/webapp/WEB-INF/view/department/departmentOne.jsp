@@ -57,7 +57,7 @@
 				<button class="btn btn-primary" type="button" id="btnDelete">삭제</button>
 					
 				</c:if>
-				<a href="${pageContext.request.contextPath}/member/departmentList" class="btn btn-primary">목록</a>
+				<a href="${pageContext.request.contextPath}/emplyoee/departmentList" class="btn btn-primary">목록</a>
 					
 		
 			</div>
@@ -67,9 +67,11 @@
 	</div></form>
 </div>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
-
-
-<script>
+  <script>
+	if("${param.errorMsg}" != '') {
+		alert("${param.errorMsg}");
+	}
+	
     $(document).ready(function () {
 		 $("#btnDelete").click(function () {
             if (confirm("삭제하시겠습니까?")) {
