@@ -17,12 +17,12 @@
 
 
 	<!-- Main -->
-	<div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="fw-bold py-3 mb-4">
-			<span class="text-muted fw-light">${memberName}님 / <strong>학부리스트</strong></span>
-		</h4>
-		
 
+		
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="col-sm-12 col-12 text-center">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span>학과리스트</h4>
    
 
 		<hr class="my-5" />
@@ -34,7 +34,7 @@
 
     <!-- 학부리스트 -->
 		<div class="card text-center">
-        <h5 class="card-header">전체 학부 리스트</h5>
+        <h5 class="card-header">전체 학과 리스트</h5>
         <!-- 검색바 -->
 			<div class="row text-center">			
 			      
@@ -131,7 +131,7 @@
               <div class="col-sm-2 col-12">
 	        <c:if test="${sessionScope.memberType eq '직원'}">
 		       	<form action ="${pageContext.request.contextPath}/employee/addDepartment" method="get">
-		       		<button type="submit" class="btn btn-primary" style="float: right">학부추가하기</button>  
+		       		<button type="submit" class="btn btn-primary" style="float: right">학과추가하기</button>  
 		       		<input type="hidden" name ="departmentCode" value="">
 		       	</form>  
 		  </c:if>
@@ -180,7 +180,7 @@
 				</div>	
 			</div>
 		</div>
-</div>
+</div></div></div>
 
 <script>
 	// rowPerPage 갱신

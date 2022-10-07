@@ -14,11 +14,16 @@
 	<c:otherwise>	
 	</c:otherwise>
 </c:choose>
-
+	
+	</br>
 
 	<div class="product-status mg-b-15">
 		<div class="container-fluid">
-			<h4>학부 추가</h4>
+		
+			<div class="row text-center">	
+	
+			<h4>학과 추가페이지</h4>
+				</br>
 			<form action="${pageContext.request.contextPath}/employee/addDepartment" method="post" class="form-inline">
 						<table class="table table-bordered">
 							<tr>
@@ -36,9 +41,12 @@
 							</tr>
 					</table>
 				<!-- row -->
-				<button type="submit" class="btn btn-primary">학부 추가</button>
+				
+				<button type="submit" class="btn btn-primary">학과 추가하기</button>
+						<button class="btn btn-primary" type="button" id="btnCancel"
+							onclick="window.history.back()">취소</button>
 			</form>
 			<!-- </form> -->
-		</div>
+		</div></div>
 	</div>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
