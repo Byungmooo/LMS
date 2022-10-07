@@ -194,24 +194,7 @@
 					<!-- 그 외 -->
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">etc</span></li>
-					<li class="menu-item">
-						<a href="" class="menu-link menu-toggle"> 
-						<i class='menu-icon tf-icons bx bx-building-house' ></i>
-							학부
-						</a>
-						<ul class="menu-sub">
-							<li class="menu-item">
-								<a href="${pageContext.request.contextPath}/member/departmentList" class="menu-link">
-									학부정보
-								</a>
-							</li>
-							<li class="menu-item">
-								<a href="" class="menu-link">
-									학부교수
-								</a>
-							</li>
-						</ul>
-					</li>
+	
 					<li class="menu-item">
 						<a href="statics/studentYearChart" class="menu-link"> 
 						<i class='menu-icon tf-icons bx bx-line-chart'></i>

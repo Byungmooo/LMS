@@ -67,9 +67,11 @@
 	</div></form>
 </div>
 <%@ include file="/WEB-INF/view/include/footer.jsp"%>
-
-
-<script>
+  <script>
+	if("${param.errorMsg}" != '') {
+		alert("${param.errorMsg}");
+	}
+	
     $(document).ready(function () {
 		 $("#btnDelete").click(function () {
             if (confirm("삭제하시겠습니까?")) {

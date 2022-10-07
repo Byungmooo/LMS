@@ -40,7 +40,7 @@
 			      
 				<div class="col-sm-6 col-12 text-center"></div>
 			<c:if test="${sessionScope.memberType eq '직원'}">
-				<div class="col-sm-1 col-12 text-center">부서별</div>
+				<div class="col-sm-1 col-12 text-center">학과별</div>
 				<div class="col-sm-2 col-12 text-center">
 
 					<select name="dep" id="searchType" class="form-select">
@@ -55,12 +55,7 @@
 				
 
 			</c:if>
-			<c:if test="${sessionScope.memberType eq '학생'}">
-							<div class="col-sm-3 col-8 text-center"></div>	
-				</c:if>	
-			<c:if test="${sessionScope.memberType eq '교수'}">
-							<div class="col-sm-3 col-8 text-center"></div>	
-				</c:if>					
+				
 				<div class="col-sm-1 col-12 text-center">정렬기준</div>
 				<div class="col-sm-2 col-12 text-center">
 					<select class="form-select" name="sel" id="rowPerPage">
