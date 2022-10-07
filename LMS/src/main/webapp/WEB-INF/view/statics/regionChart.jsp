@@ -29,20 +29,20 @@
 		<div>
 			<ul class="nav nav-pills flex-column flex-md-row mb-3">
 				<li class="nav-item" >
-					<a class="nav-link" href="${pageContext.request.contextPath}/member/statics/studentYearChart">
+					<a class="nav-link" href="${pageContext.request.contextPath}/member/studentYearChart">
 					<i class="bx bx-user me-1"></i>
 						학년별 통계
 					</a>
 					
 				</li>
 				<li class="nav-item" >
-					<a class="nav-link active" href="${pageContext.request.contextPath}/member/statics/regionChart">
+					<a class="nav-link active" href="${pageContext.request.contextPath}/member/regionChart">
 					<i class="bx bx-bell me-1"></i> 
 						지역별 통계
 					</a>
 				</li>
 				<li class="nav-item" >
-					<a class="nav-link" href="${pageContext.request.contextPath}/member/statics/departmentChart">
+					<a class="nav-link" href="${pageContext.request.contextPath}/member/departmentChart">
 					<i class="bx bx-link-alt me-1"></i> 
 						부서별 통계
 					</a>
