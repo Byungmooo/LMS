@@ -84,12 +84,12 @@
 
 						<tr>
 							<th>게시판 제목</th>
-							<td><input name="noticeTitle" id="title" size="110" value=""
+							<td colspan="2"><input type="text" class="form-control" name="noticeTitle" id="title" size="110" value=""
 								placeholder="제목을 입력해주세요"></td>
 						</tr>
 						<tr>
 							<th>게시판 내용</th>
-							<td ><textarea name="noticeContent" id="content" rows="10"
+							<td colspan="2"><textarea  class="form-control" name="noticeContent" id="content" rows="10"
 									cols="110" style="" placeholder="내용을 입력해주세요"></textarea></td>
 						</tr>
 

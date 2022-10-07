@@ -130,14 +130,12 @@
 							</tr>
 							<tr>
 								<th>제목</th>
-								<td colspan="5">
-									<input type="text" name="noticeTitle" id="noticeTitle" class="form-control">
+								<td colspan="2"><input type="text" class="form-control"  name="noticeTitle" id="noticeTitle" class="form-control">
 								</td>
 							</tr>
 							<tr>
 								<th>공지내용</th>
-								<td colspan="5">
-									<textarea name="noticeContent" id="noticeContent" class="form-control" rows="20px"></textarea>
+								<td colspan="2"><textarea  class="form-control" name="noticeContent" id="noticeContent" class="form-control" rows="20px"></textarea>
 								</td>
 							</tr>
 						</table>
