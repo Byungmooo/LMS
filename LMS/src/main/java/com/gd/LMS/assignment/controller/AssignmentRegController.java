@@ -212,28 +212,28 @@ public class AssignmentRegController {
 
 		// 제출한 과제 삭제
 		@GetMapping("/student/removeAssignmentReg")
-		public String removeAssignmentReg(HttpSession session, RedirectAttributes redirectAttributes) {
+		public String removeAssignmentReg(HttpSession session, 
+				RedirectAttributes redirectAttributes,
+				@RequestParam(value="openedLecNo") int openedLecNo,
+				@RequestParam(value = "assignmentRegNo") int assignmentRegNo) {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "과제 삭제 Controller 실행=============");
-			
-			int assignmentRegNo = (int) session.getAttribute("assignmentRegNo");
 			
 			List<String> checkFk = assignmentRegService.getCheckAssignmentReg(assignmentRegNo);
 			log.debug(TeamColor.BJH + "checkFk 0? > " + checkFk.size());
 			 
-			 if(checkFk.size() != 0) {
+			 if(checkFk.size() != 0 ) {
 		         log.debug(TeamColor.BJH + "삭제실패 FK 존재");
 		         redirectAttributes.addAttribute("assignmentRegNo", assignmentRegNo); 
-		         redirectAttributes.addAttribute("errorMsg", "등록된 과제는 수정 할 수 없습니다.");
-		         return "redirect:/student/assignmentRegOne";
+		         redirectAttributes.addAttribute("errorMsg", "등록된 과제는 삭제 할 수 없습니다.");
+		         return "redirect:/student/assignmentRegOne?openedLecNo=" + openedLecNo +"&assignmentRegNo=" + assignmentRegNo;
 		      }
 		      
-		      int count = assignmentRegService.removeAssignmentReg(assignmentRegNo);
-		      if (count >= 1) {
+			 if(checkFk.size() != 0 ) {
 		         log.debug(TeamColor.BJH + "제출한 과제 삭제");
-		         return "redirect:/student/assignmentRegList?openedLecNo=" + assignmentRegNo;
+		         return "redirect:/student/assignmentRegList?openedLecNo=" + openedLecNo +"&assignmentRegNo=" + assignmentRegNo;
 		      }
-		      return "redirect:/student/assignmentRegList?openedLecNo=" + assignmentRegNo;
+		      return "redirect:/student/assignmentRegList?openedLecNo=" + openedLecNo + "&assignmentRegNo=" + assignmentRegNo;
 		   }
 		
 		
