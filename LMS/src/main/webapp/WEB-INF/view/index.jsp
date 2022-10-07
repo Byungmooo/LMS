@@ -80,7 +80,7 @@
 							<div class="card-header d-flex align-items-center justify-content-between">
 								<h5 class="card-title m-0 me-2">최근공지사항</h5>
 							</div>
-						</c:if>
+						</c:if> 
 						<div class="card-body">
 							<ul class="p-0 m-0">
 								<c:forEach var="s" items="${studentList}">
