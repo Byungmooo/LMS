@@ -71,10 +71,16 @@
 				<!-- 강의 -->
 				<div class="col-md-6 col-lg-4 order-1 mb-4">
 					<div class="card h-100">
-						<div
-							class="card-header d-flex align-items-center justify-content-between">
-							<h5 class="card-title m-0 me-2">내 강의</h5>
-						</div>
+						<c:if test="${(memberType eq '학생')||(memberType eq '교수')}">
+							<div class="card-header d-flex align-items-center justify-content-between">
+								<h5 class="card-title m-0 me-2">내 강의</h5>
+							</div>
+						</c:if>
+						<c:if test="${(memberType eq '직원')}">
+							<div class="card-header d-flex align-items-center justify-content-between">
+								<h5 class="card-title m-0 me-2">최근공지사항</h5>
+							</div>
+						</c:if>
 						<div class="card-body">
 							<ul class="p-0 m-0">
 								<c:forEach var="s" items="${studentList}">
@@ -90,6 +96,41 @@
 										</div>
 										<div class="user-progress d-flex align-items-center gap-1">
 											<a href="${pageContext.request.contextPath}/student/openedLectureOne?openedLecNo=${s.openedLecNo}" class="btn btn-primary">바로가기</a>
+										</div>
+									</div>
+								</li>
+								</c:forEach>
+								<c:if test="${memberType eq '직원'}">
+									<li class="d-flex mb-4 pb-1">
+										<table class="table table-boarderd">
+											<tr>
+												<th width="20%" style="background-color: #999999; color: #fff;">번호</th>
+												<th width="50%" style="background-color: #999999; color: #fff;">제목</th>
+												<th width="30%" style="background-color: #999999; color: #fff;">작성자</th>
+											</tr>
+											<c:forEach var="e" items="${noticeList}">
+												<tr>
+													<td>${e.noticeNo}</td>
+													<td>${e.noticeTitle}</td>
+													<td>${e.writer}</td>
+												</tr>
+											</c:forEach>
+										</table>
+									</li>
+								</c:if>
+								<c:forEach var="p" items="${professorList}">
+									<li class="d-flex mb-4 pb-1">
+									<div class="avatar flex-shrink-0 me-3">
+										<img src="../assets/img/icons/unicons/wallet.png" alt="User"
+											class="rounded" />
+									</div>
+									<div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+										<div class="me-2">
+											<h6 class="mb-0">${p.lectureName}</h6>
+											<small class="text-muted d-block mb-1">${p.currentStudentNum}명</small>
+										</div>
+										<div class="user-progress d-flex align-items-center gap-1">
+											<a href="${pageContext.request.contextPath}/professor/openedLectureOne?openedLecNo=${p.openedLecNo}" class="btn btn-primary">바로가기</a>
 										</div>
 									</div>
 								</li>
