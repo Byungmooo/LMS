@@ -84,7 +84,7 @@
 					<div class="card h-100">
 						<div class="card-header d-flex align-items-center justify-content-between pb-0">
 							<div class="card-title mb-0">
-								<h5 class="m-0 me-2">날씨?</h5>
+								오늘의 날씨
 								<small class="text-muted">----</small>
 							</div>
 						</div>
