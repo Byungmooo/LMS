@@ -16,9 +16,10 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <div class="col-sm-12 col-12 text-center">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">"${sessionScope.memberName}님 "</span>전체게시판
+        <span class="text-muted fw-light">${memberName}
+					${memberType}님 어서오세요 </span>
     </h4></div>
-		<hr class="my-5" />
+		<hr class="my-3" />
 		
 		<div class="card text-center">
         <h5 class="card-header">전체게시판</h5>
