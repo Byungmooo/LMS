@@ -111,12 +111,12 @@
 
 						<tr>
 							<th>제목</th>
-							<td  colspan="2"><input name="noticeTitle" id="title" size="110" value="${question.noticeTitle}" readonly="readonly"
+							<td colspan="2"><input type="text" class="form-control" name="noticeTitle" id="title" size="110" value="${question.noticeTitle}" readonly="readonly"
 								></td>
 						</tr>
 						<tr>
 							<th>답변내용</th>
-							<td><textarea name="answerContent" id="content" rows="10"
+							<td colspan="2"><textarea class="form-control" name="answerContent" id="content" rows="10"
 									cols="110" style="" placeholder="내용을 입력해주세요"></textarea></td>
 						</tr>
 
