@@ -17,12 +17,12 @@
 
 
 	<!-- Main -->
-	<div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="fw-bold py-3 mb-4">
-			<span class="text-muted fw-light">${memberName}님 / <strong>학부리스트</strong></span>
-		</h4>
-		
 
+		
+<div class="container-xxl flex-grow-1 container-p-y">
+  <div class="col-sm-12 col-12 text-center">
+    <h4 class="fw-bold py-3 mb-4">
+        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span>학부리스트</h4>
    
 
 		<hr class="my-5" />
@@ -34,13 +34,13 @@
 
     <!-- 학부리스트 -->
 		<div class="card text-center">
-        <h5 class="card-header">전체 학부 리스트</h5>
+        <h5 class="card-header">전체 학과 리스트</h5>
         <!-- 검색바 -->
 			<div class="row text-center">			
 			      
 				<div class="col-sm-6 col-12 text-center"></div>
 			<c:if test="${sessionScope.memberType eq '직원'}">
-				<div class="col-sm-1 col-12 text-center">학과별</div>
+				<div class="col-sm-1 col-12 text-center">학부별</div>
 				<div class="col-sm-2 col-12 text-center">
 
 					<select name="dep" id="searchType" class="form-select">
@@ -81,9 +81,9 @@
                 <caption class="ms-4"></caption>
                    <thead>
 					<tr>
-						<th>학과 코드</th>
-						<th>학과 이름</th>
-						<th>학과 생성일</th>
+						<th>학부 코드</th>
+						<th>학부 이름</th>
+						<th>학부 생성일</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -113,8 +113,8 @@
                     <div class="col-sm-3 col-12 text-center">
                         <select name="searchType" class="form-select">
                             <option value="" selected="selected">전체</option>
-                            <option value="code">학과코드</option>
-                            <option value="name">학과이름</option>
+                            <option value="code">학부코드</option>
+                            <option value="name">학부이름</option>
                         </select>
                     </div>
                     <div class="col-sm-7 col-12 text-center">
@@ -180,7 +180,7 @@
 				</div>	
 			</div>
 		</div>
-</div>
+</div></div></div>
 
 <script>
 	// rowPerPage 갱신
