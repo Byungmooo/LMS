@@ -21,7 +21,8 @@
 	<div class="row">
 		<div class="col-sm-9 col-12">
 			<h4 class="fw-bold py-3 mb-4">
-				<span class="text-muted fw-light">"${memberName}"님</span>
+				<span class="text-muted fw-light">${memberName}
+					${memberType}님 어서오세요 </span>
 			</h4>
 		</div>
 	

@@ -77,7 +77,7 @@
 												<div style="flex-grow: 1; width1: 50%;">
 													<c:forEach items="${scheduleList}" var="s">
 														<c:if test="${s.scheduleYear==year&&s.scheduleMonth==month&&s.scheduleDay==(i-startBlank)}">
-																<span style="font-size: x-small;">-${s.depScheduleContent}</span>
+																<span style="font-size: small; color: blue;">-${s.depScheduleContent}</span>
 																<br>
 														</c:if>
 													</c:forEach>
@@ -92,7 +92,7 @@
 														<c:if test="${((l.openYear <= year)&&(l.closeYear >= year))&&
 															((l.openMonth < month)&&(l.closeMonth > month))}">
 															<c:if test="${i%7==(l.lectureYoil+1)}">
-																<span style="font-size: x-small;">
+																<span style="font-size: small;">
 																	<a href="${pageContext.request.contextPath}/
 																		<c:if test="${memberType eq '학생'}">student</c:if>
 																		<c:if test="${memberType eq '교수'}">professor</c:if>/openedLectureOne?openedLecNo=${l.openedLecNo}">
@@ -104,7 +104,7 @@
 														<c:if test="${((l.openYear <= year)&&(l.closeYear >= year))&&
 															(l.openMonth == month)&&(l.openDay<=(i - startBlank))}">
 															<c:if test="${i%7==(l.lectureYoil+1)}">
-																<span style="font-size: x-small;">
+																<span style="font-size: small;">
 																	<a href="${pageContext.request.contextPath}/
 																		<c:if test="${memberType eq '학생'}">student</c:if>
 																		<c:if test="${memberType eq '교수'}">professor</c:if>/openedLectureOne?openedLecNo=${l.openedLecNo}">
@@ -116,7 +116,7 @@
 														<c:if test="${((l.openYear <= year)&&(l.closeYear >= year))&&
 															(l.closeMonth == month)&&(l.closeDay>=(i - startBlank))}">
 															<c:if test="${i%7==(l.lectureYoil+1)}">
-																<span style="font-size: x-small;">
+																<span style="font-size: small;">
 																	<a href="${pageContext.request.contextPath}/
 																		<c:if test="${memberType eq '학생'}">student</c:if>
 																		<c:if test="${memberType eq '교수'}">professor</c:if>/openedLectureOne?openedLecNo=${l.openedLecNo}">

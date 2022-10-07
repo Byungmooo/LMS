@@ -64,11 +64,18 @@
 									value="${m.multipleAnswer}번" 
 									id="exampleAnswer_${m.multipleNo }" readonly>						
 							</div>
+							
+							
+							<!-- 내가 제출한 답안 -->
 							<div>
-								<label>※제출답안</label>	
+							<label>※제출답안</label>	
+								<ul class="list-group">		
 									<c:if test="${status1.count==1}">			
-									<input class="form-control" type="text" style="width: 200px"
-											 id="MQ_${m.multipleNo}" value="${examList.exMq1}번" readonly>
+										  <li class="list-group-item active" style="background-color: red; color: #fff;">${examList.exMq1}번
+										  </li>
+										  <li class="list-group-item">2번</li>
+										  <li class="list-group-item">3번</li>
+										  <li class="list-group-item">4번</li>
 									</c:if>
 									<c:if test="${status1.count==2}">			
 									<input class="form-control" type="text" style="width: 200px"
@@ -85,7 +92,8 @@
 									<c:if test="${status1.count==5}">			
 									<input class="form-control" type="text" style="width: 200px"
 											 id="MQ_${m.multipleNo}" value="${examList.exMq5}번" readonly>
-									</c:if>																			
+									</c:if>	
+								</ul>																		
 							</div>
 						</div>
 					</div>

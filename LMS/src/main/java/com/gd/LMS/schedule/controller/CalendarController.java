@@ -5,6 +5,8 @@ import java.time.ZoneId;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,9 +27,8 @@ public class CalendarController {
 	
 	//calendarDayList 수강일정리스트(달력)
 	@GetMapping("/member/calendar")
-	public String calendarDayList(Model model
+	public String calendarDayList(Model model, HttpSession session
 			, @RequestParam(name = "memberCode") int memberCode
-			, @RequestParam(name = "departmentCode", defaultValue = "0") int departmentCode
 			, @RequestParam(name = "year", defaultValue = "-1") int year
 			, @RequestParam(name = "month", defaultValue = "-1") int month) {
 		log.debug(TeamColor.KJS + "memberCode : " + memberCode);
@@ -55,11 +56,12 @@ public class CalendarController {
 		model.addAttribute("list", lectureTimeList);
 		
 		// 학부일정
-		List<Map<String, Object>> depScheduleList = calendarService.getDepartmentSchedule();
+		String departmentCode = (String) session.getAttribute("departmentCode");
+		List<Map<String, Object>> depScheduleList = calendarService.getDepartmentSchedule(departmentCode);
 		
 		log.debug(TeamColor.LCH + "depSchedule" + depScheduleList);
 		
-		model.addAttribute("scheduleList > ", depScheduleList);
+		model.addAttribute("scheduleList", depScheduleList);
 		
 		// 오늘날짜
 		LocalDate now = LocalDate.now();		

@@ -22,6 +22,9 @@
 				<h4 class="fw-bold py-3 mb-4">
 					<span class="text-muted fw-light">${memberName}
 					${memberType}님 어서오세요 </span>
+
+	
+
 				</h4>
 			</div>
 			<div class="col-sm-3 col-12">
@@ -78,7 +81,9 @@
 					<a class="nav-link" href="${pageContext.request.contextPath}/
 
 					<c:if test="${memberType eq '학생'}">exam/studentExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>
+
 					<c:if test="${memberType eq '교수'}">exam/professorExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>">
+
 
 					<i class="bx bx-link-alt me-1"></i> 
 						강의시험
