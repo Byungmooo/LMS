@@ -14,7 +14,7 @@
 		<div>
 			<ul class="nav nav-pills flex-column flex-md-row mb-3">
 				<li class="nav-item">
-					<a class="nav-link active" href="${pageContext.request.contextPath}/
+					<a class="nav-link" href="${pageContext.request.contextPath}/
 						<c:if test="${memberType eq '학생'}">student</c:if>
 						<c:if test="${memberType eq '교수'}">professor</c:if>/openedLectureOne?openedLecNo=${openedLecNo}">
 					<i class="bx bx-user me-1"></i>
