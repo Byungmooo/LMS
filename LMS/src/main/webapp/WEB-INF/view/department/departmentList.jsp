@@ -86,18 +86,18 @@
                 <caption class="ms-4"></caption>
                    <thead>
 					<tr>
-						<th>학과 이름</th>
 						<th>학과 코드</th>
+						<th>학과 이름</th>
 						<th>학과 생성일</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="d" items="${list}">
 						<tr>
-							<td>
-								<a href="${pageContext.request.contextPath}/member/departmentOne?departmentCode=${d.departmentCode}">${d.departmentName}</a>
-							</td>
 							<td>${d.departmentCode}</td>	
+							<td>
+								<a href="${pageContext.request.contextPath}/emplyoee/departmentOne?departmentCode=${d.departmentCode}">${d.departmentName}</a>
+							</td>
 							<td>${d.createDate}</td>								
 						</tr>
 					</c:forEach>
@@ -111,7 +111,7 @@
     <div class="row">
         <div class="col-sm-2 col-12 text-center"></div>
         <div class="col-sm-7 col-12 text-center">
-            <form action="${pageContext.request.contextPath}/member/departmentList" method="get">
+            <form action="${pageContext.request.contextPath}/emplyoee/departmentList" method="get">
                 <input type="hidden" name="rowPerPage" value="${paging.rowPerPage}">
                 
                 <div class="row">
@@ -150,7 +150,7 @@
 					<ul class="pagination justify-content-center">
 						<c:if test="${paging.prePage}">
 							<li class="page-item prev">
-								<a class="page-link" href="${pageContext.request.contextPath}/member/departmentList?currentPage=${paging.currentPage-1}
+								<a class="page-link" href="${pageContext.request.contextPath}/emplyoee/departmentList?currentPage=${paging.currentPage-1}
 									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">
 								<i class="tf-icon bx bx-chevron-left"></i>
 								</a>
@@ -165,7 +165,7 @@
 								</c:when>
 								<c:when test="${p != paging.currentPage }">
 									<li class="page-item">
-										<a class="page-link" href="${pageContext.request.contextPath}/member/departmentList?currentPage=${p}
+										<a class="page-link" href="${pageContext.request.contextPath}/emplyoee/departmentList?currentPage=${p}
 										&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">${p}</a>
 									</li>
 								</c:when>
@@ -173,7 +173,7 @@
 						</c:forEach>
 						<c:if test="${paging.nextPage}">
 							<li class="page-item next">
-								<a class="page-link" href="${pageContext.request.contextPath}//member/departmentList?currentPage=${paging.currentPage+1}
+								<a class="page-link" href="${pageContext.request.contextPath}/emplyoee/departmentList?currentPage=${paging.currentPage+1}
 									&rowPerPage=${paging.rowPerPage}&keyword=${paging.keyword}&searchType=${paging.searchType}&memberCode=${memberCode}">
 								<i class="tf-icon bx bx-chevron-right"></i>
 								</a>
@@ -215,7 +215,7 @@
 	    if(rowPerPage != '') param.rowPerPage = rowPerPage;
 	   if(searchType != '') param.searchType = searchType;
 	
-	    var url = path +'/member/departmentList';
+	    var url = path +'/emplyoee/departmentList';
 	    url += '?currentPage=' + param.currentPage;
 	    url += '&rowPerPage='+ param.rowPerPage;
 	    url += '&searchType='+ param.searchType ;

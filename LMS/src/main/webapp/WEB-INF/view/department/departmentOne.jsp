@@ -57,7 +57,7 @@
 				<button class="btn btn-primary" type="button" id="btnDelete">삭제</button>
 					
 				</c:if>
-				<a href="${pageContext.request.contextPath}/member/departmentList" class="btn btn-primary">목록</a>
+				<a href="${pageContext.request.contextPath}/emplyoee/departmentList" class="btn btn-primary">목록</a>
 					
 		
 			</div>

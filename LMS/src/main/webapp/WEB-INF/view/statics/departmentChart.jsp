@@ -82,7 +82,7 @@
 								"#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850",
 								"#FF1493", "#FFDC3C","#be32be","#e8c3b9","#D064D0"
 								];
-							const COUNTS = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0 ];
+							const COUNTS = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0,0 ];
 							data.map((data, idx, arr) =>  {
 								const name = data.dName;
 								if(NAME.includes(name)){ COUNTS[NAME.indexOf(name)] ++; }
