@@ -21,7 +21,8 @@
 			<div class="col-sm-3 col-12"></div>
 			<div class="col-sm-6 col-12 text-center">
 				<h4 class="fw-bold py-3 mb-4">
-					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
+					<span class="text-muted fw-light">${memberName}
+					${memberType}님 어서오세요 </span>
 				</h4>
 			</div>
 			<div class="col-sm-3 col-12">
