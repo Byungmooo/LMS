@@ -149,7 +149,40 @@
 						</div>
 					</div>
 				</div>
+				<c:if test="${sessionScope.memberType eq '학생'}">
+					<form name="form" method="get" action = "${pageContext.request.contextPath}/student/removeAssignmentReg?openedLecNo=${sessionScope.openedLecNo}&assignmentRegNo=${map.assignmentRegNo}">
+						<input type="hidden" name="openedLecNo" value="${sessionScope.openedLecNo}">
+						<input type="hidden" name="assignmentRegNo" value="${map.assignmentRegNo}">
+						<button	class="btn  btn-primary" type="button" id="btnDelete">삭제</button>
+						<button	class="btn  btn-primary" type="button" id="btnUpdate">수정</button>
+					</form>
+				</c:if>
 			</div>
 		</div>
 	</div>
-<c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 
+    <script>
+	if("${param.errorMsg}" != '') {
+		alert("${param.errorMsg}");
+	}
+    
+    $(document).ready(function () {
+        $("#btnDelete").click(function () {
+            if (confirm("삭제하시겠습니까?")) {
+            	document.form.action = "${pageContext.request.contextPath}/student/removeAssignmentReg?openedLecNo=${sessionScope.openedLecNo}&assignmentRegNo=${map.assignmentRegNo}";
+                document.form.method = "get";
+                document.form.submit();
+            }
+    });
+    
+        $("#btnUpdate").click(function () {
+            if (confirm("수정하시겠습니까?")) {
+            	alert("등록된 과제는 수정 할 수 없습니다");
+        	}
+            
+    });
+});
+</script>
+    
+    <!-- Footer -->
+    <c:import url="/WEB-INF/view/include/footer.jsp"></c:import>
+
