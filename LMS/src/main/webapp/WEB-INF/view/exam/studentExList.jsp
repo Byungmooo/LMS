@@ -12,7 +12,7 @@
 			<div class="col-sm-6 col-12 text-center">
 				<h4 class="fw-bold py-3 mb-4">
 					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
-				</h4>
+				</h4> 
 			</div>
 		</div>
 		

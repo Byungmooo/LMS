@@ -30,7 +30,7 @@
 					강의리스트
 				</a>
 			</div>
-		</div>
+		</div> 
 <body>
 	<form action="${pageContext.request.contextPath}/exam/complateExamSheet" method="post">
 	<div class="container-xxl flex-grow-1 container-p-y">

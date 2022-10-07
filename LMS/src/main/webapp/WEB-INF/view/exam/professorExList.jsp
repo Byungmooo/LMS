@@ -16,7 +16,7 @@
 			</div>
 			<div class="col-sm-3 col-12">
 				<a class="btn btn-primary" href="${pageContext.request.contextPath}/professor/professorLectureList?memberCode=${memberCode}" style="float: right;">
-					강의리스트
+					강의리스트 
 				</a>
 			</div>
 		</div>
