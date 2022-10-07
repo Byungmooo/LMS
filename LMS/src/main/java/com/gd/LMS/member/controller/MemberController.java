@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gd.LMS.commons.TeamColor;
+import com.gd.LMS.lecture.service.LectureService;
 import com.gd.LMS.member.service.EmployeeService;
 import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.member.service.ProfessorService;
@@ -31,7 +32,7 @@ public class MemberController {
 	@Autowired StudentService studentService;
 	@Autowired EmployeeService employeeService;
 	@Autowired ProfessorService professorService;
-	
+	@Autowired LectureService lectureService;
 	
 	
 	// 회원 로그아웃
@@ -112,6 +113,18 @@ public class MemberController {
 		String memberType = (String)session.getAttribute("memberType");
 		String depNameOrLevel = memberService.getDepartmentCodeOrLevel(memberCode, memberType);
 		model.addAttribute("depNameOrLevel", depNameOrLevel);
+		
+		if(memberType.equals("교수")) {
+			// 교수진행강의리스트 메서드 호출 후 리턴값 디버깅
+			List<Map<String, Object>> professorLectureList = lectureService.getProfessorLectureList(memberCode);
+;
+			model.addAttribute("professorList", professorLectureList);
+		} else if(memberType.equals("학생")) {
+			// 학생수강리스트 메서드 호출 후 리턴값 디버깅
+			List<Map<String, Object>> studentLectureList = lectureService.getStudentLectureList(memberCode);
+
+			model.addAttribute("studentList", studentLectureList);
+		}
 		
 		return "index";
 	}
