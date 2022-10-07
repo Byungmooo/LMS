@@ -20,32 +20,10 @@
 		<h4 class="fw-bold py-3 mb-4">
 			<span class="text-muted fw-light">${totalNotice.writer} 님</span>
 		</h4>
-		
-		<!-- studentNotieMenu -->
-		<ul class="nav nav-pills flex-column flex-md-row mb-3">
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/member/index">
-				<i class="bx bx-user me-1"></i>
-					LMS홈
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link active" href="${pageContext.request.contextPath}/member/totalNoticeList">
-				<i class="bx bx-bell me-1"></i> 
-					전체게시판
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/member/departmentNoticeList">
-				<i class="bx bx-link-alt me-1"></i> 
-					학부게시판
-				</a>
-			</li>
-		
-		
+
 	
-		</ul>
-		<hr class="my-5" />
+
+		<hr class="my-3" />
 		
 		<!-- totalNoticeOne -->
 		<div class="row text-center">

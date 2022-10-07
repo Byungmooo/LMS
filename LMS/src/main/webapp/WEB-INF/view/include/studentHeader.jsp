@@ -117,7 +117,7 @@
 
 				<ul class="menu-inner py-1">
 					<!-- HOME -->
-					<li class="menu-item active"><a href="${pageContext.request.contextPath}/member/index"
+					<li class="menu-item"><a href="${pageContext.request.contextPath}/member/index"
 						class="menu-link"> <i
 							class="menu-icon tf-icons bx bx-home-circle"></i>
 							LMS Home
