@@ -14,9 +14,10 @@
 </c:choose>
 <!-- Main -->
 <div class="container-xxl flex-grow-1 container-p-y">
+  <div class="col-sm-12 col-12 text-center">
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span>전체게시판
-    </h4>
+    </h4></div>
 		<hr class="my-5" />
 		
 		<div class="card text-center">
