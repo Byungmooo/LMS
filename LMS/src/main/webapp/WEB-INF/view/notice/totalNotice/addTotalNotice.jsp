@@ -35,7 +35,7 @@
 	<div class="row">
 		<div class="col-sm-9 col-12">
 			<h4 class="fw-bold py-3 mb-4">
-				<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
+				<span class="text-muted fw-light">"${memberName}"님</span>${lectureName}
 			</h4>
 		</div>
 	
@@ -48,7 +48,7 @@
 	<div class="row text-center">
 		<div class="card">
 			<h5 class="card-header">
-				<strong>전체공지사항</strong>
+				<strong>공지사항 작성</strong>
 			</h5>
 			<hr class="my-0" />
 

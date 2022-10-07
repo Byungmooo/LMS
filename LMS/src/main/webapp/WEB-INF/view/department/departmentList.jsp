@@ -22,7 +22,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
   <div class="col-sm-12 col-12 text-center">
     <h4 class="fw-bold py-3 mb-4">
-        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span>학과리스트</h4>
+        <span class="text-muted fw-light">"${sessionScope.memberName}님 "/</span>학부리스트</h4>
    
 
 		<hr class="my-5" />
@@ -40,7 +40,7 @@
 			      
 				<div class="col-sm-6 col-12 text-center"></div>
 			<c:if test="${sessionScope.memberType eq '직원'}">
-				<div class="col-sm-1 col-12 text-center">학과별</div>
+				<div class="col-sm-1 col-12 text-center">학부별</div>
 				<div class="col-sm-2 col-12 text-center">
 
 					<select name="dep" id="searchType" class="form-select">
@@ -81,9 +81,9 @@
                 <caption class="ms-4"></caption>
                    <thead>
 					<tr>
-						<th>학과 코드</th>
-						<th>학과 이름</th>
-						<th>학과 생성일</th>
+						<th>학부 코드</th>
+						<th>학부 이름</th>
+						<th>학부 생성일</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -113,8 +113,8 @@
                     <div class="col-sm-3 col-12 text-center">
                         <select name="searchType" class="form-select">
                             <option value="" selected="selected">전체</option>
-                            <option value="code">학과코드</option>
-                            <option value="name">학과이름</option>
+                            <option value="code">학부코드</option>
+                            <option value="name">학부이름</option>
                         </select>
                     </div>
                     <div class="col-sm-7 col-12 text-center">
@@ -131,7 +131,7 @@
               <div class="col-sm-2 col-12">
 	        <c:if test="${sessionScope.memberType eq '직원'}">
 		       	<form action ="${pageContext.request.contextPath}/employee/addDepartment" method="get">
-		       		<button type="submit" class="btn btn-primary" style="float: right">학과추가하기</button>  
+		       		<button type="submit" class="btn btn-primary" style="float: right">학부추가하기</button>  
 		       		<input type="hidden" name ="departmentCode" value="">
 		       	</form>  
 		  </c:if>
