@@ -39,7 +39,7 @@ public class LectureRegController {
 	public String professorLectureReg(PagingVo vo, Model model
 			, @RequestParam(value="memberCode") int memberCode
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
-			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+			, @RequestParam(value="rowPerPage", defaultValue = "5") int rowPerPage
 			, @RequestParam(value="keyword", defaultValue = "") String keyword) {
 		log.debug(TeamColor.LCH + "--- professorLectureReg GetMapping Controller ---");
 		

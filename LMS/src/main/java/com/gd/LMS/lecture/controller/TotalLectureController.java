@@ -29,7 +29,7 @@ public class TotalLectureController {
 	@GetMapping("/employee/totalLectureList")
 	public String totalLectureList(PagingVo pagingVo, Model model, Map<String, Object> map,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
+			@RequestParam(value = "rowPerPage", defaultValue = "5") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
 		// 파라미터 설정
