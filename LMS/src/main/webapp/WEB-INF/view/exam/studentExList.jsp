@@ -7,14 +7,22 @@
 
 <!-- Main -->
 <div class="container-xxl flex-grow-1 container-p-y">
-	<h4 class="fw-bold py-3 mb-4">
-		<span class="text-muted fw-light">Example : </span>"${memberName}"님./${memberCode }/${departmentCode}/${openedLecNo}
-	</h4>
+		<div class="row">
+			<div class="col-sm-3 col-12"></div>
+			<div class="col-sm-6 col-12 text-center">
+				<h4 class="fw-bold py-3 mb-4">
+					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
+				</h4>
+			</div>
+		</div>
+		
+	
+	
 		<!-- lectureMenu -->
 		<div>
 			<ul class="nav nav-pills flex-column flex-md-row mb-3">
 				<li class="nav-item">
-					<a class="nav-link active" href="${pageContext.request.contextPath}/
+					<a class="nav-link" href="${pageContext.request.contextPath}/
 						<c:if test="${memberType eq '학생'}">student</c:if>
 						<c:if test="${memberType eq '교수'}">professor</c:if>/openedLectureOne?openedLecNo=${openedLecNo}">
 					<i class="bx bx-user me-1"></i>
