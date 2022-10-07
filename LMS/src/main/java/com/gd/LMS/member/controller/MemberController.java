@@ -1,5 +1,6 @@
 package com.gd.LMS.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,10 @@ import com.gd.LMS.member.service.EmployeeService;
 import com.gd.LMS.member.service.MemberService;
 import com.gd.LMS.member.service.ProfessorService;
 import com.gd.LMS.member.service.StudentService;
+import com.gd.LMS.notice.service.TotalNoticeService;
+import com.gd.LMS.utils.PagingVo;
 import com.gd.LMS.vo.Member;
+import com.gd.LMS.vo.TotalNotice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +37,7 @@ public class MemberController {
 	@Autowired EmployeeService employeeService;
 	@Autowired ProfessorService professorService;
 	@Autowired LectureService lectureService;
-	
+	@Autowired TotalNoticeService totalNoticeService;
 	
 	// 회원 로그아웃
 	@GetMapping("/member/memberLogout")
@@ -124,6 +128,14 @@ public class MemberController {
 			List<Map<String, Object>> studentLectureList = lectureService.getStudentLectureList(memberCode);
 
 			model.addAttribute("studentList", studentLectureList);
+		} else {
+			Map<String, Object> map = new HashMap<>();
+	        map.put("beginRow", 1);
+			map.put("rowPerPage", 5);
+			List<TotalNotice> list = totalNoticeService.selectBoard(map);
+			log.debug(TeamColor.LCH + "list >" + list);
+			
+			model.addAttribute("noticeList", list);
 		}
 		
 		return "index";

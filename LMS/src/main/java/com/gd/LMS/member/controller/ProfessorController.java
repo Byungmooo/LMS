@@ -37,7 +37,7 @@ public class ProfessorController {
 	@GetMapping({"/employee/professorList", "/professor/professorList"})
 	public String ProfessorList(PagingVo vo, Model model, HttpSession session,
 			@RequestParam(value = "currentPage", defaultValue = "1") int currentPage,
-			@RequestParam(value = "rowPerPage", defaultValue = "10") int rowPerPage,
+			@RequestParam(value = "rowPerPage", defaultValue = "5") int rowPerPage,
 			@RequestParam(value = "keyword", defaultValue = "") String keyword,
 			@RequestParam(value = "searchType", defaultValue = "") String searchType) {
 
