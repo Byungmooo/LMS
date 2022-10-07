@@ -56,20 +56,19 @@
 						<div class="card-header d-flex align-items-center justify-content-between pb-0">
 							<div class="card-title mb-0">
 								오늘의 날씨
-								<small class="text-muted">Today's Weather</small>
+								<small class="text-muted">Today's Weather</small>	
 									<div class="weather-info">
 										<div class="content d-flex">
 											<div>
 												<br>
 												<div style="display: flex;">
-													<h2 class="mb-0 font-weight-normal">
-														<span id="weather"></span><span id="tmp"></span><sup>ºC</sup>
-													</h2>
 													<div style="display: block;">
 														<h4 class="location font-weight-normal float-right">금천구</h4>
-														<br>
 														<h4 class="font-weight-normal float-right">가산동</h4>
-													</div>
+														<h1 class="mb-0 font-weight-normal">
+															<span id="weather"></span><span id="tmp"></span><sup>ºC</sup>
+														</h1>	
+													</div>												
 												</div>
 											</div>
 										</div>
@@ -78,7 +77,6 @@
 						</div>
 						<div class="card-body">
 							<div class="d-flex justify-content-between align-items-center mb-3">
-	
 							</div>
 						</div>
 					</div>
