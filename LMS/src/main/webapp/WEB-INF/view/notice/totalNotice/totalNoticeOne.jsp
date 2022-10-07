@@ -21,38 +21,27 @@
 			<span class="text-muted fw-light">${totalNotice.writer} 님 /</span>
 		</h4>
 		
-		<!-- studentLectureMenu -->
+		<!-- studentNotieMenu -->
 		<ul class="nav nav-pills flex-column flex-md-row mb-3">
 			<li class="nav-item">
-				<a class="nav-link active" href="">
+				<a class="nav-link" href="${pageContext.request.contextPath}/member/index">
 				<i class="bx bx-user me-1"></i>
 					LMS홈
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">
+				<a class="nav-link active" href="${pageContext.request.contextPath}/member/totalNoticeList">
 				<i class="bx bx-bell me-1"></i> 
 					전체게시판
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="">
+				<a class="nav-link" href="${pageContext.request.contextPath}/member/departmentNoticeList">
 				<i class="bx bx-link-alt me-1"></i> 
-					학사게시판
+					학부게시판
 				</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="">
-				<i class="bx bx-link-alt me-1"></i> 
-					질문게시판
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="${pageContext.request.contextPath}/student/studentAssignmentList?openedLecNo=${map.openedLecNo}">
-				<i class="bx bx-link-alt me-1"></i> 
-					과제게시판
-				</a>
-			</li>
+		
 		
 	
 		</ul>

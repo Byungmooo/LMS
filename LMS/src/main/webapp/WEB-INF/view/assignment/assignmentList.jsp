@@ -27,7 +27,7 @@
 			<c:if test="${memberType eq '학생'}">
 				<div class="col-sm-3 col-12" style="float:right;">
 					<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" 
-						class="btn btn-secondary" style="float: right;">강의리스트</a>
+						class="btn btn-primary" style="float: right;">강의리스트</a>
 				</div>
 			</c:if>
 			<c:if test="${memberType eq '교수'}">

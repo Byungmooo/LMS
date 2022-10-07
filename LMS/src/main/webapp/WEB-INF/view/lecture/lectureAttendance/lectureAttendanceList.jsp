@@ -27,7 +27,7 @@
 				</h4>
 			</div>
 			<div class="col-sm-3 col-12">
-				<a class="btn btn-secondary" href="${pageContext.request.contextPath}/
+				<a class="btn btn-primary" href="${pageContext.request.contextPath}/
 					<c:if test="${memberType eq '학생'}">student</c:if>
 					<c:if test="${memberType eq '교수'}">professor</c:if>/studentLectureList?memberCode=${memberCode}" style="float: right;">
 					강의리스트

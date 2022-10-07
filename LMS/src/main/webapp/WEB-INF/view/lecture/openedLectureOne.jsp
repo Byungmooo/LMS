@@ -25,7 +25,7 @@
 				</h4>
 			</div>
 			<div class="col-sm-3 col-12">
-				<a class="btn btn-secondary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
+				<a class="btn btn-primary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
 					강의리스트
 				</a>
 			</div>
