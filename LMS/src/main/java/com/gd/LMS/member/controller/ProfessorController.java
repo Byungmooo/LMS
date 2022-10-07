@@ -93,7 +93,7 @@ public class ProfessorController {
 	}
 	
 	//교수정보 수정 폼
-    @GetMapping("/employee/modifyProfessor")
+    @GetMapping({"/professor/modifyProfessor", "/employee/modifyProfessor"})
     public String modifyProfessor(Model model, @RequestParam(value = "professorCode") int professorCode) {
     	
     	log.debug(TeamColor.BJH + "교수정보 페이지서비스 진입=======professorCode========>" + professorCode);
@@ -108,7 +108,7 @@ public class ProfessorController {
     
   
     // 교수정보 수정 액션
-    @PostMapping("/employee/modifyProfessor")
+    @PostMapping({"/professor/modifyProfessor", "/employee/modifyProfessor"})
     public String modifyprofessor(Model model, 
     		Member member, Professor professor, 
     		@RequestParam(value = "professorCode") int professorCode) {

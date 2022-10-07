@@ -45,9 +45,6 @@
 								<th>이메일</th>
 								<td><input type="text" name="memberEmail" placeholder="이메일 입력" class="form-control"></td>
 							</tr>
-							<tr>
-								<td colspan="2">인증번호발송 이메일 받는 API?</td>
-							</tr>
 						</table>
 						<button type="submit" class="btn btn-dark">확인</button>
 						<a href="${pageContext.request.contextPath}/memberLogin" class="btn btn-dark">취소</a>

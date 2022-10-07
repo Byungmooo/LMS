@@ -98,15 +98,12 @@
 							<a href="${pageContext.request.contextPath}/employee/modifyProfessor?professorCode=${p.professorCode}" class="btn btn-primary" style="color: #fff;">수정</a>
 							<button type="button" onclick="del(${e.employeeCode})" class="btn btn-primary" style="color: #fff;">삭제</button>
 							<a href="${pageContext.request.contextPath}/employee/employeeList" class="btn btn-primary" style="color: #fff;">목록</a>
-					
-						</c:if>
-									
+						</c:if>	
 						<c:if test="${memberType eq '교수'}">
-							<div class="container-info">
-									<a href="${pageContext.request.contextPath}/professor/professorList" class="btn btn-primary">목록</a>
-							</div>
-						</c:if>
-						
+							<input type="hidden" id="memberId" name="memberId"  value="${p.memberId}">
+							<a href="${pageContext.request.contextPath}/professor/modifyProfessor?professorCode=${p.professorCode}" class="btn btn-primary" style="color: #fff;">수정</a>
+							<button type="button" class="btn btn-primary" style="color: #fff;">탈퇴</button>
+						</c:if>					
 					</div>
 				</div>
 			</div>

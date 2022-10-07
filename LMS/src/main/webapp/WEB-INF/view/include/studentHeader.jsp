@@ -196,7 +196,7 @@
 						class="menu-header-text">etc</span></li>
 	
 					<li class="menu-item">
-						<a href="statics/studentYearChart" class="menu-link"> 
+						<a href="${pageContext.request.contextPath}/member/studentYearChart" class="menu-link"> 
 						<i class='menu-icon tf-icons bx bx-line-chart'></i>
 							통계
 						</a>

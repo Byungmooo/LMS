@@ -92,7 +92,7 @@ public class StudentController {
 	
 	// 수정 삭제 추가는 직원만
 	// 학생정보 수정 폼
-    @GetMapping("/employee/modifyStudent")
+    @GetMapping({"/student/modifyStudent", "/employee/modifyStudent"})
     public String modifyStudent(Model model, @RequestParam(value = "studentCode") int studentCode) {
     	
     	log.debug(TeamColor.BJH + "학생정보 페이지서비스 진입=======studentCode========>" + studentCode);
@@ -107,21 +107,28 @@ public class StudentController {
     
   
     // 학생정보 수정 액션
-    @PostMapping("/employee/modifyStudentAction")
+    @PostMapping({"/student/modifyStudent", "/employee/modifyStudent"})
     public String modifyStudentAction(Model model, Map<String, Object> map,
     		Member member, Student student,
+    		@RequestParam(value = "birthYear") int birthYear,
+    		@RequestParam(value = "birthMonth") int birthMonth,
+    		@RequestParam(value = "birthDay") int birthDay,
+    		@RequestParam(value = "memberAddr") String memberAddr,
+    		@RequestParam(value = "memberAddrDetail") String memberAddrDetail,
     		@RequestParam(value = "studentCode") int studentCode) {
     	log.debug(TeamColor.BJH + this.getClass() + "액션 창 들어왔나?");
-    	
+    	String birth = ""+birthYear+birthMonth+birthDay;
+    	String address = memberAddr + "/" + memberAddrDetail;
+    			
     	map.put("studentCode", studentCode);
     	map.put("studentYear", student.getStudentYear());    	
     	map.put("studentState", student.getStudentState());
     	map.put("memberName", member.getMemberName());
     	map.put("memberGender", member.getMemberGender());
     	map.put("memberType", member.getMemberType());
-    	map.put("memberBirth", member.getMemberBirth());
+    	map.put("memberBirth", birth);
     	map.put("memberEmail", member.getMemberEmail());
-    	map.put("memberAddress", member.getMemberAddress());
+    	map.put("memberAddress", address);
     	map.put("memberContact", member.getMemberContact());
     	
     	
