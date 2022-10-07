@@ -26,10 +26,9 @@
                 </div>
               </div>
               <div class="card-body">
-                <form name="form" class="form-horizontal" method="post"
-                	<c:if test="${memberType eq '직원'}">action="${pageContext.request.contextPath}/employee/modifyStudent"</c:if>
-                	<c:if test="${memberType eq '학생'}">action="${pageContext.request.contextPath}/student/modifyStudent"</c:if>>
-                  <div class="row" style="margin-bottom: 20px;">
+                <form name="form" class="form-horizontal" method="post" 
+               	 	action="${pageContext.request.contextPath}/employee/modifyStudent">
+                	<div class="row" style="margin-bottom: 20px;">
                       	<div class="col-sm-2 col-12 text-center">
                       		아이디
                       	</div>
@@ -53,7 +52,7 @@
                        	</div>
                        	<div class="col-sm-3 col-12 text-center">
 	                    <input type="text" name="departmentCode" class="form-control"
-					 		value="${s.departmentCode}" readonly> 
+					 		value="${s.departmentCode}"> 
 					 	</div> 
                    </div>
                    <div class="row" style="margin-bottom: 20px;">

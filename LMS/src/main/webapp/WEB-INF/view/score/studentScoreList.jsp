@@ -17,12 +17,31 @@
 </c:choose>
 
 	<!-- Main -->
+	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
+<<<<<<< HEAD
 		<h4 class="fw-bold py-3 mb-4">
 			<span class="text-muted fw-light">${memberName}
 					${memberType}님 어서오세요 </span>
 		</h4>
 		<hr class="my-5" />
+=======
+		<div class="row">
+			<div class="col-sm-3 col-12"></div>
+			<div class="col-sm-6 col-12 text-center">
+				<h4 class="fw-bold py-3 mb-4">
+					<span class="text-muted fw-light">"${memberName}"님 /</span> 시험목록
+				</h4>
+			</div>
+			<div class="col-sm-3 col-12">
+				<a class="btn btn-primary" href="${pageContext.request.contextPath}/
+					<c:if test="${memberType eq '학생'}">student</c:if>
+					<c:if test="${memberType eq '교수'}">professor</c:if>/studentLectureList?memberCode=${memberCode}" style="float: right;">
+					강의리스트
+				</a>
+			</div>
+		</div>
+>>>>>>> branch 'main' of https://github.com/Byungmooo/LMS.git
 		
 		<!-- studentLectureList -->
 		<div class="card text-center">
