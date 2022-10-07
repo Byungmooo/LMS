@@ -25,7 +25,7 @@
 				<hr class="my-0" />
 				
 				<div class="card-body">
-					<table class="table table-bordered">
+					<table class="table">
 				<caption class="ms-4"></caption>
 				<thead>
 					<tr>
