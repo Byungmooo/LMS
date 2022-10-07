@@ -45,7 +45,7 @@
 		) VALUES ( 
 			#{memberId},
 			#{memberCode},
-			#{departmentCode}, 
+			#{departmentCode}
 			)
 
 	</insert>

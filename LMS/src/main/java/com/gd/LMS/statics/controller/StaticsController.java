@@ -15,21 +15,21 @@ public class StaticsController {
     private StaticsService staticsService;
 
     //학년별 차트
-    @GetMapping("/member/statics/studentYearChart")
+    @GetMapping("/member/studentYearChart")
     public String statistics1(Model model) {
     	model.addAttribute("data", new JSONArray(staticsService.getStaticData()));
         return "/statics/studentYearChart";
     }
 
     //지역별 차트
-    @GetMapping("/member/statics/regionChart")
+    @GetMapping("/member/regionChart")
     public String statistics2(Model model) {
     	model.addAttribute("data", new JSONArray(staticsService.getStaticData()));
         return "/statics/regionChart";
     }
 
     //부서별 차트
-    @GetMapping("/member/statics/departmentChart")
+    @GetMapping("/member/departmentChart")
     public String statistics3(Model model) {
     	model.addAttribute("data", new JSONArray(staticsService.getStaticData()));
         return "/statics/departmentChart";

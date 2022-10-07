@@ -26,7 +26,9 @@
                 </div>
               </div>
               <div class="card-body">
-                <form name="form" action="${pageContext.request.contextPath}/emplpoyee/modifyProfessor" method="get">
+                <form name="form" class="form-horizontal" method="post"
+                	<c:if test="${memberType eq '직원'}">action="${pageContext.request.contextPath}/emplpoyee/modifyProfessor"</c:if>
+                	<c:if test="${memberType eq '교수'}">action="${pageContext.request.contextPath}/professor/modifyProfessor"</c:if>>
                    <div class="row" style="margin-bottom: 20px;">
                       	<div class="col-sm-2 col-12 text-center">
                       		아이디
@@ -82,10 +84,14 @@
                        		</select>
 					 	</div> 
                    </div>
-                   <div class="form-group">
-	                    <label for="memberName">이름:</label>
+                   <div class="row" style="margin-bottom: 20px;">
+                       	<div class="col-sm-2 col-12 text-center">
+                       		이름
+                       	</div>
+                       	<div class="col-sm-3 col-12 text-center">
 	                    <input type="text" name="memberName" class="form-control"
 					 		value="${p.memberName}" >  
+					 	</div>
                    </div>
                    <div class="row" style="margin-bottom: 20px;">
                      	<div class="col-sm-2 col-12 text-center">

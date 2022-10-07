@@ -48,4 +48,9 @@ public interface AssignmentRegMapper {
 	
 	// 학생과제점수
 	int insertAssignmentScore(Map<String, Object> map);
+	
+	
+	//학생과제 제출여부확인
+	List<String> selectCheckAssignmentReg(int assignmentRegNo);
+	
 }

@@ -169,5 +169,19 @@
 		WHERE
 			student_lec_no = #{studentLecNo}	
 	</update>
+	
+	
+	
+ 	<!-- 과제 삭제 가능여부 -->
+    <select id="selectCheckAssignmentReg" parameterType="int" resultType="String">
+        SELECT
+            assignment_did 
+        FROM
+            assignment_reg
+        WHERE
+            assignment_reg_no  = #{assignmentRegNo}
+    </select>
+	
+	
 
 </mapper>

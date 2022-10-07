@@ -15,24 +15,24 @@
 			MONTH(o.close_lecture_date) closeMonth,
 			DAY(o.open_lecture_date) openDay,
 			DAY(o.close_lecture_date) closeDay,
+			s.student_code studentCode,
 			b.building_name buildingName,
 			c.classroom_name classroomName,
-			s.student_code studentCode,
 			t.lecture_name lectureName
-		FROM 
-			lecture_time l,
-			opened_lecture o,
+		FROM
 			student_lecture s,
+			opened_lecture o,
 			total_lecture t,
-			building b,
-			classroom c
+			lecture_time l,
+			classroom c,
+			building b
 		WHERE
+			s.opened_lec_no = o.opened_lec_no AND 
+			t.lecture_code = o.lecture_code AND 
 			l.opened_lec_no = o.opened_lec_no AND
-			o.opened_lec_no = s.opened_lec_no AND
-			t.lecture_code = o.opened_lec_no AND 
-			c.classroom_no = o.classroom_no AND 
-			b.building_no = c.building_no AND
-			s.student_code = #{studentCode}
+			o.classroom_no = c.classroom_no AND
+			c.building_no = b.building_no AND
+			student_code = #{studentCode}
 	</select>
 	
 	<select id="selectLectureTime" parameterType="int" resultType="map"> 

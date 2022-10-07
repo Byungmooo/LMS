@@ -185,12 +185,14 @@ public class AssignmentRegController {
 		
 		// 기존에 썼던 제출한 과제 수정 액션
 		@PostMapping("/stduent/modifyAssignmentReg")
-		public String modifyAssignmentReg(AssignmentReg assignmentReg, RedirectAttributes redirectAttributes) {
+		public String modifyAssignmentReg(AssignmentReg assignmentReg, Map<String,Object> map,
+				@RequestParam(value= "openedLecNo")  int openedLecNo,
+				@RequestParam(value = "assignmentRegNo") int assignmentRegNo) {
 
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "과제출제 수정(PostMapping) 컨트롤러 실행=========");
-
-			redirectAttributes.addAttribute("assignmentNo", assignmentReg.getAssignmentNo());
+			map.put("openedLecNo",openedLecNo);
+			map.put("assignmentRegNo",assignmentRegNo);
 			
 			int result = assignmentRegService.modifyAssignmentReg(assignmentReg);
 			// 디버깅
@@ -209,23 +211,30 @@ public class AssignmentRegController {
 		
 
 		// 제출한 과제 삭제
-		@PostMapping("/student/removeAssignmentReg")
-		public String removeAssignmentReg(@RequestParam("assignmentRegNo") int assignmentRegNo) {
+		@GetMapping("/student/removeAssignmentReg")
+		public String removeAssignmentReg(HttpSession session, RedirectAttributes redirectAttributes) {
 			// 디버깅 영역구분
 			log.debug(TeamColor.BJH + "과제 삭제 Controller 실행=============");
-			assignmentRegService.removeAssignmentReg(assignmentRegNo);
 			
-			// 파라미터 디버깅
-			log.debug(TeamColor.BJH + assignmentRegNo + "<-- assignmentRegNo");
-							
-			if (assignmentRegNo != 0) {
-				// 성공
-				log.debug(TeamColor.BJH + "과제가 존재하여 삭제불가능");
-				return "redirect:/student/assignmentRegList";
-			}
-			return "redirect:/student/assignmentRegOne";
-		}
-		
+			int assignmentRegNo = (int) session.getAttribute("assignmentRegNo");
+			
+			List<String> checkFk = assignmentRegService.getCheckAssignmentReg(assignmentRegNo);
+			log.debug(TeamColor.BJH + "checkFk 0? > " + checkFk.size());
+			 
+			 if(checkFk.size() != 0) {
+		         log.debug(TeamColor.BJH + "삭제실패 FK 존재");
+		         redirectAttributes.addAttribute("assignmentRegNo", assignmentRegNo); 
+		         redirectAttributes.addAttribute("errorMsg", "등록된 과제는 수정 할 수 없습니다.");
+		         return "redirect:/student/assignmentRegOne";
+		      }
+		      
+		      int count = assignmentRegService.removeAssignmentReg(assignmentRegNo);
+		      if (count >= 1) {
+		         log.debug(TeamColor.BJH + "제출한 과제 삭제");
+		         return "redirect:/student/assignmentRegList?openedLecNo=" + assignmentRegNo;
+		      }
+		      return "redirect:/student/assignmentRegList?openedLecNo=" + assignmentRegNo;
+		   }
 		
 		
 		//파일 다운로드

@@ -41,8 +41,8 @@
 							<tr>
 								<th>작성자</th>
 								<td colspan="2">
-									<input type="text" class="form-control" value="employeeId" readonly="readonly">
-									<input type="hidden" name="employeeCode" value="200100001">
+									<input type="text" class="form-control" value="${memberId}" readonly="readonly">
+									<input type="hidden" name="employeeCode" value="${memberCode}">
 								</td>
 							</tr>
 							<tr>

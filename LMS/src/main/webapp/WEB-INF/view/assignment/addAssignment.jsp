@@ -40,7 +40,9 @@
 									</tr>
 									<tr>
 										<th>마감 기한</th>
-										<td><input name="endDate" id="endDate" type="date"></td>
+										<td colspan="2">
+											<input type="date" name="endDate" class="form-control">
+										</td>
 									</tr>
 								</table>
 							</div>

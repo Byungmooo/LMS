@@ -145,7 +145,7 @@
 					<li class="menu-header small text-uppercase"><span
 						class="menu-header-text">MYPAGE</span></li>
 					<li class="menu-item">
-						<a href="${pageContext.request.contextPath}/professor/professorOne?memberCode=${memberCode}" class="menu-link"> 
+						<a href="${pageContext.request.contextPath}/professor/professorOne?professorCode=${memberCode}" class="menu-link"> 
 						<i class='menu-icon tf-icons bx bxs-user'></i>
 							내정보
 						</a>
@@ -185,7 +185,7 @@
 						class="menu-header-text">etc</span></li>
 	
 					<li class="menu-item">
-						<a href="statics/studentYearChart" class="menu-link">
+						<a href="${pageContext.request.contextPath}/member/studentYearChart" class="menu-link">
 						<i class='menu-icon tf-icons bx bx-line-chart'></i>
 							통계
 						</a>
