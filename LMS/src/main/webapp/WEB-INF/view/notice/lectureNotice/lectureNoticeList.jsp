@@ -75,8 +75,13 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="${pageContext.request.contextPath}/
+<<<<<<< HEAD
 					<c:if test="${memberType eq '학생'}">exam/studentExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>
 					<c:if test="${memberType eq '교수'}">exam/professorExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>">
+=======
+						<c:if test="${memberType eq '학생'}">exam/studentExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>
+						<c:if test="${memberType eq '교수'}">exam/professorExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>">
+>>>>>>> branch 'main' of https://github.com/Byungmooo/LMS.git
 					<i class="bx bx-link-alt me-1"></i> 
 						강의시험
 					</a>

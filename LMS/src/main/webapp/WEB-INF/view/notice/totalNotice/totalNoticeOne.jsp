@@ -18,7 +18,7 @@
 	<div class="container-xxl flex-grow-1 container-p-y">
 	<form name="form" action="${pageContext.request.contextPath}/employee/removeTotalNotice" method="get">
 		<h4 class="fw-bold py-3 mb-4">
-			<span class="text-muted fw-light">${totalNotice.writer} 님</span>
+			<span class="text-muted fw-light">${totalNotice.writer} 님</span> 공지사항
 		</h4>
 
 	
