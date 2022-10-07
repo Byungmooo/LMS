@@ -37,6 +37,7 @@
 				</div>
 			</c:if>
 		</div>
+		<!-- lectureMenu -->
 		<div>
 			<ul class="nav nav-pills flex-column flex-md-row mb-3">
 				<li class="nav-item">
@@ -80,14 +81,15 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="">
+					<a class="nav-link" href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">exam/studentExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>
+						<c:if test="${memberType eq '교수'}">exam/professorExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>">
 					<i class="bx bx-link-alt me-1"></i> 
 						강의시험
 					</a>
 				</li>
 			</ul>
 		</div>
-		
 		<hr class="my-5" />
 		
 		<!-- 정렬 -->
@@ -108,16 +110,16 @@
 		</div>
 	
 		<!-- assignment -->
-		<div class="card text-center" style="margin-top: 20px;">
+		<div class="card text-center">
 			<c:if test="${memberType eq '학생'}">
-				<h3 class="card-header">내가 제출해야 될 과제 리스트</h3>
+				<h5 class="card-header">내가 제출해야 될 과제 리스트</h5>
 			</c:if>
 			<c:if test="${memberType eq '교수'}">
-				<h3 class="card-header">과제 리스트</h3>
+				<h5 class="card-header">과제 리스트</h5>
 			</c:if>
 			
 			<div class="table-responsive text-nowrap">
-				<table class="table table-bordered">
+				<table class="table">
 					<caption class="ms-4"></caption>
 					<thead>
 						<tr>
