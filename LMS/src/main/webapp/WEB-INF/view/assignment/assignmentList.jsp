@@ -144,13 +144,7 @@
 									</a>
 								</td>
 								<td>${map.assignmentTitle}</td>
-								<td>
-									<div>
-										<textarea name="assignmentContent" id="assignmentContent"
-											style="width: 100%; border-color: white;" readonly>
-											 ${map.assignmentContent}</textarea>
-									</div>	
-								</td>
+								<td>${map.assignmentContent}</td>
 								<td>${map.endDate}</td>
 							</tr>
 						</c:forEach>
