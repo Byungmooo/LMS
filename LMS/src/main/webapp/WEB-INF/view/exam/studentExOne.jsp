@@ -18,10 +18,19 @@
 </c:choose>
 
 <!-- Main -->
-
-<h4 class="card-header">
-	<span>"이름"님 /</span>시험명 : ${examSheet.examName} / ${examSheet.examNo }${map.lectureName}
-</h4>
+		<div class="row">
+			<div class="col-sm-3 col-12"></div>
+			<div class="col-sm-6 col-12 text-center">
+				<h4 class="fw-bold py-3 mb-4">
+					<span class="text-muted fw-light">"${memberName}"님 /</span>${lectureName}
+				</h4>
+			</div>
+			<div class="col-sm-3 col-12">
+				<a class="btn btn-primary" href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" style="float: right;">
+					강의리스트
+				</a>
+			</div>
+		</div> 
 <body>
 	<form action="${pageContext.request.contextPath}/exam/complateExamSheet" method="post">
 	<div class="container-xxl flex-grow-1 container-p-y">
@@ -29,7 +38,7 @@
 
 		<div class="col-xl-6">
 			<div class="card mb-4">
-				<h3 class="card-header">객관식</h3>
+				<h3 class="card-header" >객관식</h3>
 				<table class="card-body">
 					<c:forEach var="m" items="${multipleQ}">
 						<div class="card-header">${m.multipleNo}번문제:
@@ -39,7 +48,7 @@
 							<c:set var="i" value="1" />
 							<c:forEach var="ex" items="${m.exampleList}">
 								<div>
-									${ex}<input class="form-check-input" value="${i}" type="radio" name="exMq${m.multipleNo}" id="MQ_${m.multipleNo}_${ex}">
+									<input class="form-check-input" value="${i}" type="radio" name="exMq${m.multipleNo}" id="MQ_${m.multipleNo}_${ex}">   ${ex}
 								</div>
 								<c:set var="i" value="${i+1}" />
 							</c:forEach>
@@ -64,11 +73,11 @@
 		</div>
 		<hr>
 <input type="hidden" name="examNo" value="${examSheet.examNo }">
-		<button class="btn btn-primary" type="submit" >제출</button>
+		<button class="btn btn-primary" type="submit"  style=" width: 100px">제출</button>
 			 &nbsp;	 &nbsp; 
 			<input type="hidden" name="examNo" value="${examSheet.examNo }">
 			 &nbsp;  &nbsp;  &nbsp;  &nbsp; 
-			<a href="javascript:history.back()" class="btn btn-primary">뒤로가기</a>	
+			<a href="javascript:history.back()" class="btn btn-primary" tyle=" width: 100px">뒤로가기</a>	
 
 		
 		<hr>
