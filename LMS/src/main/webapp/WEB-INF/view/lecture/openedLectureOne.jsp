@@ -117,7 +117,7 @@
 							<th>강의정원</th>
 							<td>${map.studentNum}</td>
 							<th>신청인원</th>
-							<td>????</td>							
+							<td>16</td>							
 						</tr>
 						<tr>
 							<th>강의계획서</th>

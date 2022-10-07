@@ -22,7 +22,7 @@
        <span class="text-muted fw-light">${memberName}
 					${memberType}님 어서오세요 </span>
     </h4></div>
-		<hr class="my-3" />
+		<hr class="my-5" />
 		
 		<div class="card text-center">
 			<h5 class="card-header">학부게시판</h5>

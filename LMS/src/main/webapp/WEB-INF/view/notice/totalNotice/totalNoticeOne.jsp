@@ -16,11 +16,16 @@
 </c:choose>
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
-	<form name="form" action="${pageContext.request.contextPath}/employee/removeTotalNotice" method="get">
-		<h4 class="fw-bold py-3 mb-4">
-			<span class="text-muted fw-light">${totalNotice.writer} 님</span> 공지사항
-		</h4>
-
+		<div class="row">
+			<div class="col-sm-3 col-12"></div>
+			<div class="col-sm-6 col-12 text-center">
+				<h4 class="fw-bold py-3 mb-4">
+					<span class="text-muted fw-light">${memberName}
+					${memberType}님 어서오세요 </span>
+				</h4>
+			</div>
+	
+		</div>
 	
 
 		<hr class="my-3" />
@@ -60,8 +65,9 @@
             <input type="hidden" name="noticeNo" value="${totalNotice.noticeNo}">  
         <a href="${pageContext.request.contextPath}/employee/updateTotalNotice?noticeNo=${totalNotice.noticeNo}" class="btn btn-primary" >수정</a>
         	<button class="btn btn-primary" type="button" id="btnDelete">삭제</button>
-        <a href="${pageContext.request.contextPath}/member/totalNoticeList" class="btn btn-primary"  >목록</a>
-   </c:if>			
+        
+   </c:if>		
+   <a href="${pageContext.request.contextPath}/member/totalNoticeList" class="btn btn-primary"  >목록</a>	
 </div>
 
 				</div>

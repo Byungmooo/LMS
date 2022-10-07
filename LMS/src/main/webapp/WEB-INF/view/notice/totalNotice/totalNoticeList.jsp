@@ -14,11 +14,18 @@
 </c:choose>
 <!-- Main -->
 <div class="container-xxl flex-grow-1 container-p-y">
+  <div class="row">
+  		<div class="col-sm-3 col-12"></div>
   <div class="col-sm-12 col-12 text-center">
     <h4 class="fw-bold py-3 mb-4">
         <span class="text-muted fw-light">${memberName}
 					${memberType}님 어서오세요 </span>
-    </h4></div>
+    </h4>
+    
+    
+    </div>
+
+    </div>
 		<hr class="my-3" />
 		
 		<div class="card text-center">
