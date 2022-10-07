@@ -16,10 +16,13 @@
 	<c:otherwise>	
 	</c:otherwise>
 </c:choose>
-	<!-- Main -->
-	<div class="container-xxl flex-grow-1 container-p-y">
 	
-		
+				
+		<!-- Main -->
+		<div class="container-xxl flex-grow-1 container-p-y">
+		<h4 class="fw-bold py-3 mb-4">
+		    <span class="text-muted fw-light">${memberName}님 /</span> 과제 제출페이지 입니다.
+		</h4>
 		
 		<hr class="my-5" />
 		
@@ -28,9 +31,6 @@
 			<div class="card">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:3%;">
 					<div class="product-status-wrap drp-lst">
-						<h4>과제 제출</h4>
-						<hr>
-				
 						<div class="card-body">
 							<form name="form" action="${pageContext.request.contextPath}/student/addAssignmentReg"
 								enctype="multipart/form-data" method="post">

@@ -238,6 +238,10 @@ public class AssignmentRegService {
 		return assignmentRegMapper.insertAssignmentScore(map);
 	}
 	
-	
+
+	//학생과제 제출여부확인
+	public List<String> getCheckAssignmentReg(int assignmentRegNo){
+		return assignmentRegMapper.selectCheckAssignmentReg(assignmentRegNo);
+	};
 
 }

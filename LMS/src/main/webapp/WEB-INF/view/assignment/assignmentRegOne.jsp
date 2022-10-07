@@ -89,28 +89,24 @@
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
 						style="padding: 1%;">
 						<div class="product-status-wrap drp-lst">
-							<h4>과제 상세보기</h4>							
+							<h4>과제 상세보기</h4>
+												
 							<div class="container-info">
-							<c:if test="${memberType eq '학생'}">
-								<a href="${pageContext.request.contextPath}/student/modifyAssignmentReg?openedLecNo=${openedLecNo}&assignmentRegNo=${map.assignmentRegNo}" 
-								class= "btn btn-primary" type="button">과제 수정</a>
-							</c:if>
-							</div>
-								<c:if test="${map.assignmentDid eq 'N'}">
-									<c:if test="${memberType eq '교수'}">
-										<div>
-										<form action="${pageContext.request.contextPath}/professor/addAssignmentScore" method="post">
-											<input type="hidden" name="assignmentRegNo" value="${map.assignmentRegNo}">
-											<input type="hidden" name="openedLecNo" value="${openedLecNo}">
-											<input type="hidden" name="studentLecNo" value="${map.studentLecNo}">
-											<input type="text" name="assignmentScore">
-											<button type="submit" class= "btn btn-sm btn-primary">학생 과제 체점하기</button>
-										</form>
-										</div>
-									</c:if>
+						</div>
+							<c:if test="${map.assignmentDid eq 'N'}">
+								<c:if test="${memberType eq '교수'}">
+									<div>
+									<form action="${pageContext.request.contextPath}/professor/addAssignmentScore" method="post">
+										<input type="hidden" name="assignmentRegNo" value="${map.assignmentRegNo}">
+										<input type="hidden" name="openedLecNo" value="${openedLecNo}">
+										<input type="hidden" name="studentLecNo" value="${map.studentLecNo}">
+										<input type="text" name="assignmentScore">
+										<button type="submit" class= "btn btn-sm btn-primary">학생 과제 체점하기</button>
+									</form>
+									</div>
 								</c:if>
-							<hr>
-							<div class="card bady">
+							</c:if>
+						<div class="card bady">
 							<div class="asset-inner">
 								<table class="table">
 									<tr>
@@ -153,7 +149,7 @@
 						</div>
 					</div>
 				</div>
-			</form>	
+			</div>
 		</div>
 	</div>
 <c:import url="/WEB-INF/view/include/footer.jsp"></c:import> 

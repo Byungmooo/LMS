@@ -46,7 +46,7 @@
 							</tr>
 							<tr>
 								<th>제출 기한</th>
-								<td colspan="2">
+								<td colspan="1">
 									<input type="date" name="endDate" class="form-control" value="${map.endDate}">
 								</td>
 							</tr>
