@@ -17,26 +17,43 @@
 </c:choose>
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
-		<div class="row">
-			<div class="col-sm-3 col-12"></div>
-			<div class="col-sm-6 col-12 text-center">
-				<h4 class="fw-bold py-3 mb-4">
-					<span class="text-muted fw-light">${memberName}
-					${memberType}님 어서오세요 </span>
-				</h4>
+		<div class="row" style="margin-bottom: 20px;">
+			<div class="container">
+				<div class="goodee border border-3" style="background-color: #fff;">
+					<div class="d-flex align-items-end row">
+						<div class="col-sm-7">
+							<div class="card-body">
+								<h5 class="card-title text-primary">${memberName}님 어서오세요.</h5>
+								<p class="mb-4">
+									<span class="fw-bold" style="color: #000;">회원유형 : ${memberType}</span><br> 
+									<span class="fw-bold" style="color: #000;">회원코드 : ${memberCode}</span><br>
+									<c:if test="${memberType eq '교수'||memberType eq '학생'}">
+										<span class="fw-bold" style="color: #000;">학과이름 : ${depNameOrLevel}</span>
+									</c:if>
+								</p>
+							</div>
+						</div>
+						<div class="col-sm-5 text-center text-sm-left">
+							<div class="card-body pb-0 px-0 px-md-4">
+								<img src="../imgFile/lecture.png"
+									height="140" alt="View Badge User"
+									data-app-dark-img="illustrations/man-with-laptop-dark.png"
+									data-app-light-img="illustrations/man-with-laptop-light.png" />
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<c:if test="${memberType eq '학생'}">
-				<div class="col-sm-3 col-12" style="float:right;">
-					<a href="${pageContext.request.contextPath}/student/studentLectureList?memberCode=${memberCode}" 
-						class="btn btn-primary" style="float: right;">강의리스트</a>
-				</div>
-			</c:if>
-			<c:if test="${memberType eq '교수'}">
-				<div class="col-sm-3 col-12">
-					<a href="${pageContext.request.contextPath}/professor/professorLectureList?memberCode=${memberCode}" 
-						class="btn btn-secondary" style="float: right;">강의리스트</a>
-				</div>
-			</c:if>
+		</div>
+		<div class="row">
+			<div class="col-sm-9 col-12"></div>
+			<div class="col-sm-3 col-12">
+				<a class="btn btn-secondary" href="${pageContext.request.contextPath}/
+					<c:if test="${memberType eq '학생'}">student</c:if>
+					<c:if test="${memberType eq '교수'}">professor</c:if>/studentLectureList?memberCode=${memberCode}" style="float: right;">
+					강의리스트
+				</a>
+			</div>
 		</div>
 		<!-- lectureMenu -->
 		<div>
@@ -90,9 +107,8 @@
 					</a>
 				</li>
 			</ul>
-		</div>
-		<hr class="my-5" />
-		
+		</div>	
+	
 		<!-- 정렬 -->
 		<div class="row">
 			<div class="col-sm-10 col-12 text-center"></div>
@@ -109,26 +125,17 @@
 				</select>
 			</div>
 		</div>
-	
 		<!-- assignment -->
-		<div class="card text-center">
-			<c:if test="${memberType eq '학생'}">
-				<h5 class="card-header">내가 제출해야 될 과제 리스트</h5>
-			</c:if>
-			<c:if test="${memberType eq '교수'}">
-				<h5 class="card-header">과제 리스트</h5>
-			</c:if>
-			
+		<div class="card text-center" style="margin-top: 20px;">
+			<h5 class="card-header"><strong>과제리스트</strong></h5>
 			<div class="table-responsive text-nowrap">
 				<table class="table">
 					<caption class="ms-4"></caption>
 					<thead>
 						<tr>
-							<th>과제번호</th>
-							<th>수강중인 강의번호</th>
-							<th>과제제목</th>
-							<th>과제내용</th>
-							<th>마감일</th>
+							<th width="10%">과제번호</th>
+							<th width="60%">과제제목</th>
+							<th width="30%">마감일</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -140,11 +147,9 @@
 										<c:if test="${memberType eq '학생'}">/student</c:if>
 										<c:if test="${memberType eq '교수'}">/professor</c:if>
 										/assignmentOne?assignmentNo=${map.assignmentNo}">
-										${map.openedLecNo}
+										${map.assignmentTitle}
 									</a>
 								</td>
-								<td>${map.assignmentTitle}</td>
-								<td>${map.assignmentContent}</td>
 								<td>${map.endDate}</td>
 							</tr>
 						</c:forEach>

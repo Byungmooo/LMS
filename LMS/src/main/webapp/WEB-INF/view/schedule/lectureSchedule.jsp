@@ -18,11 +18,6 @@
 
 	<!-- Main -->
 	<div class="container-xxl flex-grow-1 container-p-y">
-		<h4 class="fw-bold py-3 mb-4 text-center">
-			<strong>강의시간표</strong>
-		</h4>
-		<hr class="my-5" />
-	
 		<!-- studentLectureOne -->
 		<div class="row text-center">
 			<div class="card">

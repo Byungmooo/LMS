@@ -23,8 +23,6 @@
 		<div class="row text-center">
 			<div class="card">
 				<h5 class="card-header"><strong>${p.memberName}님의 정보</strong></h5>
-				<hr class="my-0" />
-				
 				<div class="card-body">
 					<table class="table table-bordered">
 						<caption class="ms-4"></caption>
@@ -98,6 +96,11 @@
 							<a href="${pageContext.request.contextPath}/employee/modifyProfessor?professorCode=${p.professorCode}" class="btn btn-primary" style="color: #fff;">수정</a>
 							<button type="button" onclick="del(${e.employeeCode})" class="btn btn-primary" style="color: #fff;">삭제</button>
 							<a href="${pageContext.request.contextPath}/employee/employeeList" class="btn btn-primary" style="color: #fff;">목록</a>
+						</c:if>
+						<c:if test="${memberType eq '교수'}">
+							<input type="hidden" id="memberId" name="memberId"  value="${p.memberId}">
+							<a href="${pageContext.request.contextPath}/student/modifyStudent?studentCode=${p.professorCode}" class="btn btn-primary" style="color: #fff;">수정</a>
+							<button type="button" onclick="del(${p.professorCode})" class="btn btn-primary" style="color: #fff;">탈퇴</button>
 						</c:if>					
 					</div>
 				</div>

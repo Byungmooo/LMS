@@ -278,7 +278,7 @@ public class AssignmentRegController {
 		int result = assignmentRegService.addAssignmentScore(map);
 		
 		
-		return "redirect:/professor/assignmentRegOne?assignmentRegNo=" +assignmentRegNo + "&openecLecNo=" + openedLecNo;
+		return "redirect:/professor/assignmentRegOne?assignmentRegNo=" +assignmentRegNo + "&openedLecNo=" + openedLecNo;
 		}
 
 		

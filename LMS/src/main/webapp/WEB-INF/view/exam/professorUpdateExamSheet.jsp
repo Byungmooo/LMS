@@ -17,25 +17,107 @@
 </c:choose>
 
 <!-- Main -->
+<div class="container-xxl flex-grow-1 container-p-y">
+	<div class="row" style="margin-bottom: 20px;">
+		<div class="container">
+			<div class="goodee border border-3" style="background-color: #fff;">
+				<div class="d-flex align-items-end row">
+					<div class="col-sm-7">
+						<div class="card-body">
+							<h5 class="card-title text-primary">${memberName}님어서오세요.</h5>
+							<p class="mb-4">
+								<span class="fw-bold" style="color: #000;">회원유형 :
+									${memberType}</span><br> <span class="fw-bold"
+									style="color: #000;">회원코드 : ${memberCode}</span><br>
+								<c:if test="${memberType eq '교수'||memberType eq '학생'}">
+									<span class="fw-bold" style="color: #000;">학과이름 :
+										${depNameOrLevel}</span>
+								</c:if>
+							</p>
+						</div>
+					</div>
+					<div class="col-sm-5 text-center text-sm-left">
+						<div class="card-body pb-0 px-0 px-md-4">
+							<img src="../imgFile/lecture.png" height="140"
+								alt="View Badge User"
+								data-app-dark-img="illustrations/man-with-laptop-dark.png"
+								data-app-light-img="illustrations/man-with-laptop-light.png" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-9 col-12"></div>
+		<div class="col-sm-3 col-12">
+			<a class="btn btn-secondary"
+				href="${pageContext.request.contextPath}/
+					<c:if test="${memberType eq '학생'}">student</c:if>
+					<c:if test="${memberType eq '교수'}">professor</c:if>/studentLectureList?memberCode=${memberCode}"
+				style="float: right;"> 강의리스트 </a>
+		</div>
+	</div>
 
-<h4 class="card-header">"이름"님/"강의명"/시험문제 수정 ${examNo}!</h4>
-<body>
-	<input type="hidden" id="exam_no" value="${examSheet.examNo }">
+	<!-- lectureMenu -->
+	<div>
+		<ul class="nav nav-pills flex-column flex-md-row mb-3">
+			<li class="nav-item"><a class="nav-link"
+				href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/openedLectureOne?openedLecNo=${openedLecNo}">
+					<i class="bx bx-user me-1"></i> 강의상세
+			</a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/lectureNoticeList?openedLecNo=${openedLecNo}">
+					<i class="bx bx-bell me-1"></i> 강의공지사항
+			</a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/lectureQuestionList?openedLecNo=${openedLecNo}">
+					<i class="bx bx-link-alt me-1"></i> 질문게시판
+			</a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/assignmentList?openedLecNo=${openedLecNo}&studentCode=${memberCode}">
+					<i class="bx bx-link-alt me-1"></i> 과제게시판
+			</a></li>
+			<li class="nav-item"><a class="nav-link"
+				href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">student</c:if>
+						<c:if test="${memberType eq '교수'}">professor</c:if>/lectureAttendanceList?openedLecNo=${openedLecNo}&memberCode=${memberCode}">
+					<i class="bx bx-link-alt me-1"></i> 강의출석
+			</a></li>
+			<li class="nav-item"><a class="nav-link active"
+				href="${pageContext.request.contextPath}/
+						<c:if test="${memberType eq '학생'}">exam/studentExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>
+						<c:if test="${memberType eq '교수'}">exam/professorExList?openedLecNo=${openedLecNo}&memberCode=${memberCode}</c:if>">
+					<i class="bx bx-link-alt me-1"></i> 강의시험
+			</a></li>
+		</ul>
+	</div>
+	<div class="text-center">
+		<h4 class="card-header">시험문제 수정 ${examNo}!</h4>
+		<input type="hidden" id="exam_no" value="${examSheet.examNo }">
+	</div>
 	<div class="container-xxl flex-grow-1 container-p-y">
-		<hr>
-
-		<div class="col-xl-6">
-			<div class="card mb-4">
+			<div class="card mb-4 text-center">
 				<h3 class="card-header">시험지이름 :
 					${examSheet.examName}-${examSheet.examNo}</h3>
 				<form id="examSheetForm">
-					<div class="mt-2 mb-3" >
+					<div class="mt-2 mb-3">
 						<input name="examNo" id="examNo" type="hidden" value="${examNo}">※시험지이름
-							<div >
+						<div>
 							<input name="examName" id="examName" class="form-control"
-								type="text" style="width: 200px" autofocus value="${examSheet.examName }" value="${examName}">
-							<button  class="btn btn-primary" type="button" onclick="examSheetUpdate();">수정</button>
-							</div>
+								type="text" style="width: 200px" autofocus
+								value="${examSheet.examName }" value="${examName}">
+							<button class="btn btn-primary" type="button"
+								onclick="examSheetUpdate();">수정</button>
+						</div>
 					</div>
 				</form>
 			</div>
@@ -43,31 +125,56 @@
 
 			<c:forEach var="m" items="${multipleQ}">
 				<div class="card mb-4">
-					<h3 class="card-header">객관식 ${m.multipleNo}번 문제</h3>
+					<div class="text-center">
+						<h3 class="card-header">객관식 ${m.multipleNo}번 문제</h3>
+					</div>
 					<div class="mt-2 mb-3">
-						<label>※문제내용</label>
-						<div>
-							<input class="form-control" type="text" style="width: 200px"
-								placeholder="문제내용" value="${m.multipleContent}"
-								id="multipleContent_${m.multipleNo }">
-							<button class="btn btn-primary" type="button" onclick="multipleUpdate('${m.multipleNo}')">수정</button>
-						</div>
-						<div class="mt-2 mb-3">
-							<label>※보기(1~4번을 입력하세요) </label>
-							<div>
-								<c:forEach var="ex" items="${m.exampleList}" varStatus="status">
-
-									<input class="form-control" type="text" style="width: 200px"
-										placeholder="${status.count}번" value="${ex}"
-										id="exampleContent_${m.multipleNo }">
-
-									<button class="btn btn-primary" type="button"  
-										onclick="exampleUpdate('${m.multipleNo }','${status.count}')">수정</button>
-
-								</c:forEach>
+						<div class="row">
+							<div class="col-lg-1"></div>
+							<div class="col-lg-10">
+								<label>※문제내용</label>
+								<input class="form-control" type="text"
+									placeholder="문제내용" value="${m.multipleContent}"
+									id="multipleContent_${m.multipleNo }">
+							</div>
+							<div class="col-lg-1"></div>
+							<div class="text-center" style="margin-top: 20px;">
+								<button class="btn btn-primary" type="button"
+									onclick="multipleUpdate('${m.multipleNo}')">수정</button>
 							</div>
 						</div>
-						<div>
+						<div class="mt-2 mb-3">
+							<div class="row">
+								<div class="col-lg-1 col12"></div>
+								<div class="col-lg-11 col12">
+									<label>※보기(1~4번을 입력하세요)</label>
+									<table class="table">
+									<c:set var="i" value="1" />
+									<c:forEach var="ex" items="${m.exampleList}" varStatus="status">
+										<tr>	
+											<c:if test="${i==5}">
+												<c:set var="i" value="1" />
+											</c:if>
+											<th width="10%">
+												${i}번
+											</th>
+											<td width="70%">
+												<input class="form-control" type="text"
+													placeholder="${status.count}번" value="${ex}"
+													id="exampleContent_${m.multipleNo }">
+											</td>
+											<td width="20%">
+												<button class="btn btn-primary" type="button"
+													onclick="exampleUpdate('${m.multipleNo }','${status.count}')">수정</button>
+											</td>
+											<c:set var="i" value="${i+1}" />
+										</tr>
+									</c:forEach>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="text-center">
 							<label>※정답</label> <label>1번<input type="radio"
 								name="multipleAnswer_${m.multipleNo}" id="multipleAnswer"
 								value="1">
@@ -84,64 +191,61 @@
 							<button class="btn btn-primary" type="button"
 								onclick="multipleAnswerUpdate('${m.multipleNo}')">수정</button>
 						</div>
-						<!-- <select id="" class="form-select color-dropdown" style="width:250px" name="" >
-                              <option selected>정답을 선택해주세요.</option>
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                        </select> -->
-
 					</div>
 				</div>
 			</c:forEach>
-
-
-
-
-
 		</div>
-		<div class="col-xl-6">
-			<c:forEach var="s" items="${subjectiveQ}">
+		
+		<c:forEach var="s" items="${subjectiveQ}">
+			<div class="container-xxl flex-grow-1 container-p-y">
 				<div class="card mb-4">
-					<h3 class="card-header">주관식 문제 ${s.subjectiveNo}번</h3>
-
-					<div class="mt-2 mb-3">
-						<label>문제내용</label> <input class="form-control" type="text"
-							style="width: 400px" placeholder="문제"
-							value="${s.subjectiveContent }"
-							id="subjectiveContent_${s.subjectiveNo}">
-						<button type="button" class="btn btn-primary"
-							onclick="subjectiveUpdate('${s.subjectiveNo}');">수정</button>
+					<div class="text-center">
+						<h3 class="card-header">주관식 ${s.subjectiveNo}번 문제</h3>
 					</div>
-
 					<div class="mt-2 mb-3">
-						<label>정답</label> <input class="form-control" type="text"
-							style="width: 200px" placeholder="정답"
-							value="${s.subjectiveAnswer }"
-							id="subjectiveAnswer_${s.subjectiveNo}">
-						<button class="btn btn-primary" type="button"
-							onclick="subAnswerUpdate('${s.subjectiveNo}');">수정</button>
+						<div class="row">
+							<div class="col-lg-1"></div>
+							<div class="col-lg-10">
+								<label>※문제내용</label>
+								<textarea rows="5px" class="form-control"
+									placeholder="문제"
+									id="subjectiveContent_${s.subjectiveNo}">${s.subjectiveContent }
+								</textarea>
+							</div>
+							<div class="col-lg-1"></div>
+							<div class="text-center" style="margin-top: 20px;">
+								<button type="button" class="btn btn-primary"
+								onclick="subjectiveUpdate('${s.subjectiveNo}');">수정</button>
+							</div>
+						</div>
 					</div>
-
+					<div class="mt-2 mb-3">
+						<div class="row">
+							<div class="col-lg-1"></div>
+							<div class="col-lg-10">
+							<label>※정답</label>
+							<textarea rows="5px" class="form-control" placeholder="정답"
+								id="subjectiveAnswer_${s.subjectiveNo}">${s.subjectiveAnswer }
+								</textarea>
+							</div>
+							<div class="col-lg-1"></div>
+							<div class="text-center" style="margin-top: 20px;">
+								<button class="btn btn-primary" type="button"
+								onclick="subAnswerUpdate('${s.subjectiveNo}');">수정</button>
+							</div>
+						</div>
+					</div>
 				</div>
-			</c:forEach>
+			</div>
+		</c:forEach>
 		</div>
-		<div class="">
 
-			<a href="${pageContext.request.contextPath}/exam/professorExList" class="btn btn-primary">수정완료</a> <a
-				href="javascript:history.back()" class="btn btn-primary">뒤로가기</a>
+		<div class="text-center">
+			<a href="${pageContext.request.contextPath}/exam/professorExList"
+				class="btn btn-primary">수정완료</a> <a href="javascript:history.back()"
+				class="btn btn-primary">뒤로가기</a>
 		</div>
-		<hr>
-		<div>======비어있는 Text box or 객관식 정답 선택 안될시 script처리 ===뒤로가기클릭시
-			뒤로갈건지 물어보기======</div>
-		<hr>
-	</div>
-</body>
-
 <c:import url="/WEB-INF/view/include/footer.jsp"></c:import>
-
-
 <script>
 	//시험지이름 수정
 	function examSheetUpdate() {

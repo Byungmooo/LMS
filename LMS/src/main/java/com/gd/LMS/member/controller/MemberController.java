@@ -116,12 +116,12 @@ public class MemberController {
 		int memberCode = (int)session.getAttribute("memberCode");
 		String memberType = (String)session.getAttribute("memberType");
 		String depNameOrLevel = memberService.getDepartmentCodeOrLevel(memberCode, memberType);
-		model.addAttribute("depNameOrLevel", depNameOrLevel);
+		
+		session.setAttribute("depNameOrLevel", depNameOrLevel);
 		
 		if(memberType.equals("교수")) {
 			// 교수진행강의리스트 메서드 호출 후 리턴값 디버깅
 			List<Map<String, Object>> professorLectureList = lectureService.getProfessorLectureList(memberCode);
-;
 			model.addAttribute("professorList", professorLectureList);
 		} else if(memberType.equals("학생")) {
 			// 학생수강리스트 메서드 호출 후 리턴값 디버깅

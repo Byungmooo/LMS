@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gd.LMS.notice.mapper.TotalNoticeMapper">
 	
-		<sql id="searchDep">
+	<sql id="searchDep">
 		<!-- 부서별 키워드가 있을 때 -->
 		<if test="searchType != ''"> AND department_code = #{searchType} </if>
+		<if test="searchType == ''"> AND department_code = "" </if>
 	</sql>
 	
 	
@@ -59,12 +60,11 @@
 		update_date updateDate
 	FROM
 		total_notice 
-		
 		WHERE 1=1
 		<include refid="search" />
 		AND department_code = ""
 	ORDER BY
-		notice_no
+		notice_no DESC
 	LIMIT
 		#{beginRow}, #{rowPerPage}
 	</select>
@@ -154,10 +154,10 @@
          WHERE 1 = 1
          AND student_code = #{memberCode}
           ) s
-      ON t.department_code = s.department_code
-	<include refid="search" /> 
+    	ON t.department_code = s.department_code
+		<include refid="search" /> 
 	ORDER BY
-		notice_no
+		notice_no DESC
 	LIMIT
 		#{beginRow}, #{rowPerPage}
 	</select>
@@ -201,7 +201,7 @@
 	      ON t.department_code = p.department_code
 	<include refid="search" /> 
 	ORDER BY
-		notice_no
+		notice_no DESC
 	LIMIT
 		#{beginRow}, #{rowPerPage}
 	</select>
@@ -241,7 +241,7 @@
 		<include refid="searchDep" />
 		AND department_code IS NOT NULL
 	ORDER BY
-		notice_no
+		notice_no DESC
 	LIMIT
 		#{beginRow}, #{rowPerPage}
 	</select>

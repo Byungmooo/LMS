@@ -223,16 +223,15 @@ public class TotalNoticeController {
 	// 전체공지사항 삭제
 	@GetMapping("/employee/removeTotalNotice")
 	public String removeTotalNotice(HttpSession session, @RequestParam(value = "noticeNo") int noticeNo, RedirectAttributes redirectAttributes) {
-		
+		log.debug(TeamColor.KJS + " [김진수] 전체공지 삭제" + noticeNo);
 		int count = totalNoticeService.deleteTotalNotice(noticeNo);
-		redirectAttributes.addAttribute("noticeNo",session.getAttribute("noticeNo"));
-		
 	
 		if (count >= 1) {
 			log.debug(TeamColor.KJS + " [김진수] 전체공지 삭제");
 			return "redirect:/member/totalNoticeList";
 		}
 		
+		redirectAttributes.addAttribute("noticeNo", noticeNo);
 		return "redirect:/member/totalNoticeOne";
 	}
 }

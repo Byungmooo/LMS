@@ -22,8 +22,6 @@
 		<div class="row text-center">
 			<div class="card">
 				<h5 class="card-header"><strong>${s.memberName}님의 정보</strong></h5>
-				<hr class="my-0" />
-				
 				<div class="card-body">
 					<table class="table">
 				<caption class="ms-4"></caption>
@@ -103,8 +101,7 @@
 					<div style="margin-top: 20px;">
 						<input type="hidden" id="memberId" name="memberId"  value="${s.memberId}">
 						<a href="${pageContext.request.contextPath}/student/modifyStudent?studentCode=${s.studentCode}" class="btn btn-primary" style="color: #fff;">수정</a>
-						<button type="button" onclick="del(${s.studentCode})" class="btn btn-primary" style="color: #fff;">삭제</button>
-						<a href="${pageContext.request.contextPath}/student/studentList" class="btn btn-primary" style="color: #fff;">목록</a>
+						<button type="button" onclick="del(${s.studentCode})" class="btn btn-primary" style="color: #fff;">탈퇴</button>
 					</div>
 				</c:if>
 			</div>

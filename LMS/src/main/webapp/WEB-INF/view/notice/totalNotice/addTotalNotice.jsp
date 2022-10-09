@@ -31,17 +31,12 @@
 
 <!-- Main -->
 <div class="container-xxl flex-grow-1 container-p-y">
-	<!-- studentLectureMenu -->
-	<div class="row">
-		<div class="col-sm-9 col-12">
-			<h4 class="fw-bold py-3 mb-4">
-				<span class="text-muted fw-light">"${memberName}"님</span>${lectureName}
-			</h4>
+	<div class="row" style="height: 220px;">
+		<div class="container" style="height: 200px;">
+			<div class="border border-3" style="background-image: url('${pageContext.request.contextPath}/imgFile/notice.jpg'); width: 100%; height: 100%;">
+			</div>
 		</div>
-	
-
-
-	<hr class="my-1" />
+	</div>
 
 
 	<!-- addLectureQuestion -->
@@ -95,7 +90,7 @@
 
 
 					</table>
-					<div style="width: 650px; text-align: right;">
+					<div class="text-center">
 						<button class="btn btn-primary" type="button" id="btnAdd">공지등록</button>
 						<button class="btn btn-primary" type="button" id="btnCancel"
 							onclick="window.history.back()">취소</button>
@@ -104,7 +99,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 <!-- / Main -->
 

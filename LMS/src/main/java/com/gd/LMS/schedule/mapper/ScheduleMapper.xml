@@ -35,6 +35,30 @@
 			student_code = #{studentCode}
 	</select>
 	
+	<select id="selectOpenLectureSchedule" parameterType="int" resultType="map">
+		SELECT
+			l.lec_time_no lecTimeNo,
+			l.opened_lec_no openedLecNo,
+			l.lecture_yoil lectureYoil,
+			l.lecture_start lectureStart,
+			l.lecture_end lectureEnd,
+			YEAR(o.open_lecture_date) openYear,
+			YEAR(o.close_lecture_date) closeYear,
+			MONTH(o.open_lecture_date) openMonth,
+			MONTH(o.close_lecture_date) closeMonth,
+			DAY(o.open_lecture_date) openDay,
+			DAY(o.close_lecture_date) closeDay,
+			t.lecture_name lectureName
+		FROM
+			opened_lecture o,
+			total_lecture t,
+			lecture_time l
+		WHERE
+			t.lecture_code = o.lecture_code AND 
+			l.opened_lec_no = o.opened_lec_no AND
+			professor_code = #{professorCode}
+	</select>
+	
 	<select id="selectLectureTime" parameterType="int" resultType="map"> 
 		SELECT 
 			opened_lec_no openedLecNo, 

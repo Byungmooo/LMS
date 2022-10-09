@@ -21,7 +21,6 @@
 		<h4 class="fw-bold py-3 mb-4 text-center">
 			<strong>LMS 달력</strong>
 		</h4>
-		<hr class="my-5" />
 		<div class="card body">
 			<br>
 			<div class="text-center">

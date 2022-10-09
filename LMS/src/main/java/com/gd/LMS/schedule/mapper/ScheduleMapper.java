@@ -9,5 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface ScheduleMapper {
 	List<Map<String, Object>> selectLectureSchedule(int memberCode);
 	
+	List<Map<String, Object>> selectOpenLectureSchedule(int memberCode);
+	
 	List<Map<String, Object>> selectLectureTime(int openedLecNo);
 }

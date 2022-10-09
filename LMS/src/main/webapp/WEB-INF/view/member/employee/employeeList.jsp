@@ -18,13 +18,33 @@
 <!-- Main -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-	<div class="row">
-		<div class="col-sm-3 col-12"></div>
-		<div class="col-sm-6 col-12 text-center">
-			<h4 class="fw-bold py-3 mb-4">
-				<span class="text-muted fw-light">${memberName}
-					${memberType}님 어서오세요 </span>
-			</h4>
+	<div class="row" style="margin-bottom: 20px;">
+		<div class="container">
+			<div class="goodee border border-3" style="background-color: #fff;">
+				<div class="d-flex align-items-end row">
+					<div class="col-sm-7">
+						<div class="card-body">
+							<h5 class="card-title text-primary">${memberName}님 어서오세요.</h5>
+							<p class="mb-4">
+								<span class="fw-bold" style="color: #000;">회원유형 : ${memberType}</span><br> 
+								<span class="fw-bold" style="color: #000;">회원코드 : ${memberCode}</span><br>
+								<span class="fw-bold" style="color: #000;">직급    : 
+									<c:if test="${depNameOrLevel==1}">일반직원</c:if>
+									<c:if test="${depNameOrLevel==2}">관리자</c:if>
+								</span>
+							</p>
+						</div>
+					</div>
+					<div class="col-sm-5 text-center text-sm-left">
+						<div class="card-body pb-0 px-0 px-md-4">
+							<img src="../imgFile/lecture.png"
+								height="140" alt="View Badge User"
+								data-app-dark-img="illustrations/man-with-laptop-dark.png"
+								data-app-light-img="illustrations/man-with-laptop-light.png" />
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- RowPerPage Option -->

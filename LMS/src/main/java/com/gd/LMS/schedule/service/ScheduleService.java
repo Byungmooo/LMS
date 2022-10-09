@@ -24,6 +24,12 @@ public class ScheduleService {
 		return list;
 	}
 	
+	public List<Map<String, Object>> getOpenLectureSchedule(int memberCode) {
+		List<Map<String, Object>> list = scheduleMapper.selectOpenLectureSchedule(memberCode);
+		
+		return list;
+	}
+	
 	public List<Map<String, Object>> getLectureTime(int openedLecNo) {
 		
 		List<Map<String, Object>> list = scheduleMapper.selectLectureTime(openedLecNo);

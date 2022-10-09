@@ -168,7 +168,7 @@ public class LectureRegController {
 	public String studentLectureReg(PagingVo vo, Model model, HttpSession session
 			, @RequestParam(value="memberCode") int memberCode
 			, @RequestParam(value="currentPage", defaultValue = "1") int currentPage
-			, @RequestParam(value="rowPerPage", defaultValue = "10") int rowPerPage
+			, @RequestParam(value="rowPerPage", defaultValue = "5") int rowPerPage
 			, @RequestParam(value="keyword", defaultValue = "") String keyword
 			, @RequestParam(value="errorMsg", defaultValue = "") String errorMsg) {
 		log.debug(TeamColor.LCH + "--- studentLectureReg GetMapping Controller ---");
@@ -196,7 +196,7 @@ public class LectureRegController {
 		// 장바구니리스트
 		List<Map<String, Object>> studentLectureCartList = lectureRegService.getStudentLectureCartList(memberCode);
 		log.debug(TeamColor.LCH + "studentLectureCartList > " + studentLectureCartList);
-		int size = 9 - studentLectureCartList.size();
+		int size = 7 - studentLectureCartList.size();
 		
 		// 에러메시지
 		if(size < 0 ) { size = 0;}

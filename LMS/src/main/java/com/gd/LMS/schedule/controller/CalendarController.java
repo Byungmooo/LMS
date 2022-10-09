@@ -49,11 +49,16 @@ public class CalendarController {
 		model.addAttribute("month", map.get("month"));
 		
 		// 강의리스트 (시간)
-		List<Map<String, Object>> lectureTimeList = scheduleService.getLectureSchedule(memberCode);
-		
-		log.debug(TeamColor.LCH + "lecTimeList > " +lectureTimeList);
-		
-		model.addAttribute("list", lectureTimeList);
+		String memberType = (String)session.getAttribute("memberType");
+		if(memberType.equals("학생")) {
+			List<Map<String, Object>> lectureTimeList = scheduleService.getLectureSchedule(memberCode);
+			log.debug(TeamColor.LCH + "lecTimeList > " +lectureTimeList);
+			model.addAttribute("list", lectureTimeList);
+		} else if(memberType.equals("교수")) {
+			List<Map<String, Object>> lectureTimeList = scheduleService.getOpenLectureSchedule(memberCode);
+			log.debug(TeamColor.LCH + "lecTimeList > " +lectureTimeList);
+			model.addAttribute("list", lectureTimeList);
+		}
 		
 		// 학부일정
 		String departmentCode = (String) session.getAttribute("departmentCode");
